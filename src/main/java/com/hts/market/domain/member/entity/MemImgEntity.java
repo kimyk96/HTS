@@ -8,4 +8,7 @@ import lombok.ToString;
 @Builder
 @ToString
 public class MemImgEntity {
+    private Long memNo;
+    private Long imgNo;
+    private String imgPath;
 }

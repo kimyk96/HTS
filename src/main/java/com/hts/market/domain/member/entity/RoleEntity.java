@@ -8,4 +8,6 @@ import lombok.ToString;
 @Builder
 @ToString
 public class RoleEntity {
+    private Long roleNo;
+    private String roleName;
 }
