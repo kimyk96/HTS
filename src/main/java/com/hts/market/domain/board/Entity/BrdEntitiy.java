@@ -9,6 +9,5 @@ public class BrdEntitiy {
     private Integer BrdViews;
     private Long BrdMemNo;
     private LocalDateTime BrdCreatedAt;
-
-
+    private Integer BrdCateNo;
 }
