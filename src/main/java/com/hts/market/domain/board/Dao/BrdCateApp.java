@@ -1,0 +1,10 @@
+package com.hts.market.domain.board.Dao;
+
+public interface BrdCateApp {
+
+    //게시글 카테고리 명을 번호를 통해 찾아라
+    public Integer findBrdCateNameById();
+
+    //카테고리 불러오기
+    public Integer findAll();
+}
