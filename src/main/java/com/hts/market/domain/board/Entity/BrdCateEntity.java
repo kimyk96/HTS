@@ -1,6 +1,6 @@
 package com.hts.market.domain.board.Entity;
 
 public class BrdCateEntity  {
-    private Integer BrdCateNo;
-    private String BrdCateName;
+    private Integer brdCateNo;
+    private String brdCateName;
 }
