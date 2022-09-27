@@ -6,5 +6,4 @@ import java.time.LocalDateTime;
 
 @Getter @Builder @ToString
 public class MemEntity {
-
 }
