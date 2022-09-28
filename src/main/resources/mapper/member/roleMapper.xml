@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hts.market.domain.member.repo.RoleRepo">
+    <!-- 권한명 조회 -->
+    <select id="findById" resultType="com.hts.market.domain.member.dto.RoleDto$Read">
+        Select * from ROLE where role_no=#{roleNo}
+    </select>
+    <!-- 권한번호 조회 -->
+    <select id="findByRoleName" resultType="com.hts.market.domain.member.dto.RoleDto$Read">
+        Select * from ROLE where role_name=#{roleName}
+    </select>
+</mapper>
