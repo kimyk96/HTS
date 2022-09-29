@@ -9,8 +9,8 @@ import java.sql.Timestamp;
 @Getter
 @Builder
 @ToString
-public class Chats {
-    public long ChatNo;
+public class Chat {
+    public long chatNo;
     public long memberNo;
     public long chatListNo;
     public String chatStatus;
