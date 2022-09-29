@@ -1,5 +1,6 @@
 package com.hts.market.domain.member.api;
 
+import com.hts.market.domain.member.app.MemApp;
 import com.hts.market.domain.member.dto.MemDto;
 import com.hts.market.domain.member.repo.MemRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,26 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/mem")
 public class MemApi {
+    @Autowired MemApp memApp;
+    @GetMapping("count-by-mem-phone")
+    public ResponseEntity<Integer> countByMemPhone(Integer memPhone) {
+        return ResponseEntity.ok().body(memApp.countByMemPhone(memPhone));
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     @PostMapping("/save")
     public ResponseEntity<Integer> save(MemDto.Create dto){
 

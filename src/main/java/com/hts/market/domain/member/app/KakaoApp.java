@@ -56,6 +56,7 @@ public class KakaoApp {
         // Post
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<Map> response = restTemplate.postForEntity("https://kapi.kakao.com/v2/user/me", request, Map.class);
+        System.out.println(response.getBody().toString());
         return response.getBody().get("kakao_account");
     }
 }
