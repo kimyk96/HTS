@@ -10,8 +10,8 @@ import lombok.experimental.Accessors;
 @Builder
 @Accessors(chain=true)
 public class MailEntity {
-    private String from;			// 보내는 메일
-    private String to;				// 받는 메일
+    private String from;			// 보내는이
+    private String to;				// 받는이
     private String subject;			// 제목
-    private String text;			// 내용
+    private String body;			// 내용
 }

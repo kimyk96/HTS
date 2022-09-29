@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hts.market.domain.member.repo.MemRepo">
+    <!-- 회원 가입 -->
+    <insert id="save">
+        <selectKey resultType="long" order="BEFORE" keyProperty="memNo">
+            select nvl(max(mem_no),0)+1 from MEMBER
+        </selectKey>
+        insert into
+            MEMBER( mem_no, mem_username, mem_password, mem_name, mem_nickname, mem_email, mem_phone )
+        values
+            ( #{memNo}, #{memUsername}, #{memPassword}, #{memName}, #{memNickname}, #{memEmail}, #{memPhone} )
+    </insert>
+    <!-- 회원 조회(memNo) -->
+    <select id="findById" resultType="com.hts.market.domain.member.dto.MemDto$Read">
+        <![CDATA[
+            SELECT
+                mem_no, mem_username, mem_name, mem_nickname, mem_email, mem_phone, mem_brix, mem_created_at
+            FROM
+                MEMBER
+            WHERE
+                mem_no=#{memNo} and rownum <= 1
+        ]]>
+    </select>
+    <!-- 회원 조회(memUsername)(userDetails) -->
+    <select id="findByMemUsername" resultType="com.hts.market.domain.member.entity.MemEntity">
+        <![CDATA[
+            SELECT
+                *
+            FROM
+                MEMBER
+            WHERE
+                mem_username=#{memUsername} and rownum <= 1
+        ]]>
+    </select>
+
+</mapper>
+
+
+<!--        // 회원 수정-->
+<!--        public Integer update(MemDto.Update dto);-->
+
+<!--        // 회원 삭제-->
+<!--        public Integer delete(Long memNo);-->
+
+<!--        // 회원명 중복검사-->
+<!--        public Integer countByMemUsername(String memUsername);-->
+
+<!--        // 이메일 중복검사-->
+<!--        public Integer countByMemEmail(String memEmail);-->
+
+<!--        // 닉네임 중복검사-->
+<!--        public Integer countByMemNickname(String memEmail);-->
+
+<!--        // 전화번호 중복검사-->
+<!--        public Integer countByMemPhone(Integer memPhone);-->
+
+<!--        // 비밀번호 업데이트-->
+<!--        public Integer updateMemPassword(String memPassword);-->
+
+<!--        // 당도 검색-->
+<!--        public Integer findMemBrixByMemNo(Long memNo);-->
+
+
+
+<!--&lt;!&ndash;    유저명 검증&ndash;&gt;-->
+<!--    <select id="countByUsername" resultType="boolean">-->
+<!--        <![CDATA[-->
+<!--            select count(*) from MEMBERS where username=#{username} and rownum <= 1-->
+<!--        ]]>-->
+<!--    </select>-->
+<!--&lt;!&ndash;    이메일 검증&ndash;&gt;-->
+<!--    <select id="countByEmail" resultType="boolean">-->
+<!--        <![CDATA[-->
+<!--            select count(*) from MEMBERS where email=#{email} and rownum <= 1-->
+<!--        ]]>-->
+<!--    </select>-->
+        <!--    <insert id="save">-->
+        <!--        <selectKey resultType="long" order="BEFORE" keyProperty="memberId">-->
+        <!--            select nvl(max(member_id),0)+1 from members-->
+        <!--        </selectKey>-->
+        <!--        insert into members-->
+        <!--            ( member_id, username, password, name, age, sex, email, phone )-->
+        <!--        values-->
+        <!--            ( #{memberId}, #{username}, #{password}, #{name}, #{age}, #{sex}, #{email}, #{phone} )-->
+        <!--    </insert>-->
+        <!--    <select id="findByUsername" resultType="com.icia.board.domain.members.entity.MembersEntity">-->
+        <!--        <![CDATA[-->
+        <!--            select * from members where username=#{username} and rownum <= 1-->
+        <!--        ]]>-->
+        <!--    </select>-->
+        <!--    <select id="findByEmail" resultType="com.icia.board.domain.members.entity.MembersEntity">-->
+        <!--        <![CDATA[-->
+        <!--            select * from members where email=#{email} and rownum <= 1-->
+        <!--        ]]>-->
+        <!--    </select>-->
+
+<!--    <select id="existsById" resultType="int">-->
+<!--        <![CDATA[-->
+<!--            select count(*) from members where username=#{username} and rownum <= 1-->
+<!--        ]]>-->
+<!--    </select>-->
+<!--    // 게시글 저장-->
+<!--    Integer save(Articles.Write article);-->
+<!--    // 게시글 목록조회-->
+<!--    List<Articles.ReadList> findAllByPageno(Integer pageno, Integer count);-->
+<!--    // 게시글 조회-->
+<!--    Optional<Articles.Read> findById(Long id);-->
+<!--    // 게시글 수정-->
+<!--    Integer updateById(Articles.Update article);-->
+<!--    // 게시글 삭제-->
+<!--    Integer deleteById(Articles.Delete article);-->
+
+<!--	join 해서 가져온 테이블에 중복값은 제외하는 방법 -> resultMap-->
+<!--	<resultMap id="boardMap" type="com.example.demo.dto.BoardDto$Read(이 안에는 글 양식 + comment List 가 있다.)" >-->
+<!--		<id property="bno" column="bno"/>-->
+<!--		<result property="title" column="title"/>-->
+<!--		<result property="content" column="content"/>-->
+<!--		<result property="writer" column="writer"/>-->
+<!--		<result property="writeTime" column="write_time"/>-->
+<!--		<collection property="comments" ofType="com.example.demo.dto.CommentDto$Read">-->
+<!--			<id property="cno" column="cno"/>-->
+<!--			<result property="content" column="c_content"/>-->
+<!--			<result property="writer" column="c_writer"/>-->
+<!--			<result property="writeTime" column="c_write_time"/>-->
+<!--		</collection>-->
+<!--	</resultMap>-->
+
+<!--	<select id="findById2" resultMap="boardMap">-->
+<!--		SELECT-->
+<!--			b.*, c.no, c.content as c_content, c.writer as c_writer, c.writeTime as c_write_time-->
+<!--		FROM-->
+<!--			board b left outer join comments c on b.bno=c.cno-->
+<!--		WHERE-->
+<!--			b.bno=#{bno}-->
+<!--	</select>-->
+
+
+
+<!--	<insert id="save">-->
+<!--		<selectKey keyProperty="prdNo"  resultType="int"  order="BEFORE" >-->
+<!--			select (nvl(max(prdNo), 0)+1) from product-->
+<!--		</selectKey>-->
+<!--		insert into product p-->
+<!--			( prdNo, company, prdName, rdDesc, writer, price ) -->
+<!--		values-->
+<!--			( #{prdNo}, #{company}, #{prdName}, #{prdDesc}, #{writer}, #{price} )-->
+<!--	</insert>-->
+<!--	-->
+<!--	<select id="findList" resultType="com.icia.zBoard.dto.response.ProductListRes">-->
+<!--		<![CDATA[-->
+<!--			select prdNo, prdName, price, registeredAt, salesCnt, reviewsCnt from-->
+<!--			(-->
+<!--				select rownum as rnum, p.* from-->
+<!--				( -->
+<!--					select prdNo, prdName, price, registeredAt, salesCnt, reviewsCnt from product order by prdNo desc-->
+<!--				) p-->
+<!--				where rownum <= #{count}-->
+<!--			)-->
+<!--			where rnum >= #{start}-->
+<!--		]]>-->
+<!--	</select>-->
+<!--	-->
+<!--	<select id="findById" resultType="com.icia.zBoard.dto.response.ProductRes">-->
+<!--		select * from product where prdNo = #{prdNo}-->
+<!--	</select>-->
+<!--	-->
+<!--	<update id="updateById">-->
+<!--		update product -->
+<!--			<trim prefix="set" suffixOverrides=",">-->
+<!--			   	<if test="company != null">company=#{company},</if>-->
+<!--			  	<if test="prdName != null">prdName=#{prdName},</if>-->
+<!--			  	<if test="prdDesc != null">prdDesc=#{prdDesc},</if>-->
+<!--			  	<if test="price != null">price=#{price},</if>-->
+<!--			  	<if test="salesCnt != null">salesCnt=salesCnt+1,</if>-->
+<!--			  	<if test="reviewsCnt != null">reviewsCnt=reviewsCnt+1,</if>-->
+<!--		  	</trim>-->
+<!--		where prdNo = #{prdNo} <if test="writer != null">and writer = #{writer}</if>-->
+<!--	</update>-->
+<!--	-->
+<!--	<delete id="deleteById">-->
+<!--		delete from product where prdNo = #{prdNo} and writer = #{writer}-->
+<!--	</delete>-->
+<!--	-->
+<!--	<select id="isPresent">-->
+<!--		select prdNo from product where prdNo = #{prdNo}-->
+<!--	</select>-->

@@ -1,5 +1,6 @@
 package com.hts.market.global.config.security;
 
+import com.hts.market.global.config.security.auth.MemDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +18,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfig {
-    private final UserDetailsService userDetailsService;
+    private final MemDetailsService memDetailsService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -27,7 +28,7 @@ public class SecurityConfig {
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setUserDetailsService(memDetailsService);
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }
@@ -38,7 +39,7 @@ public class SecurityConfig {
                 .csrf().disable();
         http
                 .formLogin()
-                .loginPage("/login")
+//                .loginPage("/login")
                 .loginProcessingUrl("/login")
                 .failureUrl("/login?error=memberNotFound");
         http

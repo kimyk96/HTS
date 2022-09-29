@@ -8,4 +8,6 @@ import lombok.ToString;
 @Builder
 @ToString
 public class MemRoleEntity {
+    private Long memNo;
+    private Long roleNo;
 }
