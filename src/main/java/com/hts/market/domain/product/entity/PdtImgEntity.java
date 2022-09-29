@@ -7,7 +7,8 @@ import lombok.ToString;
 @ToString
 @Builder
 @Getter
-public class Favorite {
+public class PdtImgEntity {
     private long pdtNo;
-    private long memNo;
+    private long pdtImgNo;
+    private String putImgPath;
 }

@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @ToString
 @Getter
 @Builder
-public class Product {
+public class PdtEntity {
     private long pdtNo;
     private String pdtName;
     private String pdtStatus;

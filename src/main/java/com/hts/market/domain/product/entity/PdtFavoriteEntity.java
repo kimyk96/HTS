@@ -7,7 +7,7 @@ import lombok.ToString;
 @ToString
 @Builder
 @Getter
-public class Category {
-    private long pdtCateNo;
-    private String pdtCate;
+public class PdtFavoriteEntity {
+    private long pdtNo;
+    private long memNo;
 }
