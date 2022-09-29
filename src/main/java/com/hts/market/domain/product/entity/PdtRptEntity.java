@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @ToString
 @Builder
 @Getter
-public class Report {
+public class PdtRptEntity {
     private long rptNo;
     private long rptMemNo;
     private long rptPdtNo;
