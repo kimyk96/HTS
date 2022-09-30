@@ -10,14 +10,14 @@ import java.time.LocalDateTime;
 @Getter
 @Builder
 public class PdtEntity {
-    private long pdtNo;
+    private Long pdtNo;
     private String pdtName;
     private String pdtStatus;
     private String pdtDesc;
     private Integer pdtPrice;
     private Integer pdtViews;
-    private long pdtAddressNo;
-    private long pdtCateNo;
-    private long pdtSellerNo;
+    private Long pdtAddressNo;
+    private Long pdtCateNo;
+    private Long pdtSellerNo;
     private LocalDateTime pdtCreatedAt;
 }

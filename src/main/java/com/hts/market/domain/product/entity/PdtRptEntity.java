@@ -10,9 +10,9 @@ import java.time.LocalDateTime;
 @Builder
 @Getter
 public class PdtRptEntity {
-    private long rptNo;
-    private long rptMemNo;
-    private long rptPdtNo;
-    private long rptMagNo;
+    private Long rptNo;
+    private Long rptMemNo;
+    private Long rptPdtNo;
+    private Long rptMagNo;
     private LocalDateTime rptCreatedAt;
 }

@@ -1,33 +1,52 @@
 package com.hts.market.domain.product.dto;
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PdtImgDto {
     @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class Create {
-        private long pdtNo;
-        private long imgNo;
+        private Long pdtNo;
+        private Long imgNo;
+        @NotEmpty
         private String imgPath;
     }
 
     @Data
-    public static class Update{
-        private long pdtNo;
-        private long imgNo;
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Update {
+        private Long pdtNo;
+        private Long imgNo;
+        @NotEmpty
+        private String imgPath;
+    }
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Read{
+        private Long memNo;
+        private Long pdtNo;
+        private Long imgNo;
         private String imgPath;
     }
 
     @Data
-    public static class Read {
-        private long rptNo;
-        private long rptMemNo;
-        private long rptPdtNo;
-        private long rptMagNo;
-        private LocalDateTime rptCreatedAt;
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Delete {
+        private Long pdtNo;
+        private Long pdtImgNo;
+        private Long memNo;
     }
 }

@@ -8,6 +8,6 @@ import lombok.ToString;
 @Builder
 @Getter
 public class PdtFavoriteEntity {
-    private long pdtNo;
-    private long memNo;
+    private Long pdtNo;
+    private Long memNo;
 }

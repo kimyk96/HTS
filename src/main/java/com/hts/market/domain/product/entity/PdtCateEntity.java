@@ -8,6 +8,6 @@ import lombok.ToString;
 @Builder
 @Getter
 public class PdtCateEntity {
-    private long pdtCateNo;
+    private Long pdtCateNo;
     private String pdtCate;
 }

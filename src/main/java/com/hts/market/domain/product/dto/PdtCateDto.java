@@ -1,14 +1,15 @@
 package com.hts.market.domain.product.dto;
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PdtCateDto {
     @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class Read {
-        private long pdtCateNo;
+        private Long pdtCateNo;
         private String pdtCate;
     }
 }
