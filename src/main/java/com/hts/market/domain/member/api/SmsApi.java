@@ -4,6 +4,7 @@ import com.hts.market.domain.member.app.SmsApp;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,13 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Random;
 
 @RestController
+@Validated
 @RequestMapping("/api/v1/sms")
 public class SmsApi {
     @Autowired SmsApp smsApp;
-
+    
+    // 전화번호 인증 코드 발송
     @GetMapping("/verify")
     public ResponseEntity<String> sendSMS(Integer memPhone) throws CoolsmsException {
-        // 사용자에게 인증코드를 발송 & 인증코드는 ajax response로 리턴
         return ResponseEntity.ok().body(smsApp.send(memPhone));
     }
 }

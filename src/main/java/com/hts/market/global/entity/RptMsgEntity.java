@@ -8,4 +8,6 @@ import lombok.ToString;
 @Builder
 @ToString
 public class RptMsgEntity {
+    private Long rptMsgNo;
+    private String rptMsg;
 }

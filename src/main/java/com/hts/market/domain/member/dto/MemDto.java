@@ -20,8 +20,6 @@ public class MemDto {
         private String memNickname;
         private String memEmail;
         private Integer memPhone;
-////        private Integer memBrix;
-////        private LocalDateTime memCreatedAt;
         private String memAccessToken;
         private String memRefreshToken;
         private String memSignupType;
@@ -41,18 +39,17 @@ public class MemDto {
     @Data @Builder @AllArgsConstructor @NoArgsConstructor
     public static class Update{
         private Long memNo;
-//        private String memUsername;
-//        private String memPassword;
-//        private String memName;
         private String memNickname;
         private String memEmail;
-//        private Integer memPhone;
-//        private Integer memBrix;
-//        private LocalDateTime memCreatedAt;
     }
     @Data @Builder @AllArgsConstructor @NoArgsConstructor
     public static class UpdatePhone{
         private Long memNo;
         private Integer memPhone;
+    }
+    @Data @Builder @AllArgsConstructor @NoArgsConstructor
+    public static class Login{
+        private String memUsername;
+        private String memPassword;
     }
 }

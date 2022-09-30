@@ -16,4 +16,14 @@ public class MemRoleDto {
         private Long memNo;
         private Long roleNo;
     }
+    @Data @Builder @AllArgsConstructor @NoArgsConstructor
+    public static class Update{
+        private Long memNo;
+        private Long roleNo;
+    }
+    @Data @Builder @AllArgsConstructor @NoArgsConstructor
+    public static class Delete{
+        private Long memNo;
+        private Long roleNo;
+    }
 }

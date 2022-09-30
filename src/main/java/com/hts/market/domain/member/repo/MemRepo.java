@@ -7,42 +7,54 @@ import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface MemRepo {
+    
+    // 새로 추가된 메소드
+    
     // 임시 회원가입
-    public Integer saveTemp(MemDto.CreateTemp dto);
-
-    // 회원가입
-    public Integer save(MemDto.Create dto);
-
-    // 회원 조회(memNo)
-    public MemDto.Read findById(Long memNo);
+    Integer saveTemp(MemDto.CreateTemp dto);
 
     // 회원 조회(memUsername)
-    public MemEntity findByMemUsername(String memUsername);
+    MemEntity loadUserByUsername(String memUsername);
+
+
+    // 이하 설계도에 있는 메소드
+
+    // 회원가입
+    Integer save(MemDto.Create dto);
+
+    // 회원 조회(memNo)
+    MemDto.Read findById(Long memNo);
+
+    // 회원 조회(memUsername)
+    MemDto.Read findByMemUsername(String memUsername);
 
     // 회원 수정
-    public Integer update(MemDto.Update dto);
+    Integer update(MemDto.Update dto);
 
     // 회원 삭제
-    public Integer delete(Long memNo);
+    Integer delete(Long memNo);
 
     // 회원명 중복검사
-    public Integer countByMemUsername(String memUsername);
+    Integer countByMemUsername(String memUsername);
 
     // 이메일 중복검사
-    public Integer countByMemEmail(String memEmail);
+    Integer countByMemEmail(String memEmail);
 
     // 닉네임 중복검사
-    public Integer countByMemNickname(String memNickname);
+    Integer countByMemNickname(String memNickname);
 
     // 전화번호 중복검사
-    public Integer countByMemPhone(Integer memPhone);
+    Integer countByMemPhone(Integer memPhone);
 
     // 비밀번호 업데이트
-    public Integer updateMemPassword(String memPassword);
+    Integer updateMemPassword(String memPassword);
 
     // 당도 검색
-    public Integer findMemBrixByMemNo(Long memNo);
+    Integer findMemBrixByMemNo(Long memNo);
 
     // 인증된 전화번호 추가
-    public Integer updateMemPhoneById(MemDto.UpdatePhone dto);
+    Integer updateMemPhoneById(MemDto.UpdatePhone dto);
+
+    // 로그인
+    Integer findByMemUsernameAndMemPassword(MemDto.Login dto);
 }

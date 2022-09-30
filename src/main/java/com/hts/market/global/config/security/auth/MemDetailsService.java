@@ -28,9 +28,9 @@ public class MemDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String memUsername) throws UsernameNotFoundException {
         // memUsername 으로 유저 확인
-        MemEntity memEntity = memRepo.findByMemUsername(memUsername);
+        MemEntity memEntity = memRepo.loadUserByUsername(memUsername);
         // memUsername.memNo 로 권한 확인
-        List<MemRoleDto.Read> roleList = memRoleRepo.findAllByMemNo(memEntity.getMemNo());
+        List<MemRoleDto.Read> roleList = memRoleRepo.findAllById(memEntity.getMemNo());
         // 권한명 스트링리스트 저장
         Collection<GrantedAuthority> roles = new ArrayList<>();
         roleList.forEach((role) -> roles.add(new GrantedAuthority() {
