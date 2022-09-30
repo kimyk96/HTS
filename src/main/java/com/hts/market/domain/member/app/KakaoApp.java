@@ -1,6 +1,14 @@
 package com.hts.market.domain.member.app;
 
+import com.hts.market.domain.member.dto.MemDto;
+import com.hts.market.domain.member.dto.MemRoleDto;
+import com.hts.market.domain.member.dto.RoleDto;
+import com.hts.market.domain.member.exception.MemberAlreadyExsistException;
+import com.hts.market.domain.member.repo.MemRepo;
+import com.hts.market.domain.member.repo.MemRoleRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -9,24 +17,44 @@ import java.util.Map;
 
 @Service
 public class KakaoApp {
+    @Autowired MemRepo memRepo;
+    @Autowired MemRoleRepo memRoleRepo;
+    @Autowired PasswordEncoder passwordEncoder;
 
-    // accessToken
-    public String getAccessToken(String code) {
-        // Request Body
-        MultiValueMap<String,String> requestBody = new LinkedMultiValueMap<>();
-        requestBody.add("grant_type",   "authorization_code");
-        requestBody.add("client_id",    "1b484f0bd9bd6502362669834ce3920a");
-        requestBody.add("redirect_uri", "http://localhost:8087/api/v1/kakao");
-        requestBody.add("code",         code);
+    // 카카오 회원가입
+    public Long save(String code) {
+        Map memTokens = getTokens(code);
+        Map memInfo = getMemInfo(code, memTokens.get("access_token").toString());
+        Map memAccount = (Map) memInfo.get("kakao_account");
+        Map memProfile = (Map) memAccount.get("profile");
 
-        // Post
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Map> response = restTemplate.postForEntity("https://kauth.kakao.com/oauth/token", requestBody, Map.class);
-        return response.getBody().get("access_token").toString();
+        // 회원 가입 여부 확인
+        if(memRepo.countByMemUsername(memInfo.get("id").toString()).equals(1)){
+            // 이미 가입된 회원 -> 자동 로그인
+            throw new MemberAlreadyExsistException();
+        }else{
+            // 회원 가입 진행
+            MemDto.Create memDto = MemDto.Create.builder()
+                    .memSignupType("kakao")
+                    .memAccessToken(memTokens.get("access_token").toString())
+                    .memRefreshToken(memTokens.get("refresh_token").toString())
+                    .memUsername(memInfo.get("id").toString())
+                    .memPassword(passwordEncoder.encode(memInfo.get("id").toString()))
+                    .memNickname(memProfile.get("nickname").toString())
+                    .memPhone(0)
+                    .memName("0")
+                    .memEmail(memAccount.get("email").toString())
+                    .build();
+            memRepo.save(memDto);
+
+            // 권한 부여 (일반 유저)
+            MemRoleDto.Create memRoleDto = MemRoleDto.Create.builder().roleNo(2L).memNo(memDto.getMemNo()).build();
+            memRoleRepo.save(memRoleDto);
+            return memDto.getMemNo();
+        }
     }
-
-    // refreshToken
-    public String getRefreshToken(String code) {
+    // accessToken
+    public Map getTokens(String code) {
         // Request Body
         MultiValueMap<String,String> requestBody = new LinkedMultiValueMap<>();
         requestBody.add("grant_type",   "authorization_code");
@@ -37,11 +65,11 @@ public class KakaoApp {
         // Post
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<Map> response = restTemplate.postForEntity("https://kauth.kakao.com/oauth/token", requestBody, Map.class);
-        return response.getBody().get("refresh_token").toString();
+        return response.getBody();
     }
 
     // 사용자 정보 가져오기
-    public Object getMemberInfo(String code, String accessToken) {
+    public Map getMemInfo(String code, String accessToken) {
         // Headers
         HttpHeaders requestHeaders = new HttpHeaders();
         requestHeaders.setBearerAuth(accessToken);
@@ -56,156 +84,6 @@ public class KakaoApp {
         // Post
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<Map> response = restTemplate.postForEntity("https://kapi.kakao.com/v2/user/me", request, Map.class);
-        System.out.println(response.getBody().toString());
-        return response.getBody().get("kakao_account");
+        return response.getBody();
     }
 }
-
-
-        // 카카오 인가 연결
-//        URL url = new URL("https://kauth.kakao.com/oauth/token");
-//        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-//        connection.setRequestMethod("POST");
-//        connection.setDoOutput(true);
-//    }
-//}
-//
-//    public String getToken(String code) throws IOException {
-//        // 인가코드로 토큰받기
-//        String host = "https://kauth.kakao.com/oauth/token";
-//        URL url = new URL(host);
-//        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-//        String token = "";
-//        try {
-//            urlConnection.setRequestMethod("POST");
-//            urlConnection.setDoOutput(true); // 데이터 기록 알려주기
-//
-//            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(urlConnection.getOutputStream()));
-//            StringBuilder sb = new StringBuilder();
-//            sb.append("grant_type=authorization_code");
-//            sb.append("&client_id=2aad40910868e3c5fa9594f8de34a07b");
-//            sb.append("&redirect_uri=http://localhost:8080/member/kakao");
-//            sb.append("&code=" + code);
-//
-//            bw.write(sb.toString());
-//            bw.flush();
-//
-//            int responseCode = urlConnection.getResponseCode();
-//            System.out.println("responseCode = " + responseCode);
-//
-//            BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-//            String line = "";
-//            String result = "";
-//            while ((line = br.readLine()) != null) {
-//                result += line;
-//            }
-//            System.out.println("result = " + result);
-//
-//            // json parsing
-//            JSONParser parser = new JSONParser();
-//            JSONObject elem = (JSONObject) parser.parse(result);
-//
-//            String access_token = elem.get("access_token").toString();
-//            String refresh_token = elem.get("refresh_token").toString();
-//            System.out.println("refresh_token = " + refresh_token);
-//            System.out.println("access_token = " + access_token);
-//
-//            token = access_token;
-//
-//            br.close();
-//            bw.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//
-//
-//        return token;
-//    }
-//
-//
-//    public Map<String, Object> getUserInfo(String access_token) throws IOException {
-//        String host = "https://kapi.kakao.com/v2/user/me";
-//        Map<String, Object> result = new HashMap<>();
-//        try {
-//            URL url = new URL(host);
-//
-//            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-//            urlConnection.setRequestProperty("Authorization", "Bearer " + access_token);
-//            urlConnection.setRequestMethod("GET");
-//
-//            int responseCode = urlConnection.getResponseCode();
-//            System.out.println("responseCode = " + responseCode);
-//
-//
-//            BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-//            String line = "";
-//            String res = "";
-//            while((line=br.readLine())!=null)
-//            {
-//                res+=line;
-//            }
-//
-//            System.out.println("res = " + res);
-//
-//
-//            JSONParser parser = new JSONParser();
-//            JSONObject obj = (JSONObject) parser.parse(res);
-//            JSONObject kakao_account = (JSONObject) obj.get("kakao_account");
-//            JSONObject properties = (JSONObject) obj.get("properties");
-//
-//
-//            String id = obj.get("id").toString();
-//            String nickname = properties.get("nickname").toString();
-//            String age_range = kakao_account.get("age_range").toString();
-//
-//            result.put("id", id);
-//            result.put("nickname", nickname);
-//            result.put("age_range", age_range);
-//
-//            br.close();
-//
-//
-//        } catch (IOException | ParseException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return result;
-//    }
-//
-//    public String getAgreementInfo(String access_token)
-//    {
-//        String result = "";
-//        String host = "https://kapi.kakao.com/v2/user/scopes";
-//        try{
-//            URL url = new URL(host);
-//            HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
-//            urlConnection.setRequestMethod("GET");
-//            urlConnection.setRequestProperty("Authorization", "Bearer "+access_token);
-//
-//            BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-//            String line = "";
-//            while((line=br.readLine())!=null)
-//            {
-//                result+=line;
-//            }
-//
-//            int responseCode = urlConnection.getResponseCode();
-//            System.out.println("responseCode = " + responseCode);
-//
-//            // result is json format
-//            br.close();
-//
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace();
-//        } catch (ProtocolException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return result;
-//    }
-//
-//
-//}

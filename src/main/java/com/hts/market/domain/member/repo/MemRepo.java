@@ -7,6 +7,9 @@ import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface MemRepo {
+    // 임시 회원가입
+    public Integer saveTemp(MemDto.CreateTemp dto);
+
     // 회원가입
     public Integer save(MemDto.Create dto);
 
@@ -29,7 +32,7 @@ public interface MemRepo {
     public Integer countByMemEmail(String memEmail);
 
     // 닉네임 중복검사
-    public Integer countByMemNickname(String memEmail);
+    public Integer countByMemNickname(String memNickname);
 
     // 전화번호 중복검사
     public Integer countByMemPhone(Integer memPhone);
@@ -39,4 +42,7 @@ public interface MemRepo {
 
     // 당도 검색
     public Integer findMemBrixByMemNo(Long memNo);
+
+    // 인증된 전화번호 추가
+    public Integer updateMemPhoneById(MemDto.UpdatePhone dto);
 }

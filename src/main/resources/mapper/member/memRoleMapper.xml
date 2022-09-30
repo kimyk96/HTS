@@ -5,4 +5,11 @@
     <select id="findAllByMemNo" resultType="com.hts.market.domain.member.dto.MemRoleDto$Read">
         Select * from MEMBER_ROLE where mem_no=#{memNo}
     </select>
+    <!-- 권한부여 -->
+    <insert id="save">
+        insert into
+        MEMBER_ROLE( mem_no, role_no)
+        values
+        ( #{memNo}, #{roleNo} )
+    </insert>
 </mapper>

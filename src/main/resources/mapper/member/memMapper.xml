@@ -1,21 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hts.market.domain.member.repo.MemRepo">
+    <!-- 임시 회원 가입 -->
+    <insert id="saveTemp">
+        <selectKey resultType="long" order="BEFORE" keyProperty="memNo">
+            select nvl(max(mem_no),0)+1 from MEMBER
+        </selectKey>
+        insert into
+        MEMBER( mem_no )
+        values
+        ( #{memNo} )
+    </insert>
     <!-- 회원 가입 -->
     <insert id="save">
         <selectKey resultType="long" order="BEFORE" keyProperty="memNo">
             select nvl(max(mem_no),0)+1 from MEMBER
         </selectKey>
         insert into
-            MEMBER( mem_no, mem_username, mem_password, mem_name, mem_nickname, mem_email, mem_phone )
+            MEMBER( mem_no, mem_username, mem_password, mem_name, mem_nickname, mem_email, mem_phone, mem_access_token, mem_refresh_token, mem_signup_type )
         values
-            ( #{memNo}, #{memUsername}, #{memPassword}, #{memName}, #{memNickname}, #{memEmail}, #{memPhone} )
+            ( #{memNo}, #{memUsername}, #{memPassword}, #{memName}, #{memNickname}, #{memEmail}, #{memPhone}, #{memAccessToken}, #{memRefreshToken}, #{memSignupType} )
     </insert>
     <!-- 회원 조회(memNo) -->
     <select id="findById" resultType="com.hts.market.domain.member.dto.MemDto$Read">
         <![CDATA[
             SELECT
-                mem_no, mem_username, mem_name, mem_nickname, mem_email, mem_phone, mem_brix, mem_created_at
+                mem_no, mem_username, mem_password, mem_name, mem_nickname, mem_email, mem_phone, mem_brix, mem_created_at
             FROM
                 MEMBER
             WHERE
@@ -49,6 +59,28 @@
                 mem_phone=#{memPhone} and rownum <= 1
         ]]>
     </select>
+    <!-- 유저명 중복검사 -->
+    <select id="countByMemUsername" resultType="int">
+        <![CDATA[
+            SELECT
+                count(*)
+            FROM
+                MEMBER
+            WHERE
+                mem_username=#{memUsername} and rownum <= 1
+        ]]>
+    </select>
+    <!-- 유저명 중복검사 -->
+    <update id="updateMemPhoneById">
+        <![CDATA[
+            UPDATE
+                MEMBER
+            SET
+                mem_phone=#{memPhone}
+            WHERE
+                mem_no=#{memNo} and rownum <= 1
+        ]]>
+    </update>
 
 </mapper>
 

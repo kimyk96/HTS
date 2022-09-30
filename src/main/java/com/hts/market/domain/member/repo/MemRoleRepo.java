@@ -8,4 +8,6 @@ import java.util.List;
 @Mapper
 public interface MemRoleRepo {
     public List<MemRoleDto.Read> findAllByMemNo(Long memNo);
+
+    public Integer save(MemRoleDto.Create dto);
 }

@@ -5,10 +5,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class MemController {
-    @GetMapping("/")
-    public String start(){
-        return "member/start_view";
-    }
 
     @GetMapping("/verifyPhone")
     public String verifyPhone(){
