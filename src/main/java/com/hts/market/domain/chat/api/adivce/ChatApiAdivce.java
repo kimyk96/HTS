@@ -1,6 +1,7 @@
-package com.hts.market.domain.chat.adivce;
+package com.hts.market.domain.chat.api.adivce;
 
 
+import com.hts.market.domain.chat.exception.CutUserException;
 import com.hts.market.domain.chat.exception.NonUserException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,4 +14,10 @@ public class ChatApiAdivce {
     public ResponseEntity<String> nonUserExceptionHandler() {
         return ResponseEntity.status(HttpStatus.CONFLICT).body("회원 탈퇴한 유저입니다.");
     }
+
+    @ExceptionHandler(CutUserException.class)
+    public ResponseEntity<String> cutUserExceptionHandler() {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body("상대방이 차단하였습니다");
+    }
+    
 }
