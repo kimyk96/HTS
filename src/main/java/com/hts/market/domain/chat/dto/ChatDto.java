@@ -1,37 +1,37 @@
 package com.hts.market.domain.chat.dto;
 
-import com.hts.market.domain.chat.entity.Chat;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.hts.market.domain.chat.entity.ChatEntity;
+import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.security.Timestamp;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ChatDto {
-
-    @Data
-public static class Create {
-        private static Long chatNo;
-        private static Long memNo;
-        private static Long pdtNo;
-        private static String username;
+    @Data @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Create {
+        private Long chatNo;
+        private Long memNo;
         @NotEmpty(message = "메세지를 입력해주세요")
-        private static String content;
-        private static Timestamp createAt;
-        public Chat toEntity(){
-            return Chat.builder().memNo(memNo).content(content).chatNo(chatNo).build();
+        private String chatContent;
+        private Long chatListNo;
+
+        public ChatEntity toEntity() {
+            return ChatEntity.builder().memNo(memNo).chatContent(chatContent).chatNo(chatNo).build();
         }
     }
-    @Data
-    public static class Read{
-        private static Long chatNo;
-        private static String username;
-        private static String message;
-        private boolean readCheck;
-        private Timestamp createAt;
 
+    @Data @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Read {
+        private Long chatNo;
+        private Long memNo;
+        private String chatContent;
+        private Long chatListNo;
+        private LocalDateTime chatCreateAt;
     }
 }

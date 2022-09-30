@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 @Getter
 @Builder
 @ToString
-public class ChatList {
+public class ChatListEntity {
     public Long chatNo;
     public Long pdtNo;
     public Long username;

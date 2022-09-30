@@ -13,12 +13,14 @@ public class ChatListApp {
     @Autowired ChatApi chatApi;
 
     public Integer save(ChatListDto chatListDto) {
-
+        return null;
     }
 
     public List<ChatDto.Read> findAllByPage(String username) {
+        return null;
     }
 
     public Integer delete(Integer chatNo) {
+        return null;
     }
 }

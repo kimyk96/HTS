@@ -5,18 +5,17 @@ import lombok.Getter;
 import lombok.ToString;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Getter
 @Builder
 @ToString
-public class Chat {
-    public long chatNo;
-    public String username;
-    public long chatListNo;
-    public String chatStatus;
-    public String content;
-    public Timestamp createdAt;
+public class ChatEntity {
+    public Long chatNo;
     public Long memNo;
+    public String chatContent;
+    public Long chatListNo;
+    public LocalDateTime chatCreatedAt;
 }
 
 
