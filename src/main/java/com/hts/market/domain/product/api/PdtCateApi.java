@@ -14,7 +14,7 @@ import java.security.Principal;
 
 @RestController
 @Validated
-@RequestMapping("/api/v1/pdt")
+@RequestMapping("/api/v1/pdt-cate")
 public class PdtCateApi {
     @Autowired
     private PdtCateApp pdtCateApp;

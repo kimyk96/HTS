@@ -12,7 +12,7 @@ import java.security.Principal;
 
 @RestController
 @Validated
-@RequestMapping("/api/v1/pdt")
+@RequestMapping("/api/v1/pdt-favorite")
 public class PdtFavoriteApi {
     @Autowired
     private PdtFavoriteApp pdtFavoriteApp;
@@ -29,7 +29,7 @@ public class PdtFavoriteApi {
     }
     // 관심목록읽기
     @GetMapping("/find-all-by-pdt-no")
-    public ResponseEntity<Integer> findAllByPdtNo(@Valid PdtFavoriteDto.Read dto, Principal principal){
+    public ResponseEntity<Integer> findAllByPdtNo(@Valid PdtFavoriteDto.Page dto, Principal principal){
         return null;
     }
 }

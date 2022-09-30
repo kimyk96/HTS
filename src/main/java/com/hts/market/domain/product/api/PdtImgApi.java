@@ -12,7 +12,7 @@ import java.security.Principal;
 
 @RestController
 @Validated
-@RequestMapping("/api/v1/pdt")
+@RequestMapping("/api/v1/pdt-img")
 public class PdtImgApi {
     @Autowired
     private PdtImgApp pdtImgApp;

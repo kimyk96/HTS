@@ -2,7 +2,6 @@ package com.hts.market.domain.product.api;
 
 import com.hts.market.domain.product.app.PdtApp;
 import com.hts.market.domain.product.dto.PdtDto;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -39,7 +38,7 @@ public class PdtApi {
     }
 
     // 판맥글 보기
-    @GetMapping("find-By-pdt-no")
+    @GetMapping("find-by-pdt-no")
     public ResponseEntity<Integer> findByPdtNo(@Valid PdtDto.Read dto, Principal principal){
         return null;
     }
