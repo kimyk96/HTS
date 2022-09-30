@@ -10,8 +10,10 @@ import java.util.List;
 public class ChatApp {
     public Integer save(ChatDto.Create creDto) {
 
+
     };
 
     public List<ChatDto.Read> findAllBychatListNo() {
+
     };
 }

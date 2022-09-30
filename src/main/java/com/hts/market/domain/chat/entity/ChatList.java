@@ -12,6 +12,6 @@ import java.sql.Timestamp;
 public class ChatList {
     public Long chatNo;
     public Long pdtNo;
-    public Long memberNo;
+    public Long username;
     public Timestamp createdAt;
 }

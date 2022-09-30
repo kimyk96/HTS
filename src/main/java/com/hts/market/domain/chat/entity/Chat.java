@@ -11,11 +11,12 @@ import java.sql.Timestamp;
 @ToString
 public class Chat {
     public long chatNo;
-    public long memberNo;
+    public String username;
     public long chatListNo;
     public String chatStatus;
     public String content;
     public Timestamp createdAt;
+    public Long memNo;
 }
 
 
