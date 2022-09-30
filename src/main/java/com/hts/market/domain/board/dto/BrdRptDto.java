@@ -1,17 +1,18 @@
 package com.hts.market.domain.board.dto;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
 
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class BrdRptDto {
-    @Data
+    @Data @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
 
     public static class Create {
-        private Integer brdNo;
-        private String brdWriter;
+        private Long brdNo;
+        private Long brdMemNo;
         @NotEmpty(message="신고 메시지는 필수입력입니다")
         private String RptMsg;
     }

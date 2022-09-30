@@ -1,25 +1,31 @@
 package com.hts.market.domain.board.dto;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class BrdImgDto {
 
-    @Data
+    @Data @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class Create {
-        private Integer brdImgNo;
+        private Long brdImgNo;
     }
-
+    @Data @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class Update{
-        private Integer brdImgNo;
-        private Integer brdNo;
-        private String brdWriter;
+        private Long brdImgNo;
+        private Long brdNo;
+        private Long brdWriter;
     }
+    @Data @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class Delete{
-        private Integer brdImgNo;
-        private Integer brdNo;
-        private String brdWriter;//작성자가 아니면 삭제할수,,,,,,,,,
+        private Long brdImgNo;
+        private Long brdNo;
+        private Long brdWriter;//작성자가 아니면 삭제할수,,,,,,,,,
     }
 
 }

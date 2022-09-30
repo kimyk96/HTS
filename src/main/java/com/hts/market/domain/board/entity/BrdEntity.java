@@ -13,5 +13,5 @@ public class BrdEntity {
     private Integer brdViews;
     private Long brdMemNo;
     private LocalDateTime brdCreatedAt;
-    private Integer brdCateNo;
+    private Long brdCateNo;
 }

@@ -1,34 +1,46 @@
 package com.hts.market.domain.board.dto;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Null;
 import java.time.LocalDateTime;
-
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CmtDto {
 
-    @Data
+    @Data @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class Create {
     @NotEmpty(message = "내용은 필수입력입니다")
     private String cmtContent;
-    private Integer brdNo;
+    private Long brdNo;
+    private Long brdMemNo;
     }
 
+    @Data @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class Read {
     private String cmtContent;
-    private String cmtWriter;
+    private Long cmtMemNo;
     private LocalDateTime cmtCreateAt;
     }
 
+    @Data @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class Update{
+        @NotEmpty(message="제목은 필수입력입니다")
         private String cmtContent;
-        private String cmtWriter;
+        private Long cmtMemNo;
+        private Long brdNo;
     }
-
+    @Data @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class Delete{
-        private String cmtWriter;
+        private Long cmtMemNo;
     }
 
  }

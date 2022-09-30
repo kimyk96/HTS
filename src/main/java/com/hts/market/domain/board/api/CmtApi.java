@@ -1,5 +1,6 @@
 package com.hts.market.domain.board.api;
 
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,47 +12,45 @@ import java.time.LocalDateTime;
 @RestController
 @Validated
 @RequestMapping("/api/v1/brd")
-public class BrdApi {
+public class CmtApi {
 
-    // 게시물 작성
-    @PostMapping("save")
+    // 댓글 작성
+    @PostMapping("cmt-save")
     public ResponseEntity<Integer> save(){
         return null;
     }
 
-    // 게시물 수정
-    @PostMapping("update")
+
+    // 댓글수정
+    @PostMapping("cmt-update")
     public ResponseEntity<Integer> update(){
         return null;
     }
 
-    //게시물 삭제
-    @PostMapping("delete")
+
+    // 댓글삭제
+    @PostMapping("cmt-delete")
     public ResponseEntity<Integer> delete(){
         return null;
     }
 
-    //게시물검색
-    @PostMapping("find-by-brd-no")
-    public ResponseEntity<Long> findByBrdNo(){
+
+    // 댓글작성자
+    @PostMapping("cmt-find-mem")
+    public ResponseEntity<Long> findMemNoByCmtNo(){
         return null;
     }
 
-    //게시물번호로 조회수 가져오기
-    @PostMapping("views")
-    public ResponseEntity<Long> findViewsByBrdNo(){
+    // 댓글작성시간
+    @PostMapping("cmt-crated-at")
+    public ResponseEntity<LocalDateTime> findCreatedAtByCmtNo(){
         return null;
     }
 
-    //게시물 작성시간
-    @PostMapping("created-at")
-    public ResponseEntity<LocalDateTime> findCreatedAtByBrdNo(){
-        return null;
-    }
-
-    //카테고리 등록
-    @PostMapping("brd-cate")
-    public ResponseEntity<Long> findCateNoByBrdNo(){
+    // 댓글을 남길 게시물
+    @PostMapping("find-brd")
+    public ResponseEntity<Long> findBrdNo(){
         return null;
     }
 }
+
