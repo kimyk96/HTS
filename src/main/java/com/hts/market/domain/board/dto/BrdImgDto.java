@@ -1,10 +1,10 @@
-package com.hts.market.domain.board.Dto;
+package com.hts.market.domain.board.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-public class BrdImg {
+public class BrdImgDto {
 
     @Data
     public static class Create {

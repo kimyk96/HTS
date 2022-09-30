@@ -1,13 +1,10 @@
-package com.hts.market.domain.board.Dto;
+package com.hts.market.domain.board.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotEmpty;
-import java.time.LocalDateTime;
-
 @NoArgsConstructor
-public class BrdLike {
+public class BrdLikeDto {
     @Data
     public static class Create {
         private Long brdNo;

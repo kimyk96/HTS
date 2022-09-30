@@ -1,4 +1,4 @@
-package com.hts.market.domain.board.Dto;
+package com.hts.market.domain.board.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotEmpty;
 
 @NoArgsConstructor
-public class BrdRpt {
+public class BrdRptDto {
     @Data
 
     public static class Create {

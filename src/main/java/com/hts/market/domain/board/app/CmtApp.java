@@ -1,4 +1,4 @@
-package com.hts.market.domain.board.App;
+package com.hts.market.domain.board.app;
 
 import java.time.LocalDateTime;
 

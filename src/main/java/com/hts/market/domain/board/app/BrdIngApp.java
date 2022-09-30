@@ -1,4 +1,4 @@
-package com.hts.market.domain.board.App;
+package com.hts.market.domain.board.app;
 
 public class BrdIngApp {
     //이미지 작성

@@ -11,6 +11,18 @@
         values
         ( #{memNo} )
     </insert>
+
+
+
+
+
+
+
+
+
+
+
+
     <!-- 회원 가입 -->
     <insert id="save">
         <selectKey resultType="long" order="BEFORE" keyProperty="memNo">

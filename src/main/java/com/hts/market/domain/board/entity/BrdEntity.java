@@ -1,9 +1,12 @@
-package com.hts.market.domain.board.Entity;
+package com.hts.market.domain.board.entity;
+
+import lombok.Builder;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
-
-public class BrdEntitiy {
-    // 서현아 변수는 소문자로 시작해
+@Getter
+@Builder
+public class BrdEntity {
     private Long brdNo;
     private String brdTitle;
     private String brdContent;

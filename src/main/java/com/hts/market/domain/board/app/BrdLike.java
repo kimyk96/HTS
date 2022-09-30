@@ -1,4 +1,4 @@
-package com.hts.market.domain.board.App;
+package com.hts.market.domain.board.app;
 
 public class BrdLike {
     //게시글 좋아요
