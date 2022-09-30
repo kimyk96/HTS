@@ -1,8 +1,8 @@
-package com.hts.market.domain.board.Dao;
+package com.hts.market.domain.board.App;
 
 import java.time.LocalDateTime;
 
-public interface CmtApp {
+public class CmtApp {
     // 댓글작성
     public Integer save();
     

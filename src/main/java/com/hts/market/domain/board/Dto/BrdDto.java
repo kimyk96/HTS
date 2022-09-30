@@ -7,7 +7,7 @@ import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
-public class BoardDto {
+public class BrdDto {
     @Data
     public static class Create{
         @NotEmpty(message="제목은 필수입력입니다")

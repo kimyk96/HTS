@@ -1,6 +1,6 @@
-package com.hts.market.domain.board.Dao;
+package com.hts.market.domain.board.App;
 
-public interface BrdIngApp {
+public class BrdIngApp {
     //이미지 작성
     public Integer save();
 

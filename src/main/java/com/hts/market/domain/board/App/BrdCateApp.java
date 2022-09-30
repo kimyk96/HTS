@@ -1,6 +1,6 @@
-package com.hts.market.domain.board.Dao;
+package com.hts.market.domain.board.App;
 
-public interface BrdCateApp {
+public class BrdCateApp {
 
     //게시글 카테고리 명을 번호를 통해 찾아라
     public Integer findBrdCateNameById();

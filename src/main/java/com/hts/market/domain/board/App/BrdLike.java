@@ -1,6 +1,6 @@
-package com.hts.market.domain.board.Dao;
+package com.hts.market.domain.board.App;
 
-public interface BrdLike {
+public class BrdLike {
     //게시글 좋아요
     public Integer save();
 

@@ -1,8 +1,8 @@
-package com.hts.market.domain.board.Dao;
+package com.hts.market.domain.board.App;
 
 import java.time.LocalDateTime;
 
-public interface BrdApp {
+public class BrdApp {
     //게시물작성
     public Integer save();
 
