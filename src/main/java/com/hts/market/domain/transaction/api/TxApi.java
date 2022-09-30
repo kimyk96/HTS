@@ -18,25 +18,25 @@ public class TxApi {
 
     @Autowired TxApp txApp;
 
-    @PostMapping("/save")
+    @PostMapping("save")
     public ResponseEntity<Integer> save(@Valid TxDto.Create dto, Principal principal){
         Integer result = txApp.save();
         return ResponseEntity.ok().body(1);
     }
 
-    @DeleteMapping ("/delete")
+    @DeleteMapping ("delete")
     public ResponseEntity<Integer> delete(Long txNo, Principal principal){
         Integer result = txApp.delete();
         return ResponseEntity.ok().body(1);
     }
 
-    @GetMapping ("/find-all-by-mem-no")
+    @GetMapping ("find-all-by-mem-no")
     public ResponseEntity<List<TxDto.Read>> findAllByMemNo(Long memNo, Principal principal){
         List<TxDto.Read> result = txApp.findAllByMemNo();
         return ResponseEntity.ok().body(null);
     }
 
-    @GetMapping ("/find-by-id")
+    @GetMapping ("find-by-id")
     public ResponseEntity<TxDto.Read> findById(Long txNo, Principal principal){
         TxDto.Read result = txApp.findById();
         return ResponseEntity.ok().body(null);

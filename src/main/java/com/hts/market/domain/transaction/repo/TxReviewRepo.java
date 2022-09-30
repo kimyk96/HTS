@@ -13,5 +13,5 @@ public interface TxReviewRepo {
 
     public Long delete(Long TxReviewNo);
 
-    public List<ReviewDto.Read> findAllbyMemNo(Long memNo);
+    public List<ReviewDto.Read> findAllByMemNo(Long memNo);
 }

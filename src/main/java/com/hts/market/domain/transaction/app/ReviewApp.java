@@ -5,19 +5,19 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ReviewApp {
-    public static Integer save() {
+    public Integer save() {
         return null;
     }
 
-    public static Integer update() {
+    public Integer update() {
         return null;
     }
 
-    public static Integer delete() {
+    public Integer delete() {
         return null;
     }
 
-    public static TxDto.Read findByReviewNo() {
+    public TxDto.Read findByReviewNo() {
         return null;
     }
 }
