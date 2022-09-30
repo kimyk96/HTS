@@ -18,24 +18,26 @@ public class TxApi {
 
     @PostMapping("/save")
     public ResponseEntity<Integer> save(TxDto.Create dto){
-        Integer result = txApp.save(dto);
+        Integer result = txApp.save();
         return ResponseEntity.ok().body(1);
     }
 
     @DeleteMapping ("/delete")
     public ResponseEntity<Integer> delete(Long txNo){
         Integer result = txApp.delete();
-        return null;
+        return ResponseEntity.ok().body(1);
     }
 
     @GetMapping ("/find-all-by-mem-no")
     public ResponseEntity<List<TxDto.Read>> findAllByMemNo(){
-        return null;
+        List<TxDto.Read> result = txApp.findAllByMemNo();
+        return ResponseEntity.ok().body(null);
     }
 
     @GetMapping ("/find-by-id")
     public ResponseEntity<TxDto.Read> findById(){
-        return null;
+        TxDto.Read result = txApp.findById();
+        return ResponseEntity.ok().body(null);
     }
 
 }

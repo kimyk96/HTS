@@ -18,17 +18,20 @@ public class TxReviewApi {
 
     @PostMapping("save")
     public ResponseEntity<Integer> save() {
-        return null;
+        Integer result=txReviewApp.save();
+        return ResponseEntity.ok().body(1);
     }
 
     @DeleteMapping("delete")
     public ResponseEntity<Integer> delete() {
-        return null;
+        Integer result=txReviewApp.delete();
+        return ResponseEntity.ok().body(1);
     }
 
     @GetMapping("find-all-by-mem-no")
     public ResponseEntity<List<ReviewDto.Read>> findAllByMemNo() {
-        return null;
+        List<ReviewDto.Read> result = txReviewApp.findAllByMemNo();
+        return ResponseEntity.ok().body(null);
     }
 
 
