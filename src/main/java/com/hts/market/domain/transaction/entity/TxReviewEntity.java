@@ -1,4 +1,4 @@
-package com.hts.market.domain.transection.entity;
+package com.hts.market.domain.transaction.entity;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -8,7 +8,7 @@ import lombok.ToString;
 @Builder
 @ToString
 public class TxReviewEntity {
-    private long txNo;
+    private Long txNo;
     private String txReviewType;
-    private long reviewNo;
+    private Long reviewNo;
 }

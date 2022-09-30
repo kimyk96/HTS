@@ -1,8 +1,8 @@
-package com.hts.market.domain.transection.repo;
+package com.hts.market.domain.transaction.repo;
 
-import com.hts.market.domain.transection.dto.ReviewDto;
-import com.hts.market.domain.transection.dto.TxReviewDto;
-import com.hts.market.domain.transection.entity.TxReviewEntity;
+import com.hts.market.domain.transaction.dto.ReviewDto;
+import com.hts.market.domain.transaction.dto.TxReviewDto;
+import com.hts.market.domain.transaction.entity.TxReviewEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

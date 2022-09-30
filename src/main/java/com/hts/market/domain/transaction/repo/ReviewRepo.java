@@ -1,7 +1,6 @@
-package com.hts.market.domain.transection.repo;
+package com.hts.market.domain.transaction.repo;
 
-import com.hts.market.domain.transection.dto.ReviewDto;
-import com.hts.market.domain.transection.entity.TxEntity;
+import com.hts.market.domain.transaction.dto.ReviewDto;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

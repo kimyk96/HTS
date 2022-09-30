@@ -1,6 +1,8 @@
-package com.hts.market.domain.transection.dto;
+package com.hts.market.domain.transaction.dto;
 
 import lombok.*;
+
+import javax.validation.constraints.NotNull;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TxDto {
@@ -9,9 +11,11 @@ public class TxDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Create{
-        private long txNo;
-        private long pdtNo;
-        private long buyerNo;
+        private Long txNo;
+        @NotNull
+        private Long pdtNo;
+        @NotNull
+        private Long buyerNo;
     }
 
     @Data
@@ -19,9 +23,9 @@ public class TxDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Read{
-        private long txNo;
-        private long pdtNo;
-        private long buyerNo;
+        private Long txNo;
+        private Long pdtNo;
+        private Long buyerNo;
     }
 
 }

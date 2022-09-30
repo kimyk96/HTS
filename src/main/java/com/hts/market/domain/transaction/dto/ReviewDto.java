@@ -1,4 +1,4 @@
-package com.hts.market.domain.transection.dto;
+package com.hts.market.domain.transaction.dto;
 
 import lombok.*;
 
@@ -9,7 +9,7 @@ public class ReviewDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Read{
-        private long reviewNo;
+        private Long reviewNo;
         private String review;
     }
 }

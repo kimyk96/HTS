@@ -1,4 +1,4 @@
-package com.hts.market.domain.transection.app;
+package com.hts.market.domain.transaction.app;
 
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.hts.market.domain.transection.entity;
+package com.hts.market.domain.transaction.entity;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -10,9 +10,8 @@ import java.time.LocalDateTime;
 @Builder
 @Getter
 public class TxEntity {
-    private long txNo;
-    private long pdtNo;
-    private long buyerNo;
+    private Long txNo;
+    private Long pdtNo;
+    private Long buyerNo;
     private LocalDateTime txCreatedAt;
-
 }
