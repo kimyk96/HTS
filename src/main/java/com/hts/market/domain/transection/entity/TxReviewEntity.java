@@ -9,6 +9,6 @@ import lombok.ToString;
 @ToString
 public class TxReviewEntity {
     private long txNo;
-    private String txReviewTyoe;
+    private String txReviewType;
     private long reviewNo;
 }
