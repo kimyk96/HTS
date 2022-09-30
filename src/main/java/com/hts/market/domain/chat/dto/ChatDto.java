@@ -13,14 +13,15 @@ public class ChatDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Create {
-        private Long chatNo;
-        private Long memNo;
+        private Long chatMsgNo;
+        private Long chatMemNo;
+        private Long chatPdtNo;
         @NotEmpty(message = "메세지를 입력해주세요")
         private String chatContent;
-        private Long chatListNo;
+        private LocalDateTime chatCreatedAt;
 
         public ChatEntity toEntity() {
-            return ChatEntity.builder().memNo(memNo).chatContent(chatContent).chatNo(chatNo).build();
+            return ChatEntity.builder().chatContent(chatContent).build();
         }
     }
 
@@ -28,10 +29,13 @@ public class ChatDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Read {
-        private Long chatNo;
+        private Long chatMsgNo;
         private Long memNo;
+        private Long chatPdtNo;
         private String chatContent;
-        private Long chatListNo;
+        private Boolean chatChecked;
         private LocalDateTime chatCreateAt;
+
+
     }
 }

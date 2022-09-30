@@ -11,10 +11,11 @@ import java.time.LocalDateTime;
 @Builder
 @ToString
 public class ChatEntity {
-    public Long chatNo;
-    public Long memNo;
+    public Long chatPdtNo;
+    public Long chatMemNo;
+    public Long chatMsgNo;
     public String chatContent;
-    public Long chatListNo;
+    public Boolean chatCheck;
     public LocalDateTime chatCreatedAt;
 }
 

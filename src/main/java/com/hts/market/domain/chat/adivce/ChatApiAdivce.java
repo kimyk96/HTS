@@ -1,4 +1,4 @@
-package com.hts.market.domain.chat.api.adivce;
+package com.hts.market.domain.chat.adivce;
 
 
 import com.hts.market.domain.chat.exception.NonUserException;
