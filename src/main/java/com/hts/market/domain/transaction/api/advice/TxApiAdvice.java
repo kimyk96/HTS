@@ -23,12 +23,12 @@ public class TxApiAdvice {
     }
 
     @ExceptionHandler(ReviewSaveFailExcetion.class)
-    public ResponseEntity<String> ReviewSaveFailExcetionHandler() {
+    public ResponseEntity<String> reviewSaveFailExcetionHandler() {
         return ResponseEntity.status(HttpStatus.CONFLICT).body("리뷰 작성에 실패하였습니다.");
     }
 
     @ExceptionHandler(ReviewUpdateFailExcetion.class)
-    public ResponseEntity<String> ReviewUpdateFailExcetionHandler() {
+    public ResponseEntity<String> reviewUpdateFailExcetionHandler() {
         return ResponseEntity.status(HttpStatus.CONFLICT).body("리뷰 수정에 실패하였습니다.");
     }
 }

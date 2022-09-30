@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -17,25 +19,25 @@ public class TxApi {
     @Autowired TxApp txApp;
 
     @PostMapping("/save")
-    public ResponseEntity<Integer> save(TxDto.Create dto){
+    public ResponseEntity<Integer> save(@Valid TxDto.Create dto, Principal principal){
         Integer result = txApp.save();
         return ResponseEntity.ok().body(1);
     }
 
     @DeleteMapping ("/delete")
-    public ResponseEntity<Integer> delete(Long txNo){
+    public ResponseEntity<Integer> delete(Long txNo, Principal principal){
         Integer result = txApp.delete();
         return ResponseEntity.ok().body(1);
     }
 
     @GetMapping ("/find-all-by-mem-no")
-    public ResponseEntity<List<TxDto.Read>> findAllByMemNo(){
+    public ResponseEntity<List<TxDto.Read>> findAllByMemNo(Long memNo, Principal principal){
         List<TxDto.Read> result = txApp.findAllByMemNo();
         return ResponseEntity.ok().body(null);
     }
 
     @GetMapping ("/find-by-id")
-    public ResponseEntity<TxDto.Read> findById(){
+    public ResponseEntity<TxDto.Read> findById(Long txNo, Principal principal){
         TxDto.Read result = txApp.findById();
         return ResponseEntity.ok().body(null);
     }

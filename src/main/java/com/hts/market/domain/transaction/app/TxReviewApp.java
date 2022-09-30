@@ -8,16 +8,16 @@ import java.util.List;
 
 @Service
 public class TxReviewApp {
-    public Integer save(TxReviewDto.Create dto) {
+    public Integer save() {
         return null;
     }
 
-    public Integer delete(Long TxReviewNo) {
+    public Integer delete() {
 
         return null;
     }
 
-    public List<ReviewDto.Read> findAllByMemNo(Long TxReviewNo) {
+    public List<ReviewDto.Read> findAllByMemNo() {
 
         return null;
     }

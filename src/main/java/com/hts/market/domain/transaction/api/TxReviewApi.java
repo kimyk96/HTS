@@ -8,6 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -17,19 +20,19 @@ public class TxReviewApi {
     @Autowired TxReviewApp txReviewApp;
 
     @PostMapping("save")
-    public ResponseEntity<Integer> save() {
+    public ResponseEntity<Integer> save(@Valid TxReviewDto.Create dto, Principal principal) {
         Integer result=txReviewApp.save();
         return ResponseEntity.ok().body(1);
     }
 
     @DeleteMapping("delete")
-    public ResponseEntity<Integer> delete() {
+    public ResponseEntity<Integer> delete(Long TxReviewNo, Principal principal) {
         Integer result=txReviewApp.delete();
         return ResponseEntity.ok().body(1);
     }
 
     @GetMapping("find-all-by-mem-no")
-    public ResponseEntity<List<ReviewDto.Read>> findAllByMemNo() {
+    public ResponseEntity<List<ReviewDto.Read>> findAllByMemNo(Long memNo, Principal principal) {
         List<ReviewDto.Read> result = txReviewApp.findAllByMemNo();
         return ResponseEntity.ok().body(null);
     }

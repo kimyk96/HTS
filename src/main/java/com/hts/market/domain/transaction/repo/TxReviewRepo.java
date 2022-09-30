@@ -11,7 +11,7 @@ import java.util.List;
 public interface TxReviewRepo {
     public TxReviewEntity save(TxReviewDto.Create dto);
 
-    public long delete(long TxReviewNo);
+    public Long delete(Long TxReviewNo);
 
-    public List<ReviewDto.Read> findAllbyMemNo(long memNo);
+    public List<ReviewDto.Read> findAllbyMemNo(Long memNo);
 }
