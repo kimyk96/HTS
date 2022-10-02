@@ -3,16 +3,17 @@ package com.hts.market.domain.product.api.advice;
 import com.hts.market.domain.product.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice
+@ControllerAdvice
 public class PdtApiAdvice {
     // PdtApiAdvice
-    @ExceptionHandler(KeywordNotFoundException.class)
-    public ResponseEntity<String> ProductSaveFailException(){
-        return ResponseEntity.status(HttpStatus.CONFLICT).body("판매글을 작성할 수 없습니다");
-    }
+//    @ExceptionHandler(KeywordNotFoundException.class)
+//    public ResponseEntity<String> ProductSaveFailException(){
+//        return ResponseEntity.status(HttpStatus.CONFLICT).body("판매글을 작성할 수 없습니다");
+//    }
     @ExceptionHandler(ProductUpdateFailException.class)
     public ResponseEntity<String> ProductUpdateFailException(){
         return ResponseEntity.status(HttpStatus.CONFLICT).body("판매글을 수정할 수 없습니다");

@@ -1,12 +1,9 @@
 package com.hts.market.domain.chat.dto;
 
-import com.hts.market.domain.chat.entity.ChatEntity;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.security.Timestamp;
-import java.time.LocalDateTime;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ChatDto {

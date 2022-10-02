@@ -21,9 +21,11 @@ public class PdtApi {
     private PdtApp pdtApp;
 
     // 상품등록
-    @PreAuthorize("")
+//    @PreAuthorize("")
     @PostMapping("save")
-    public ResponseEntity<Integer> save(@Valid PdtDto.Create dto, Principal principal) {return null;}
+    public ResponseEntity<Integer> save(@Valid PdtDto.Create dto, Principal principal) {
+        return null;
+    }
 
     // 상품수정
     @PutMapping("update")

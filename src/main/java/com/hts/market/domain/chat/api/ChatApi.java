@@ -27,15 +27,11 @@ public class ChatApi {
         return ResponseEntity.ok().body(sendMessage);
     }
 
-    ;
-
     //채팅내역 불러오기
     @GetMapping("find-all-by-chat-msg-no")
     public ResponseEntity<List<ChatDto.Read>> findAllByChatMsgNo(Long chatListNo) {
         List<ChatDto.Read> messageList = chatApp.findAllByChatMsgNo();
         return ResponseEntity.ok().body(messageList);
     }
-
-    ;
 
 }

@@ -16,25 +16,25 @@ public class ReviewApi {
     @Autowired ReviewApp reviewApp;
     @PostMapping("save")
     public ResponseEntity<Integer> save(Long reviewNo, Principal principal) {
-        Integer result=ReviewApp.save();
+//        Integer result=ReviewApp.save();
         return ResponseEntity.ok().body(1);
     }
     @PutMapping("update")
     public ResponseEntity<Integer> update(Long reviewNo, Principal principal) {
-        Integer result=ReviewApp.update();
+//        Integer result=ReviewApp.update();
         return ResponseEntity.ok().body(1);
     }
 
     @DeleteMapping("delete")
     public ResponseEntity<Integer> delete(Long reviewNo, Principal principal) {
-        Integer result=ReviewApp.delete();
+//        Integer result=ReviewApp.delete();
         return ResponseEntity.ok().body(1);
     }
 
 
     @GetMapping("/find-by-review-no")
     public ResponseEntity<TxDto.Read> findByReviewNo(ReviewDto.Read dto, Principal principal){
-        TxDto.Read result = ReviewApp.findByReviewNo();
+//        TxDto.Read result = ReviewApp.findByReviewNo();
         return ResponseEntity.ok().body(null);
     }
 
