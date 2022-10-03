@@ -1,11 +1,11 @@
 package com.hts.market.domain.board.api;
 
 
+import com.hts.market.domain.board.dto.BrdDto;
+import com.hts.market.domain.board.dto.CmtDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
@@ -16,40 +16,40 @@ public class CmtApi {
 
     // 댓글 작성
     @PostMapping("cmt-save")
-    public ResponseEntity<Integer> save(){
+    public ResponseEntity<Integer> save(CmtDto.Create dto){
         return null;
     }
 
 
     // 댓글수정
-    @PostMapping("cmt-update")
-    public ResponseEntity<Integer> update(){
+    @PutMapping("cmt-update")
+    public ResponseEntity<Integer> update(CmtDto.Update dto){
         return null;
     }
 
 
     // 댓글삭제
-    @PostMapping("cmt-delete")
-    public ResponseEntity<Integer> delete(){
+    @DeleteMapping("cmt-delete")
+    public ResponseEntity<Integer> delete(CmtDto.Delete dto){
         return null;
     }
 
 
     // 댓글작성자
-    @PostMapping("cmt-find-mem")
-    public ResponseEntity<Long> findMemNoByCmtNo(){
+    @GetMapping("cmt-find-mem")
+    public ResponseEntity<Long> findMemNoByCmtNo(Long cmtNo){
         return null;
     }
 
     // 댓글작성시간
-    @PostMapping("cmt-crated-at")
-    public ResponseEntity<LocalDateTime> findCreatedAtByCmtNo(){
+    @GetMapping("cmt-crated-at")
+    public ResponseEntity<LocalDateTime> findCreatedAtByCmtNo(Long cmtNo){
         return null;
     }
 
     // 댓글을 남길 게시물
     @PostMapping("find-brd")
-    public ResponseEntity<Long> findBrdNo(){
+    public ResponseEntity<Long> findBrdNo(BrdDto dto){
         return null;
     }
 }

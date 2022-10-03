@@ -1,5 +1,6 @@
 package com.hts.market.domain.board.api;
 
+import com.hts.market.domain.board.dto.BrdRptDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +15,7 @@ public class BrdRptApi {
 
     // 댓글 작성
     @PostMapping("rpt-save")
-    public ResponseEntity<Integer> save(){
+    public ResponseEntity<Integer> save(BrdRptDto.Create dto){
         return null;
     }
 }
