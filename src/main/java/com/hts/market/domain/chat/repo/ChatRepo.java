@@ -2,9 +2,10 @@ package com.hts.market.domain.chat.repo;
 
 import com.hts.market.domain.chat.dto.ChatDto;
 import com.hts.market.domain.chat.dto.ChatListDto;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
-
+@Mapper
 public interface ChatRepo {
 
     //채팅저장

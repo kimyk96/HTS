@@ -3,8 +3,8 @@
 <mapper namespace="com.hts.market.domain.chat.repo.ChatRepo">
     <!-- save() -->
     <insert id="save">
-        <selectKey resultType="long" order="BEFORE" keyProperty="save">
-            select nvl(max(mem_no),0)+1 from CHAT
+        <selectKey resultType="long" order="BEFORE" keyProperty="chatMsgNo">
+            select nvl(max(chat_msg_no),0)+1 from CHAT WHERE chat_mem_no =#{chatMemNo} and chat_pdt_no =#{chatPdtNo}
         </selectKey>
         INSERT INTO
         CHAT( chat_msg_no, chat_mem_no, chat_pdt_no, chat_content )
@@ -13,14 +13,14 @@
     </insert>
 
     <!-- findAllById -->
-    <select id="findAllById" resultType="com.hts.market.domain.chat.dto.ChatDto$read">
+    <select id="findAllByChatMemNoAndChatPdtNo" resultType="com.hts.market.domain.chat.dto.ChatDto$read">
         <![CDATA[
             SELECT
                 chat_msg_no, chat_mem_no, chat_pdt_no
             FROM
                 CHAT
             WHERE
-                chat_mem_no=#{chatMemNo}, chat_pdt_no{chatMsgNo},  and rownum <= 1
+                chat_mem_no=#{chatMemNo}, chat_pdt_no=#{chatPdtNo}  and rownum <= 1
         ]]>
 
     </select>
