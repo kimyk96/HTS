@@ -10,5 +10,6 @@ public class ChatListDto {
     public static class ListDto{
         public Long chatPdtNo;
         public Long chatMemNo;
+        public String chatContent;
     }
 }
