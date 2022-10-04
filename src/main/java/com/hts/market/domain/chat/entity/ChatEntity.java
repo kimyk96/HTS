@@ -4,7 +4,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Getter
@@ -15,7 +14,7 @@ public class ChatEntity {
     public Long chatMemNo;
     public Long chatMsgNo;
     public String chatContent;
-    public Boolean chatCheck;
+    public Boolean chatCheked;
     public LocalDateTime chatCreatedAt;
 }
 

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hts.market.domain.chat.repo.ChatRepo">
+    <!-- save() -->
+    <insert id="save">
+        <selectKey resultType="long" order="BEFORE" keyProperty="save">
+            select nvl(max(mem_no),0)+1 from CHAT
+        </selectKey>
+        INSERT INTO
+        CHAT( chat_msg_no, chat_mem_no, chat_pdt_no, chat_content )
+        VALUES
+        ( #{chatMsgNo}, #{chatMemNo}, #{chatPdtNo} ,#{chatContent} )
+    </insert>
+
+    <!-- findAllById -->
+    <select id="findAllById" resultType="com.hts.market.domain.chat.dto.ChatDto$read">
+        <![CDATA[
+            SELECT
+                chat_msg_no, chat_mem_no, chat_pdt_no
+            FROM
+                CHAT
+            WHERE
+                chat_mem_no=#{chatMemNo}, chat_pdt_no{chatMsgNo},  and rownum <= 1
+        ]]>
+
+    </select>
+</mapper>

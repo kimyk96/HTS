@@ -1,6 +1,9 @@
 package com.hts.market.domain.chat.app;
 
+import com.hts.market.domain.chat.api.ChatApi;
 import com.hts.market.domain.chat.dto.ChatDto;
+import com.hts.market.domain.chat.dto.ChatListDto;
+import com.hts.market.domain.chat.exception.ChatListNotFoundException;
 import com.hts.market.domain.chat.exception.NonUserException;
 import com.hts.market.domain.chat.repo.ChatRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +16,35 @@ import java.util.List;
 public class ChatApp {
     @Autowired ChatRepo chatRepo;
 
-    public Integer save(ChatDto.Create creDto) {
-        return null;
-    };
+    // 고을호 > 서버(저장) > 김용광
 
-    public List<ChatDto.Read> findAllByChatMsgNo() {
-        return null;
+    public Integer save(ChatDto.Create creDto) {
+        // 사용자 채팅 정보 -> DB 저장
+        Integer result = chatRepo.save(creDto);
+//        Boolean result2 = result.equals(1) ? true : 짓false;
+        if(result.equals(1)){
+            // DB 에 저장이 성공했으면 -> 상대방한테 채팅을 보내줘야되고
+            // 웹소켓
+            return 1;
+        }else{
+            // DB 에 저장이 실패했으면 -> 보낸사람한테 실패 메세지를 보내줘야되지.
+            return 0;
+        }
+    }
+
+
+// 웹사이트 내에서 채팅 창을 켰어 > 메세지를 보여줘야되는데 > ajax() -> 서버에 요청 (채팅내역(회원번호, 채팅번호, 상품번호))
+
+
+    // 채팅내역 불러오기
+    public List<ChatDto.Read> findAllById(ChatListDto.ListDto listDto) {
+        List<ChatDto.Read> list = chatRepo.findAllById(listDto);
+        if(list.size()==0){
+            // 채팅내역이 없습니다.
+            throw new ChatListNotFoundException();
+        }else{
+            // 채팅 내역이 있음.
+            return list;
+        }
     }
 }
