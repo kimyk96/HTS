@@ -20,9 +20,6 @@ public class MemDto {
         private String memNickname;
         private String memEmail;
         private Integer memPhone;
-        private String memAccessToken;
-        private String memRefreshToken;
-        private String memSignupType;
     }
     @Data @Builder @AllArgsConstructor @NoArgsConstructor
     public static class Read{

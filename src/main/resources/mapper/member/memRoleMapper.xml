@@ -6,7 +6,7 @@
         INSERT INTO
             MEMBER_ROLE( mem_no, role_no )
         VALUES
-            ( #{memNo}, #{role_no} )
+            ( #{memNo}, #{roleNo} )
     </insert>
 
     <!--    회원권한 조회-->

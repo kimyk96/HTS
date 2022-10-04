@@ -7,7 +7,6 @@ import java.util.List;
 
 @Mapper
 public interface AddressRepo {
-
     // 주소 저장
     Integer save(AddressDto.Create dto);
 

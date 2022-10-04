@@ -29,9 +29,9 @@
             select nvl(max(mem_no),0)+1 from MEMBER
         </selectKey>
         insert into
-            MEMBER( mem_no, mem_username, mem_password, mem_name, mem_nickname, mem_email, mem_phone, mem_access_token, mem_refresh_token, mem_signup_type )
+            MEMBER( mem_no, mem_username, mem_password, mem_name, mem_nickname, mem_email, mem_phone )
         values
-            ( #{memNo}, #{memUsername}, #{memPassword}, #{memName}, #{memNickname}, #{memEmail}, #{memPhone}, #{memAccessToken}, #{memRefreshToken}, #{memSignupType} )
+            ( #{memNo}, #{memUsername}, #{memPassword}, #{memName}, #{memNickname}, #{memEmail}, #{memPhone} )
     </insert>
     <!-- 회원 조회(memNo) -->
     <select id="findById" resultType="com.hts.market.domain.member.dto.MemDto$Read">

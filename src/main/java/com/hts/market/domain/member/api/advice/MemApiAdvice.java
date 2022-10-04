@@ -1,13 +1,33 @@
 package com.hts.market.domain.member.api.advice;
 
 import com.hts.market.domain.member.exception.*;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import com.hts.market.global.config.security.auth.MemDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.RestTemplate;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @RestControllerAdvice
 public class MemApiAdvice {
+    @Autowired MemDetailsService memDetailsService;
+
     @ExceptionHandler(UsernameNotFoundException.class)
     public ResponseEntity<String> usernameNotFoundExceptionHandler() {
         return ResponseEntity.status(HttpStatus.CONFLICT).body("해당 유저명을 가진 유저를 찾을 수 없습니다.");
@@ -24,9 +44,18 @@ public class MemApiAdvice {
     public ResponseEntity<String> phoneAlreadyTakenExceptionHandler() {
         return ResponseEntity.status(HttpStatus.CONFLICT).body("이미 사용된 전화번호입니다.");
     }
+    @ExceptionHandler(KakaoMemberAlreadyExsistException.class)
+    public void kakaoMemberAlreadyExsistExceptionHandler(HttpServletResponse response, KakaoMemberAlreadyExsistException e) throws IOException {
+        UserDetails user = memDetailsService.loadUserByUsername(e.getUsername());
+        Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(auth);
+        response.sendRedirect("/loginTest?msg=" + URLEncoder.encode("이미 가입된 회원입니다.", "utf-8"));
+    }
     @ExceptionHandler(MemberAlreadyExsistException.class)
-    public ResponseEntity<String> memberAlreadyExsistExceptionHandler() {
-        return ResponseEntity.status(HttpStatus.CONFLICT).body("이미 가입된 회원입니다.");
+    public void memberAlreadyExsistExceptionHandler(HttpServletResponse response) throws IOException {
+        response.sendRedirect("/login?msg=" + URLEncoder.encode("이미 가입된 회원입니다.", "utf-8"));
+        // 로그인 창으로
+//        return ResponseEntity.status(HttpStatus.CONFLICT).body("이미 가입된 회원입니다.");
     }
     @ExceptionHandler(MemberNotFoundException.class)
     public ResponseEntity<String> memberNotFoundExceptionHandler() {

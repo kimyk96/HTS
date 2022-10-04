@@ -1,0 +1,35 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <style>
+
+    </style>
+</head>
+<body id="login">
+<div class="container">
+    <div id="top">
+
+    </div>
+    <div id="middle">
+        <form action="/login" method="POST">
+            <input type="text" placeholder="아이디" id="username" name="username"/><br>
+            <input type="password" placeholder="비밀번호" id="password" name="password"/><br>
+            <button type="submit">로그인</button>
+        </form>
+        <p><a href="#">어....뭐였지? <span>비밀번호 찾기</span></a></p>
+        <p><a href="/">아직 회원이 아니신가요? <span>회원가입</span></a></p>
+    </div>
+    <div id="bottom">
+        <a href="#">카카오로 로그인</a>
+    </div>
+</div>
+<script>
+
+</script>
+
+</body>
+</html>

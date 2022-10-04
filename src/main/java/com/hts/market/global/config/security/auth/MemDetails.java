@@ -35,6 +35,8 @@ public class MemDetails implements UserDetails {
         return this.memEntity.getMemUsername();
     }
 
+
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -52,6 +54,7 @@ public class MemDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return (this.memEntity.getMemIsEnabled().equals(1)) ? true : false;
+        return true;
+        //return (this.memEntity.getMemIsEnabled().equals(1)) ? true : false;
     }
 }

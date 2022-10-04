@@ -40,8 +40,7 @@ public class SecurityConfig {
         http
                 .formLogin()
 //                .loginPage("/login")
-                .loginProcessingUrl("/login")
-                .failureUrl("/login?error=memberNotFound");
+                .loginProcessingUrl("/login");
         http
                 .logout()
                 .logoutUrl("/logout")

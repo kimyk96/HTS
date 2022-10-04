@@ -3,22 +3,35 @@ package com.hts.market.domain.member.app;
 import com.hts.market.domain.member.dto.MemDto;
 import com.hts.market.domain.member.dto.MemRoleDto;
 import com.hts.market.domain.member.dto.RoleDto;
+import com.hts.market.domain.member.exception.KakaoMemberAlreadyExsistException;
 import com.hts.market.domain.member.exception.MemberAlreadyExsistException;
 import com.hts.market.domain.member.repo.MemRepo;
 import com.hts.market.domain.member.repo.MemRoleRepo;
+import com.hts.market.global.config.security.auth.MemDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Service
 public class KakaoApp {
     @Autowired MemRepo memRepo;
     @Autowired MemRoleRepo memRoleRepo;
+    @Autowired MemDetailsService memDetailsService;
     @Autowired PasswordEncoder passwordEncoder;
 
     // 카카오 회원가입
@@ -31,13 +44,13 @@ public class KakaoApp {
         // 회원 가입 여부 확인
         if(memRepo.countByMemUsername(memInfo.get("id").toString()).equals(1)){
             // 이미 가입된 회원 -> 자동 로그인
-            throw new MemberAlreadyExsistException();
+            throw new KakaoMemberAlreadyExsistException(memInfo.get("id").toString());
         }else{
             // 회원 가입 진행
             MemDto.Create memDto = MemDto.Create.builder()
-                    .memSignupType("kakao")
-                    .memAccessToken(memTokens.get("access_token").toString())
-                    .memRefreshToken(memTokens.get("refresh_token").toString())
+//                    .memSignupType("kakao")
+//                    .memAccessToken(memTokens.get("access_token").toString())
+//                    .memRefreshToken(memTokens.get("refresh_token").toString())
                     .memUsername(memInfo.get("id").toString())
                     .memPassword(passwordEncoder.encode(memInfo.get("id").toString()))
                     .memNickname(memProfile.get("nickname").toString())

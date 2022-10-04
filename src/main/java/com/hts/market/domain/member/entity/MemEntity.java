@@ -16,8 +16,5 @@ public class MemEntity {
     private Integer memPhone;
     private Integer memBrix;
     private Integer memIsEnabled;
-    private String memAccessToken;
-    private String memRefreshToken;
-    private String memSignupType;
     private LocalDateTime memCreatedAt;
 }
