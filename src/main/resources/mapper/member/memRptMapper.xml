@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hts.market.domain.member.repo.MemRptRepo">
+    <!--    신고 저장-->
+    <insert id="save">
+        <selectKey resultType="long" order="BEFORE" keyProperty="rptNo">
+            select nvl(max(rpt_no),0)+1 from MEMBER_REPORT
+        </selectKey>
+        insert into
+        MEMBER_REPORT( rpt_no, rpt_mem_no, rpt_target_no, rpt_msg_no )
+        values
+        ( #{rptNo}, #{rptMemNo}, #{rptTargetNo}, #{rptMsgNo} )
+    </insert>
+</mapper>

@@ -1,9 +1,7 @@
-package com.hts.market.global.api;
+package com.hts.market.domain.member.api;
 
-import com.hts.market.domain.member.app.MemRoleApp;
-import com.hts.market.domain.member.dto.MemRoleDto;
-import com.hts.market.global.app.AddressApp;
-import com.hts.market.global.dto.AddressDto;
+import com.hts.market.domain.member.app.AddressApp;
+import com.hts.market.domain.member.dto.AddressDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -30,6 +28,12 @@ public class AddressApi {
     @GetMapping("find-by-id")
     public ResponseEntity<AddressDto.Read> findById(Long addressNo){
         return ResponseEntity.ok().body(addressApp.findById(addressNo));
+    }
+    
+    // 회원별 주소 전체 조회
+    @GetMapping("find-all-by-id")
+    public ResponseEntity<List<AddressDto.Read>> findAllById(Long memNo){
+        return ResponseEntity.ok().body(addressApp.findAllById(memNo));
     }
 
     // 주소 수정

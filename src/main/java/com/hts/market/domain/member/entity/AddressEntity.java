@@ -1,4 +1,4 @@
-package com.hts.market.global.entity;
+package com.hts.market.domain.member.entity;
 
 import lombok.Builder;
 import lombok.Getter;

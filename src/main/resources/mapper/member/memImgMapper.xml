@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hts.market.domain.member.repo.memImgRepo">
+    <!--    회원이미지 저장-->
+    <insert id="save">
+        <selectKey resultType="long" order="BEFORE" keyProperty="imgNo">
+            SELECT NVL(MAX(img_no),0)+1 FROM MEMBER_IMAGE
+        </selectKey>
+        INSERT INTO
+            MEMBER_IMAGE( mem_no, img_no, img_path )
+        VALUES
+            ( #{memNo}, #{imgNo}, #{imgPath} )
+    </insert>
+
+    <!--    회원이미지 조회-->
+    <select id="findById" resultType="com.hts.market.domain.member.dto.MemImgDto$Read">
+        <![CDATA[
+            SELECT
+                *
+            FROM
+                MEMBER_IMAGE
+            WHERE
+                mem_no=#{memNo} and rownum <= 1
+        ]]>
+    </select>
+
+    <!--    회원이미지 수정-->
+    <update id="update">
+        <![CDATA[
+            UPDATE
+                MEMBER_IMAGE
+            SET
+                img_no=#{imgNo}, img_path=#{imgPath}
+            WHERE
+                mem_no=#{memNo}
+        ]]>
+    </update>
+
+    <!--    회원이미지 삭제-->
+    <delete id="delete">
+        <![CDATA[
+            DELETE FROM
+                MEMBER_IMAGE
+            WHERE
+                mem_no=#{memNo}
+        ]]>
+    </delete>
+</mapper>

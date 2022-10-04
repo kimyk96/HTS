@@ -1,4 +1,4 @@
-package com.hts.market.global.dto;
+package com.hts.market.domain.member.dto;
 
 import lombok.*;
 

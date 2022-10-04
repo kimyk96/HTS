@@ -1,9 +1,11 @@
-package com.hts.market.global.app;
+package com.hts.market.domain.member.app;
 
-import com.hts.market.global.dto.AddressDto;
-import com.hts.market.global.repo.AddressRepo;
+import com.hts.market.domain.member.dto.AddressDto;
+import com.hts.market.domain.member.repo.AddressRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class AddressApp {
@@ -18,6 +20,11 @@ public class AddressApp {
     // 주소 조회
     public AddressDto.Read findById(Long addressNo) {
         return addressRepo.findById(addressNo);
+    }
+
+    // 회원별 주소 전체 조회
+    public List<AddressDto.Read> findAllById(Long memNo) {
+        return addressRepo.findAllById(memNo);
     }
 
     // 주소 수정

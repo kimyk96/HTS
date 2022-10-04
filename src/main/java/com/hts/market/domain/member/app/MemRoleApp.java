@@ -20,14 +20,21 @@ public class MemRoleApp {
         return memRoleRepo.save(dto);
     }
 
-    // 회원 권한 삭제
-    public Integer delete(Long memNo) {
-        return memRoleRepo.delete(memNo);
-    }
-
     // 회원 권한 조회
     public List<MemRoleDto.Read> findAllById(Long memNo) {
         return memRoleRepo.findAllById(memNo);
     }
+
+    // 회원 권한 수정
+    public Integer update(MemRoleDto.Update dto) {
+        return memRoleRepo.update(dto);
+    }
+
+    // 회원 권한 삭제
+    public Integer delete(MemRoleDto.Delete dto) {
+        return memRoleRepo.delete(dto);
+    }
+
+
 
 }

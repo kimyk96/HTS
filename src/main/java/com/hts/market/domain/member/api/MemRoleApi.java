@@ -24,16 +24,24 @@ public class MemRoleApi {
     public ResponseEntity<Integer> save(MemRoleDto.Create dto){
         return ResponseEntity.ok().body(memRoleApp.save(dto));
     }
-    
-    // 회원 권한 삭제
-    @DeleteMapping("delete")
-    public ResponseEntity<Integer> delete(Long memNo){
-        return ResponseEntity.ok().body(memRoleApp.delete(memNo));
-    }
 
     // 회원 권한 조회
     @GetMapping("find-all-by-id")
     public ResponseEntity<List<MemRoleDto.Read>> findAllById(Long memNo){
         return ResponseEntity.ok().body(memRoleApp.findAllById(memNo));
     }
+
+    // 회원 권한 수정
+    @PutMapping("update")
+    public ResponseEntity<Integer> update(MemRoleDto.Update dto){
+        return ResponseEntity.ok().body(memRoleApp.update(dto));
+    }
+    
+    // 회원 권한 삭제
+    @DeleteMapping("delete")
+    public ResponseEntity<Integer> delete(MemRoleDto.Delete dto){
+        return ResponseEntity.ok().body(memRoleApp.delete(dto));
+    }
+
+
 }
