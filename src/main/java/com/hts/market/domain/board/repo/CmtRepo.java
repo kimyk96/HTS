@@ -15,11 +15,8 @@ public interface CmtRepo {
     //댓글삭제
     public Integer delete();
 
-    //댓글작성자정보
-    public Long findMemNoByCmtNo();
 
-    //댓글 작성시간
-    public LocalDateTime findCreatedAtByCmtNo();
+
 
     //댓글을 남길 게시물
     public Long findBrdNo();

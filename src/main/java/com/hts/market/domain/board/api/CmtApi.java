@@ -1,8 +1,10 @@
 package com.hts.market.domain.board.api;
 
 
+import com.hts.market.domain.board.app.CmtApp;
 import com.hts.market.domain.board.dto.BrdDto;
 import com.hts.market.domain.board.dto.CmtDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,8 @@ import java.time.LocalDateTime;
 @Validated
 @RequestMapping("/api/v1/brd")
 public class CmtApi {
+    @Autowired
+    CmtApp cmtapp;
 
     // 댓글 작성
     @PostMapping("cmt-save")

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hts.market.domain.board.repo.BrdRepo">
+
+
+
+    <insert id="save">
+        <selectKey keyProperty="brdRptNo" order="BEFORE" resultType="Long">
+            select nvl(max(brd_no),0)+1 from BOARD
+        </selectKey>
+        insert into board(brd_no,brd_mem_no,brd_title,brd_content,brd_cate)
+
+        values(#{brdNo},#{brdMemNo}#{brdTitle}#{brdContent}#{brdCate})
+    </insert>
+
+
+</mapper>

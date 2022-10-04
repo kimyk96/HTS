@@ -1,7 +1,9 @@
 package com.hts.market.domain.board.api;
 
 
+import com.hts.market.domain.board.app.BrdImgApp;
 import com.hts.market.domain.board.dto.BrdImgDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 @Validated
 @RequestMapping("/api/v1/brd")
 public class BrdImgApi {
+    @Autowired
+    BrdImgApp brdimgapp;
 
     // 이미지작성
     @PostMapping("brd-Image-save")

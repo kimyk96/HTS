@@ -17,7 +17,7 @@ public class BrdImgDto {
     public static class Update{
         private Long brdImgNo;
         private Long brdNo;
-        private Long brdWriter;
+        private Long brdMemNo;
     }
     @Data @Builder
     @AllArgsConstructor
@@ -25,7 +25,7 @@ public class BrdImgDto {
     public static class Delete{
         private Long brdImgNo;
         private Long brdNo;
-        private Long brdWriter;//작성자가 아니면 삭제할수,,,,,,,,,
+        private Long brdMemNo;//작성자가 아니면 삭제할수,,,,,,,,,
     }
 
 }

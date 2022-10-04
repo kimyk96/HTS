@@ -1,23 +1,30 @@
 package com.hts.market.domain.board.app;
 
+import com.hts.market.domain.board.dto.BrdImgDto;
+import com.hts.market.domain.board.repo.BrdImgRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+
 public class BrdImgApp {
+
+    @Autowired
+    BrdImgRepo brdimgrepo;
     //이미지 작성
-    public Integer save(){
+    public Integer save(BrdImgDto.Create dto){
         return null;
     };
 
     //이미지 수정
-    public Integer update(){
+    public Integer update(BrdImgDto.Update dto){
         return null;
     };
 
     //이미지삭제
-    public Integer delete(){
+    public Integer delete(BrdImgDto.Delete dto){
         return null;
     };
 
     //이미지적용 게시물
-    public Long findAllByBrdNo(){
+    public Long findAllByBrdNo(Long brdNo){
         return null;
     };
 

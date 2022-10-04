@@ -1,6 +1,8 @@
 package com.hts.market.domain.board.api;
 
+import com.hts.market.domain.board.app.BrdRptApp;
 import com.hts.market.domain.board.dto.BrdRptDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 @RequestMapping("/api/v1/brd")
 public class BrdRptApi {
+    @Autowired
+    BrdRptApp brdrptapp;
 
 
     // 댓글 작성
