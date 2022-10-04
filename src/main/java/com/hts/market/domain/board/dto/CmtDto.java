@@ -14,7 +14,7 @@ public class CmtDto {
     public static class Create {
     @NotEmpty(message = "내용은 필수입력입니다")
     private String cmtContent;
-    private Long brdNo;
+    private Long cmtNo;
     private Long brdMemNo;
     }
 
@@ -34,7 +34,7 @@ public class CmtDto {
         @NotEmpty(message="제목은 필수입력입니다")
         private String cmtContent;
         private Long cmtMemNo;
-        private Long brdNo;
+        private Long cmtNo;
     }
     @Data @Builder
     @AllArgsConstructor
