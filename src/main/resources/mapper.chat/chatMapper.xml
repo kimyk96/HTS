@@ -11,17 +11,45 @@
         VALUES
         ( #{chatMsgNo}, #{chatMemNo}, #{chatPdtNo} ,#{chatContent} )
     </insert>
+    <!-- findByChatMemNo //회원간 채팅방내역 -->
+    <select id="findByChatMemNo" resultType="com.hts.market.domain.chat.dto.ChatDto$read">
+        <![CDATA[
+            SELECT
+                chat_mem_no
+            FROM
+                CHAT
+            WHERE
+                chat_mem_no=#{chatMemNo} and rownum <= 1
+        ]]>
+    </select>
 
-    <!-- findAllById -->
+    <!-- findAllByChatMemNoAndChatPdtNo //채팅내역 불러오기 -->
     <select id="findAllByChatMemNoAndChatPdtNo" resultType="com.hts.market.domain.chat.dto.ChatDto$read">
         <![CDATA[
             SELECT
-                chat_msg_no, chat_mem_no, chat_pdt_no
+                chat_mem_no, chat_pdt_no
             FROM
                 CHAT
             WHERE
                 chat_mem_no=#{chatMemNo}, chat_pdt_no=#{chatPdtNo}  and rownum <= 1
         ]]>
+    </select>
+
+    <!-- findAllByChatMemNoAndChatPdtNoAndChatMsgNo // 최근메세지 보여주기 -->
+    <select id="findAllByChatMemNoAndChatPdtNoAndChatMsgNo" resultType="com.hts.market.domain.chat.dto.ChatDto$read">
+        <![CDATA[
+            SELECT
+                chat_mem_no, chat_pdt_no, chat_msg_no
+            FROM
+                CHAT
+            WHERE
+                chat_mem_no=#{chatMemNo}, chat_pdt_no=#{chatPdtNo}, chat_msg_no=#{chatMsgNo}  and rownum <= 1
+        ]]>
 
     </select>
+
+
+
+
+
 </mapper>

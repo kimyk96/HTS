@@ -24,6 +24,8 @@ public class ChatApi {
     @Autowired ChatApp chatApp;
 
 
+
+
     // 채팅 보내기
     @PostMapping(path = "save", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Integer> save() {
@@ -33,12 +35,28 @@ public class ChatApi {
     }
 
 
-    //채팅내역 불러오기
-    @GetMapping("find-all-by-chat-msg-no")
-    public ResponseEntity<List<ChatDto.Read>> findAllById(ChatListDto.ListDto listDto) {
-        List<ChatDto.Read> messageList =  chatApp.findAllById(listDto);
+    // 회원 채팅방 내역 불러오기
+    @GetMapping("find-by-chat-mem-no")
+    public ResponseEntity<List<ChatDto.Read>> findByChatMemNo(ChatListDto.ListDto listDto) {
+        List<ChatDto.Read> messageList =  chatApp.findByChatMemNo(listDto);
         return ResponseEntity.ok().body(messageList);
     }
+
+    //채팅내역 불러오기
+    @GetMapping("find-all-by-chat-mem-no-and-chat-pdt-no")
+    public ResponseEntity<List<ChatDto.Read>> findAllByChatMemNoAndChatPdtNo(ChatListDto.ListDto listDto) {
+        List<ChatDto.Read> messageList =  chatApp.findAllByChatMemNoAndChatPdtNo(listDto);
+        return ResponseEntity.ok().body(messageList);
+    }
+
+
+    //최근메세지 보여주기
+    @GetMapping("find-all-by-chat-mem-no-and-chat-pdt-no-and-chat-msg-no")
+    public ResponseEntity<List<ChatDto.Read>> findAllByChatMemNoAndChatPdtNoAndChatMsgNo(ChatListDto.ListDto listDto) {
+        List<ChatDto.Read> messageList =  chatApp.findAllByChatMemNoAndChatPdtNoAndChatMsgNo(listDto);
+        return ResponseEntity.ok().body(messageList);
+    }
+
 
     ;
 

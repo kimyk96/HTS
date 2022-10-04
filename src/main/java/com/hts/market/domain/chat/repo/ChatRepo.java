@@ -12,7 +12,17 @@ public interface ChatRepo {
     Integer save(ChatDto.Create creDto);
 
     //채팅내역불러오기
-    List<ChatDto.Read> findAllById(ChatListDto.ListDto listDto);
+    List<ChatDto.Read> findByChatMemNo(ChatListDto.ListDto listDto);
+    //회원 상품간 채팅내역
+    List<ChatDto.Read> findAllByChatMemNoAndChatPdtNo(ChatListDto.ListDto listDto);
+
+    //회원 채팅방 내역
+    List<ChatDto.Read> findAllByChatMemNoAndChatPdtNoAndChatMsgNo(ChatListDto.ListDto listDto);
+
+    // 최근메세지
+
+
+
 
 
 }

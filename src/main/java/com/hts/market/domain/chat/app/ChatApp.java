@@ -36,9 +36,10 @@ public class ChatApp {
 // 웹사이트 내에서 채팅 창을 켰어 > 메세지를 보여줘야되는데 > ajax() -> 서버에 요청 (채팅내역(회원번호, 채팅번호, 상품번호))
 
 
-    // 채팅내역 불러오기
-    public List<ChatDto.Read> findAllById(ChatListDto.ListDto listDto) {
-        List<ChatDto.Read> list = chatRepo.findAllById(listDto);
+
+    //회원 간 채팅방 내역
+    public List<ChatDto.Read> findByChatMemNo(ChatListDto.ListDto listDto) {
+        List<ChatDto.Read> list = chatRepo.findByChatMemNo(listDto);
         if(list.size()==0){
             // 채팅내역이 없습니다.
             throw new ChatListNotFoundException();
@@ -47,4 +48,31 @@ public class ChatApp {
             return list;
         }
     }
+
+
+    // 채팅내역 불러오기
+    public List<ChatDto.Read> findAllByChatMemNoAndChatPdtNo(ChatListDto.ListDto listDto) {
+        List<ChatDto.Read> list = chatRepo.findAllByChatMemNoAndChatPdtNo(listDto);
+        if(list.size()==0){
+            // 채팅내역이 없습니다.
+            throw new ChatListNotFoundException();
+        }else{
+            // 채팅 내역이 있음.
+            return list;
+        }
+    }
+
+
+    //최근 메세지 보여주기
+    public List<ChatDto.Read> findAllByChatMemNoAndChatPdtNoAndChatMsgNo(ChatListDto.ListDto listDto) {
+        List<ChatDto.Read> list = chatRepo.findAllByChatMemNoAndChatPdtNoAndChatMsgNo(listDto);
+        if(list.size()==0){
+            // 채팅내역이 없습니다.
+            throw new ChatListNotFoundException();
+        }else{
+            // 채팅 내역이 있음.
+            return list;
+        }
+    }
+
 }
