@@ -9,8 +9,8 @@ public interface PdtRptRepo {
     public Integer save(PdtRtpDto.Create dto);
     // 신고삭제
     public Integer delete(PdtRtpDto.Delete dto);
-    // 신고목록
-    public Integer findByRptNo(PdtRtpDto.Read dto);
     // 신고보기
+    public Integer findByRptNo(PdtRtpDto.Read dto);
+    // 신고목록
     public  Integer findAll(PdtRtpDto.Page dto);
 }

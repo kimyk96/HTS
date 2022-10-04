@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hts.market.domain.product.repo.PdtFavoriteRepo">
+    <!-- 관심 등록 -->
+    <insert id="save">
+        insert into PRODUCT_FAVORITE(mem_no,pdt_no) values (#{memNo}, #{pdtNo})
+    </insert>
+    <!-- 관심 목록 -->
+    <select id="findAllByPdtNo" resultType="com.hts.market.domain.product.dto.PdtFavoriteDto$Page">
+        select * from PRODUCT_FAVORITE where mem_no=#{memNo}
+    </select>
+    <!-- 관심 해제 -->
+    <delete id="delete">
+        delete from PRODUCT_FAVORITE where mem_no=#{memNo} and pdt_no=#{pdtNo}
+    </delete>
+    <!-- 관심수 확인 -->
+    <select id="countByPdtNo" resultType="com.hts.market.domain.product.dto.PdtFavoriteDto$CountFavorite">
+        select count(pdt_no) from PRODUCT_FAVORITE where pdt_no=#{pdtNo}
+    </select>
+</mapper>

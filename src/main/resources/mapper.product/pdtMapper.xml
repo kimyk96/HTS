@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hts.market.domain.product.repo.PdtRepo">
+    <!-- 판매글등록 -->
+    <insert id="save">
+        <selectKey resultType="long" order="BEFORE" keyProperty="pdtNo">
+            select nvl(max(pdt_no),0)+1 from Product
+        </selectKey>
+        insert into
+        PRODUCT( pdt_no, pdt_cate_no, pdt_seller_no, pdt_address_no, pdt_name, pdt_status, pdt_desc, pdt_price)
+        values
+        ( #{pdtNo}, #{pdtCateNo}, #{pdtSellerNo}, #{pdtAddressNo}, #{pdtName}, #{pdtStatus}, #{pdtDesc}, #{pdtPrice},
+        #{pdtSellerNo} )
+    </insert>
+    <!-- 판매글수정 -->
+    <update id="update">
+        update PRODUCT
+        <trim prefix="set" suffixOverrides=",">
+            <if test="pdtCateNo != null">pdt_cate_no=#{pdtCateNo},</if>
+            <if test="pdtName != null">pdt_name=#{pdtName},</if>
+            <if test="pdtPrice != null">pdt_price=#{pdtPrice},</if>
+            <if test="pdtDesc != null">pdt_desc=#{pdtDesc},</if>
+            <if test="pdtStatus != null">pdt_status=#{pdtStatus},</if>
+            <if test="pdtAddressNo != null">pdt_address_no=#{pdtAddressNo},</if>
+        </trim>
+        where pdt_no=#{pdtNo}
+    </update>
+    <!-- 조회수 증가 -->
+    <select id="countByPdtNo" resultType="int">
+        select /*+ index(PRODUCT PK_PRODUCT) */ count(pdt_no) from PRODUCT
+        <where>
+            <if test="pdtSellerNo!=null">pdt_seller_no=#{pdtSellerNo}</if>
+        </where>
+    </select>
+    <!-- 판매글 삭제 -->
+    <delete id="delete">
+        delete from PRODUCT where pdt_no=#{pdtNo}
+    </delete>
+    <!-- 판매글 읽기 -->
+    <select id="findByPdtNo" resultType="com.hts.market.domain.product.dto.PdtDto$Read">
+        <![CDATA[
+  	        select * from PRODUCT where pdt_no=#{pdtNo} and rownum<=1
+  	    ]]>
+    </select>
+    <!-- 판매글 목록보기 -->
+    <select id="findAllByPdtAddress" resultType="com.hts.market.domain.product.dto.PdtDto$Page">
+        select pdt_no, pdt_name, pdt_status, pdt_price, pdt_views, pdt_created_at
+        from PRODUCT where rownum &lt;= 10 order by pdt_address_no desc
+    </select>
+    <!-- 검색할 키워드를 만드는 sql -->
+    <sql id="search">
+        <if test="pdtName == 'pdtName'">
+            WHERE pdt_name LIKE CONCAT('%'||#{keyword}||'%')
+        </if>
+        <if test="pdtDesc == 'pdtDesc'">
+            WHERE pdt_desc LIKE CONCAT('%'||#{keyword}||'%')
+        </if>
+        <if test="pdtCate == 'pdtCate'">
+            WHERE pdt_cate LIKE CONCAT('%'||#{keyword}||'%')
+        </if>
+    </sql>
+
+    <!-- 제목+내용, 카테고리로 검색(검색 통합해도 될 수도 있음) -->
+    <select id="getKeywordSearch" resultType="com.hts.market.domain.product.dto.PdtDto$Page">
+        select pdt_no, pdt_name, pdt_status, pdt_price, pdt_views, pdt_created_at from PRODUCT
+        <include refid="search"/>
+        order by pdt_no desc
+    </select>
+
+    <!-- 카테고리로 검색 -->
+    <!-- 검색기능 분리 여부는 추후 판단-->
+    <select id="getCateSearch" resultType="com.hts.market.domain.product.dto.PdtDto$Page">
+        select pdt_no, pdt_name, pdt_status, pdt_price, pdt_views, pdt_created_at from PRODUCT
+        <include refid="search"/>
+        order by pdt_no desc
+    </select>
+
+</mapper>

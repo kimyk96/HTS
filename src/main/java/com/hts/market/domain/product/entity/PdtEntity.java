@@ -11,13 +11,13 @@ import java.time.LocalDateTime;
 @Builder
 public class PdtEntity {
     private Long pdtNo;
+    private Long pdtCateNo;
+    private Long pdtAddressNo;
+    private Long pdtSellerNo;
     private String pdtName;
     private String pdtStatus;
     private String pdtDesc;
     private Integer pdtPrice;
     private Integer pdtViews;
-    private Long pdtAddressNo;
-    private Long pdtCateNo;
-    private Long pdtSellerNo;
     private LocalDateTime pdtCreatedAt;
 }

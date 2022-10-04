@@ -14,7 +14,7 @@ public class PdtRtpDto {
         private Long rptNo;
         private Long rptMemNo;
         private Long rptPdtNo;
-        private Long rptMagNo;
+        private Long rptMsgNo;
         private LocalDateTime rptCreatedAt;
     }
 
@@ -26,7 +26,7 @@ public class PdtRtpDto {
         private Long rptNo;
         private Long rptMemNo;
         private Long rptPdtNo;
-        private Long rptMagNo;
+        private Long rptMsgNo;
         private LocalDateTime rptCreatedAt;
     }
 
@@ -34,10 +34,10 @@ public class PdtRtpDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Delete{
-        private Long pdtRptNo;
-        private Long pdtRptMemNo;
-        private Long pdtRptPdtNo;
-        private Long pdtRptMsgNo;
+        private Long rptNo;
+        private Long rptMemNo;
+        private Long rptPdtNo;
+        private Long rptMsgNo;
     }
 
     @Data
@@ -45,10 +45,10 @@ public class PdtRtpDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Page{
-        private Long pdtRptNo;
-        private Long pdtRptMemNo;
-        private Long pdtRptPdtNo;
-        private Long pdtRptMsgNo;
+        private Long rptNo;
+        private Long rptMemNo;
+        private Long rptPdtNo;
+        private Long rptMsgNo;
         private LocalDateTime rptCreatedAt;
     }
 }

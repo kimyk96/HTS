@@ -2,8 +2,6 @@ package com.hts.market.domain.product.dto;
 
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PdtFavoriteDto {
     @Data
@@ -36,7 +34,6 @@ public class PdtFavoriteDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class CountFavorite{
-        private Long pdtFavoriteNo;
         private Long pdtNo;
         private Long memNo;
     }

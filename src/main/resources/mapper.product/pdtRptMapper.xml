@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hts.market.domain.product.repo.PdtRptRepo">
+    <!-- 신고등록 -->
+    <insert id="save">
+        <selectKey  resultType="long" order="BEFORE" keyProperty="rptNo">
+            select nvl(max(rpt_no),0)+1 from PRODUCT_REPORT
+        </selectKey>
+        insert into PRODUCT_REPORT(rpt_no, rpt_msg_no, rpt_mem_no, rpt_pdt_no) values( #{rptNo}, #{rptMsgNo}, #{rptMemNo}, #{rptPdtNo})
+    </insert>
+    <!-- 신고보기 -->
+    <select id="findByRptNo" resultType="com.hts.market.domain.product.dto.PdtRtpDto$Read">
+        select rpt_no, rpt_msg_no, rpt_mem_no, rpt_pdt_no, rpt_created_at from PRODUCT_REPORT
+    </select>
+    <!-- 신고목록 -->
+    <select id="findAll" resultType="com.hts.market.domain.product.dto.PdtRtpDto$Page">
+        select rpt_no, rpt_mem_no, rpt_pdt_no, rpt_created_at
+        from PRODUCT_REPORT where rownum &lt;= 10 order by rpt_no desc
+    </select>
+    <!-- 신고삭제 -->
+    <delete id="delete">
+        delete from PRODUCT_REPORT where rpt_no = #{rptNo}
+    </delete>
+</mapper>

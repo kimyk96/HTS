@@ -9,6 +9,6 @@ import lombok.ToString;
 @Getter
 public class PdtImgEntity {
     private Long pdtNo;
-    private Long pdtImgNo;
-    private String putImgPath;
+    private Long ImgNo;
+    private String ImgPath;
 }

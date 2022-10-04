@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hts.market.domain.product.repo.PdtImgRepo">
+    <!-- 이미지 저장-->
+    <insert id="save">
+        insert into (pdt_no, img_no, img_path ) values ( #{pdt_no}, #{img_no}, #{img_path} )
+    </insert>
+    <!-- 이미지 수정 -->
+    <update id="update">
+        update PRODUCT_IMAGE set img_path=#{imgPath} where pdt_no = #{pdtNo}
+    </update>
+    <!-- 이미지 보기 -->
+    <select id="findByImgNo" resultType="com.hts.market.domain.product.dto.PdtImgDto$Read">
+        select img_no, img_path from PRODUCT_IMAGE where pdt_no=#{pdtNo}
+    </select>
+    <!-- 이미지 삭제 -->
+    <delete id="delete">
+        delete from PRODUCT_IMAGE where pdt_no=#{pdtNo} and img_no=#{imgNo}
+    </delete>
+</mapper>

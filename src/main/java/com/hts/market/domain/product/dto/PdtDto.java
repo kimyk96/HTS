@@ -56,6 +56,7 @@ public class PdtDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Page {
+        private long pdtNo;
         private String pdtName;
         private LocalDateTime pdtCreatedAt;
         private Integer pdtPrice;
@@ -84,9 +85,18 @@ public class PdtDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class KeywordSearch{
-        private String desc;
-        private String title;
+        private long pdtNo;
+        private String pdtDesc;
+        private String pdtName;
     }
 
-    // 판매자 검색, 카테고리 검색은 변수1개로 DTO 안만듬
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class CateSearch{
+        private long pdtCateNo;
+        private String pdtCate;
+    }
 }
