@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hts.market.domain.transaction.repo.TxRepo">
+<!--거래 저장-->
+    <insert id="save">
+        <selectKey resultType="long" order="BEFORE" keyProperty="txNo">
+           select nvl(max(tx_no),0)+1 from TRANSACTION
+        </selectKey>
+        insert into
+          TRANSACTION (tx_no, tx_pdt_no, tx_buyer_no)
+        values
+          (#{txNo}, #{pdtNo}, #{memNo} )
+    </insert>
+<!--거래 삭제-->
+    <delete id="delete">
+        delete from
+          TRANSACTION
+        where
+          tx_no=#{txNo}
+    </delete>
+<!--거래 내역 목록 보기-->
+    <select id="findAllByMemNo" resultType="com.hts.market.domain.transaction.dto.TxDto$Read">
+    <![CDATA[
+        SELECT
+            *
+        FROM
+            TRANSACTION
+        WHERE
+            tx_no= #{txNo}, tx_pdt_no=#{pdtNo}, tx_buyer_no=#{memNo}
+        ]]>
+    </select>
+<!--거래 내역 읽기-->
+    <select id="findById" resultType="com.hts.market.domain.transaction.dto.TxDto$Read">
+    <![CDATA[
+            SELECT
+                *
+            FROM
+                TRANSACTION
+            WHERE
+                tx_no= #{txNo}, tx_pdt_no=#{pdtNo}, tx_buyer_no=#{memNo}  and rownum <= 1
+        ]]>
+    </select>
+</mapper>
