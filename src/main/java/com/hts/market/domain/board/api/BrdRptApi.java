@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Validated
-@RequestMapping("/api/v1/brd")
+@RequestMapping("/api/v1/brd-rpt")
 public class BrdRptApi {
     @Autowired
-    BrdRptApp brdrptapp;
+    BrdRptApp brdRptApp;
 
 
     // 댓글 작성

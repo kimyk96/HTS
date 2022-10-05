@@ -1,6 +1,7 @@
 package com.hts.market.domain.board.repo;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 

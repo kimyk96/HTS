@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Validated
 @RequestMapping("/api/v1/brd")
 public class BrdApi {
-    @Autowired BrdApp brdapp;
+    @Autowired BrdApp brdApp;
 
     // 게시물 작성
     @PostMapping("save")

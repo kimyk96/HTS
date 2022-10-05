@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class BrdRptApp {
     @Autowired
-    BrdRptRepo brdrptrepo;
+    BrdRptRepo brdRptRepo;
     //신고하기
     public Integer save(BrdRptDto.Create dto){
         return null;

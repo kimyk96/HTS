@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Service
 public class BrdApp {
-    @Autowired BrdRepo brdrepo;
+    @Autowired BrdRepo brdRepo;
     //게시물작성
     public Integer save(BrdDto.Create dto){
         return null;

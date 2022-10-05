@@ -13,10 +13,10 @@ import java.time.LocalDateTime;
 
 @RestController
 @Validated
-@RequestMapping("/api/v1/brd")
+@RequestMapping("/api/v1/cmt")
 public class CmtApi {
     @Autowired
-    CmtApp cmtapp;
+    CmtApp cmtApp;
 
     // 댓글 작성
     @PostMapping("cmt-save")

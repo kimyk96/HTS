@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Validated
-@RequestMapping("/api/v1/brd")
+@RequestMapping("/api/v1/brd-cate")
 public class BrdCateApi {
     @Autowired
-    BrdCateApp brdcateapp;
+    BrdCateApp brdCateApp;
 
     // 게시물 좋아요 삭제
     @GetMapping("find-brd-cate-name-by-id")

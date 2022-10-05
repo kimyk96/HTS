@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Service
 public class CmtApp {
     @Autowired
-    CmtRepo cmtrepo;
+    CmtRepo cmtRepo;
     // 댓글작성
     public Integer save(CmtDto.Create dto){
         return null;

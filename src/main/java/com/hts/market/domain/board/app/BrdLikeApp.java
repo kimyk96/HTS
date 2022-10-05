@@ -3,10 +3,12 @@ package com.hts.market.domain.board.app;
 import com.hts.market.domain.board.dto.BrdLikeDto;
 import com.hts.market.domain.board.repo.BrdLikeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class BrdLikeApp {
     @Autowired
-    BrdLikeRepo brdlikerepo;
+    BrdLikeRepo brdLikeRepo;
     //게시글 좋아요
     public Integer save(BrdLikeDto.Create dto){
         return null;

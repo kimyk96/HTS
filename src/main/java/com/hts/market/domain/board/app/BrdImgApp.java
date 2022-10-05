@@ -3,11 +3,13 @@ package com.hts.market.domain.board.app;
 import com.hts.market.domain.board.dto.BrdImgDto;
 import com.hts.market.domain.board.repo.BrdImgRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class BrdImgApp {
 
     @Autowired
-    BrdImgRepo brdimgrepo;
+    BrdImgRepo brdImgRepo;
     //이미지 작성
     public Integer save(BrdImgDto.Create dto){
         return null;

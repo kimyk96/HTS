@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Validated
-@RequestMapping("/api/v1/brd")
+@RequestMapping("/api/v1/brd-img")
 public class BrdImgApi {
     @Autowired
-    BrdImgApp brdimgapp;
+    BrdImgApp brdImgApp;
 
     // 이미지작성
     @PostMapping("brd-Image-save")

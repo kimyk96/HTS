@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Validated
-@RequestMapping("/api/v1/brd")
+@RequestMapping("/api/v1/brd-like")
 public class BrdLikeApi {
     @Autowired
-    BrdLikeApp brdlikeapp;
+    BrdLikeApp brdLikeApp;
 
 
     // 게시물 좋아요
