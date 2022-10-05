@@ -30,12 +30,6 @@ public class MemRoleApi {
     public ResponseEntity<List<MemRoleDto.Read>> findAllById(Long memNo){
         return ResponseEntity.ok().body(memRoleApp.findAllById(memNo));
     }
-
-    // 회원 권한 수정
-    @PutMapping("update")
-    public ResponseEntity<Integer> update(MemRoleDto.Update dto){
-        return ResponseEntity.ok().body(memRoleApp.update(dto));
-    }
     
     // 회원 권한 삭제
     @DeleteMapping("delete")

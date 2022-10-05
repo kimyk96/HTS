@@ -95,8 +95,8 @@ public class MemApi {
 
     // 비밀번호 변경
     @PatchMapping("update-mem-password")
-    public ResponseEntity<Integer> updateMemPassword(String memPassword) {
-        return ResponseEntity.ok().body(memApp.updateMemPassword(memPassword));
+    public ResponseEntity<Integer> updateMemPassword(MemDto.Update dto) {
+        return ResponseEntity.ok().body(memApp.updateMemPassword(dto));
     }
 
     // 당도 조회
@@ -105,9 +105,4 @@ public class MemApi {
         return ResponseEntity.ok().body(memApp.findMemBrixById(memNo));
     }
 
-    // 로그인
-    @GetMapping("find-by-mem-username-and-mem-password")
-    public ResponseEntity<Integer> findByMemUsernameAndMemPassword(MemDto.Login dto) {
-        return ResponseEntity.ok().body(memApp.findByMemUsernameAndMemPassword(dto));
-    }
 }

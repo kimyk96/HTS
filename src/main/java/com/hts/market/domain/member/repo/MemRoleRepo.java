@@ -17,9 +17,8 @@ public interface MemRoleRepo {
     // 회원 권한 조회
     List<MemRoleDto.Read> findAllById(Long memNo);
 
-    // 회원 권한 수정
-    Integer update(MemRoleDto.Update dto);
-
     // 회원 권한 삭제
     Integer delete(MemRoleDto.Delete dto);
+    // 회원 권한 전체 삭제
+    Integer deleteAll(Long memNo);
 }

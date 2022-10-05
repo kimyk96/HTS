@@ -19,24 +19,25 @@ public class MemImgApi {
     // 회원 이미지 추가
     @PostMapping("save")
     public ResponseEntity<Integer> save(Part memImg) {
-        return ResponseEntity.ok().body(memImgApp.save(memImg));
-    }
-
-    // 회원 이미지 삭제
-    @DeleteMapping("delete")
-    public ResponseEntity<Integer> delete(Long memNo) {
-        return ResponseEntity.ok().body(memImgApp.delete(memNo));
-    }
-
-    // 회원 이미지 수정
-    @PutMapping("update")
-    public ResponseEntity<Integer> update(MemImgDto dto) {
-        return ResponseEntity.ok().body(memImgApp.update(dto));
+        MemImgDto.Create dto = MemImgDto.Create.builder().build();
+        return ResponseEntity.ok().body(memImgApp.save(dto));
     }
 
     // 회원 이미지 조회
     @GetMapping("find-by-id")
-    public ResponseEntity<String> findById(Long memNo) {
-        return ResponseEntity.ok().body(memImgApp.findById(memNo));
+    public ResponseEntity<MemImgDto.Read> findById(MemImgDto.Read dto) {
+        return ResponseEntity.ok().body(memImgApp.findById(dto));
+    }
+
+    // 회원 이미지 수정
+    @PutMapping("update")
+    public ResponseEntity<Integer> update(MemImgDto.Update dto) {
+        return ResponseEntity.ok().body(memImgApp.update(dto));
+    }
+
+    // 회원 이미지 삭제
+    @DeleteMapping("delete")
+    public ResponseEntity<Integer> delete(MemImgDto.Delete dto) {
+        return ResponseEntity.ok().body(memImgApp.delete(dto));
     }
 }

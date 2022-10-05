@@ -21,18 +21,6 @@
         ]]>
     </select>
 
-    <!--    회원권한 수정-->
-    <update id="update">
-        <![CDATA[
-            UPDATE
-                MEMBER_ROLE
-            SET
-                role_no=#{roleNo}
-            WHERE
-                mem_no=#{memNo}
-        ]]>
-    </update>
-
     <!--    회원권한 삭제-->
     <delete id="delete">
         <![CDATA[
@@ -40,6 +28,16 @@
                 MEMBER_ROLE
             WHERE
                 mem_no=#{memNo} and role_no=#{roleNo}
+        ]]>
+    </delete>
+
+    <!--    회원권한 전체 삭제-->
+    <delete id="deleteAll">
+        <![CDATA[
+            DELETE FROM
+                MEMBER_ROLE
+            WHERE
+                mem_no=#{memNo}
         ]]>
     </delete>
 </mapper>

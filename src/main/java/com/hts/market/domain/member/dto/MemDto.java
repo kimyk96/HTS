@@ -36,6 +36,7 @@ public class MemDto {
     @Data @Builder @AllArgsConstructor @NoArgsConstructor
     public static class Update{
         private Long memNo;
+        private String memPassword;
         private String memNickname;
         private String memEmail;
     }

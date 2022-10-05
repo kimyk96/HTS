@@ -47,7 +47,7 @@ public interface MemRepo {
     Integer countByMemPhone(Integer memPhone);
 
     // 비밀번호 업데이트
-    Integer updateMemPassword(String memPassword);
+    Integer updateMemPassword(MemDto.Update dto);
 
     // 당도 검색
     Integer findMemBrixByMemNo(Long memNo);
@@ -55,6 +55,4 @@ public interface MemRepo {
     // 인증된 전화번호 추가
     Integer updateMemPhoneById(MemDto.UpdatePhone dto);
 
-    // 로그인
-    Integer findByMemUsernameAndMemPassword(MemDto.Login dto);
 }

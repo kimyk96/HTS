@@ -4,7 +4,7 @@
     <!--    회원이미지 저장-->
     <insert id="save">
         <selectKey resultType="long" order="BEFORE" keyProperty="imgNo">
-            SELECT NVL(MAX(img_no),0)+1 FROM MEMBER_IMAGE
+            SELECT NVL(MAX(img_no),0)+1 FROM MEMBER_IMAGE where mem_no=#{memNo}
         </selectKey>
         INSERT INTO
             MEMBER_IMAGE( mem_no, img_no, img_path )
@@ -20,7 +20,7 @@
             FROM
                 MEMBER_IMAGE
             WHERE
-                mem_no=#{memNo} and rownum <= 1
+                mem_no=#{memNo} and img_no=#{imgNo} and rownum <= 1
         ]]>
     </select>
 
@@ -30,9 +30,9 @@
             UPDATE
                 MEMBER_IMAGE
             SET
-                img_no=#{imgNo}, img_path=#{imgPath}
+                img_path=#{imgPath}
             WHERE
-                mem_no=#{memNo}
+                mem_no=#{memNo} and img_no=#{imgNo}
         ]]>
     </update>
 
@@ -42,7 +42,7 @@
             DELETE FROM
                 MEMBER_IMAGE
             WHERE
-                mem_no=#{memNo}
+                mem_no=#{memNo} and img_no=#{imgNo}
         ]]>
     </delete>
 </mapper>

@@ -74,8 +74,8 @@ public class MemApp {
     }
 
     // 비밀번호 업데이트
-    public Integer updateMemPassword(String memPassword) {
-        return memRepo.updateMemPassword(memPassword);
+    public Integer updateMemPassword(MemDto.Update dto) {
+        return memRepo.updateMemPassword(dto);
     }
 
     // 당도 검색
@@ -83,8 +83,4 @@ public class MemApp {
         return memRepo.findMemBrixByMemNo(memNo);
     }
 
-    // 로그인
-    public Integer findByMemUsernameAndMemPassword(MemDto.Login dto) {
-        return memRepo.findByMemUsernameAndMemPassword(dto);
-    }
 }

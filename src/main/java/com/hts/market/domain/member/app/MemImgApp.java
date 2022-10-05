@@ -14,22 +14,22 @@ public class MemImgApp {
     // 이하 설계도에 있는 메소드들
     
     // 회원 이미지 추가
-    public Integer save(Part memImg) {
-        return memImgRepo.save(memImg);
+    public Integer save(MemImgDto.Create dto) {
+        return memImgRepo.save(dto);
     }
-    
-    // 회원 이미지 삭제
-    public Integer delete(Long memNo) {
-        return memImgRepo.delete(memNo);
+
+    // 회원 이미지 조회
+    public MemImgDto.Read findById(MemImgDto.Read dto){
+        return memImgRepo.findById(dto);
     }
 
     // 회원 이미지 수정
-    public Integer update(MemImgDto dto) {
+    public Integer update(MemImgDto.Update dto) {
         return memImgRepo.update(dto);
     }
     
-    // 회원 이미지 조회
-    public String findById(Long memeNo){
-        return memImgRepo.findById(memeNo);
+    // 회원 이미지 삭제
+    public Integer delete(MemImgDto.Delete dto) {
+        return memImgRepo.delete(dto);
     }
 }
