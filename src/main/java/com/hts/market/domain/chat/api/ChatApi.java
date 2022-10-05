@@ -57,6 +57,4 @@ public class ChatApi {
         return ResponseEntity.ok().body(messageList);
     }
 
-
-    ;
 }
