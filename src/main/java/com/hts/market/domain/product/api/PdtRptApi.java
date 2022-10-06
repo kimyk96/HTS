@@ -1,7 +1,7 @@
 package com.hts.market.domain.product.api;
 
 import com.hts.market.domain.product.app.PdtRptApp;
-import com.hts.market.domain.product.dto.PdtRtpDto;
+import com.hts.market.domain.product.dto.PdtRptDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -21,7 +21,7 @@ public class PdtRptApi {
 
     // 신고등록
     @PostMapping("save")
-    private ResponseEntity<Integer> save(@Valid PdtRtpDto.Create dto, Principal principal){
+    private ResponseEntity<Integer> save(@Valid PdtRptDto.Create dto, Principal principal){
         return null;
     }
 }

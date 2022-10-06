@@ -1,14 +1,10 @@
 package com.hts.market.domain.product.app;
 
 import com.hts.market.domain.product.dto.PdtDto;
-import com.hts.market.domain.product.dto.PdtRtpDto;
 import com.hts.market.domain.product.entity.PdtEntity;
 import com.hts.market.domain.product.repo.PdtRepo;
-import io.swagger.v3.oas.annotations.servers.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.security.Principal;
 
 @Service
 public class PdtApp {

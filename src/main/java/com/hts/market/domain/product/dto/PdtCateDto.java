@@ -8,7 +8,7 @@ public class PdtCateDto {
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class Read {
+    public static class Read{
         private Long pdtCateNo;
         private String pdtCate;
     }

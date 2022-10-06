@@ -5,6 +5,7 @@ import lombok.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.Collection;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PdtDto {
@@ -13,16 +14,22 @@ public class PdtDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Create {
+        private Long pdtNo;
+        @NotNull
         private Long pdtCateNo;
+        @NotNull
+        private Long pdtSellerNo;
+        @NotNull
+        private Long pdtAddressNo;
         @NotEmpty
         private String pdtName;
-        @NotNull
-        private Integer pdtPrice;
+        @NotEmpty
+        private Integer pdtStatus;
         @NotEmpty
         private String pdtDesc;
-        @NotEmpty
-        private String pdtStatus;
-        private Long pdtAddressNo;
+        @NotNull
+        private Integer pdtPrice;
+
     }
 
     @Data
@@ -31,15 +38,19 @@ public class PdtDto {
     @NoArgsConstructor
     public static class Update {
         private Long pdtNo;
+        @NotNull
         private Long pdtCateNo;
+        @NotNull
+        private Long pdtAddressNo;
         @NotEmpty
         private String pdtName;
         @NotNull
-        private Integer pdtPrice;
+        private Integer pdtStatus;
         @NotEmpty
         private String pdtDesc;
-        @NotEmpty
-        private String pdtStatus;
+        @NotNull
+        private Integer pdtPrice;
+
     }
 
     @Data
@@ -55,14 +66,38 @@ public class PdtDto {
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class Page {
-        private long pdtNo;
+    public static class ReadList{
+        private Long pdtNo;
+        private Long pdtAddressNo;
         private String pdtName;
-        private LocalDateTime pdtCreatedAt;
+        private Integer pdtStatus;
         private Integer pdtPrice;
         private Integer pdtViews;
-        private Long pdtAddressNo;
-        private Integer pdtStatus;
+        private LocalDateTime pdtCreatedAt;
+    }
+
+    // 주소별 검색에 필요한 데이터
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class AddressData{
+        private String addressSi;
+        private String addressGu;
+        private String addressDong;
+        private Integer start;
+        private Integer end;
+    }
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Page{
+        private Long pageNo;
+        private Integer pageSize;
+        private Long totalNo;
+        private Collection<ReadList> pdtList;
     }
 
     @Data
@@ -70,14 +105,16 @@ public class PdtDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Read {
+        private Long pdtNo;
+        private Long pdtCateNo;
+        private Long pdtSellerNo;
+        private Long pdtAddressNo;
         private String pdtName;
-        private LocalDateTime pdtCreatedAt;
+        private String pdtDesc;
+        private Integer pdtStatus;
         private Integer pdtPrice;
         private Integer pdtViews;
-        private Long pdtAddressNo;
-        private String pdtDesc;
-        private Long pdtSellerNo;
-        private Integer pdtStatus;
+        private LocalDateTime pdtCreatedAt;
     }
 
     @Data
@@ -85,9 +122,15 @@ public class PdtDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class KeywordSearch{
-        private long pdtNo;
-        private String pdtDesc;
+        private String addressSi;
+        private String addressGu;
+        private String addressDong;
+        private Integer start;
+        private Integer end;
         private String pdtName;
+        private String pdtDesc;
+        private Long pdtCateNo;
+        private String pdtCate;
     }
 
 
@@ -96,7 +139,16 @@ public class PdtDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class CateSearch{
-        private long pdtCateNo;
+        private Long pdtCateNo;
         private String pdtCate;
+    }
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class ViewCount {
+        private Long pdtNo;
+        private Long pdtSellerNo;
     }
 }

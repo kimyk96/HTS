@@ -7,72 +7,116 @@
             select nvl(max(pdt_no),0)+1 from Product
         </selectKey>
         insert into
-        PRODUCT( pdt_no, pdt_cate_no, pdt_seller_no, pdt_address_no, pdt_name, pdt_status, pdt_desc, pdt_price)
+        PRODUCT( pdt_no, pdt_cate_no, pdt_seller_no, pdt_address_no, pdt_name, pdt_desc, pdt_price, pdt_status)
         values
-        ( #{pdtNo}, #{pdtCateNo}, #{pdtSellerNo}, #{pdtAddressNo}, #{pdtName}, #{pdtStatus}, #{pdtDesc}, #{pdtPrice},
-        #{pdtSellerNo} )
+        ( #{pdtNo}, #{pdtCateNo}, #{pdtSellerNo}, #{pdtAddressNo}, #{pdtName}, #{pdtDesc}, #{pdtPrice}, #{pdtStatus} )
     </insert>
     <!-- 판매글수정 -->
     <update id="update">
         update PRODUCT
         <trim prefix="set" suffixOverrides=",">
             <if test="pdtCateNo != null">pdt_cate_no=#{pdtCateNo},</if>
-            <if test="pdtName != null">pdt_name=#{pdtName},</if>
-            <if test="pdtPrice != null">pdt_price=#{pdtPrice},</if>
-            <if test="pdtDesc != null">pdt_desc=#{pdtDesc},</if>
-            <if test="pdtStatus != null">pdt_status=#{pdtStatus},</if>
             <if test="pdtAddressNo != null">pdt_address_no=#{pdtAddressNo},</if>
+            <if test="pdtName != null">pdt_name=#{pdtName},</if>
+            <if test="pdtDesc != null">pdt_desc=#{pdtDesc},</if>
+            <if test="pdtPrice != null">pdt_price=#{pdtPrice},</if>
+            <if test="pdtStatus != null">pdt_status=#{pdtStatus},</if>
         </trim>
         where pdt_no=#{pdtNo}
     </update>
     <!-- 조회수 증가 -->
-    <select id="countByPdtNo" resultType="int">
-        select /*+ index(PRODUCT PK_PRODUCT) */ count(pdt_no) from PRODUCT
-        <where>
-            <if test="pdtSellerNo!=null">pdt_seller_no=#{pdtSellerNo}</if>
-        </where>
+    <update id="increaseInViews">
+        update PRODUCT set pdt_views = pdt_views+1 where pdt_no = #{pdtNo} and pdt_seller_no != #{pdtSellerNo}
+    </update>
+    <!-- 판매글 읽기 -->
+    <select id="findByPdtNo" resultType="com.hts.market.domain.product.dto.PdtDto$Read">
+        <![CDATA[
+            select * from PRODUCT where pdt_no=#{pdtNo}
+  	    ]]>
+    </select>
+    <!-- 판매글 지역별로 목록보기 -->
+    <select id="findAllByAddress" resultType="com.hts.market.domain.product.dto.PdtDto$ReadList">
+        SELECT
+            b.pdt_no, b.pdt_address_no, b.pdt_name, b.pdt_status, b.pdt_price, b.pdt_views, b.pdt_created_at
+        FROM
+            (
+                SELECT /*+ index_desc(PRODUCT PK_PRODUCT) */
+                    ROWNUM AS rnum,
+                    a.pdt_no, a.pdt_address_no, a.pdt_name, a.pdt_status, a.pdt_price, a.pdt_views, a.pdt_created_at
+                FROM
+                    (
+                        SELECT
+                            pdt_no, pdt_address_no, pdt_name, pdt_status, pdt_price, pdt_views, pdt_created_at
+                        FROM
+                            product p left join address d on p.pdt_address_no = d.address_no where d.address_si = #{addressSi} and d.address_gu = #{addressGu} and d.address_dong = #{addressDong}
+                        ORDER BY
+                            pdt_no DESC
+                    ) a
+                WHERE
+                    ROWNUM &lt;= #{end}
+            ) b
+        WHERE
+            b.rnum &gt;= #{start}
     </select>
     <!-- 판매글 삭제 -->
     <delete id="delete">
         delete from PRODUCT where pdt_no=#{pdtNo}
     </delete>
-    <!-- 판매글 읽기 -->
-    <select id="findByPdtNo" resultType="com.hts.market.domain.product.dto.PdtDto$Read">
-        <![CDATA[
-  	        select * from PRODUCT where pdt_no=#{pdtNo} and rownum<=1
-  	    ]]>
-    </select>
-    <!-- 판매글 목록보기 -->
-    <select id="findAllByPdtAddress" resultType="com.hts.market.domain.product.dto.PdtDto$Page">
-        select pdt_no, pdt_name, pdt_status, pdt_price, pdt_views, pdt_created_at
-        from PRODUCT where rownum &lt;= 10 order by pdt_address_no desc
-    </select>
-    <!-- 검색할 키워드를 만드는 sql -->
-    <sql id="search">
-        <if test="pdtName == 'pdtName'">
-            WHERE pdt_name LIKE CONCAT('%'||#{keyword}||'%')
-        </if>
-        <if test="pdtDesc == 'pdtDesc'">
-            WHERE pdt_desc LIKE CONCAT('%'||#{keyword}||'%')
-        </if>
-        <if test="pdtCate == 'pdtCate'">
-            WHERE pdt_cate LIKE CONCAT('%'||#{keyword}||'%')
-        </if>
-    </sql>
+    <!-- 회원탈퇴시 판매글 삭제(추후 추가)-->
 
-    <!-- 제목+내용, 카테고리로 검색(검색 통합해도 될 수도 있음) -->
-    <select id="getKeywordSearch" resultType="com.hts.market.domain.product.dto.PdtDto$Page">
-        select pdt_no, pdt_name, pdt_status, pdt_price, pdt_views, pdt_created_at from PRODUCT
-        <include refid="search"/>
-        order by pdt_no desc
+<!--    &lt;!&ndash; 검색할 키워드를 만드는 sql &ndash;&gt;-->
+<!--    <sql id="search">-->
+<!--        <if test="pdtName == #{pdtName}">-->
+<!--            WHERE pdt_name LIKE CONCAT('%'||#{keyword}||'%')-->
+<!--        </if>-->
+<!--        <if test="pdtDesc == #{pdtDesc}">-->
+<!--            WHERE pdt_desc LIKE CONCAT('%'||#{keyword}||'%')-->
+<!--        </if>-->
+<!--        <if test="pdtCate == #{pdtCate}">-->
+<!--            WHERE pdt_cate LIKE CONCAT('%'||#{keyword}||'%')-->
+<!--        </if>-->
+<!--    </sql>-->
+
+
+    <!-- 제목+내용, 카테고리로 검색 -->
+    <select id="searchByKeywordLike" resultType="com.hts.market.domain.product.dto.PdtDto$ReadList">
+        SELECT
+        b.pdt_no, b.pdt_address_no, b.pdt_name, b.pdt_status, b.pdt_price, b.pdt_views, b.pdt_created_at
+        FROM
+        (
+        SELECT /*+ index_desc(PRODUCT PK_PRODUCT) */
+        ROWNUM AS rnum,
+        a.pdt_no, a.pdt_address_no, a.pdt_name, a.pdt_status, a.pdt_price, a.pdt_views, a.pdt_created_at
+        FROM
+        (
+        SELECT
+        pdt_no, pdt_address_no, pdt_name, pdt_status, pdt_price, pdt_views, pdt_created_at
+        FROM
+        product p left join address d on p.pdt_address_no = d.address_no where d.address_si = #{addressSi} and d.address_gu = #{addressGu} and d.address_dong = #{addressDong}
+        <choose>
+            <when test="pdtName != null and pdtDesc != null">
+                and pdt_name LIKE '%'|| #{pdtName} ||'%' or pdt_desc Like '%'|| #{pdtDesc} ||'%'
+            </when>
+            <when test="pdtCateNo != null">
+                and  pdt_cate_no LIKE '%'|| #{pdtCateNo} ||'%'
+            </when>
+        </choose>
+        ORDER BY
+        pdt_no DESC
+        ) a
+        WHERE
+        ROWNUM &lt;= #{end}
+        ) b
+        WHERE
+        b.rnum &gt;= #{start}
     </select>
 
     <!-- 카테고리로 검색 -->
     <!-- 검색기능 분리 여부는 추후 판단-->
-    <select id="getCateSearch" resultType="com.hts.market.domain.product.dto.PdtDto$Page">
-        select pdt_no, pdt_name, pdt_status, pdt_price, pdt_views, pdt_created_at from PRODUCT
-        <include refid="search"/>
-        order by pdt_no desc
-    </select>
+<!--    <select id="searchByPdtKeywordLike" resultType="com.hts.market.domain.product.dto.PdtDto$ResdList">-->
+<!--        select pdt_no, pdt_name, pdt_status, pdt_price, pdt_views, pdt_created_at from PRODUCT-->
+<!--        <include refid="search"/>-->
+<!--        order by pdt_no desc-->
+<!--    </select>-->
 
 </mapper>

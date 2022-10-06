@@ -5,7 +5,7 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class PdtRtpDto {
+public class PdtRptDto {
     @Data
     @Builder
     @AllArgsConstructor
@@ -33,22 +33,10 @@ public class PdtRtpDto {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
+    @Builder
     public static class Delete{
         private Long rptNo;
         private Long rptMemNo;
         private Long rptPdtNo;
-        private Long rptMsgNo;
-    }
-
-    @Data
-    @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class Page{
-        private Long rptNo;
-        private Long rptMemNo;
-        private Long rptPdtNo;
-        private Long rptMsgNo;
-        private LocalDateTime rptCreatedAt;
     }
 }

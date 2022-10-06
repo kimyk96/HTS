@@ -32,9 +32,9 @@ public class PdtImgDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Read{
-        private Long memNo;
         private Long pdtNo;
         private Long imgNo;
+        @NotEmpty
         private String imgPath;
     }
 
@@ -44,7 +44,6 @@ public class PdtImgDto {
     @NoArgsConstructor
     public static class Delete {
         private Long pdtNo;
-        private Long ImgNo;
-        private Long memNo;
+        private Long imgNo;
     }
 }

@@ -3,7 +3,7 @@
 <mapper namespace="com.hts.market.domain.product.repo.PdtFavoriteRepo">
     <!-- 관심 등록 -->
     <insert id="save">
-        insert into PRODUCT_FAVORITE(mem_no,pdt_no) values (#{memNo}, #{pdtNo})
+        insert into PRODUCT_FAVORITE(pdt_no, mem_no) values (#{pdtNo}, #{memNo})
     </insert>
     <!-- 관심 목록 -->
     <select id="findAllByPdtNo" resultType="com.hts.market.domain.product.dto.PdtFavoriteDto$Page">
@@ -11,10 +11,10 @@
     </select>
     <!-- 관심 해제 -->
     <delete id="delete">
-        delete from PRODUCT_FAVORITE where mem_no=#{memNo} and pdt_no=#{pdtNo}
+        delete from PRODUCT_FAVORITE where pdt_no=#{pdtNo} and mem_no=#{memNo}
     </delete>
     <!-- 관심수 확인 -->
-    <select id="countByPdtNo" resultType="com.hts.market.domain.product.dto.PdtFavoriteDto$CountFavorite">
+    <select id="countByPdtNo" resultType="int">
         select count(pdt_no) from PRODUCT_FAVORITE where pdt_no=#{pdtNo}
     </select>
 </mapper>
