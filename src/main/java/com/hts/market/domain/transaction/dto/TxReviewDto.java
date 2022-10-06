@@ -11,8 +11,10 @@ public class TxReviewDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Create{
-        private Long txNo;
+        private Long txReviewNo;
         @NotNull
+        private String txReviewType;
+       @NotNull
         private Long reviewNo;
     }
 }

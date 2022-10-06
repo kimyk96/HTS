@@ -9,7 +9,7 @@
         insert into
           TRANSACTION (tx_no, tx_pdt_no, tx_buyer_no)
         values
-          (#{txNo}, #{pdtNo}, #{memNo} )
+          (#{txNo}, #{txPdtNo}, #{txBuyerNo})
     </insert>
 <!--거래 삭제-->
     <delete id="delete">
@@ -26,7 +26,7 @@
         FROM
             TRANSACTION
         WHERE
-            tx_no= #{txNo}, tx_pdt_no=#{pdtNo}, tx_buyer_no=#{memNo}
+            tx_no=#{txNo}
         ]]>
     </select>
 <!--거래 내역 읽기-->
@@ -37,7 +37,7 @@
             FROM
                 TRANSACTION
             WHERE
-                tx_no= #{txNo}, tx_pdt_no=#{pdtNo}, tx_buyer_no=#{memNo}  and rownum <= 1
+                tx_no= #{txNo}  and rownum <= 1
         ]]>
     </select>
 </mapper>
