@@ -7,7 +7,8 @@ import javax.validation.constraints.NotNull;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ChatDto {
-    @Data @Builder
+    @Data
+    @Builder
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Create {
@@ -17,10 +18,10 @@ public class ChatDto {
         private Long chatPdtNo;
         @NotEmpty(message = "메세지를 입력해주세요")
         private String chatContent;
-
     }
 
-    @Data @Builder
+    @Data
+    @Builder
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Read {
@@ -30,4 +31,27 @@ public class ChatDto {
         private String chatContent;
         private Boolean chatChecked;
     }
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class PK {
+        public Long chatPdtNo;
+        public Long chatMemNo;
+        public Long chatMsgNo;
+    }
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class scroll {
+        public Integer start;
+        public Integer end;
+        public Long chatPdtNo;
+        public Long chatMemNo;
+
+    }
+
 }

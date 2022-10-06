@@ -5,9 +5,9 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface ReviewRepo {
-    public Integer save(Long reviewNo);
+    public Integer save(ReviewDto.Read dto);
 
     public Integer delete(Long reviewNo);
 
-    public ReviewDto.Read findByReviewNo(ReviewDto.Read dto);
+    public ReviewDto.Read findByReviewNo(Long reviewNo);
 }

@@ -8,7 +8,7 @@ import lombok.ToString;
 @Builder
 @ToString
 public class TxReviewEntity {
-    private Long txNo;
+    private Long txReviewNo;
     private String txReviewType;
     private Long reviewNo;
 }

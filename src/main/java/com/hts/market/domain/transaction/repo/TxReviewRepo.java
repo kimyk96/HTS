@@ -9,9 +9,9 @@ import java.util.List;
 
 @Mapper
 public interface TxReviewRepo {
-    public TxReviewEntity save(TxReviewDto.Create dto);
+    public Integer save(TxReviewDto.Create dto);
 
     public Long delete(Long TxReviewNo);
 
-    public List<ReviewDto.Read> findAllByMemNo(Long memNo);
+    public Long findAllByTxReviewNo(Long txReviewNo);
 }

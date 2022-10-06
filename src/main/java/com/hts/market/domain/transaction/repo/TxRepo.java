@@ -1,7 +1,6 @@
 package com.hts.market.domain.transaction.repo;
 
 import com.hts.market.domain.transaction.dto.TxDto;
-import com.hts.market.domain.transaction.entity.TxEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -14,7 +13,7 @@ public interface TxRepo {
 
     public TxDto.Read findById(Long txNo);
 
-    public List<TxDto.Read> findAllByMemNo(Long memNo);
+    public List<TxDto.Read> findAllByMemNo(Long txNo);
 
 
 }
