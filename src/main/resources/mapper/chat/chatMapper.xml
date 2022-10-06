@@ -4,52 +4,52 @@
     <!-- save() -->
     <insert id="save">
         <selectKey resultType="long" order="BEFORE" keyProperty="chatMsgNo">
-            select nvl(max(chat_msg_no),0)+1 from CHAT WHERE chat_mem_no =#{chatMemNo} and chat_pdt_no =#{chatPdtNo}
+            select nvl(max(chat_msg_no),0)+1 from chat where chat_mem_no =#{chatMemNo} and chat_pdt_no =#{chatPdtNo}
         </selectKey>
-        INSERT INTO
-        CHAT( chat_msg_no, chat_mem_no, chat_pdt_no, chat_content )
-        VALUES
-        ( #{chatMsgNo}, #{chatMemNo}, #{chatPdtNo} ,#{chatContent} )
+        insert into
+        CHAT(chat_msg_no, chat_mem_no, chat_pdt_no, chat_content)
+        values
+        (#{chatMsgNo},#{chatMemNo},#{chatPdtNo},#{chatContent})
     </insert>
-    <!-- findByChatMemNo //회원간 채팅방내역 -->
-    <select id="findByChatMemNo" resultType="com.hts.market.domain.chat.dto.ChatDto$Read">
-        <![CDATA[
-            SELECT
-                chat_mem_no
-            FROM
-                CHAT
-            WHERE
-                chat_mem_no=#{chatMemNo} and rownum <= 1
-        ]]>
+
+
+    <!-- findAllByPk //채팅방목록 및 최근메세지  -->
+    <select id="findAllByPk" resultType="com.hts.market.domain.chat.dto.ChatDto$Read">
+        SELECT DISTINCT chat_pdt_no, (select max(chat_msg_no)
+        FROM
+        chat c where c.chat_pdt_no=chat.chat_pdt_no) chat_msg_no, chat_content FROM chat WHERE chat_mem_no=#{chatMemNo}
     </select>
 
-    <!-- findAllByChatMemNoAndChatPdtNo //채팅내역 불러오기 -->
+
+    <!-- findAllByChatMemNoAndChatPdtNoAndChatMsgNo // 채팅내역 -->
     <select id="findAllByChatMemNoAndChatPdtNo" resultType="com.hts.market.domain.chat.dto.ChatDto$Read">
         <![CDATA[
-            SELECT
-                chat_mem_no, chat_pdt_no
-            FROM
-                CHAT
-            WHERE
-                chat_mem_no=#{chatMemNo}, chat_pdt_no=#{chatPdtNo}  and rownum <= 1
-        ]]>
+        SELECT
+        b.*
+        FROM
+        (
+        SELECT
+        ROWNUM AS rnum,
+        a.*
+        FROM
+        (
+        SELECT
+        *
+        FROM
+        chat
+        WHERE
+        chat_pdt_no=#{chatPdtNo} and chat_mem_no =#{chatMemNo}
+        ORDER BY
+        chat_msg_no DESC
+        ) a
+        WHERE
+        ROWNUM <= #{end}
+        ) b
+        WHERE
+        b.rnum >= #{start}
+
+  ]]>
     </select>
-
-    <!-- findAllByChatMemNoAndChatPdtNoAndChatMsgNo // 최근메세지 보여주기 -->
-    <select id="findAllByChatMemNoAndChatPdtNoAndChatMsgNo" resultType="com.hts.market.domain.chat.dto.ChatDto$Read">
-        <![CDATA[
-            SELECT
-                chat_mem_no, chat_pdt_no, chat_msg_no
-            FROM
-                CHAT
-            WHERE
-                chat_mem_no=#{chatMemNo}, chat_pdt_no=#{chatPdtNo}, chat_msg_no=#{chatMsgNo}  and rownum <= 1
-        ]]>
-
-    </select>
-
-
-
 
 
 </mapper>

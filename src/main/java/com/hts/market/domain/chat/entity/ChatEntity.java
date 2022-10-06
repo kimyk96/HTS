@@ -14,7 +14,7 @@ public class ChatEntity {
     public Long chatMemNo;
     public Long chatMsgNo;
     public String chatContent;
-    public Boolean chatCheked;
+    public Boolean chatChecked;
     public LocalDateTime chatCreatedAt;
 }
 
