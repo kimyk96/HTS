@@ -35,7 +35,7 @@ public class ChatRepoTest {
 
 
     @DisplayName("채팅저장")
-    //@Test
+    @Test
     public void save() {
 
         //given
@@ -49,7 +49,7 @@ public class ChatRepoTest {
         Assertions.assertThat(result).isEqualTo(1);
     }
 
-    //@Test
+    @Test
     public void findAllByPk() {
         //GIVEN
         Long chatMemNo = 1L;
@@ -58,7 +58,7 @@ public class ChatRepoTest {
         List<ChatDto.Read> result = chatrepo.findAllByPk(chatMemNo);
 
         //THEN
-        Assertions.assertThat(result).hasSize(1);
+            Assertions.assertThat(result).hasSize(21);
 
     }
 
