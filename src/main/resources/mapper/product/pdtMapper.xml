@@ -38,7 +38,7 @@
             left join PRODUCT_IMAGE i on p.pdt_no = i.pdt_no
             left join PRODUCT_CATEGORY c on p.pdt_cate_no = c.pdt_cate_no
         where
-            p.pdt_no=1;
+            p.pdt_no=#{pdtNo}
     </select>
     <!-- 판매글 지역별로 목록보기 -->
     <select id="findAllByAddress" resultType="com.hts.market.domain.product.dto.PdtDto$ReadList">
@@ -111,7 +111,7 @@
         WHERE
         b.rnum &gt;= #{start}
     </select>
-
+    <!-- 판매자 찾기-->
     <select id="findSellerNoById" resultType="long">
         select pdt_seller_no from PRODUCT where pdt_no = #{pdtNo} and rownum &lt;=1;
     </select>
