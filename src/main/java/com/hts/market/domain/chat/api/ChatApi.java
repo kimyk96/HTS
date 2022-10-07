@@ -30,26 +30,18 @@ public class ChatApi {
     }
 
 
-////     회원 채팅방 내역 불러오기
+    // 회원 채팅방 목록 및 메세지 불러오기
 //    @GetMapping("find-by-chat-mem-no")
-//    public ResponseEntity<List<Integer>> findByChatMemNo(Long chatMemNo) {
+//    public ResponseEntity<List<Integer>> findAllByChatMemNo(Long chatMemNo) {
 //        List<Integer> chatList =  chatApp.findByChatMemNo(chatMemNo);
 //        return ResponseEntity.ok().body(chatList);
 //    }
 //
-//    //채팅내역 불러오기
-//    @GetMapping("find-all-by-chat-mem-no-and-chat-pdt-no")
-//    public ResponseEntity<List<ChatDto.Read>> findAllByChatMemNoAndChatPdtNo(ChatDto.Read messageList) {
-//        List<ChatDto.Read> messageList =  chatApp.findAllByChatMemNoAndChatPdtNo(messageList);
-//        return ResponseEntity.ok().body(messageList);
-//    }
-//
-//
-//    //최근메세지 보여주기
-//    @GetMapping("find-all-by-chat-mem-no-and-chat-pdt-no-and-chat-msg-no")
-//    public ResponseEntity<ChatDto.Read> findAllByChatMemNoAndChatPdtNoAndChatMsgNo(ChatDto.PK pk) {
-//        ChatDto.Read message =  chatApp.findAllByChatMemNoAndChatPdtNoAndChatMsgNo(pk);
-//        return ResponseEntity.ok().body(message);
-//    }
+    // 회원간 채팅내역
+    @GetMapping("find-all-by-chat-mem-no-and-chat-pdt-no")
+    public ResponseEntity<List<ChatDto.Read>> findAllByChatMemNoAndChatPdtNo(ChatDto.scroll scroll) {
+        List<ChatDto.Read> messageList =  chatApp.findAllByChatMemNoAndChatPdtNo(scroll);
+        return ResponseEntity.ok().body(messageList);
+    }
 
 }

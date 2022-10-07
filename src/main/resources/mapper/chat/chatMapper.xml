@@ -14,7 +14,7 @@
 
 
     <!-- findAllByPk //채팅방목록 및 최근메세지  -->
-    <select id="findAllByPk" resultType="com.hts.market.domain.chat.dto.ChatDto$Read">
+    <select id="findAllByChatMemNo" resultType="com.hts.market.domain.chat.dto.ChatDto$Read">
         SELECT DISTINCT chat_pdt_no, (select max(chat_msg_no)
         FROM
         chat c where c.chat_pdt_no=chat.chat_pdt_no) chat_msg_no, chat_content FROM chat WHERE chat_mem_no=#{chatMemNo}
