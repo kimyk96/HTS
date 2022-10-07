@@ -3,6 +3,7 @@ package com.hts.market.domain.transaction.repo;
 import com.hts.market.domain.transaction.dto.ReviewDto;
 import com.hts.market.domain.transaction.dto.TxDto;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,6 +17,15 @@ import java.util.List;
 public class ReviewTest {
     @Autowired ReviewRepo reviewRepo;
 
+    @BeforeEach
+    public void boforeEach(){
+        ReviewDto.Read dto1 = ReviewDto.Read.builder().review("매우 좋아요").build();
+        ReviewDto.Read dto2 = ReviewDto.Read.builder().review("매우 좋아요").build();
+        reviewRepo.save(dto1);
+        reviewRepo.save(dto2);
+
+
+    }
    @Test
     public void save(){
        // given
@@ -26,13 +36,13 @@ public class ReviewTest {
        Assertions.assertThat(result).isEqualTo(1L);
     }
 
-    //@Test
+    @Test
     public void delete() {
         Integer reviewNo = reviewRepo.delete(1l);
         Assertions.assertThat(reviewNo).isEqualTo(1l);
 
     }
-    //@Test
+    @Test
     public void findByReviewNo() {
         // given
         Long reviewNo = 1L;

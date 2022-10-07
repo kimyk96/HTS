@@ -4,6 +4,7 @@ import com.hts.market.domain.transaction.dto.ReviewDto;
 import com.hts.market.domain.transaction.dto.TxReviewDto;
 import com.hts.market.domain.transaction.entity.TxReviewEntity;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,7 +17,18 @@ import java.util.List;
 public class TxReviewTest {
     @Autowired TxReviewRepo txReviewRepo;
    //복합키, 거래타입은 어떻게?
-    //@Test
+   @BeforeEach
+   public void boforeEach(){
+       TxReviewDto.Create dto1 = TxReviewDto.Create.builder()
+               .txReviewType("구매 완료").reviewNo(1L).build();
+       TxReviewDto.Create dto2 = TxReviewDto.Create.builder()
+               .txReviewType("구매 완료").reviewNo(1L).build();
+       txReviewRepo.save(dto1);
+       txReviewRepo.save(dto2);
+
+
+   }
+    @Test
     public void save(){
         TxReviewDto.Create dto = TxReviewDto.Create.builder()
                 .txReviewType("구매 완료").reviewNo(1L).build();
@@ -25,7 +37,7 @@ public class TxReviewTest {
         Assertions.assertThat(result).isEqualTo(1);
     }
     //복합키
-    //@Test
+    @Test
     public void delete(){
         Long txReviewNo = txReviewRepo.delete(1l);
         Assertions.assertThat(txReviewNo).isEqualTo(1L);
