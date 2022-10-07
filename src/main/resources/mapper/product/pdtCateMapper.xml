@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hts.market.domain.product.repo.PdtCateRepo">
+    <!-- 테스트용 저장 -->
+    <insert id="save">
+        <selectKey resultType="long" order="BEFORE" keyProperty="pdtCateNo">
+            select nvl(max(pdt_cate_no),0)+1 from PRODUCT_CATEGORY
+        </selectKey>
+        insert into PRODUCT_CATEGORY(pdt_cate_no, pdt_cate) values( #{pdtCateNo}, #{pdtCate})
+    </insert>
     <!-- 카테고리 목록보기 -->
     <select id="findAll" resultType="com.hts.market.domain.product.dto.PdtCateDto$Read">
         select pdt_cate_no, pdt_cate from PRODUCT_CATEGORY order by pdt_cate_no desc

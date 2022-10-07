@@ -1,6 +1,12 @@
 package com.hts.market.domain.prduct;
 
+import com.hts.market.domain.member.dto.AddressDto;
+import com.hts.market.domain.member.repo.AddressRepo;
+import com.hts.market.domain.product.dto.PdtCateDto;
 import com.hts.market.domain.product.dto.PdtDto;
+import com.hts.market.domain.product.dto.PdtImgDto;
+import com.hts.market.domain.product.repo.PdtCateRepo;
+import com.hts.market.domain.product.repo.PdtImgRepo;
 import com.hts.market.domain.product.repo.PdtRepo;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,21 +22,30 @@ import java.util.List;
 class PdtRepoTest {
     @Autowired
     PdtRepo pdtRepo;
-
+    @Autowired
+    AddressRepo addressRepo;
+    @Autowired
+    PdtCateRepo pdtCateRepo;
+    @Autowired
+    PdtImgRepo pdtImgRepo;
     // 판매글 작성 테스트
     @BeforeEach
     void saveTest() {
         // given
-        PdtDto.Create dto =
-                PdtDto.Create.builder()
-                        .pdtCateNo(1L).pdtSellerNo(1L).pdtAddressNo(2L).pdtName("상품").pdtStatus(1).pdtDesc("설명").pdtPrice(7900).build();
+        PdtDto.Create dto1 =
+                PdtDto.Create.builder().pdtCateNo(1L).pdtSellerNo(1L).pdtAddressNo(1L).pdtName("상품").pdtStatus(1).pdtDesc("설명").pdtPrice(7900).build();
+        AddressDto.Create dto2 =
+                AddressDto.Create.builder().memNo(1L).addressSi("인천").addressGu("부평").addressDong("부평1").build();
+        PdtImgDto.Create dto3 =
+                PdtImgDto.Create.builder().pdtNo(1L).imgPath("abc123").build();
+        PdtCateDto.Create dto4 = PdtCateDto.Create.builder().pdtCate("가전").build();
         // when
-        Integer result = pdtRepo.save(dto);
-
+        pdtRepo.save(dto1);
+        addressRepo.save(dto2);
+        pdtImgRepo.save(dto3);
+        pdtCateRepo.save(dto4);
         // then
-        Assertions.assertThat(result).isEqualTo(1);
     }
-
     // 판매글 수정 테스트
     @Test
     void updateTest() {
@@ -84,7 +99,7 @@ class PdtRepoTest {
     // 상품 제목+내용으로 검색
     @Test
     void searchByKeywordTest(){
-        PdtDto.KeywordSearch dto = PdtDto.KeywordSearch.builder().addressSi("인천").addressGu("부평").addressDong("부평1").start(1).end(1).pdtName("d").pdtDesc("d").build();
+        PdtDto.SearchData dto = PdtDto.SearchData.builder().addressSi("인천").addressGu("부평").addressDong("부평1").start(1).end(1).pdtName("상").pdtDesc("").build();
 
         List<PdtDto.ReadList> result = pdtRepo.searchByKeywordLike(dto);
 
@@ -94,7 +109,7 @@ class PdtRepoTest {
     // 카테고리로 검색
     @Test
     void searchByCateLikeTest(){
-        PdtDto.KeywordSearch dto = PdtDto.KeywordSearch.builder().addressSi("인천").addressGu("부평").addressDong("부평1").start(1).end(1).pdtCateNo(1L).build();
+        PdtDto.SearchData dto = PdtDto.SearchData.builder().addressSi("인천").addressGu("부평").addressDong("부평1").start(1).end(1).pdtCate("가").build();
 
         List<PdtDto.ReadList> result = pdtRepo.searchByKeywordLike(dto);
 

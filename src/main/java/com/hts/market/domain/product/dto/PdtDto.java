@@ -23,7 +23,7 @@ public class PdtDto {
         private Long pdtAddressNo;
         @NotEmpty
         private String pdtName;
-        @NotEmpty
+        @NotNull
         private Integer pdtStatus;
         @NotEmpty
         private String pdtDesc;
@@ -68,12 +68,16 @@ public class PdtDto {
     @NoArgsConstructor
     public static class ReadList{
         private Long pdtNo;
-        private Long pdtAddressNo;
+        private String pdtCate;
         private String pdtName;
         private Integer pdtStatus;
         private Integer pdtPrice;
         private Integer pdtViews;
         private LocalDateTime pdtCreatedAt;
+        private String imgPath;
+        private String addressSi;
+        private String addressGu;
+        private String addressDong;
     }
 
     // 주소별 검색에 필요한 데이터
@@ -121,7 +125,7 @@ public class PdtDto {
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class KeywordSearch{
+    public static class SearchData{
         private String addressSi;
         private String addressGu;
         private String addressDong;
@@ -129,16 +133,6 @@ public class PdtDto {
         private Integer end;
         private String pdtName;
         private String pdtDesc;
-        private Long pdtCateNo;
-        private String pdtCate;
-    }
-
-
-    @Data
-    @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class CateSearch{
         private Long pdtCateNo;
         private String pdtCate;
     }

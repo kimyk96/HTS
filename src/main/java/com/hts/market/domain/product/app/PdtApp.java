@@ -28,7 +28,7 @@ public class PdtApp {
         return null;
     }
     // 키워드 검색
-    public PdtDto.KeywordSearch findByPdtKeywordLike(PdtDto.KeywordSearch dto){
+    public PdtDto.SearchData findByPdtKeywordLike(PdtDto.SearchData dto){
         return null;
     }
     // 판매자명 검색

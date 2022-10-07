@@ -8,6 +8,14 @@ public class PdtCateDto {
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
+    public static class Create{
+        private Long pdtCateNo;
+        private String pdtCate;
+    }
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class Read{
         private Long pdtCateNo;
         private String pdtCate;

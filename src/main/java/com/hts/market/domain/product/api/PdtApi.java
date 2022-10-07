@@ -4,7 +4,6 @@ import com.hts.market.domain.product.app.PdtApp;
 import com.hts.market.domain.product.dto.PdtDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,7 +46,7 @@ public class PdtApi {
 
     // 키워드 검색
     @GetMapping("find-by-keyword-like")
-    public ResponseEntity<PdtDto.KeywordSearch> findByKeywordLike(@Valid PdtDto.KeywordSearch dto, Principal principal) {
+    public ResponseEntity<PdtDto.SearchData> findByKeywordLike(@Valid PdtDto.SearchData dto, Principal principal) {
         return null;
     }
 

@@ -37,18 +37,22 @@
     <!-- 판매글 지역별로 목록보기 -->
     <select id="findAllByAddress" resultType="com.hts.market.domain.product.dto.PdtDto$ReadList">
         SELECT
-            b.pdt_no, b.pdt_address_no, b.pdt_name, b.pdt_status, b.pdt_price, b.pdt_views, b.pdt_created_at
+            b.*
         FROM
             (
                 SELECT /*+ index_desc(PRODUCT PK_PRODUCT) */
                     ROWNUM AS rnum,
-                    a.pdt_no, a.pdt_address_no, a.pdt_name, a.pdt_status, a.pdt_price, a.pdt_views, a.pdt_created_at
+                    a.*
                 FROM
                     (
                         SELECT
-                            pdt_no, pdt_address_no, pdt_name, pdt_status, pdt_price, pdt_views, pdt_created_at
-                        FROM
-                            product p left join address d on p.pdt_address_no = d.address_no where d.address_si = #{addressSi} and d.address_gu = #{addressGu} and d.address_dong = #{addressDong}
+                            p.pdt_no, c.pdt_cate, p.pdt_name, p.pdt_status, p.pdt_price, p.pdt_views, p.pdt_created_at, i.img_path, d.address_si, d.address_gu, d.address_dong
+                         FROM
+                            product p left outer join address d on p.pdt_address_no = d.address_no
+                            left outer join product_image i on p.pdt_no=i.pdt_no
+                            left outer join product_category c on p.pdt_cate_no = c.pdt_cate_no
+                        where
+                            d.address_si = #{addressSi} and d.address_gu = #{addressGu} and d.address_dong = #{addressDong}
                         ORDER BY
                             pdt_no DESC
                     ) a
@@ -64,48 +68,39 @@
     </delete>
     <!-- 회원탈퇴시 판매글 삭제(추후 추가)-->
 
-<!--    &lt;!&ndash; 검색할 키워드를 만드는 sql &ndash;&gt;-->
-<!--    <sql id="search">-->
-<!--        <if test="pdtName == #{pdtName}">-->
-<!--            WHERE pdt_name LIKE CONCAT('%'||#{keyword}||'%')-->
-<!--        </if>-->
-<!--        <if test="pdtDesc == #{pdtDesc}">-->
-<!--            WHERE pdt_desc LIKE CONCAT('%'||#{keyword}||'%')-->
-<!--        </if>-->
-<!--        <if test="pdtCate == #{pdtCate}">-->
-<!--            WHERE pdt_cate LIKE CONCAT('%'||#{keyword}||'%')-->
-<!--        </if>-->
-<!--    </sql>-->
 
 
     <!-- 제목+내용, 카테고리로 검색 -->
     <select id="searchByKeywordLike" resultType="com.hts.market.domain.product.dto.PdtDto$ReadList">
         SELECT
-        b.pdt_no, b.pdt_address_no, b.pdt_name, b.pdt_status, b.pdt_price, b.pdt_views, b.pdt_created_at
+             b.*
         FROM
-        (
-        SELECT /*+ index_desc(PRODUCT PK_PRODUCT) */
-        ROWNUM AS rnum,
-        a.pdt_no, a.pdt_address_no, a.pdt_name, a.pdt_status, a.pdt_price, a.pdt_views, a.pdt_created_at
-        FROM
-        (
-        SELECT
-        pdt_no, pdt_address_no, pdt_name, pdt_status, pdt_price, pdt_views, pdt_created_at
-        FROM
-        product p left join address d on p.pdt_address_no = d.address_no where d.address_si = #{addressSi} and d.address_gu = #{addressGu} and d.address_dong = #{addressDong}
-        <choose>
-            <when test="pdtName != null and pdtDesc != null">
-                and pdt_name LIKE '%'|| #{pdtName} ||'%' or pdt_desc Like '%'|| #{pdtDesc} ||'%'
-            </when>
-            <when test="pdtCateNo != null">
-                and  pdt_cate_no LIKE '%'|| #{pdtCateNo} ||'%'
-            </when>
-        </choose>
-        ORDER BY
-        pdt_no DESC
-        ) a
-        WHERE
-        ROWNUM &lt;= #{end}
+            (
+                SELECT /*+ index_desc(PRODUCT PK_PRODUCT) */
+                    ROWNUM AS rnum, a.*
+                FROM
+                    (
+                        SELECT
+                            p.pdt_no, c.pdt_cate, p.pdt_name, p.pdt_status, p.pdt_price, p.pdt_views, p.pdt_created_at, i.img_path, d.address_si, d.address_gu, d.address_dong
+                        FROM
+                            product p left outer join address d on p.pdt_address_no = d.address_no
+                            left outer join product_image i on p.pdt_no=i.pdt_no
+                            left outer join product_category c on p.pdt_cate_no = c.pdt_cate_no
+                        where
+                            d.address_si = #{addressSi} and d.address_gu = #{addressGu} and d.address_dong = #{addressDong}
+                            <choose>
+                                <when test="pdtName != null and pdtDesc != null">
+                                    and pdt_name LIKE '%'|| #{pdtName} ||'%' or pdt_desc Like '%'|| #{pdtDesc} ||'%'
+                                </when>
+                                <when test="pdtCateNo != null">
+                                    and  pdt_cate LIKE '%'|| #{pdtCate} ||'%'
+                                </when>
+                            </choose>
+                        ORDER BY
+                            pdt_no DESC
+                    ) a
+                WHERE
+            ROWNUM &lt;= #{end}
         ) b
         WHERE
         b.rnum &gt;= #{start}
@@ -118,5 +113,18 @@
 <!--        <include refid="search"/>-->
 <!--        order by pdt_no desc-->
 <!--    </select>-->
+
+    <!--    &lt;!&ndash; 검색할 키워드를 만드는 sql &ndash;&gt;-->
+    <!--    <sql id="search">-->
+    <!--        <if test="pdtName == #{pdtName}">-->
+    <!--            WHERE pdt_name LIKE CONCAT('%'||#{keyword}||'%')-->
+    <!--        </if>-->
+    <!--        <if test="pdtDesc == #{pdtDesc}">-->
+    <!--            WHERE pdt_desc LIKE CONCAT('%'||#{keyword}||'%')-->
+    <!--        </if>-->
+    <!--        <if test="pdtCate == #{pdtCate}">-->
+    <!--            WHERE pdt_cate LIKE CONCAT('%'||#{keyword}||'%')-->
+    <!--        </if>-->
+    <!--    </sql>-->
 
 </mapper>
