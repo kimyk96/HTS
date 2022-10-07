@@ -110,15 +110,21 @@ public class PdtDto {
     @NoArgsConstructor
     public static class Read {
         private Long pdtNo;
-        private Long pdtCateNo;
         private Long pdtSellerNo;
-        private Long pdtAddressNo;
         private String pdtName;
         private String pdtDesc;
         private Integer pdtStatus;
         private Integer pdtPrice;
         private Integer pdtViews;
         private LocalDateTime pdtCreatedAt;
+        // address 에서 가져온 값
+        private String addressSi;
+        private String addressGu;
+        private String addressDong;
+        // product_image 에서 가져온 값
+        private String imgPath;
+        // product_category 에서 가져온 값
+        private String pdt_cate;
     }
 
     @Data
