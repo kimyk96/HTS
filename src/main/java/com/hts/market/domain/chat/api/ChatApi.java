@@ -30,13 +30,13 @@ public class ChatApi {
     }
 
 
-    // 회원 채팅방 목록 및 메세지 불러오기
-//    @GetMapping("find-by-chat-mem-no")
-//    public ResponseEntity<List<Integer>> findAllByChatMemNo(Long chatMemNo) {
-//        List<Integer> chatList =  chatApp.findByChatMemNo(chatMemNo);
-//        return ResponseEntity.ok().body(chatList);
-//    }
-//
+      // 회원 채팅방 및 최근 메세지
+    @GetMapping("find-all-by-chat-mem-no")
+    public ResponseEntity<List<ChatDto.PK>> findAllByChatMemNo(Long chatMemNo) {
+        List<ChatDto.PK> chatList =  chatApp.findAllByChatMemNo(chatMemNo);
+        return ResponseEntity.ok().body(chatList);
+    }
+
     // 회원간 채팅내역
     @GetMapping("find-all-by-chat-mem-no-and-chat-pdt-no")
     public ResponseEntity<List<ChatDto.Read>> findAllByChatMemNoAndChatPdtNo(ChatDto.scroll scroll) {

@@ -34,7 +34,7 @@ public class ChatRepoTest {
     }
 
 
-    @DisplayName("채팅저장")
+    @DisplayName("1)채팅저장")
     @Test
     public void save() {
 
@@ -48,21 +48,21 @@ public class ChatRepoTest {
         //then
         Assertions.assertThat(result).isEqualTo(1);
     }
-    @DisplayName("채팅리스트&최근메세지")
+    @DisplayName("2)채팅리스트&최근메세지")
     @Test
     public void findAllByChatMemNo() {
         //GIVEN
         Long chatMemNo = 1L;
 
         //WHEN
-        List<ChatDto.Read> result = chatrepo.findAllByChatMemNo(chatMemNo);
+        List<ChatDto.PK> result = chatrepo.findAllByChatMemNo(chatMemNo);
 
         //THEN
             Assertions.assertThat(result).hasSize(21);
 
     }
 
-    @DisplayName("회원간 채팅내역")
+    @DisplayName("3)회원간 채팅내역")
     @Test
     public void findAllByChatMemNoAndChatPdtNo() {
         //GIVEN

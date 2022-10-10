@@ -3,6 +3,7 @@ package com.hts.market.domain.chat.app;
 import com.hts.market.domain.chat.dto.ChatDto;
 import com.hts.market.domain.chat.exception.ChatListNotFoundException;
 import com.hts.market.domain.chat.repo.ChatRepo;
+import com.hts.market.domain.product.repo.PdtRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +14,23 @@ import java.util.List;
 public class ChatApp {
     @Autowired
     ChatRepo chatRepo;
+    @Autowired
+    PdtRepo pdtRepo;
 
     // 고을호 > 서버(저장) > 김용광
 
+    //
+
     public Integer save(ChatDto.Create creDto) {
-        // 사용자 채팅 정보 -> DB 저장
+//        Long isSellerNo = pdtRepo.findSellerNoById(creDto.getChatPdtNo());
+//        if (isSellerNo == creDto.getChatMemNo()) {
+//           return
+//        } else {
+//            return
+//        }
+
+
+         //사용자 채팅 정보 -> DB 저장
         Integer result = chatRepo.save(creDto);
         Boolean result2 = result.equals(1) ? true : false;
         if (result.equals(1)) {
@@ -36,8 +49,8 @@ public class ChatApp {
 
 
     // 회원 채팅방 목록 및 메세지 불러오기
-    List<ChatDto.Read> findAllByChatMemNo(Long chatMemNo) {
-        List<ChatDto.Read> result = chatRepo.findAllByChatMemNo(chatMemNo);
+    public List<ChatDto.PK> findAllByChatMemNo(Long chatMemNo) {
+        List<ChatDto.PK> result = chatRepo.findAllByChatMemNo(chatMemNo);
         if(result.size()==0){
             // 채팅내역이 없습니다.
             throw new ChatListNotFoundException();
@@ -46,9 +59,6 @@ public class ChatApp {
             return result;
         }
     }
-
-
-
 
 
     // 회원간 채팅내역

@@ -18,6 +18,7 @@ public class ChatDto {
         private Long chatPdtNo;
         @NotEmpty(message = "메세지를 입력해주세요")
         private String chatContent;
+        private Boolean isSellerNo;
     }
 
     @Data
@@ -40,6 +41,7 @@ public class ChatDto {
         public Long chatPdtNo;
         public Long chatMemNo;
         public Long chatMsgNo;
+
     }
 
     @Data
