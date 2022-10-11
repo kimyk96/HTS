@@ -25,13 +25,13 @@ public class PdtApi {
 //    @PreAuthorize("")
     @PostMapping("save")
     public ResponseEntity<Integer> save(@Valid PdtDto.Create dto, Principal principal) {
-        return null;
+        return ResponseEntity.ok().body(pdtApp.save(dto));
     }
 
     // 상품수정
     @PutMapping("update")
     public ResponseEntity<Integer> update(@Valid PdtDto.Update dto, Principal principal) {
-        return null;
+        return ResponseEntity.ok().body(pdtApp.update(dto));
     }
 
     // 상품삭제
@@ -47,6 +47,12 @@ public class PdtApi {
         return ResponseEntity.ok().body(result);
     }
 
+    // 회원별(지정지역) 상품목록보기
+    @GetMapping("find-all-by-pdt-address-no")
+    public ResponseEntity<List<PdtDto.ReadList>> findAllByAddressNo(@Valid  PdtDto.AddressData dto, Principal principal, BindingResult bindingResult) {
+        return ResponseEntity.ok().body(pdtApp.findAllByPdtAddress(dto));
+    }
+
     // 제목+내용, 카테고리 검색
     @GetMapping("find-by-search")
     public ResponseEntity<PdtDto.SearchData> findByKeywordLike(@Valid PdtDto.SearchData dto, Principal principal) {
@@ -59,11 +65,7 @@ public class PdtApi {
         return null;
     }
 
-    // 회원별(지정지역) 상품목록보기
-    @GetMapping("find-all-by-pdt-address-no")
-    public ResponseEntity<List<PdtDto.ReadList>> findAllByAddressNo(@Valid  PdtDto.AddressData dto, Principal principal, BindingResult bindingResult) {
-        return ResponseEntity.ok().body(pdtApp.findAllByPdtAddress(dto));
-    }
+
 
 
 

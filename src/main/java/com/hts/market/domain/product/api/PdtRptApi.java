@@ -31,5 +31,8 @@ public class PdtRptApi {
         return null;
     }
 
-    // 신고
+    // 신고목록
+    // 신고삭제
+    // 신고회원삭제
+    // 신고상품삭제
 }

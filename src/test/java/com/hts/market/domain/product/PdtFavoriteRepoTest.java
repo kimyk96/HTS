@@ -1,4 +1,4 @@
-package com.hts.market.domain.prduct;
+package com.hts.market.domain.product;
 
 import com.hts.market.domain.product.dto.PdtFavoriteDto;
 import com.hts.market.domain.product.repo.PdtFavoriteRepo;

@@ -1,4 +1,4 @@
-package com.hts.market.domain.prduct;
+package com.hts.market.domain.product;
 
 import com.hts.market.domain.product.dto.PdtImgDto;
 import com.hts.market.domain.product.repo.PdtImgRepo;

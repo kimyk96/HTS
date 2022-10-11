@@ -1,7 +1,6 @@
 package com.hts.market.domain.product.app;
 
 import com.hts.market.domain.product.dto.PdtDto;
-import com.hts.market.domain.product.entity.PdtEntity;
 import com.hts.market.domain.product.repo.PdtRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,12 +14,12 @@ public class PdtApp {
     private PdtRepo pdtRepo;
 
     // 판매글 작성
-    public PdtEntity save(PdtDto.Create dto) {
-        return null;
+    public Integer save(PdtDto.Create dto) {
+        return pdtRepo.save(dto);
     }
     // 판매글 수정
     public Integer update(PdtDto.Update dto){
-        return null;
+        return pdtRepo.update(dto);
     }
     // 판매글 조회수 증가
     public Integer countByPdtNo(PdtDto.ViewCount dto){
