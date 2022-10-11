@@ -10,6 +10,6 @@
     </insert>
     <!-- 카테고리 목록보기 -->
     <select id="findAll" resultType="com.hts.market.domain.product.dto.PdtCateDto$Read">
-        select pdt_cate_no, pdt_cate from PRODUCT_CATEGORY order by pdt_cate_no desc
+        select pdt_cate_no, pdt_cate from PRODUCT_CATEGORY
     </select>
 </mapper>

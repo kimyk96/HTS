@@ -26,7 +26,7 @@
     </update>
     <!-- 조회수 증가 -->
     <update id="increaseInViews">
-        update PRODUCT set pdt_views = pdt_views+1 where pdt_no = #{pdtNo} and pdt_seller_no != #{pdtSellerNo}
+        update PRODUCT set pdt_views = pdt_views+1 where pdt_no = #{pdtNo} and pdt_seller_no != #{memNo}
     </update>
     <!-- 판매글 읽기 -->
     <select id="findByPdtNo" resultType="com.hts.market.domain.product.dto.PdtDto$Read">
@@ -52,7 +52,8 @@
                 FROM
                     (
                         SELECT
-                            p.pdt_no, c.pdt_cate, p.pdt_name, p.pdt_status, p.pdt_price, p.pdt_views, p.pdt_created_at, i.img_path, d.address_si, d.address_gu, d.address_dong
+                            p.pdt_no, c.pdt_cate, p.pdt_name, p.pdt_status, p.pdt_price, p.pdt_views, p.pdt_created_at,
+                            i.img_path, d.address_si, d.address_gu, d.address_dong
                          FROM
                             product p left outer join address d on p.pdt_address_no = d.address_no
                             left outer join product_image i on p.pdt_no=i.pdt_no
@@ -87,7 +88,8 @@
                 FROM
                     (
                         SELECT
-                            p.pdt_no, c.pdt_cate, p.pdt_name, p.pdt_status, p.pdt_price, p.pdt_views, p.pdt_created_at, i.img_path, d.address_si, d.address_gu, d.address_dong
+                            p.pdt_no, c.pdt_cate, p.pdt_name, p.pdt_status, p.pdt_price, p.pdt_views, p.pdt_created_at,
+                            i.img_path, d.address_si, d.address_gu, d.address_dong
                         FROM
                             product p left outer join address d on p.pdt_address_no = d.address_no
                             left outer join product_image i on p.pdt_no=i.pdt_no

@@ -3,6 +3,7 @@ package com.hts.market.domain.product.api.advice;
 import com.hts.market.domain.product.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -51,5 +52,9 @@ public class PdtApiAdvice {
     @ExceptionHandler(ProductReportSaveExhaustionException.class)
     public ResponseEntity<String> ProductReportSaveExhaustionException(){
         return ResponseEntity.status(HttpStatus.CONFLICT).body("일일 신고횟수가 소진되었습니다");
+    }
+    @ExceptionHandler(BindException.class)
+    public ResponseEntity<String> BindExceptionHandler(){
+        return ResponseEntity.status(HttpStatus.CONFLICT).body("시,구,동을 설정해주세요");
     }
 }

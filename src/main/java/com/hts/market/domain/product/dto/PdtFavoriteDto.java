@@ -2,6 +2,8 @@ package com.hts.market.domain.product.dto;
 
 import lombok.*;
 
+import javax.validation.constraints.NotNull;
+
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PdtFavoriteDto {
     @Data
@@ -9,8 +11,13 @@ public class PdtFavoriteDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Create {
+        @NotNull
         private Long pdtNo;
+        @NotNull
         private Long memNo;
+        public Create toDto(){
+            return Create.builder().pdtNo(pdtNo).memNo(memNo).build();
+        }
     }
 
     @Data
@@ -26,7 +33,9 @@ public class PdtFavoriteDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Delete{
+        @NotNull
         private Long pdtNo;
+        @NotNull
         private Long memNo;
     }
     @Data

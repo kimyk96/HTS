@@ -16,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest
 @Transactional
@@ -61,7 +62,7 @@ class PdtRepoTest {
     // 판매글 죄회수증가 테스트
     @Test
     void increaseInViewsTest(){
-        PdtDto.ViewCount dto = PdtDto.ViewCount.builder().pdtNo(1L).pdtSellerNo(2L).build();
+        PdtDto.ViewCount dto = PdtDto.ViewCount.builder().pdtNo(1L).memNo(2L).build();
 
         Integer views = pdtRepo.increaseInViews(dto);
 
@@ -70,11 +71,11 @@ class PdtRepoTest {
     // 상품읽기 테스트
     @Test
     void findByPdtNo(){
-        PdtDto.Read dto = PdtDto.Read.builder().pdtNo(1L).build();
+        Long pdtNo = 1L;
 
-        PdtDto.Read result = pdtRepo.findByPdtNo(dto);
+        Optional<PdtDto.Read> result = pdtRepo.findByPdtNo(pdtNo);
 
-        Assertions.assertThat(result.getPdtNo()).isEqualTo(1L);
+        Assertions.assertThat(result.get().getPdtNo()).isEqualTo(1L);
     }
     // 지역별 상품목록 테스트
     @Test

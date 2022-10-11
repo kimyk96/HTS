@@ -5,6 +5,7 @@ import com.hts.market.domain.product.dto.PdtRptDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,4 +25,11 @@ public class PdtRptApi {
     private ResponseEntity<Integer> save(@Valid PdtRptDto.Create dto, Principal principal){
         return null;
     }
+    // 신거읽기
+    @GetMapping("read")
+    private ResponseEntity<Integer> read(@Valid PdtRptDto.Read dto, Principal principal){
+        return null;
+    }
+
+    // 신고
 }

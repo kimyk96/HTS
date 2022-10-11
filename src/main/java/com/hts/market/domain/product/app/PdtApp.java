@@ -6,6 +6,9 @@ import com.hts.market.domain.product.repo.PdtRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class PdtApp {
     @Autowired
@@ -20,7 +23,7 @@ public class PdtApp {
         return null;
     }
     // 판매글 조회수 증가
-    public Integer countByPdtNo(Integer views, String username){
+    public Integer countByPdtNo(PdtDto.ViewCount dto){
         return null;
     }
     // 판매글 삭제
@@ -36,15 +39,11 @@ public class PdtApp {
         return null;
     }
     // 판매자별 글목록
-    public PdtDto.Page findAllByPdtAddress(PdtDto.Page dto){
-        return null;
+    public List<PdtDto.ReadList> findAllByPdtAddress(PdtDto.AddressData dto){
+        return pdtRepo.findAllByAddress(dto);
     }
     // 글 읽기
-    public PdtDto.Read findByPdtNo(PdtDto.Read dto){
-        return null;
-    }
-    // 카테고리 검색
-    public Integer findByPdtCateNo(Long pdtCateNo){
-        return null;
+    public Optional<PdtDto.Read> findByPdtNo(Long pdtNo) {
+        return pdtRepo.findByPdtNo(pdtNo);
     }
 }

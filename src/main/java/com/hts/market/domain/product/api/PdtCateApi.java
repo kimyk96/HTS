@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.security.Principal;
+import java.util.List;
 
 @RestController
 @Validated
@@ -21,8 +20,8 @@ public class PdtCateApi {
 
     // 카테고리 목록
     @GetMapping("find-all")
-    public ResponseEntity<Integer> findAll(@Valid PdtCateDto.Read dto, Principal principal){
-        return null;
+    public ResponseEntity<List<PdtCateDto.Read>> findAll(){
+        return ResponseEntity.ok().body(pdtCateApp.findAll());
     }
 
 }

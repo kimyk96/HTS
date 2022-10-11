@@ -86,11 +86,16 @@ public class PdtDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class AddressData{
+        @NotEmpty
         private String addressSi;
+        @NotEmpty
         private String addressGu;
+        @NotEmpty
         private String addressDong;
-        private Integer start;
-        private Integer end;
+        @NotNull
+        private Integer start = 1;
+        @NotNull
+        private Integer end = 10;
     }
 
     @Data
@@ -149,6 +154,6 @@ public class PdtDto {
     @NoArgsConstructor
     public static class ViewCount {
         private Long pdtNo;
-        private Long pdtSellerNo;
+        private Long memNo;
     }
 }

@@ -27,7 +27,17 @@ public class PdtImgApi {
     private ResponseEntity<Integer> update(@Valid PdtImgDto.Update dto, Principal principal){
         return null;
     }
-    // 이미지삭제
+    // 대표이미지 보기
+//    @GetMapping()
+//    public  ResponseEntity<PdtImgDto.Read> readByMain(){
+//        return null;
+//    }
+//    // 이미지목록 보기
+//    @GetMapping()
+//    public  ResponseEntity<PdtImgDto.Read> readByAll(){
+//        return null;
+//    }
+//    // 이미지삭제
     @DeleteMapping("delete")
     private ResponseEntity<Integer> delete(@Valid PdtImgDto.Delete dto, Principal principal){
         return null;

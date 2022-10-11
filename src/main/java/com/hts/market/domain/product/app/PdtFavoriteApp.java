@@ -11,8 +11,8 @@ public class PdtFavoriteApp {
     private PdtFavoriteRepo pdtFavoriteRepo;
 
     // 관심 등록
-    public PdtFavoriteDto.Create save(PdtFavoriteDto.Create dto){
-        return null;
+    public Integer save(PdtFavoriteDto.Create dto){
+        return pdtFavoriteRepo.save(dto);
     }
     // 관심 해제
     public Integer delete(PdtFavoriteDto.Delete dto){
