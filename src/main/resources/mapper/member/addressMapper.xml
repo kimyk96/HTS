@@ -1,65 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hts.market.domain.member.repo.AddressRepo">
-    <!-- 회원별 주소 전체 조회-->
-    <select id="findAllByName" resultType="com.hts.market.domain.member.dto.AddressDto$Read">
-        <![CDATA[
-            SELECT
-                a.*
-            FROM
-                ADDRESS a left join MEMBER m on a.mem_no=m.mem_no
-            WHERE
-                m.mem_username=#{memUsername}
-        ]]>
-    </select>
-
-
-
-
-
-
-
-
     <!-- 주소 저장-->
     <insert id="save">
         <selectKey resultType="long" order="BEFORE" keyProperty="addressNo">
-            select nvl(max(address_no),0)+1 from ADDRESS where mem_no=#{memNo}
+            SELECT NVL(MAX(address_no),0)+1 FROM ADDRESS WHERE mem_no=#{memNo}
         </selectKey>
-        insert into
-        ADDRESS( address_no, mem_no, address_si, address_gu, address_dong )
-        values
-        ( #{addressNo}, #{memNo}, #{addressSi}, #{addressGu}, #{addressDong} )
+        INSERT INTO
+            ADDRESS( address_no, mem_no, address_si, address_gu, address_dong )
+        VALUES
+            ( #{addressNo}, #{memNo}, #{addressSi}, #{addressGu}, #{addressDong} )
     </insert>
-    <!-- 주소 조회-->
-    <select id="findById" resultType="com.hts.market.domain.member.dto.AddressDto$Read">
-        <![CDATA[
-            SELECT
-                *
-            FROM
-                ADDRESS
-            WHERE
-                address_no=#{addressNo} and rownum <= 1
-        ]]>
-    </select>
-
-    <!-- 주소 수정-->
-    <update id="update">
-        <![CDATA[
-            UPDATE
-                ADDRESS
-            SET
-                address_si=#{addressSi}, address_gu=#{addressGu}, address_dong=#{addressDong}
-            WHERE
-                mem_no=#{memNo} and address_no=#{addressNo}
-        ]]>
-    </update>
     <!-- 주소 삭제-->
     <delete id="delete">
         <![CDATA[
             DELETE FROM
                 ADDRESS
             WHERE
-                mem_no=#{memNo} and address_no=#{addressNo}
+                mem_no=#{memNo} AND address_no=#{addressNo}
         ]]>
     </delete>
 </mapper>

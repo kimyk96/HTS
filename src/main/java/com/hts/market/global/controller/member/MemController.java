@@ -14,7 +14,7 @@ import java.security.Principal;
 
 @Controller
 @RequestMapping("member")
-//@Secured("ROLE_USER")
+@Secured("ROLE_USER")
 public class MemController {
     @GetMapping("")
     public String member(){

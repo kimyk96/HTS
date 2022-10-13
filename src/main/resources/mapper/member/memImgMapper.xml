@@ -11,38 +11,37 @@
         VALUES
             ( #{memNo}, #{imgNo}, #{imgPath} )
     </insert>
-
-    <!--    회원이미지 조회-->
-    <select id="findById" resultType="com.hts.market.domain.member.dto.MemImgDto$Read">
-        <![CDATA[
-            SELECT
-                *
-            FROM
-                MEMBER_IMAGE
-            WHERE
-                mem_no=#{memNo} and img_no=#{imgNo} and rownum <= 1
-        ]]>
-    </select>
-
-    <!--    회원이미지 수정-->
-    <update id="update">
-        <![CDATA[
-            UPDATE
-                MEMBER_IMAGE
-            SET
-                img_path=#{imgPath}
-            WHERE
-                mem_no=#{memNo} and img_no=#{imgNo}
-        ]]>
-    </update>
-
     <!--    회원이미지 삭제-->
     <delete id="delete">
         <![CDATA[
             DELETE FROM
                 MEMBER_IMAGE
             WHERE
-                mem_no=#{memNo} and img_no=#{imgNo}
+                mem_no=#{memNo}
         ]]>
     </delete>
 </mapper>
+
+<!--        &lt;!&ndash;    회원이미지 조회&ndash;&gt;-->
+<!--<select id="findByName" resultType="com.hts.market.domain.member.dto.MemImgDto$Read">-->
+<!--<![CDATA[-->
+<!--            SELECT-->
+<!--                *-->
+<!--            FROM-->
+<!--                MEMBER_IMAGE i left join MEMBER m on i.mem_no=m.mem_no-->
+<!--            WHERE-->
+<!--                m.mem_username=#{memUsername} and rownum <= 1-->
+<!--        ]]>-->
+<!--</select>-->
+
+<!--        &lt;!&ndash;    회원이미지 수정&ndash;&gt;-->
+<!--<update id="update">-->
+<!--<![CDATA[-->
+<!--            UPDATE-->
+<!--                MEMBER_IMAGE-->
+<!--            SET-->
+<!--                img_path=#{imgPath}-->
+<!--            WHERE-->
+<!--                mem_no=#{memNo} and img_no=#{imgNo}-->
+<!--        ]]>-->
+<!--</update>-->

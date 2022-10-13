@@ -14,39 +14,16 @@ import java.util.List;
 @Validated
 @RequestMapping("/api/v1/address")
 public class AddressApi {
-
     @Autowired AddressApp addressApp;
 
-    // 이하 설계도에 있는 메소드
-
     // 주소 생성
-    @PostMapping("save")
-    public ResponseEntity<Integer> save(AddressDto.Create dto){
-        return ResponseEntity.ok().body(addressApp.save(dto));
+    @PostMapping("")
+    public ResponseEntity<Integer> save(AddressDto.Create dto, Principal principal){
+        return ResponseEntity.ok().body(addressApp.save(dto, principal.getName()));
     }
-    
-    // 주소 조회
-    @GetMapping("find-by-id")
-    public ResponseEntity<AddressDto.Read> findById(Long addressNo){
-        return ResponseEntity.ok().body(addressApp.findById(addressNo));
-    }
-    
-    // 회원별 주소 전체 조회
-    @GetMapping("find-all-by-name")
-    public ResponseEntity<List<AddressDto.Read>> findAllByName(Principal principal){
-        return ResponseEntity.ok().body(addressApp.findAllByName(principal.getName()));
-    }
-
-    // 주소 수정
-    @PutMapping("update")
-    public ResponseEntity<Integer> update(AddressDto.Update dto){
-        return ResponseEntity.ok().body(addressApp.update(dto));
-    }
-
     // 주소 삭제
-    @DeleteMapping("delete")
+    @DeleteMapping("")
     public ResponseEntity<Integer> delete(AddressDto.Delete dto){
         return ResponseEntity.ok().body(addressApp.delete(dto));
     }
-
 }

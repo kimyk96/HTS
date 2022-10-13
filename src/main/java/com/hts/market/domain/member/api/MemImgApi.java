@@ -8,31 +8,19 @@ import org.springframework.http.codec.multipart.Part;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @RestController
 @Validated
 @RequestMapping("/api/v1/mem-img")
 public class MemImgApi {
     @Autowired MemImgApp memImgApp;
 
-    // 이하 설계도에 있는 메소드들
-
     // 회원 이미지 추가
     @PostMapping("save")
     public ResponseEntity<Integer> save(Part memImg) {
         MemImgDto.Create dto = MemImgDto.Create.builder().build();
         return ResponseEntity.ok().body(memImgApp.save(dto));
-    }
-
-    // 회원 이미지 조회
-    @GetMapping("find-by-id")
-    public ResponseEntity<MemImgDto.Read> findById(MemImgDto.Read dto) {
-        return ResponseEntity.ok().body(memImgApp.findById(dto));
-    }
-
-    // 회원 이미지 수정
-    @PutMapping("update")
-    public ResponseEntity<Integer> update(MemImgDto.Update dto) {
-        return ResponseEntity.ok().body(memImgApp.update(dto));
     }
 
     // 회원 이미지 삭제

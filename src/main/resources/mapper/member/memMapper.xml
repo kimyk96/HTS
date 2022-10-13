@@ -125,7 +125,7 @@
             <result column="address_dong"   property="addressDong"/>
         </collection>
     </resultMap>
-    <select id="findIdMemUsername" resultType="long">
+    <select id="findIdByMemUsername" resultType="long">
         <![CDATA[
             SELECT
                 mem_no

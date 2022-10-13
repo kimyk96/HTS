@@ -41,15 +41,11 @@
                 <h3>등록된 주소</h3>
             </div>
             <div class="address_wrapper">
-                <div>
-                    <p>인천시 부평구 부평1동</p>
-                    <img src="/img/icon/delete.png" alt="delete">
-                </div>
                 <div class="btn_add">
-                    <img src="/img/icon/add.png" alt="add">
+                    <img src="/img/icon/add.png" alt="add" id="btn_add">
                 </div>
             </div>
-            <div>
+            <div id="address_info">
                 <p>주소를 등록하고 <span>내 주변의 소식</span>을 확인해보세요!</p>
             </div>
         </section>
@@ -59,11 +55,59 @@
         $(function(){
             $.ajax({
                 method:"GET",
-                url:"/api/v1/address/find-all-by-name",
+                url:"/api/v1/mem/find-by-name",
             })
             .done(function(res){
-                console.log(res);
+                let address = res.address;
+                if(address.length==0){
+                    $("#address_info").html("<p>아직 등록된 주소정보가 없네요! :'(</p><p>주소를 등록하고 <span>내 주변의 소식</span>을 확인해보세요!</p>")
+                }else if(address.length==1){
+                    $(".address_wrapper").html(`
+                        <div>
+                            <p>${address[0].addressSi} ${address[0].addressGu} ${address[0].addressDong}</p>
+                            <img src="/img/icon/delete.png" alt="delete" class="btn_delete" data-mem-no="${res.memNo}" data-address-no="${address[0].addressNo}">
+                        </div>
+                        <div class="btn_add">
+                            <img src="/img/icon/add.png" alt="add" id="btn_add">
+                        </div>
+                    `)
+                }else{
+                    $(".address_wrapper").html(`
+                        <div>
+                            <p>${address[0].addressSi} ${address[0].addressGu} ${address[0].addressDong}</p>
+                            <img src="/img/icon/delete.png" alt="delete" class="btn_delete" data-mem-no="${res.memNo}" data-address-no="${address[0].addressNo}">
+                        </div>
+                        <div>
+                            <p>${address[1].addressSi} ${address[1].addressGu} ${address[1].addressDong}</p>
+                            <img src="/img/icon/delete.png" alt="delete" class="btn_delete" data-mem-no="${res.memNo}" data-address-no="${address[0].addressNo}">
+                        </div>
+                    `)
+                }
             });
+
+            $(document).on("click", ".btn_add", function(){
+                $(location).attr("href", "/member/address");
+            })
+
+            $(document).on("click", ".btn_delete", function(){
+                console.log($(this).data("address-no"));
+                $.ajax({
+                    method: "DELETE",
+                    url: "/api/v1/address",
+                    data: { addressNo: $(this).data("address-no"), memNo : $(this).data("mem-no") }
+                })
+                .done(function(res){
+                    if(res==1){
+                        $(location).attr("href", "/member/address-list");
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            text: '주소 삭제에 실패하였습니다.'
+                        })
+                    }
+                })
+            })
+
         });
     </script>
 </body>

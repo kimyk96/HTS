@@ -23,7 +23,7 @@ import java.util.Map;
 public class KakaoApi {
     @Autowired KakaoApp kakaoApp;
     @GetMapping("")
-    public void kakaoSignup(@RequestParam String code, HttpServletResponse response) throws IOException {
+    public void save(@RequestParam String code, HttpServletResponse response) throws IOException {
         Long memNo = kakaoApp.save(code);
         response.sendRedirect("/login?memNo=" + memNo);
     }

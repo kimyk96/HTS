@@ -24,7 +24,7 @@
         #main section#member div.wrapper div.brix div span.mem_brix{ color : #FF9D2A; }
         #main section#member div.wrapper div.brix div.brix_bar{ position : relative; margin : 8px 0; }
         #main section#member div.wrapper div.brix div.brix_bar p{ transition : 0.3s; width : 100%; padding : 8px 0; border-radius: 10px; background-color : #efefef; }
-        #main section#member div.wrapper div.brix div.brix_bar p#mem_brix{ width : 55%; position : absolute; top : 0; left : 0; background-color: #FF9D2A; }
+        #main section#member div.wrapper div.brix div.brix_bar p#mem_brix{ width : 0%; position : absolute; top : 0; left : 0; background-color: #FF9D2A; }
         #main section#member div.wrapper div.kakao_pay{ width : 85%; margin : 0 2.5%; padding : 4vw 5%; border : 2px dashed #FF9D2A; border-radius: 2.5vw; display: flex; flex-direction: row; justify-content: space-between; align-items: center; }
         #main section#member div.wrapper div.kakao_pay span{ font-size : 11px; font-weight : 100; }
         #main section#member div.wrapper div.kakao_pay span.kakao_pay_img{ display : flex; flex-direction: row; justify-content: center; align-items: center; }
@@ -50,9 +50,6 @@
         </div>
         <div>
             <ul>
-                <!-- <li id="header_search"><img src="img/icon/search.png" alt="search"></li>
-                <li id="header_menu"><img src="img/icon/menu.png" alt="menu"></li>
-                <li id="header_notification"><img src="img/icon/notification.png" alt="notification"></li> -->
             </ul>
         </div>
     </header>
@@ -62,12 +59,12 @@
             <div class="wrapper">
                 <div class="profile">
                     <div class="img">
-                        <img src="img/example/profile.png" alt="profile_img">
+                        <img src="img/example/profile.png" alt="profile_img" id="img_path">
                     </div>
                     <div class="info">
-                        <h3>한라봉 소년</h3>
-                        <p><span>부평구 부평1동</span> * <span>#1427435734</span></p>
-                        <p>(2022년 10월 07일 가입)</p>
+                        <h3 id="mem_nickname"></h3>
+                        <p><span id="mem_address"></span> * <span id="mem_no"></span></p>
+                        <p id="mem_created_at"></p>
                     </div>
                     <div class="arrow">
                         <img src="img/icon/arrow_right.png" alt="arrow_right">
@@ -76,7 +73,7 @@
                 <div class="brix">
                     <div>
                         <span>당도</span>
-                        <span class="mem_brix">55 브릭스</span>
+                        <span class="mem_brix"></span>
                     </div>
                     <div class="brix_bar">
                         <p></p>
@@ -185,6 +182,19 @@
             })
             .done(function(res){
                 console.log(res);
+                console.log(res.address.length);
+                $("#mem_no").text("#" + res.memNo);
+                $("#mem_nickname").text(res.memNickname);
+                $("#mem_created_at").text(res.memCreatedAt);
+                $(".mem_brix").text(res.memBrix + " 브릭스");
+                $("#mem_brix").css("width", res.memBrix + "%");
+                if(res.address.length > 0){
+                    $("#mem_address").text(res.address[0].addressGu + " " + res.address[0].addressDong );
+                }
+                $("#img_path").attr("src", res.imgPath);
+            })
+            .fail(function(res){
+
             })
         });
     </script>

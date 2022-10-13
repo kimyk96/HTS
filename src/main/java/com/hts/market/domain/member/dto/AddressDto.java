@@ -32,18 +32,6 @@ public class AddressDto {
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class Update {
-        private Long addressNo;
-        private Long memNo;
-        private String addressSi;
-        private String addressGu;
-        private String addressDong;
-    }
-
-    @Data
-    @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
     public static class Delete {
         private Long addressNo;
         private Long memNo;

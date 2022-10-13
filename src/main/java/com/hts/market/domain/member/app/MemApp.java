@@ -5,6 +5,7 @@ import com.hts.market.domain.member.dto.MemRoleDto;
 import com.hts.market.domain.member.entity.MemEntity;
 import com.hts.market.domain.member.exception.MemberAlreadyExsistException;
 import com.hts.market.domain.member.exception.MemberNotFoundException;
+import com.hts.market.domain.member.repo.MemImgRepo;
 import com.hts.market.domain.member.repo.MemRepo;
 import com.hts.market.domain.member.repo.MemRoleRepo;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
@@ -36,10 +37,10 @@ public class MemApp {
                     .memPassword(passwordEncoder.encode(code))
                     .memNickname("")
                     .memEmail("").build();
-            Integer memSaveResult = memRepo.save(memCreateDto);
+            memRepo.save(memCreateDto);
             MemRoleDto.Create memRoleDtoCreate = MemRoleDto.Create.builder()
                     .memNo(memCreateDto.getMemNo()).roleNo(2L).build();
-            Integer memRoleSaveResult = memRoleRepo.save(memRoleDtoCreate);
+            memRoleRepo.save(memRoleDtoCreate);
         } else {
             // memNo 있음
             return Integer.parseInt(code);
@@ -58,12 +59,20 @@ public class MemApp {
 
     // 회원번호로 정보 조회
     public MemDto.Member findById(Long memNo) {
-        return memRepo.findById(memNo).orElseThrow(() -> new MemberNotFoundException());
+        MemDto.Member member = memRepo.findById(memNo).orElseThrow(() -> new MemberNotFoundException());
+        if(member.getImgPath()==null){
+            member.setImgPath("/img/example/profile.png");
+        }
+        return member;
     }
 
     // 회원명으로 정보 조회
     public MemDto.Member findByName(String memUsername) {
-        return memRepo.findByName(memUsername).orElseThrow(() -> new MemberNotFoundException());
+        MemDto.Member member = memRepo.findByName(memUsername).orElseThrow(() -> new MemberNotFoundException());
+        if(member.getImgPath()==null){
+            member.setImgPath("/img/example/profile.png");
+        }
+        return member;
     }
 
 }
