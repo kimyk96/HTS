@@ -1,4 +1,4 @@
-package com.hts.market.domain.product;
+package com.hts.market.domain.product.daoTest;
 
 import com.hts.market.domain.product.dto.PdtRptDto;
 import com.hts.market.domain.product.repo.PdtRptRepo;
@@ -26,12 +26,21 @@ class PdtRptRepoTest {
 
         Assertions.assertThat(result).isEqualTo(1);
     }
-    // 신고개별삭제 테스트
+
+    // 신고목록 출력 테스트
     @Test
-    void delete(){
+    void findAllByDto(){
+        PdtRptDto.Read dto = PdtRptDto.Read.builder().rptPdtNo(1L).build();
+        List<PdtRptDto.Read> result = pdtRptRepo.findAllByDto(dto);
+        Assertions.assertThat(result).hasSize(1);
+    }
+
+    // 신고번호삭제 테스트
+    @Test
+    void deleteByRptNo(){
         PdtRptDto.Delete dto = PdtRptDto.Delete.builder().rptNo(1L).build();
 
-        Integer result = pdtRptRepo.delete(dto);
+        Integer result = pdtRptRepo.deleteByRptNo(dto);
 
         Assertions.assertThat(result).isEqualTo(1);
     }
@@ -53,22 +62,8 @@ class PdtRptRepoTest {
 
         Assertions.assertThat(result).isEqualTo(1);
     }
-    // 신고보기 테스트
-    @Test
-    void findByRptNo(){
-        PdtRptDto.Read dto = PdtRptDto.Read.builder().rptNo(1L).build();
 
-        PdtRptDto.Read result = pdtRptRepo.findByRptNo(dto);
 
-        Assertions.assertThat(result.getRptNo()).isEqualTo(1L);
-        Assertions.assertThat(result.getRptPdtNo()).isEqualTo(1L);
-    }
-    // 신고목록 출력 테스트
-    @Test
-    void findAll(){
-        List<PdtRptDto.Read> result = pdtRptRepo.findAll();
-        Assertions.assertThat(result).hasSize(1);
-    }
 
 
 }

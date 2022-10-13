@@ -1,14 +1,18 @@
 package com.hts.market.domain.product.app;
 
+import com.hts.market.domain.product.dto.PdtDto;
 import com.hts.market.domain.product.dto.PdtFavoriteDto;
 import com.hts.market.domain.product.repo.PdtFavoriteRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PdtFavoriteApp {
     @Autowired
     private PdtFavoriteRepo pdtFavoriteRepo;
+    private Integer pageSize = 10;
 
     // 관심 등록
     public Integer save(PdtFavoriteDto.Create dto){
@@ -16,15 +20,15 @@ public class PdtFavoriteApp {
     }
     // 관심 해제
     public Integer delete(PdtFavoriteDto.Delete dto){
-        return null;
+        return pdtFavoriteRepo.delete(dto);
     }
     // 관심 목록
-    public Integer findAllByPdtNo(PdtFavoriteDto.Page dto){
+    public List<PdtDto.ReadList> findAllOfFavoriteList(Long memNo){
         return null;
     }
     // 관심수 확인
-    public Integer countByPdtNo(PdtFavoriteDto.CountFavorite dto){
-        return null;
-    }
+//    public Integer countByPdtNo(PdtFavoriteDto.CountFavorite dto){
+//        return null;
+//    }
 
 }

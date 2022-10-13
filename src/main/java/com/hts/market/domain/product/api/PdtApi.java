@@ -2,7 +2,6 @@ package com.hts.market.domain.product.api;
 
 import com.hts.market.domain.product.app.PdtApp;
 import com.hts.market.domain.product.dto.PdtDto;
-import com.hts.market.domain.product.exception.ProductNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -10,7 +9,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.security.Principal;
 import java.util.List;
@@ -36,14 +34,15 @@ public class PdtApi {
 
     // 상품삭제
     @DeleteMapping("delete")
-    public ResponseEntity<Integer> delete(@NotNull Long pdtNo, Principal principal) {
-        return null;
+    public ResponseEntity<Integer> delete(@Valid PdtDto.Delete dto, Principal principal, BindingResult bindingResult) {
+       return ResponseEntity.ok().body(pdtApp.delete(dto));
     }
 
     // 판맥글 보기
+    // 현재 문제 이미지가 2개 이상들어간 글을 조회할 수 없음 이미지 테이블 제외해야할 것 같음
     @GetMapping("find-by-pdt-no")
-    public ResponseEntity<PdtDto.Read> findByPdtNo(@NotNull Long pdtNo, Principal principal){
-        PdtDto.Read result= pdtApp.findByPdtNo(pdtNo).orElseThrow(()->new ProductNotFoundException());
+    public ResponseEntity<PdtDto.Detail> findByPdtNo(@NotNull Long pdtNo, Principal principal){
+        PdtDto.Detail result= pdtApp.findByPdtNo(pdtNo);
         return ResponseEntity.ok().body(result);
     }
 
@@ -54,20 +53,14 @@ public class PdtApi {
     }
 
     // 제목+내용, 카테고리 검색
-    @GetMapping("find-by-search")
-    public ResponseEntity<PdtDto.SearchData> findByKeywordLike(@Valid PdtDto.SearchData dto, Principal principal) {
-        return null;
+    @GetMapping("find-by-keyword-like")
+    public ResponseEntity<List<PdtDto.ReadList>> findByKeywordLike(@Valid PdtDto.SearchData dto, Principal principal) {
+        return ResponseEntity.ok().body(pdtApp.findByPdtKeywordLike(dto));
     }
 
-    // 판매자명 검색
-    @GetMapping("find-by-pdt-seller-no-like")
-    public ResponseEntity<Integer> findBySellerLike(@NotEmpty Long pdtSellerNo, Principal principal) {
-        return null;
+    // 판매자 찾기
+    @GetMapping("find-pdt-seller-no")
+    public ResponseEntity<Long> findPdtSellerNo(@NotNull Long pdtSellerNo, Principal principal){
+        return ResponseEntity.ok().body(pdtApp.findPdtSellerNo(pdtSellerNo));
     }
-
-
-
-
-
-
 }

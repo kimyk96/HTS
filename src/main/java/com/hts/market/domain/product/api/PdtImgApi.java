@@ -19,27 +19,29 @@ public class PdtImgApi {
 
     // 이미지저장
     @PostMapping("save")
-    private ResponseEntity<Integer> save(@Valid PdtImgDto.Create dto, Principal principal){
-        return null;
+    public ResponseEntity<Integer> save(@Valid PdtImgDto.Create dto, Principal principal){
+        return ResponseEntity.ok().body(pdtImgApp.save(dto));
     }
     // 이미지수정
     @PutMapping("update")
-    private ResponseEntity<Integer> update(@Valid PdtImgDto.Update dto, Principal principal){
-        return null;
+    public ResponseEntity<Integer> update(@Valid PdtImgDto.Update dto, Principal principal){
+        return ResponseEntity.ok().body(pdtImgApp.update(dto));
     }
-    // 대표이미지 보기
+
+    // 이미지삭제
+    @DeleteMapping("delete")
+    public ResponseEntity<Integer> delete(@Valid PdtImgDto.Delete dto, Principal principal){
+        return ResponseEntity.ok().body(pdtImgApp.delete(dto));
+    }
+
+//    //대표이미지 보기
 //    @GetMapping()
-//    public  ResponseEntity<PdtImgDto.Read> readByMain(){
-//        return null;
+//    public  ResponseEntity<String> readByMain(@Valid PdtImgDto.Read dto, Principal principal){
+//        return ResponseEntity.ok().body(pdtImgApp.findByImgNo(dto));
 //    }
 //    // 이미지목록 보기
 //    @GetMapping()
 //    public  ResponseEntity<PdtImgDto.Read> readByAll(){
 //        return null;
 //    }
-//    // 이미지삭제
-    @DeleteMapping("delete")
-    private ResponseEntity<Integer> delete(@Valid PdtImgDto.Delete dto, Principal principal){
-        return null;
-    }
 }

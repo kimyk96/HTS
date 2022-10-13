@@ -63,4 +63,8 @@ public class PdtApiAdvice {
     public ResponseEntity<String> constraintViolationExceptionHandler(){
         return ResponseEntity.status(HttpStatus.CONFLICT).body("필수입력 값이 없습니다");
     }
+    @ExceptionHandler(ProductDeleteFailException.class)
+    public ResponseEntity<String> productDeleteFailException(){
+        return ResponseEntity.status(HttpStatus.CONFLICT).body("상품삭제에 실패했습니다");
+    }
 }

@@ -1,11 +1,13 @@
 package com.hts.market.domain.product.dto;
 
+import com.hts.market.domain.member.dto.AddressDto;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PdtDto {
@@ -37,18 +39,13 @@ public class PdtDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Update {
+        @NotNull
         private Long pdtNo;
-        @NotNull
         private Long pdtCateNo;
-        @NotNull
         private Long pdtAddressNo;
-        @NotEmpty
         private String pdtName;
-        @NotNull
         private Integer pdtStatus;
-        @NotEmpty
         private String pdtDesc;
-        @NotNull
         private Integer pdtPrice;
 
     }
@@ -58,8 +55,10 @@ public class PdtDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Delete{
+        @NotNull
         private Long pdtNo;
-        private Long memNo;
+        @NotNull
+        private Long pdtSellerNo;
     }
 
     @Data
@@ -123,13 +122,27 @@ public class PdtDto {
         private Integer pdtViews;
         private LocalDateTime pdtCreatedAt;
         // address 에서 가져온 값
-        private String addressSi;
-        private String addressGu;
-        private String addressDong;
+//        private String addressSi;
+//        private String addressGu;
+//        private String addressDong;
         // product_image 에서 가져온 값
-        private String imgPath;
+//        private List<PdtImgDto.Read> imgList;
+//        // product_category 에서 가져온 값
+//        private String pdtCate;
+        // member
+    }
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Detail {
+        private PdtDto.Read product;
+        private AddressDto.Read address;
+        private List<PdtImgDto.Read> images;
         // product_category 에서 가져온 값
-        private String pdt_cate;
+        private String pdtCate;
+        // member
+//        private MemDto.Membermember;
     }
 
     @Data
@@ -140,8 +153,8 @@ public class PdtDto {
         private String addressSi;
         private String addressGu;
         private String addressDong;
-        private Integer start;
-        private Integer end;
+        private Integer start = 1;
+        private Integer end = 10;
         private String pdtName;
         private String pdtDesc;
         private Long pdtCateNo;

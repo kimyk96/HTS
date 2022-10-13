@@ -1,4 +1,4 @@
-package com.hts.market.domain.product;
+package com.hts.market.domain.product.daoTest;
 
 import com.hts.market.domain.product.dto.PdtCateDto;
 import com.hts.market.domain.product.repo.PdtCateRepo;

@@ -1,4 +1,4 @@
-package com.hts.market.domain.product;
+package com.hts.market.domain.product.daoTest;
 
 import com.hts.market.domain.product.dto.PdtFavoriteDto;
 import com.hts.market.domain.product.repo.PdtFavoriteRepo;
@@ -8,8 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @SpringBootTest
 @Transactional
@@ -37,14 +35,14 @@ class PdtFavoriteRepoTest {
         Assertions.assertThat(result).isEqualTo(1);
     }
 // 관심 목록 테스트
-    @Test
-    void findAllByPdtNo(){
-        PdtFavoriteDto.Page dto = PdtFavoriteDto.Page.builder().memNo(1L).build();
-
-        List<PdtFavoriteDto.Page> result = pdtFavoriteRepo.findAllByPdtNo(dto);
-
-        Assertions.assertThat(result).hasSize(1);
-    }
+//    @Test
+//    void findAllByPdtNo(){
+//        PdtFavoriteDto.ReadList dto = PdtFavoriteDto.ReadList.builder().memNo(1L).build();
+//        Long memNo = 1;
+//        List<PdtFavoriteDto.ReadList> result = pdtFavoriteRepo.findAllOfFavoriteList(memNo);
+//
+//        Assertions.assertThat(result).hasSize(1);
+//    }
 
 // 관심수 확인
     @Test

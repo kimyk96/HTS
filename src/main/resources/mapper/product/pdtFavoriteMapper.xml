@@ -5,16 +5,43 @@
     <insert id="save">
         insert into PRODUCT_FAVORITE(pdt_no, mem_no) values (#{pdtNo}, #{memNo})
     </insert>
-    <!-- 관심 목록 -->
-    <select id="findAllByPdtNo" resultType="com.hts.market.domain.product.dto.PdtFavoriteDto$Page">
-        select * from PRODUCT_FAVORITE where mem_no=#{memNo}
-    </select>
     <!-- 관심 해제 -->
     <delete id="delete">
         delete from PRODUCT_FAVORITE where pdt_no=#{pdtNo} and mem_no=#{memNo}
     </delete>
+    <!-- 관심 목록 -->
+    <select id="findAllOfFavoriteList" resultType="com.hts.market.domain.product.dto.PdtDto$ReadList">
+        SELECT
+            b.*
+        FROM
+            (
+                SELECT /*+ index_desc(PRODUCT_FAVORITE PK_PRODUCT_FAVORITE) */
+                    ROWNUM AS rnum, a.*
+                FROM
+                    (
+                        select
+                            f.pdt_no, p.pdt_name, p.pdt_price, i.img_path, a.address_si, a.address_gu, a.address_dong
+                        from
+                            PRODUCT_FAVORITE f left outer join product p on f.pdt_no = p.pdt_no
+                            left outer join product_image i on f.pdt_no = i.pdt_no
+                            left join address a on f.mem_no = a.mem_no
+                        where
+                            f.mem_no=#{memNo} and img_no = 1
+                        ORDER BY
+                            pdt_no DESC
+                    ) a
+                WHERE
+            ROWNUM &lt;= ${end}
+        ) b
+        WHERE
+        b.rnum &gt;= #{start}
+    </select>
     <!-- 관심수 확인 -->
     <select id="countByPdtNo" resultType="int">
         select count(pdt_no) from PRODUCT_FAVORITE where pdt_no=#{pdtNo}
+    </select>
+    <!--  관심목록 개수-->
+    <select id="countOfFavoriteList" resultType="long">
+        select /*+ index(PRODUCT_FAVORITE pk_product_favorite) */ count(pdtNo) from product_favorite where mem_no = #{memNo}
     </select>
 </mapper>

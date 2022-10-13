@@ -7,9 +7,9 @@
             select nvl(max(pdt_no),0)+1 from Product
         </selectKey>
         insert into
-        PRODUCT( pdt_no, pdt_cate_no, pdt_seller_no, pdt_address_no, pdt_name, pdt_desc, pdt_price, pdt_status)
+            PRODUCT( pdt_no, pdt_cate_no, pdt_seller_no, pdt_address_no, pdt_name, pdt_desc, pdt_price, pdt_status)
         values
-        ( #{pdtNo}, #{pdtCateNo}, #{pdtSellerNo}, #{pdtAddressNo}, #{pdtName}, #{pdtDesc}, #{pdtPrice}, #{pdtStatus} )
+            ( #{pdtNo}, #{pdtCateNo}, #{pdtSellerNo}, #{pdtAddressNo}, #{pdtName}, #{pdtDesc}, #{pdtPrice}, #{pdtStatus} )
     </insert>
     <!-- 판매글수정 -->
     <update id="update">
@@ -26,20 +26,49 @@
     </update>
     <!-- 조회수 증가 -->
     <update id="increaseInViews">
-        update PRODUCT set pdt_views = pdt_views+1 where pdt_no = #{pdtNo} and pdt_seller_no != #{memNo}
+        update PRODUCT set pdt_views = pdt_views+1 where pdt_no = #{pdtNo} and pdt_seller_no != #{memNickname}
     </update>
     <!-- 판매글 읽기 -->
-    <select id="findByPdtNo" resultType="com.hts.market.domain.product.dto.PdtDto$Read">
+    <select id="findByPdtNo" resultMap="pdtDtoRead">
         select
             p.pdt_no, p.pdt_seller_no, p.pdt_name, p.pdt_desc, p.pdt_status, p.pdt_price, p.pdt_views, p.pdt_created_at,
-            a.address_si, a.address_gu, a.address_dong, i.img_path, c.pdt_cate
+            d.address_no, d.mem_no, d.address_si, d.address_gu, d.address_dong,
+            i.img_no, i.img_path,
+            c.pdt_cate
         from
-            PRODUCT p left join ADDRESS a on p.pdt_address_no = a.address_no
-            left join PRODUCT_IMAGE i on p.pdt_no = i.pdt_no
-            left join PRODUCT_CATEGORY c on p.pdt_cate_no = c.pdt_cate_no
+            PRODUCT p left outer join ADDRESS d on p.pdt_address_no = d.address_no and p.pdt_seller_no = d.mem_no
+            left outer join PRODUCT_IMAGE i on p.pdt_no = i.pdt_no
+            left outer join PRODUCT_CATEGORY c on p.pdt_cate_no = c.pdt_cate_no
         where
             p.pdt_no=#{pdtNo}
     </select>
+    <resultMap id="pdtDtoRead" type="com.hts.market.domain.product.dto.PdtDto$Detail">
+            <result column="pdt_cate"           property="pdtCate"/>
+        <association property="address"     javaType="com.hts.market.domain.member.dto.AddressDto$Read">
+            <result column="address_no"         property="addressNo"/>
+            <result column="mem_no"             property="memNo"/>
+            <result column="address_si"         property="addressSi"/>
+            <result column="address_gu"         property="addressGu"/>
+            <result column="address_dong"       property="addressDong"/>
+        </association>
+        <association property="product"     javaType="com.hts.market.domain.product.dto.PdtDto$Read">
+            <result column="pdt_no"             property="pdtNo"/>
+            <result column="pdt_seller_no"      property="pdtSellerNo"/>
+            <result column="pdt_name"           property="pdtName"/>
+            <result column="pdt_desc"           property="pdtDesc"/>
+            <result column="pdt_status"         property="pdtStatus"/>
+            <result column="pdt_price"          property="pdtPrice"/>
+            <result column="pdt_views"          property="pdtViews"/>
+            <result column="pdt_created_at"     property="pdtCreatedAt"/>
+        </association>
+        <collection property="images"        ofType="com.hts.market.domain.product.dto.PdtImgDto$Read">
+            <result column="pdt_no"             property="pdtNo"/>
+            <result column="img_no"             property="imgNo"/>
+            <result column="img_path"           property="imgPath"/>
+        </collection>
+    </resultMap>
+    <!---->
+<!--left outer join MEMBER m on p.seller_no = m.mem_no-->
     <!-- 판매글 지역별로 목록보기 -->
     <select id="findAllByAddress" resultType="com.hts.market.domain.product.dto.PdtDto$ReadList">
         SELECT
@@ -55,11 +84,11 @@
                             p.pdt_no, c.pdt_cate, p.pdt_name, p.pdt_status, p.pdt_price, p.pdt_views, p.pdt_created_at,
                             i.img_path, d.address_si, d.address_gu, d.address_dong
                          FROM
-                            product p left outer join address d on p.pdt_address_no = d.address_no
+                            product p left outer join address d on p.pdt_address_no = d.address_no and p.pdt_seller_no = d.mem_no
                             left outer join product_image i on p.pdt_no=i.pdt_no
                             left outer join product_category c on p.pdt_cate_no = c.pdt_cate_no
                         where
-                            d.address_si = #{addressSi} and d.address_gu = #{addressGu} and d.address_dong = #{addressDong}
+                            d.address_si = #{addressSi} and d.address_gu = #{addressGu} and d.address_dong = #{addressDong} and i.img_no=1
                         ORDER BY
                             pdt_no DESC
                     ) a
@@ -71,7 +100,7 @@
     </select>
     <!-- 판매글 삭제 -->
     <delete id="delete">
-        delete from PRODUCT where pdt_no=#{pdtNo}
+        delete from PRODUCT where pdt_no=#{pdtNo} and pdt_seller_no = #{pdtSellerNo}
     </delete>
     <!-- 회원탈퇴시 판매글 삭제(추후 추가)-->
 
@@ -91,11 +120,11 @@
                             p.pdt_no, c.pdt_cate, p.pdt_name, p.pdt_status, p.pdt_price, p.pdt_views, p.pdt_created_at,
                             i.img_path, d.address_si, d.address_gu, d.address_dong
                         FROM
-                            product p left outer join address d on p.pdt_address_no = d.address_no
+                            product p left outer join address d on p.pdt_address_no = d.address_no and p.pdt_seller_no = d.mem_no
                             left outer join product_image i on p.pdt_no=i.pdt_no
                             left outer join product_category c on p.pdt_cate_no = c.pdt_cate_no
                         where
-                            d.address_si = #{addressSi} and d.address_gu = #{addressGu} and d.address_dong = #{addressDong}
+                            d.address_si = #{addressSi} and d.address_gu = #{addressGu} and d.address_dong = #{addressDong} and i.img_no=1
                             <choose>
                                 <when test="pdtName != null and pdtDesc != null">
                                     and pdt_name LIKE '%'|| #{pdtName} ||'%' or pdt_desc Like '%'|| #{pdtDesc} ||'%'
