@@ -1,0 +1,180 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="js/main.js" charset="UTF-8"></script>
+    <style>
+        /* 회원 */
+        #main section#member{ width : 100%; display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start; }
+        #main section#member div.wrapper{ width : 95%; padding : 10px 2.5%; border-bottom : 10px solid #efefef; display : flex; flex-direction: column; }
+        #main section#member div.wrapper div.profile{ width : 100%; padding-top : 10px; display: flex; flex-direction: row; justify-content: space-between; }
+        #main section#member div.wrapper div.profile div.img{ width : 20%; display : flex; justify-content: center; align-items: center; }
+        #main section#member div.wrapper div.profile div.img img{ width : 90%; border-radius:  50%; box-shadow: 0 0 3px -2px #303030; }
+        #main section#member div.wrapper div.profile div.info{ width : 50%; display : flex; flex-direction: column; justify-content: flex-start; align-items: flex-start; }
+        #main section#member div.wrapper div.profile div.info h3{ width : 100%; font-size : 15px; font-weight : 600; }
+        #main section#member div.wrapper div.profile div.info p{ width : 100%; font-size : 10px; font-weight : 100; opacity : 0.6; }
+        #main section#member div.wrapper div.profile div.arrow{ width : 20%; display : flex; justify-content: center; align-items: center; }
+        #main section#member div.wrapper div.profile div.arrow img{ width : 40%; }
+        #main section#member div.wrapper div.brix{ width : 95%; padding : 20px 2.5%; display : flex; flex-direction: column; justify-content: center; align-items: center; }
+        #main section#member div.wrapper div.brix div{ width : 100%; display: flex; flex-direction: row; justify-content: space-between; align-items: center; }
+        #main section#member div.wrapper div.brix div span{ font-size : 12px; font-weight: 600; padding : 0 2px; }
+        #main section#member div.wrapper div.brix div span.mem_brix{ color : #FF9D2A; }
+        #main section#member div.wrapper div.brix div.brix_bar{ position : relative; margin : 8px 0; }
+        #main section#member div.wrapper div.brix div.brix_bar p{ transition : 0.3s; width : 100%; padding : 8px 0; border-radius: 10px; background-color : #efefef; }
+        #main section#member div.wrapper div.brix div.brix_bar p#mem_brix{ width : 55%; position : absolute; top : 0; left : 0; background-color: #FF9D2A; }
+        #main section#member div.wrapper div.kakao_pay{ width : 85%; margin : 0 2.5%; padding : 4vw 5%; border : 2px dashed #FF9D2A; border-radius: 2.5vw; display: flex; flex-direction: row; justify-content: space-between; align-items: center; }
+        #main section#member div.wrapper div.kakao_pay span{ font-size : 11px; font-weight : 100; }
+        #main section#member div.wrapper div.kakao_pay span.kakao_pay_img{ display : flex; flex-direction: row; justify-content: center; align-items: center; }
+        #main section#member div.wrapper div.kakao_pay span.kakao_pay_img img{ width: 18px; height : 18px; margin : 0 10px -2px 0; }
+        #main section#member div.wrapper div.kakao_pay span.kakao_pay_img span{ font-size : 18px; color : #FF9D2A; font-weight: 600; margin-top : -5px; }
+        #main section#member div.wrapper div.transaction{ width : 90%; padding : 30px 5% 10px 5%; display : flex; flex-direction: row; justify-content: space-between; align-items: center; }
+        #main section#member div.wrapper div.transaction div{ width : 33%; display : flex; flex-direction: column; justify-content: center; align-items: center; }
+        #main section#member div.wrapper div.transaction div span{ width : 55px; height : 55px; display: flex; justify-content: center; align-items: center; border-radius: 50%; background-color: #efefef; box-shadow: 0 0 3px -2px #303030; }
+        #main section#member div.wrapper div.transaction div span img{ width : 35%; }
+        #main section#member div.wrapper div.transaction div p{ padding : 5px 0; font-weight : 400; font-size : 15px; }
+        #main section#member div.wrapper h4{ width : 90%; padding : 0 5% 10px 5%; }
+        #main section#member div.wrapper ul{ width : 100%; display : flex; flex-direction: column; }
+        #main section#member div.wrapper ul li{ width : 90%; padding : 12px 5%; border-top: 1px solid #efefef; display: flex; flex-direction: row; justify-content: space-between; }
+        #main section#member div.wrapper ul li span{ display: flex; justify-content: center; align-items: center; font-size : 13px; }
+        #main section#member div.wrapper ul li span img{ width : 25px; }
+    </style>
+</head>
+<body>
+    <!-- 상단 메뉴바 -->
+    <header id="header">
+        <div>
+            <h2>나의 한라봉</h2>
+        </div>
+        <div>
+            <ul>
+                <!-- <li id="header_search"><img src="img/icon/search.png" alt="search"></li>
+                <li id="header_menu"><img src="img/icon/menu.png" alt="menu"></li>
+                <li id="header_notification"><img src="img/icon/notification.png" alt="notification"></li> -->
+            </ul>
+        </div>
+    </header>
+    <!-- 메인정보 -->
+    <main id="main">
+        <section id="member">
+            <div class="wrapper">
+                <div class="profile">
+                    <div class="img">
+                        <img src="img/example/profile.png" alt="profile_img">
+                    </div>
+                    <div class="info">
+                        <h3>한라봉 소년</h3>
+                        <p><span>부평구 부평1동</span> * <span>#1427435734</span></p>
+                        <p>(2022년 10월 07일 가입)</p>
+                    </div>
+                    <div class="arrow">
+                        <img src="img/icon/arrow_right.png" alt="arrow_right">
+                    </div>
+                </div>
+                <div class="brix">
+                    <div>
+                        <span>당도</span>
+                        <span class="mem_brix">55 브릭스</span>
+                    </div>
+                    <div class="brix_bar">
+                        <p></p>
+                        <p id="mem_brix"></p>
+                    </div>
+                </div>
+                <div class="kakao_pay">
+                    <span class="kakao_pay_img">
+                        <img src="img/icon/kakao.png" alt="kakao"> <span>pay</span>
+                    </span>
+                    <span>
+                        중고 거래도 카카오페이로 결제 하실수 있어요!
+                    </span>
+                </div>
+                <div class="transaction">
+                    <div>
+                        <span>
+                            <img src="img/icon/sell.png" alt="sell">
+                        </span>
+                        <p>판매내역</p>
+                    </div>
+                    <div>
+                        <span>
+                            <img src="img/icon/buy.png" alt="buy">
+                        </span>
+                        <p>구매내역</p>
+                    </div>
+                    <div>
+                        <span>
+                            <img src="img/icon/heart.png" alt="heart">
+                        </span>
+                        <p>관심목록</p>
+                    </div>
+                </div>
+            </div>
+            <div class="wrapper">
+                <h4>나의 활동</h4>
+                <ul>
+                    <li>
+                        <span>내 동네 설정</span>
+                        <span>
+                            <img src="img/icon/arrow_right.png" alt="arrow">
+                        </span>
+                    </li>
+                    <li>
+                        <span>가계부</span>
+                        <span>
+                            <img src="img/icon/arrow_right.png" alt="arrow">
+                        </span>
+                    </li>
+                    <li>
+                        <span>내 글/댓글</span>
+                        <span>
+                            <img src="img/icon/arrow_right.png" alt="arrow">
+                        </span>
+                    </li>
+                    <li>
+                        <span>판매상품</span>
+                        <span>
+                            <img src="img/icon/arrow_right.png" alt="arrow">
+                        </span>
+                    </li>
+                    <li>
+                        <span>받은 후기</span>
+                        <span>
+                            <img src="img/icon/arrow_right.png" alt="arrow">
+                        </span>
+                    </li>
+                    <li>
+                        <span>공지사항</span>
+                        <span>
+                            <img src="img/icon/arrow_right.png" alt="arrow">
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>
+    <!-- 하단 메뉴바 -->
+    <nav id="nav">
+        <ul>
+            <li id="nav_product">
+                <img src="img/icon/product.png" alt="nav_product">
+                <p>홈</p>
+            </li>
+            <li id="nav_board">
+                <img src="img/icon/board.png" alt="nav_board">
+                <p>동네생활</p>
+            </li>
+            <li id="nav_chat">
+                <img src="img/icon/chat.png" alt="nav_chat">
+                <p>채팅</p>
+            </li>
+            <li id="nav_member" class="selected">
+                <img src="img/icon/member.png" alt="nav_member">
+                <p>나의 한라봉</p>
+            </li>
+        </ul>
+    </nav>
+</body>
+</html>

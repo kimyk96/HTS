@@ -1,0 +1,186 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/main.js" charset="UTF-8"></script>
+    <style>
+        /* 로그인 */
+        #main #login{ width : 90%; padding : 0 5%; height : 100%; display : flex; flex-direction: column; justify-content: flex-start; align-items: center; }
+        #main #login div{ width : 100%; }
+        #main #login div.info_wrapper{ width : 100%; }
+        #main #login div.info_wrapper p{ text-align: left; }
+        #main #login div.info_wrapper p.title{ width : 100%; font-size : 22px; letter-spacing: -2px; font-weight: 600; padding : 20px 0 10px 0; }
+        #main #login div.info_wrapper p.desc{ width : 100%; word-break: keep-all; font-size : 13px; font-weight: 100; padding : 0 0 10px 0; }
+        #main #login div input{ width : 100%; padding : 15px; border-radius: 10px; border : 2px solid #efefef; font-size : 16px; font-weight : 400; margin : 7px 0; letter-spacing: -1px; ;}
+        #main #login div button{ background-color : #efefef; width : 100%; padding : 15px; border-radius: 10px; border : 2px solid #efefef; font-size : 17px; font-weight : 400; margin : 7px 0; letter-spacing: -1px; ;}
+        #main #login div button:disabled, button[disabled]{ background-color: transparent; }
+        #main #login div p{ text-align : center; width : 100%; font-size : 12px; font-weight: 400; }
+        #main #login div p span{ color : #FF9D2A; font-weight : 600; }
+        #main #login div.code_wrapper{ display : none; }
+    </style>
+</head>
+<body>
+    <!-- 상단 메뉴바 -->
+    <header id="header">
+        <div>
+            <img src="img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
+        </div>
+    </header>
+    <!-- 메인정보 -->
+    <main id="main">
+        <section id="login">
+            <div class="info_wrapper">
+                <p class="title">휴대폰 번호를 인증해 주세요.</p>
+                <p class="desc">한라봉마켓은 휴대폰 번호로 가입해요. 번호는 안전하게 보관되며 어디에도 공개되지 않아요.</p>
+            </div>
+            <div class="phone_wrapper">
+                <input type="number" name="memPhone" id="memPhone" placeholder="휴대폰 번호를 입력해주세요">
+                <button id="btn_code" disabled>인증문자 받기</button>
+                <p>휴대폰 번호가 변경되었나요? <span>이메일로 계정찾기</span></p>
+            </div>
+            <div class="code_wrapper">
+<!--                <form action="/api/v1/mem/login" method="post">-->
+                    <input type="number" name="username" id="memUsername" readonly>
+                    <button id="btn_again" disabled>인증문자 다시 받기 (5:00초 남음)</button>
+                    <input type="number" name="password" id="memPassword" placeholder="인증번호를 입력해주세요">
+                    <p>어떠한 경우에도 타인에게 공유하지 마세요!</p>
+                    <button type="submit" id="btn_submit" disabled>인증번호 확인</button>
+<!--                </form>-->
+            </div>
+        </section>
+    </main>
+    <script>
+        $(function(){
+            // url 받아오기
+            let urlParams = new URL(location.href).searchParams;
+            let code = "";
+
+            // 인증코드 받기
+            $("#btn_code").click(function(){
+                $.ajax({
+                    method: "POST",
+                    url: "/api/v1/mem/code",
+                    data: { memUsername: $("#memPhone").val(), memNo: urlParams.get('memNo') }
+                })
+                .done(function(res){
+                    if(res==0){
+                        Swal.fire({
+                            icon: 'error',
+                            text: '인증코드 발송에 실패하였습니다'
+                        })
+                    }else{
+                        code = res;
+                        $("#memUsername").val($("#memPhone").val());
+                        $(".phone_wrapper").css("display", "none");
+                        $(".code_wrapper").css("display", "block");
+                        startTimer();
+                    }
+                })
+            });
+            // 인증코드 다시 받기
+            $("#btn_again").click(function(){
+                $.ajax({
+                    method: "POST",
+                    url: "/api/v1/mem/code",
+                    data: { memUsername: $("#memUsername").val() }
+                })
+                .done(function(res){
+                    if(res==0){
+                        Swal.fire({
+                            icon: 'error',
+                            text: '인증코드 발송에 실패하였습니다'
+                        })
+                    }else{
+                        code = res;
+                        startTimer();
+                    }
+                })
+            });
+            // 로그인
+            $("#btn_submit").click(function(){
+                if($("#memPassword").val()==code){
+                    $.ajax({
+                        method: "POST",
+                        url: "/api/v1/mem/update-mem-username-by-id",
+                        data: { memUsername: $("#memUsername").val(), memNo: urlParams.get('memNo') }
+                    })
+                    .done(function(res){
+                        login($("#memUsername").val(), urlParams.get('memNo'))
+                    })
+                    .fail(function(res){
+                        Swal.fire({
+                            icon: 'error',
+                            text: '잘못된 인증번호 입니다.'
+                        });
+                        $("#memPassword").val("").focus();
+                    })
+                }else{
+                    login($("#memUsername").val(), $("#memPassword").val())
+                }
+            })
+
+            // 로그인
+            function login(username, password){
+                $.ajax({
+                    method: "POST",
+                    url: "/api/v1/mem/login",
+                    data: { username: username, password: password }
+                })
+                .done(function(res){
+                    $("html").html(res);
+
+                    history.pushState(null, null, "/");
+                })
+                .fail(function(res){
+                    Swal.fire({
+                        icon: 'error',
+                        text: '잘못된 인증번호 입니다.'
+                    });
+                    $("#memPassword").val("").focus();
+                })
+            }
+
+            // 휴대폰번호 글자 수 확인
+            $("#memPhone").on("input", function() {
+                if($("#memPhone").val().length!=11){
+                    $("#btn_code").attr("disabled", true);
+                }else{
+                    $("#btn_code").attr("disabled", false);
+                }
+            });
+            // 인증코드 글자 수 확인
+            $("#memPassword").on("input", function() {
+                if($("#memPassword").val().length!=4){
+                    $("#btn_submit").attr("disabled", true);
+                }else{
+                    $("#btn_submit").attr("disabled", false);
+                }
+            });
+            // 문자 인증 타이머 시작 -> 300초(5분)
+            function startTimer(){
+                $("#btn_again").attr("disabled", true);
+                $("#memPassword").focus();
+                let timePassed = 1;
+
+                var x = setInterval(function() {
+                  var timeLeft = 299 - timePassed;
+                  var min = parseInt(timeLeft / 60);
+                  var sec = timeLeft - (min*60);
+
+                  if (timeLeft < 0) {
+                    clearInterval(x);
+                    $("#btn_again").attr("disabled", false);
+                  }else{
+                    $("#btn_again").text("인증문자 다시 받기 (" + min + " : " + sec + "초 남음)");
+                    timePassed++;
+                  }
+                }, 1000);
+            }
+        })
+    </script>
+</body>
+</html>

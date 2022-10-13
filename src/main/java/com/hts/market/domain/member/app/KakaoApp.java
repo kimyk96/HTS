@@ -3,6 +3,7 @@ package com.hts.market.domain.member.app;
 import com.hts.market.domain.member.dto.MemDto;
 import com.hts.market.domain.member.dto.MemRoleDto;
 import com.hts.market.domain.member.dto.RoleDto;
+import com.hts.market.domain.member.entity.MemEntity;
 import com.hts.market.domain.member.exception.KakaoMemberAlreadyExsistException;
 import com.hts.market.domain.member.exception.MemberAlreadyExsistException;
 import com.hts.market.domain.member.repo.MemRepo;
@@ -42,20 +43,17 @@ public class KakaoApp {
         Map memProfile = (Map) memAccount.get("profile");
 
         // 회원 가입 여부 확인
-        if(memRepo.countByMemUsername(memInfo.get("id").toString()).equals(1)){
+        if(memRepo.countByMemNo(Long.parseLong(memInfo.get("id").toString()))){
             // 이미 가입된 회원 -> 자동 로그인
-            throw new KakaoMemberAlreadyExsistException(memInfo.get("id").toString());
+            MemEntity member = memRepo.loadUserByMemNo(Long.parseLong(memInfo.get("id").toString()));
+            throw new KakaoMemberAlreadyExsistException(member);
         }else{
             // 회원 가입 진행
             MemDto.Create memDto = MemDto.Create.builder()
-//                    .memSignupType("kakao")
-//                    .memAccessToken(memTokens.get("access_token").toString())
-//                    .memRefreshToken(memTokens.get("refresh_token").toString())
-                    .memUsername(memInfo.get("id").toString())
+                    .memNo(Long.parseLong(memInfo.get("id").toString()))
+                    .memUsername("")
                     .memPassword(passwordEncoder.encode(memInfo.get("id").toString()))
                     .memNickname(memProfile.get("nickname").toString())
-                    .memPhone(0)
-                    .memName("0")
                     .memEmail(memAccount.get("email").toString())
                     .build();
             memRepo.save(memDto);

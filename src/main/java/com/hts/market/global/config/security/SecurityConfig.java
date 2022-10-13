@@ -1,7 +1,10 @@
 package com.hts.market.global.config.security;
 
+import com.hts.market.global.config.security.auth.LoginFailureHandler;
+import com.hts.market.global.config.security.auth.LoginSuccessHandler;
 import com.hts.market.global.config.security.auth.MemDetailsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -12,17 +15,19 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 @RequiredArgsConstructor
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfig {
-    private final MemDetailsService memDetailsService;
+    @Autowired private final MemDetailsService memDetailsService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(10);
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
@@ -39,12 +44,25 @@ public class SecurityConfig {
                 .csrf().disable();
         http
                 .formLogin()
-//                .loginPage("/login")
-                .loginProcessingUrl("/login");
+                .loginPage("/login")
+                .loginProcessingUrl("/api/v1/mem/login")
+                .successHandler(loginSuccessHandler())
+                .failureHandler(loginFailureHandler());
         http
                 .logout()
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/");
         return http.build();
     }
+
+    @Bean
+    public AuthenticationSuccessHandler loginSuccessHandler(){
+        return new LoginSuccessHandler();
+    }
+
+    @Bean
+    public AuthenticationFailureHandler loginFailureHandler(){
+        return new LoginFailureHandler();
+    }
+
 }

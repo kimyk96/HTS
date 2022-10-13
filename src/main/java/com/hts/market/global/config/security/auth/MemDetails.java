@@ -4,8 +4,10 @@ import com.hts.market.domain.member.dto.MemRoleDto;
 import com.hts.market.domain.member.entity.MemEntity;
 import com.hts.market.domain.member.entity.MemRoleEntity;
 import com.hts.market.domain.member.entity.RoleEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -34,8 +36,6 @@ public class MemDetails implements UserDetails {
     public String getUsername() {
         return this.memEntity.getMemUsername();
     }
-
-
 
     @Override
     public boolean isAccountNonExpired() {

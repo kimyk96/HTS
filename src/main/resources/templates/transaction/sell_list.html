@@ -1,0 +1,158 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>판매내역</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="js/main.js" charset="UTF-8"></script>
+    <style>
+        /* 판매 내역 */
+        #main section#purchase_list{ width : 95%; padding : 0 2.5%; display : flex; flex-direction: column; justify-content: center; align-items: center; }
+        #main section#purchase_list ul{ width : 100%; display: flex; flex-direction: column; justify-content: flex-start;}
+        #main section#purchase_list ul li{ width : 100%; padding : 10px 0; display: flex; flex-direction: row; }
+        #main section#purchase_list ul li div.img_wrapper{ width : 30%; display: flex; justify-content: center; align-items: center; }
+        #main section#purchase_list ul li div.img_wrapper img{ width : 90%; border-radius : 7px; }
+        #main section#purchase_list ul li div.info_wrapper{ width : 65%; padding : 0 2.5%; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; }
+        #main section#purchase_list ul li div.info_wrapper div.info{ line-height : 1; width : 100%; display: flex; flex-direction: column;  }
+        #main section#purchase_list ul li div.info_wrapper div.info h3{ margin : 0; font-size : 15px; font-weight : 400; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 1; line-clamp: 1; -webkit-box-orient: vertical; }
+        #main section#purchase_list ul li div.info_wrapper div.info p{ padding : 3px 0; display: flex; justify-content: flex-start; align-items: center; }
+        #main section#purchase_list ul li div.info_wrapper div.info p span{ font-size : 11px; font-weight : 100; opacity : 0.6; }
+        #main section#purchase_list ul li div.info_wrapper div.info p span.info_price{ padding : 5px 0; font-size : 15px; font-weight: 600; opacity : 1; }
+        #main section#purchase_list ul li div.info_wrapper div.info p span.info_status{ background-color : #efefef; box-shadow: 0 0 4px -3px #303030; border-radius: 5px; margin : 0 5px 0 0; padding : 7px 10px; font-size : 13px; font-weight: 400; opacity : 1; }
+        #main section#purchase_list ul li div.info_wrapper div.count{ width : 100%; display : flex; flex-direction: row; justify-content: flex-end; align-items: center; }
+        #main section#purchase_list ul li div.info_wrapper div.count p{ font-size : 12px; width : 13%; opacity : 0.8; display: flex; flex-direction: row; justify-content: space-around; align-items: center; }
+        #main section#purchase_list ul li div.info_wrapper div.count p img{ width : 16px; height : 16px;  }
+    </style>
+</head>
+<body>
+    <!-- 상단 메뉴바 -->
+    <header id="header">
+        <div>
+            <img src="img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
+            <div>
+                <h2>판매 내역</h2>
+            </div>
+        </div>
+    </header>
+    <!-- 메인정보 -->
+    <main id="main">
+        <section id="purchase_list">
+            <ul>
+                <li>
+                    <div class="img_wrapper">
+                        <img src="img/example/square.png" alt="product_img">
+                    </div>
+                    <div class="info_wrapper">
+                        <div class="info">
+                            <h3 class="info_title">이웃들은 지금 장반장과 당근에서 모임중!</h3>
+                            <p>
+                                <span class="info_address">인천시 부평구 부평1동</span>
+                                <span class="info_created_at">1분 전</span>
+                            </p>
+                            <p>
+                                <span class="info_status">거래완료</span>
+                                <span class="info_price">70,000원</span>
+                            </p>
+                        </div>
+                        <div class="count">
+                            <p class="count_chat">
+                                <img src="img/icon/chat.png" alt="chat_count">
+                                <span>2</span>
+                            </p>
+                            <p class="count_like">
+                                <img src="img/icon/like.png" alt="like_count">
+                                <span>2</span>
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="img_wrapper">
+                        <img src="img/example/square.png" alt="product_img">
+                    </div>
+                    <div class="info_wrapper">
+                        <div class="info">
+                            <h3 class="info_title">이웃들은 지금 장반장과 당근에서 모임중!</h3>
+                            <p>
+                                <span class="info_address">인천시 부평구 부평1동</span>
+                                <span class="info_created_at">1분 전</span>
+                            </p>
+                            <p>
+                                <span class="info_status">거래완료</span>
+                                <span class="info_price">70,000원</span>
+                            </p>
+                        </div>
+                        <div class="count">
+                            <p class="count_chat">
+                                <img src="img/icon/chat.png" alt="chat_count">
+                                <span>2</span>
+                            </p>
+                            <p class="count_like">
+                                <img src="img/icon/like.png" alt="like_count">
+                                <span>2</span>
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="img_wrapper">
+                        <img src="img/example/square.png" alt="product_img">
+                    </div>
+                    <div class="info_wrapper">
+                        <div class="info">
+                            <h3 class="info_title">이웃들은 지금 장반장과 당근에서 모임중!</h3>
+                            <p>
+                                <span class="info_address">인천시 부평구 부평1동</span>
+                                <span class="info_created_at">1분 전</span>
+                            </p>
+                            <p>
+                                <span class="info_status">예약완료</span>
+                                <span class="info_price">70,000원</span>
+                            </p>
+                        </div>
+                        <div class="count">
+                            <p class="count_chat">
+                                <img src="img/icon/chat.png" alt="chat_count">
+                                <span>2</span>
+                            </p>
+                            <p class="count_like">
+                                <img src="img/icon/like.png" alt="like_count">
+                                <span>2</span>
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="img_wrapper">
+                        <img src="img/example/square.png" alt="product_img">
+                    </div>
+                    <div class="info_wrapper">
+                        <div class="info">
+                            <h3 class="info_title">이웃들은 지금 장반장과 당근에서 모임중!</h3>
+                            <p>
+                                <span class="info_address">인천시 부평구 부평1동</span>
+                                <span class="info_created_at">1분 전</span>
+                            </p>
+                            <p>
+                                <span class="info_status">거래중</span>
+                                <span class="info_price">70,000원</span>
+                            </p>
+                        </div>
+                        <div class="count">
+                            <p class="count_chat">
+                                <img src="img/icon/chat.png" alt="chat_count">
+                                <span>2</span>
+                            </p>
+                            <p class="count_like">
+                                <img src="img/icon/like.png" alt="like_count">
+                                <span>2</span>
+                            </p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </section>
+    </main>
+</body>
+</html>

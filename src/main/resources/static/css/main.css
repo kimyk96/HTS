@@ -1,57 +1,43 @@
 @charset "utf-8";
-
-/* Noto Sans Kr 웹 폰트 전체 적용 */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
 
-/* 기본값 초기화 */
-html, body, div, input, button, span, h1, h2, h3, h4, h5, h6, p, dl, dt, dd, ol, ul, li, table, tbody, tfoot, thead, tr, th, td, article, aside,  footer, header, nav,  section {
-    width : 100%;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 10px;
-    font-family: 'Noto Sans KR', sans-serif;
-    background-color: #212123;
-    color: #eaebef;
-}
-html, body{
-    height : 100%;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    /* background-color: #212123;
-    color: #eaebef; */
-}
-article, aside, footer, header, nav, section {
-    display: block;
-}
-body {
-    line-height: 1.2;
-}
-ol, ul {
-    list-style: none;
-}
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-}
-a{
-    text-decoration: none;
-    color : #000;
-}
-h2{
-    font-size : 22px;
-    font-weight: 500;
-    letter-spacing : -2px;
-}
-input {
-    outline: none !important;
-    border : 1px solid rgba(255, 255, 255, 0.3);
-}
+/* 공통 레이아웃 */
+*{  }
+html, body{ width : 100%; height : 100%; display : block; margin : 0 auto; padding : 0 auto; box-sizing: border-box; font-family: 'Noto Sans KR', sans-serif; }
+body{ display : flex; flex-direction: column; justify-content: space-between; align-items: center; }
+header, main{ width : 100%; margin : 0 auto; }
+h1, h2, h3, h4, h5{ margin : 0 auto; line-height : 2; }
+ul, li{ display : inline-block; margin : 0; padding : 0; list-style: none; }
+div, p, span{ margin : 0; }
 
-input:focus {
-    outline: none !important;
-    border : 1px solid rgba(255, 255, 255, 1);
-}
+/* 상단 메뉴바 */
+header{ z-index : 2; width : 95%; padding : 0 2.5%; height : 50px; position : fixed; display : flex; flex-direction: row; justify-content: space-between; border-bottom : 1px solid #efefef; top : 0; left : 0; background-color: #fff; }
+header > div{ width : 50%; display : flex; flex-direction: row; align-items: center; justify-content: flex-start; }
+header div > img{ width : 15%; margin-right : 10px; }
+header div div{ display : flex; flex-direction: column; align-items: flex-start; }
+header div div p{ font-size : 11px; color: #FF9D2A; font-weight : 600; }
+header div h2{ width : 100%; font-size : 14px; font-weight: 500; }
+header div ul{ width : 100%; height : 100%; display: flex; flex-direction: row; align-items: center; justify-content: end; }
+header div ul li{ width : 27%; height : 100%; display: flex; justify-content: right; align-items: center;}
+header div ul li img{ width : 53%; }
+
+/* 메인영역 */
+main{ height : 100%; margin : 50px 0; overflow: scroll;}
+
+/* 하단 메뉴바 */
+nav{ height : 50px; position : fixed; bottom : 0; left : 0; border-top : 1px solid #efefef; background-color: #fff; }
+nav div#btn_add{ background-color: #fff; width : 55px; height : 55px; position : fixed; bottom : 65px; right : 15px; border-radius: 50%; box-shadow: 0 0 4px -2px #303030;}
+nav div#btn_add img{ width : 100%; }
+nav ul{ width : 100%; height : 100%; display: flex; flex-direction: row; align-items: center; justify-content: space-between; }
+nav ul li{ width : 25%; height : 100%; display: flex; flex-direction: column; justify-content: end; align-items: center; }
+nav ul li img{ width : 23%; }
+nav ul li#nav_product img{ content: url(../img/icon/product.png); }
+nav ul li#nav_product.selected img{ content: url(../img/icon/product_selected.png); }
+nav ul li#nav_board img{ content: url(../img/icon/board.png); }
+nav ul li#nav_board.selected img{ content: url(../img/icon/board_selected.png); }
+nav ul li#nav_chat img{ content: url(../img/icon/chat.png); }
+nav ul li#nav_chat.selected img{ content: url(../img/icon/chat_selected.png); }
+nav ul li#nav_member img{ content: url(../img/icon/member.png); }
+nav ul li#nav_member.selected img{ content: url(../img/icon/member_selected.png); }
+nav ul li p{ font-size : 12px; margin-bottom : 4px; }

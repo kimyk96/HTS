@@ -1,5 +1,6 @@
 package com.hts.market.domain.member.exception;
 
+import com.hts.market.domain.member.entity.MemEntity;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -8,9 +9,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class KakaoMemberAlreadyExsistException extends RuntimeException{
     // 유저명
     @Getter
-    private String username;
+    private MemEntity member;
 
-    public KakaoMemberAlreadyExsistException(String username){
-        this.username = username;
+    public KakaoMemberAlreadyExsistException(MemEntity member){
+        this.member = member;
     }
 }

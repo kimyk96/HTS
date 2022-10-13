@@ -1,0 +1,56 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>시작하기</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="js/main.js" charset="UTF-8"></script>
+    <style>
+        /* 시작하기 */
+        #main #index{ width : 100%; height : 100%; display : flex; flex-direction: column; justify-content: space-between; align-items: center; }
+        #main #index div.logo_wrapper{ width : 100%; text-align: center; }
+        #main #index div.logo_wrapper img{ width : 25%; }
+        #main #index div.logo_wrapper h2{ font-size : 20px; font-weight : 600; padding : 10px 0; letter-spacing : -1px;}
+        #main #index div.logo_wrapper p{ font-size : 14px; font-weight : 400; }
+
+        #main #index div.btn_wrapper{ width : 85%; padding : 0 7.5%; display: flex; flex-direction: column; align-items: center; }
+        #main #index div.btn_wrapper button{ border : none; border-radius: 8px; color : #fff; font-size : 15px; font-weight : 600; letter-spacing : -1px; width : 100%; margin : 5px 0; padding : 13px 0; display: flex; flex-direction: row; justify-content: center; align-items: center;}
+        #main #index div.btn_wrapper button#start{ background-color: #FF9D2A; }
+        #main #index div.btn_wrapper button#start_kakao{ background-color: #FFC01D; }
+        #main #index div.btn_wrapper button#start_kakao img{ width : 17px; height : 17px; margin-right : 5px; }
+        #main #index div.btn_wrapper p{ margin-top : 5px; width : 100%; text-align: center; font-size : 13px; }
+        #main #index div.btn_wrapper p a{ font-weight : 600; color : #FF9D2A; }
+    </style>
+</head>
+<body>
+<!-- 메인정보 -->
+<main id="main">
+    <section id="index">
+        <div class="empty_header"></div>
+        <div class="logo_wrapper">
+            <img src="img/layout/logo.png" alt="logo">
+            <h2>당신 근처의 한라봉 마켓</h2>
+            <p>내 동네를 설정하고<br>한라봉 마켓을 시작해보세요</p>
+        </div>
+        <div class="btn_wrapper">
+            <button id="start">시작하기</button>
+            <button id="start_kakao"><img src="img/icon/kakao.png">카카오로 시작하기</button>
+            <p>이미 계정이 있나요? <a href="/login">로그인</a></p>
+        </div>
+    </section>
+</main>
+<script>
+    $(function(){
+        // 시작하기
+        $("#start").click(function(){
+            $(location).attr("href", "/login");
+        });
+        // 카카오로 시작하기
+        $("#start_kakao").click(function(){
+            $(location).attr("href", "https://kauth.kakao.com/oauth/authorize?client_id=1b484f0bd9bd6502362669834ce3920a&redirect_uri=http://localhost:8087/api/v1/kakao&response_type=code");
+        });
+    });
+</script>
+</body>
+</html>

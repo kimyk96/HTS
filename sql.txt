@@ -4,10 +4,8 @@ CREATE TABLE MEMBER (
 	mem_no	NUMBER(20)		NOT NULL,
 	mem_username	VARCHAR2(20 char)		NULL,
 	mem_password	VARCHAR2(100 char)		NULL,
-	mem_name	VARCHAR2(20 char)		NULL,
 	mem_nickname	VARCHAR2(20 char)		NULL,
 	mem_email	VARCHAR2(20 char)		NULL,
-	mem_phone	NUMBER(11)		NULL,
 	mem_brix	NUMBER(3)	DEFAULT 10	NOT NULL,
 	mem_is_enabled	NUMBER(1)	DEFAULT 0	NOT NULL,
 	mem_created_at	DATE	DEFAULT sysdate	NOT NULL
@@ -296,3 +294,8 @@ ALTER TABLE CHAT ADD CONSTRAINT PK_CHAT PRIMARY KEY (
 	chat_mem_no
 );
 
+
+
+CREATE SEQUENCE mem_seq;
+INSERT INTO ROLE (role_no, role_name) VALUES (1, 'ROLE_ADMIN');
+INSERT INTO ROLE (role_no, role_name) VALUES (2, 'ROLE_USER');

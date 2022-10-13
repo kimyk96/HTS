@@ -1,0 +1,207 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>상품상세</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="css/main.css">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script src="js/main.js" charset="UTF-8"></script>
+    <style>
+        /* 상품 상세 */
+        #main{ margin: 0 0 70px 0; position : relative }
+        #main section#btn_nav{ position : absolute; top: 0; left : 0; z-index : 2; width : 100%; height : 50px; display : flex; flex-direction: row; justify-content: space-between; align-items: center;}
+        #main section#btn_nav div{ width : 100%; height : 50px; display: flex; align-items: center;}
+        #main section#btn_nav div img{ height : 60%; padding : 0 1.5%; }
+
+        #main section#product_detail{ width : 100%; display : flex; flex-direction: column; justify-content: center; align-items: center; }
+        #main section#product_detail > div{ width : 95%; padding : 10px 2.5%; border-bottom : 1px solid #efefef; }
+        #main section#product_detail div.swiper{ width : 100%; padding : 0; height : 100vw; object-fit: cover; overflow : hidden;}
+        #main section#product_detail div.swiper img{ width : 100%; height : 100vw; object-fit: cover; overflow : hidden; }
+        #main section#product_detail div.swiper .swiper-pagination-bullet-active{ background-color: #000 !important; }
+        #main section#product_detail div.mem_info{ display: flex; flex-direction: row; justify-content: space-between; align-items: center; }
+        #main section#product_detail div.mem_info div.mem_left{ display: flex; flex-direction: row; align-items: center;}
+        #main section#product_detail div.mem_info div.mem_left img{ width : 35px; height : 35px; border-radius : 50%; box-shadow: 0 0 3px -2px #303030; margin-right : 10px; }
+        #main section#product_detail div.mem_info div.mem_left p.mem_nickname{ font-size : 15px; font-weight : 600; }
+        #main section#product_detail div.mem_info div.mem_left p.mem_address{ font-size : 12px; font-weight : 100; }
+        #main section#product_detail div.mem_info div.mem_right{ display : flex; flex-direction: column; align-items: flex-end; }
+        #main section#product_detail div.mem_info div.mem_right p.mem_brix{ font-size : 15px; font-weight : 600; color : #FF9D2A; }
+        #main section#product_detail div.mem_info div.mem_right p.mem_brix_title{ font-size : 12px; font-weight : 100; }
+        #main section#product_detail div.pdt_info{ width : 90%; padding : 20px 5%;  }
+        #main section#product_detail div.pdt_info h3{ font-size : 17px; line-height : 1.2;}
+        #main section#product_detail div.pdt_info div span.pdt_cate{ font-size : 11px; opacity: 0.6; }
+        #main section#product_detail div.pdt_info div span.pdt_created_at{ font-size : 11px; opacity: 0.6; }
+        #main section#product_detail div.pdt_info div.pdt_desc{ padding : 20px 0; font-size : 14px; font-weight : 400; line-height : 1.5; }
+        #main section#product_detail div.pdt_info div.pdt_counts{ font-size : 11px; opacity : 0.6; }
+        #main section#product_detail div.pdt_list{ width : 90%; padding : 20px 5%; }
+        #main section#product_detail div div.pdt_plusmenu{ display : flex; flex-direction: row; justify-content: space-between; }
+        #main section#product_detail div div.pdt_plusmenu span{ font-size : 13px;  }
+        #main section#product_detail div div.pdt_plusmenu img{ width : 20px; }
+        #main section#product_detail div.pdt_list div.pdt_list_wrapper ul{ width : 105%; margin-left : -2.5%; padding : 10px 0;display : flex; justify-content: space-between; flex-wrap: wrap; }
+        #main section#product_detail div.pdt_list div.pdt_list_wrapper ul li{ width : 46%; padding : 5px 2%; display : flex; flex-direction: column; }
+        #main section#product_detail div.pdt_list div.pdt_list_wrapper ul li img{ width : 100%; border-radius: 10px; }
+        #main section#product_detail div.pdt_list div.pdt_list_wrapper ul li div p{ line-height : 2; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 1; line-clamp: 1; -webkit-box-orient: vertical; }
+        #main section#product_detail div.pdt_list div.pdt_list_wrapper ul li div p.item_title{ font-size : 12px; }
+        #main section#product_detail div.pdt_list div.pdt_list_wrapper ul li div p.item_price{ font-size : 12px; font-weight : 600; line-height : 1.5; }
+
+        #main section#btn_action{ width : 90%; height : 50px; padding : 10px 5%; display : flex; flex-direction: row; justify-content: space-between; align-items: center; background-color : #fff; position : fixed; bottom : 0; left : 0;  }
+        #main section#btn_action div{ display : flex; align-items: center; }
+        #main section#btn_action div img{ content: url(img/icon/like.png); width : 25px; padding-right : 10px; margin-right : 10px; border-right : 1px solid #efefef; }
+        #main section#btn_action div img.selected{ content: url(img/icon/like_selected.png); }
+        #main section#btn_action div div{ display: flex; flex-direction: column; align-items: flex-start; }
+        #main section#btn_action div p{ font-size : 15px; opacity : 0.5; }
+        #main section#btn_action div p.pdt_price{ font-weight: 600; opacity : 1; }
+        #main section#btn_action div span{ font-size: 15px; font-weight: 400; background-color : #FF9D2A; padding : 7px 17px; color : #fff; border-radius: 7px; }
+    </style>
+</head>
+<body>
+    <!-- 상단 메뉴바 -->
+    <!-- <header id="header">
+        <div>
+            <img src="img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
+            <img src="img/icon/product.png" alt="nav_product" id="nav_product">
+            <div>
+                <h2>부평1동</h2>
+            </div>
+        </div>
+        <div>
+            <ul>
+                <li id="header_search"><img src="img/icon/search.png" alt="search"></li>
+                <li id="header_menu"><img src="img/icon/menu.png" alt="menu"></li>
+                <li id="header_notification"><img src="img/icon/notification.png" alt="notification"></li>
+            </ul>
+        </div>
+    </header> -->
+    <!-- 메인정보 -->
+    <main id="main">
+        <section id="btn_nav">
+            <div>
+                <img src="img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
+                <img src="img/icon/product.png" alt="nav_product" id="nav_product">
+            </div>
+        </section>
+        <section id="product_detail">
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="img/example/square.png" alt="product_image">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="img/example/square.png" alt="product_image">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="img/example/square.png" alt="product_image">
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+            <div class="mem_info">
+                <div class="mem_left">
+                    <img src="img/example/profile.png" alt="profile" class="mem_profile_image">
+                    <div>
+                        <p class="mem_nickname">한라봉 소년단</p>
+                        <p class="mem_address">부평구 부평1동</p>
+                    </div>
+                </div>
+                <div class="mem_right">
+                    <p class="mem_brix">55 브릭스</p>
+                    <p class="mem_brix_title">당도</p>
+                </div>
+            </div>
+            <div class="pdt_info">
+                <h3 class="pdt_title">
+                    삼성 메모리 ddr4 2400T 16gb 2개 
+                </h3>
+                <div>
+                    <span class="pdt_cate">디지털기기</span>
+                    <span class="pdt_created_at">5분 전</span>
+                </div>
+                <div class="pdt_desc">
+                    데스크탑용 정상작동<br>16gb 2개 일괄<br>학익동<br><br><br><br>
+                    동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세, 무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세. 남산위에 저 소나무 철갑을 두른듯 바람 서리 불변함은 우리 기상 일세, 무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세.
+                </div>
+                <div class="pdt_counts">
+                    관심 <span class="pdt_likes">2</span> 조회 <span class="pdt_views">6</span>
+                </div>
+            </div>
+            <div class="pdt_rpt_info pdt_list">
+                <div class="pdt_plusmenu">
+                    <span>이 게시글 신고하기</span>
+                    <img src="img/icon/arrow_right.png" alt="arrow_right">
+                </div>
+            </div>
+            <div class="mem_transaction_info pdt_list">
+                <div class="pdt_plusmenu">
+                    <span>한라봉 소년님의 판매 내역</span>
+                    <img src="img/icon/arrow_right.png" alt="arrow_right">
+                </div>
+                <div class="pdt_list_wrapper">
+                    <ul>
+                        <li>
+                            <img src="img/example/square.png" alt="productImg">
+                            <div>
+                                <p class="item_title">삼성 65인치 4k 크리스탈 울트라 캡숑 모니터 짱짱짱</p>
+                                <p class="item_price">850,000원</p>
+                            </div>
+                        </li>
+                        <li>
+                            <img src="img/example/square.png" alt="productImg">
+                            <div>
+                                <p class="item_title">삼성 65인치 4k 크리스탈 울트라 캡숑 모니터 짱짱짱</p>
+                                <p class="item_price">850,000원</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>    
+            </div>
+            <div class="pdt_cate_recommend pdt_list">
+                <div class="pdt_plusmenu">
+                    <span>카테고리 추천</span>
+                    <img src="img/icon/arrow_right.png" alt="arrow_right">
+                </div>
+                <div class="pdt_list_wrapper">
+                    <ul>
+                        <li>
+                            <img src="img/example/square.png" alt="productImg">
+                            <div>
+                                <p class="item_title">삼성 65인치 4k 크리스탈 울트라 캡숑 모니터 짱짱짱</p>
+                                <p class="item_price">850,000원</p>
+                            </div>
+                        </li>
+                        <li>
+                            <img src="img/example/square.png" alt="productImg">
+                            <div>
+                                <p class="item_title">삼성 65인치 4k 크리스탈 울트라 캡숑 모니터 짱짱짱</p>
+                                <p class="item_price">850,000원</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div> 
+            </div>
+        </section>
+        <section id="btn_action">
+            <div>
+                <div >
+                    <img src="img/icon/like.png" alt="like">
+                </div>
+                <div>
+                    <p class="pdt_price">100,000원</p>
+                    <p>가격제안불가</p>
+                </div>
+            </div>
+            <div>
+                <span>채팅하기</span>
+            </div>
+        </section>
+    </main>
+    <script>
+        /* 상품 사진 스와이퍼 */
+        const swiper = new Swiper('.swiper', {
+            direction: 'horizontal',
+            loop: true,
+            pagination: { el: '.swiper-pagination', }
+        });
+    </script>
+</body>
+</html>

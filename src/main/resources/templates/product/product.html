@@ -1,0 +1,347 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>상품</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="js/main.js" charset="UTF-8"></script>
+    <style>
+        /* 상품 */
+        #main section#product{ width : 95%; padding : 0 2.5%; display : flex; flex-direction: column; justify-content: center; align-items: center; }
+        #main section#product ul{ width : 100%; display: flex; flex-direction: column; justify-content: center; }
+        #main section#product ul li{ width : 100%; border-bottom : 1px solid #efefef; padding : 3.5vw 0; display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start; }
+        #main section#product ul li div.img_wrapper{ width : 30%; }
+        #main section#product ul li div.img_wrapper img{ width : 100%; box-shadow: 0px 0px 4px 0px #efefef; border-radius: 2.5vw;}
+        #main section#product ul li div.info_wrapper{ width : 70%; display: flex; flex-direction: column; justify-content: space-between;}
+        #main section#product ul li div.info_wrapper .info{ width : 88%; padding : 8px 7% 22px 5%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        #main section#product ul li div.info_wrapper .info h3{ width : 100%; line-height : 1.2; font-size : 12px; font-weight : 400; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; word-break: keep-all; }
+        #main section#product ul li div.info_wrapper .info p{ width : 100%; padding : 4px 0 0 0; font-size : 10px; font-weight : 100; }
+        #main section#product ul li div.info_wrapper .info p span.info_price{ font-size : 12px; font-weight : 600; }
+        #main section#product ul li div.info_wrapper .count{ width : 100%; display : flex; flex-direction: row; justify-content: right; }
+        #main section#product ul li div.info_wrapper .count p{ width : 12%; display: flex; flex-direction: row; align-items: center; justify-content: space-evenly; opacity : 0.8;}
+        #main section#product ul li div.info_wrapper .count p img{ width : 16px; height : 16px; }
+        #main section#product ul li div.info_wrapper .count p.count_chat img{ content: url(img/icon/chat.png); }
+        #main section#product ul li div.info_wrapper .count p.count_chat img.selected{ content: url(img/icon/chat_selected.png); }
+        #main section#product ul li div.info_wrapper .count p.count_like img{ content: url(img/icon/like.png); }
+        #main section#product ul li div.info_wrapper .count p.count_like img.selected{ content: url(img/icon/like_selected.png); }
+        #main section#product ul li div.info_wrapper .count p span{ font-size : 11px; }
+    </style>
+</head>
+<body>
+    <!-- 상단 메뉴바 -->
+    <header id="header">
+        <div>
+            <h2>부평1동</h2>
+        </div>
+        <div>
+            <ul>
+                <li id="header_search"><img src="img/icon/search.png" alt="search"></li>
+                <li id="header_menu"><img src="img/icon/menu.png" alt="menu"></li>
+                <li id="header_notification"><img src="img/icon/notification.png" alt="notification"></li>
+            </ul>
+        </div>
+    </header>
+    <!-- 메인정보 -->
+    <main id="main">
+        <section id="product">
+            <ul>
+                <li>
+                    <div class="img_wrapper">
+                        <img src="img/example/square.png" alt="product_img">
+                    </div>
+                    <div class="info_wrapper">
+                        <div class="info">
+                            <h3 class="info_title">이웃들은 지금 장반장과 당근에서 모임중!</h3>
+                            <p>
+                                <span class="info_address">인천시 부평구 부평1동</span>
+                                <span class="info_created_at">1분 전</span>
+                            </p>
+                            <p>
+                                <span class="info_price">70,000원</span>
+                            </p>
+                        </div>
+                        <div class="count">
+                            <p class="count_chat">
+                                <img src="img/icon/chat.png" alt="chat_count">
+                                <span>2</span>
+                            </p>
+                            <p class="count_like">
+                                <img src="img/icon/member.png" alt="like_count">
+                                <span>2</span>
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="img_wrapper">
+                        <img src="img/example/square.png" alt="product_img">
+                    </div>
+                    <div class="info_wrapper">
+                        <div class="info">
+                            <h3 class="info_title">이웃들은 지금 장반장과 당근에서 모임중!</h3>
+                            <p>
+                                <span class="info_address">인천시 부평구 부평1동</span>
+                                <span class="info_created_at">1분 전</span>
+                            </p>
+                            <p>
+                                <span class="info_price">70,000원</span>
+                            </p>
+                        </div>
+                        <div class="count">
+                            <p class="count_chat">
+                                <img src="img/icon/chat.png" alt="chat_count">
+                                <span>2</span>
+                            </p>
+                            <p class="count_like">
+                                <img src="img/icon/member.png" alt="like_count">
+                                <span>2</span>
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="img_wrapper">
+                        <img src="img/example/square.png" alt="product_img">
+                    </div>
+                    <div class="info_wrapper">
+                        <div class="info">
+                            <h3 class="info_title">이웃들은 지금 장반장과 당근에서 모임중!</h3>
+                            <p>
+                                <span class="info_address">인천시 부평구 부평1동</span>
+                                <span class="info_created_at">1분 전</span>
+                            </p>
+                            <p>
+                                <span class="info_price">70,000원</span>
+                            </p>
+                        </div>
+                        <div class="count">
+                            <p class="count_chat">
+                                <img src="img/icon/chat.png" alt="chat_count">
+                                <span>2</span>
+                            </p>
+                            <p class="count_like">
+                                <img src="img/icon/member.png" alt="like_count">
+                                <span>2</span>
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="img_wrapper">
+                        <img src="img/example/square.png" alt="product_img">
+                    </div>
+                    <div class="info_wrapper">
+                        <div class="info">
+                            <h3 class="info_title">이웃들은 지금 장반장과 당근에서 모임중!</h3>
+                            <p>
+                                <span class="info_address">인천시 부평구 부평1동</span>
+                                <span class="info_created_at">1분 전</span>
+                            </p>
+                            <p>
+                                <span class="info_price">70,000원</span>
+                            </p>
+                        </div>
+                        <div class="count">
+                            <p class="count_chat">
+                                <img src="img/icon/chat.png" alt="chat_count" class="selected">
+                                <span>2</span>
+                            </p>
+                            <p class="count_like">
+                                <img src="img/icon/member.png" alt="like_count" class="selected">
+                                <span>2</span>
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="img_wrapper">
+                        <img src="img/example/square.png" alt="product_img">
+                    </div>
+                    <div class="info_wrapper">
+                        <div class="info">
+                            <h3 class="info_title">이웃들은 지금 장반장과 당근에서 모임중!</h3>
+                            <p>
+                                <span class="info_address">인천시 부평구 부평1동</span>
+                                <span class="info_created_at">1분 전</span>
+                            </p>
+                            <p>
+                                <span class="info_price">70,000원</span>
+                            </p>
+                        </div>
+                        <div class="count">
+                            <p class="count_chat">
+                                <img src="img/icon/chat.png" alt="chat_count">
+                                <span>2</span>
+                            </p>
+                            <p class="count_like">
+                                <img src="img/icon/member.png" alt="like_count">
+                                <span>2</span>
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="img_wrapper">
+                        <img src="img/example/square.png" alt="product_img">
+                    </div>
+                    <div class="info_wrapper">
+                        <div class="info">
+                            <h3 class="info_title">이웃들은 지금 장반장과 당근에서 모임중!</h3>
+                            <p>
+                                <span class="info_address">인천시 부평구 부평1동</span>
+                                <span class="info_created_at">1분 전</span>
+                            </p>
+                            <p>
+                                <span class="info_price">70,000원</span>
+                            </p>
+                        </div>
+                        <div class="count">
+                            <p class="count_chat">
+                                <img src="img/icon/chat.png" alt="chat_count">
+                                <span>2</span>
+                            </p>
+                            <p class="count_like">
+                                <img src="img/icon/member.png" alt="like_count" class="selected">
+                                <span>2</span>
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="img_wrapper">
+                        <img src="img/example/square.png" alt="product_img">
+                    </div>
+                    <div class="info_wrapper">
+                        <div class="info">
+                            <h3 class="info_title">이웃들은 지금 장반장과 당근에서 모임중!</h3>
+                            <p>
+                                <span class="info_address">인천시 부평구 부평1동</span>
+                                <span class="info_created_at">1분 전</span>
+                            </p>
+                            <p>
+                                <span class="info_price">70,000원</span>
+                            </p>
+                        </div>
+                        <div class="count">
+                            <p class="count_chat">
+                                <img src="img/icon/chat.png" alt="chat_count">
+                                <span>2</span>
+                            </p>
+                            <p class="count_like">
+                                <img src="img/icon/member.png" alt="like_count">
+                                <span>2</span>
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="img_wrapper">
+                        <img src="img/example/square.png" alt="product_img">
+                    </div>
+                    <div class="info_wrapper">
+                        <div class="info">
+                            <h3 class="info_title">이웃들은 지금 장반장과 당근에서 모임중!</h3>
+                            <p>
+                                <span class="info_address">인천시 부평구 부평1동</span>
+                                <span class="info_created_at">1분 전</span>
+                            </p>
+                            <p>
+                                <span class="info_price">70,000원</span>
+                            </p>
+                        </div>
+                        <div class="count">
+                            <p class="count_chat">
+                                <img src="img/icon/chat.png" alt="chat_count" class="selected">
+                                <span>2</span>
+                            </p>
+                            <p class="count_like">
+                                <img src="img/icon/member.png" alt="like_count">
+                                <span>2</span>
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="img_wrapper">
+                        <img src="img/example/square.png" alt="product_img">
+                    </div>
+                    <div class="info_wrapper">
+                        <div class="info">
+                            <h3 class="info_title">이웃들은 지금 장반장과 당근에서 모임중!</h3>
+                            <p>
+                                <span class="info_address">인천시 부평구 부평1동</span>
+                                <span class="info_created_at">1분 전</span>
+                            </p>
+                            <p>
+                                <span class="info_price">70,000원</span>
+                            </p>
+                        </div>
+                        <div class="count">
+                            <p class="count_chat">
+                                <img src="img/icon/chat.png" alt="chat_count">
+                                <span>2</span>
+                            </p>
+                            <p class="count_like">
+                                <img src="img/icon/member.png" alt="like_count">
+                                <span>2</span>
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="img_wrapper">
+                        <img src="img/example/square.png" alt="product_img">
+                    </div>
+                    <div class="info_wrapper">
+                        <div class="info">
+                            <h3 class="info_title">이웃들은 지금 장반장과 당근에서 모임중!</h3>
+                            <p>
+                                <span class="info_address">인천시 부평구 부평1동</span>
+                                <span class="info_created_at">1분 전</span>
+                            </p>
+                            <p>
+                                <span class="info_price">70,000원</span>
+                            </p>
+                        </div>
+                        <div class="count">
+                            <p class="count_chat">
+                                <img src="img/icon/chat.png" alt="chat_count">
+                                <span>2</span>
+                            </p>
+                            <p class="count_like">
+                                <img src="img/icon/member.png" alt="like_count">
+                                <span>2</span>
+                            </p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </section>
+    </main>
+    <!-- 하단 메뉴바 -->
+    <nav id="nav">
+        <div id="btn_add">
+            <img src="img/icon/add.png" alt="btn_add">
+        </div>
+        <ul>
+            <li id="nav_product" class="selected">
+                <img src="img/icon/product.png" alt="nav_product">
+                <p>홈</p>
+            </li>
+            <li id="nav_board">
+                <img src="img/icon/board.png" alt="nav_board">
+                <p>동네생활</p>
+            </li>
+            <li id="nav_chat">
+                <img src="img/icon/chat.png" alt="nav_chat">
+                <p>채팅</p>
+            </li>
+            <li id="nav_member">
+                <img src="img/icon/member.png" alt="nav_member">
+                <p>나의 한라봉</p>
+            </li>
+        </ul>
+    </nav>
+</body>
+</html>

@@ -25,12 +25,6 @@ public class KakaoApi {
     @GetMapping("")
     public void kakaoSignup(@RequestParam String code, HttpServletResponse response) throws IOException {
         Long memNo = kakaoApp.save(code);
-        response.sendRedirect("/verifyPhone?memNo=" + memNo);
-    }
-
-
-    @GetMapping("/logout")
-    public ResponseEntity<String> kakaoLogout(){
-        return ResponseEntity.ok().body(null);
+        response.sendRedirect("/login?memNo=" + memNo);
     }
 }
