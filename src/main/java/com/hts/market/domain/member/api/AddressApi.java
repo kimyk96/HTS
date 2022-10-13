@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -31,9 +32,9 @@ public class AddressApi {
     }
     
     // 회원별 주소 전체 조회
-    @GetMapping("find-all-by-id")
-    public ResponseEntity<List<AddressDto.Read>> findAllById(Long memNo){
-        return ResponseEntity.ok().body(addressApp.findAllById(memNo));
+    @GetMapping("find-all-by-name")
+    public ResponseEntity<List<AddressDto.Read>> findAllByName(Principal principal){
+        return ResponseEntity.ok().body(addressApp.findAllByName(principal.getName()));
     }
 
     // 주소 수정

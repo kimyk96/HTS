@@ -23,11 +23,13 @@ public class GlobalController {
     @GetMapping("/signup")
     public ModelAndView signup(Principal principal){
         MemEntity member = memRepo.loadUserByUsername(principal.getName());
-        return new ModelAndView("signup").addObject("member", member);
+        return new ModelAndView("global/signup").addObject("member", member);
     }
 
     @GetMapping("/login")
     public String login(){
-        return "login";
+        return "global/login";
     }
+
+
 }

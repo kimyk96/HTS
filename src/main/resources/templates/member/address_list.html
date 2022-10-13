@@ -3,10 +3,10 @@
     <meta charset="UTF-8">
     <title>내 주소지</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="/css/main.css">
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="js/main.js" charset="UTF-8"></script>
+    <script src="/js/main.js" charset="UTF-8"></script>
     <style>
         /* 내 주소지 */
         #main #address_list{ width : 95%; padding : 0 2.5%; height : 100%; display : flex; flex-direction: column; justify-content: flex-start; align-items: center; }
@@ -26,7 +26,7 @@
     <!-- 상단 메뉴바 -->
     <header id="header">
         <div>
-            <img src="img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
+            <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
             <div>
                 <h2>
                     내 주소지
@@ -43,10 +43,10 @@
             <div class="address_wrapper">
                 <div>
                     <p>인천시 부평구 부평1동</p>
-                    <img src="img/icon/delete.png" alt="delete">
+                    <img src="/img/icon/delete.png" alt="delete">
                 </div>
                 <div class="btn_add">
-                    <img src="img/icon/add.png" alt="add">
+                    <img src="/img/icon/add.png" alt="add">
                 </div>
             </div>
             <div>
@@ -56,7 +56,15 @@
     </main>
 
     <script>
-
+        $(function(){
+            $.ajax({
+                method:"GET",
+                url:"/api/v1/address/find-all-by-name",
+            })
+            .done(function(res){
+                console.log(res);
+            });
+        });
     </script>
 </body>
 </html>

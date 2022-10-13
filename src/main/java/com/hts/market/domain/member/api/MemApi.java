@@ -47,7 +47,11 @@ public class MemApi {
         return ResponseEntity.ok().body(memApp.updateByMemUsername(dto));
     }
 
-
+    // 회원 정보 조회
+    @GetMapping("find-by-name")
+    public ResponseEntity<MemDto.Member> findByName(Principal principal){
+        return ResponseEntity.ok().body(memApp.findByName(principal.getName()));
+    }
 
 
 

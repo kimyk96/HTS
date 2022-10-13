@@ -6,6 +6,7 @@ import com.hts.market.domain.member.dto.RoleDto;
 import com.hts.market.domain.member.entity.MemEntity;
 import com.hts.market.domain.member.exception.KakaoMemberAlreadyExsistException;
 import com.hts.market.domain.member.exception.MemberAlreadyExsistException;
+import com.hts.market.domain.member.exception.MemberNotFoundException;
 import com.hts.market.domain.member.repo.MemRepo;
 import com.hts.market.domain.member.repo.MemRoleRepo;
 import com.hts.market.global.config.security.auth.MemDetailsService;
@@ -45,7 +46,7 @@ public class KakaoApp {
         // 회원 가입 여부 확인
         if(memRepo.countByMemNo(Long.parseLong(memInfo.get("id").toString()))){
             // 이미 가입된 회원 -> 자동 로그인
-            MemEntity member = memRepo.loadUserByMemNo(Long.parseLong(memInfo.get("id").toString()));
+            MemDto.Member member = memRepo.findById(Long.parseLong(memInfo.get("id").toString())).orElseThrow(()->new MemberNotFoundException());
             throw new KakaoMemberAlreadyExsistException(member);
         }else{
             // 회원 가입 진행

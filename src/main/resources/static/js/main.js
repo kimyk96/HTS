@@ -12,6 +12,10 @@ $(function(){
     $("#nav_chat").click(function(){ $(location).attr("href", "/chat"); });
     // 회원
     $("#nav_member").click(function(){ $(location).attr("href", "/member"); });
+
+
+
+
 })
 
 // 회원 추가 정보 기입
@@ -35,3 +39,4 @@ function signup(){
         })
     })
 }
+

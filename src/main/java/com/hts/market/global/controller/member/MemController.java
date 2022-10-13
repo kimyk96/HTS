@@ -14,11 +14,8 @@ import java.security.Principal;
 
 @Controller
 @RequestMapping("member")
+//@Secured("ROLE_USER")
 public class MemController {
-
-    @Autowired
-    MemRepo memRepo;
-
     @GetMapping("")
     public String member(){
         return "member/member";
@@ -27,5 +24,10 @@ public class MemController {
     @GetMapping("address")
     public String address(){
         return "member/address";
+    }
+
+    @GetMapping("address-list")
+    public String login(){
+        return "member/address_list";
     }
 }

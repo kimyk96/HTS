@@ -14,7 +14,7 @@ public interface AddressRepo {
     AddressDto.Read findById(Long addressNo);
 
     // 회원별 주소 전체 조회
-    List<AddressDto.Read> findAllById(Long memNo);
+    List<AddressDto.Read> findAllByName(String memUsername);
 
     // 주소 수정
     Integer update(AddressDto.Update dto);

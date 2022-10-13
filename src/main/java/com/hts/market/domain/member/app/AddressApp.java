@@ -23,8 +23,8 @@ public class AddressApp {
     }
 
     // 회원별 주소 전체 조회
-    public List<AddressDto.Read> findAllById(Long memNo) {
-        return addressRepo.findAllById(memNo);
+    public List<AddressDto.Read> findAllByName(String memUsername) {
+        return addressRepo.findAllByName(memUsername);
     }
 
     // 주소 수정

@@ -131,9 +131,19 @@
                     data: { username: username, password: password }
                 })
                 .done(function(res){
-                    $("html").html(res);
-
-                    history.pushState(null, null, "/");
+                    var title = res.split('<title>').pop().split('</title>')[0];
+                    if(title=="주소"){
+                        console.log(title);
+                        $(location).attr('href', '/member/address');
+                    }
+                    if(title=="회원가입"){
+                        console.log(title);
+                        $(location).attr('href', '/signup');
+                    }
+                    if(title=="상품"){
+                        console.log(title);
+                        $(location).attr('href', '/product');
+                    }
                 })
                 .fail(function(res){
                     Swal.fire({

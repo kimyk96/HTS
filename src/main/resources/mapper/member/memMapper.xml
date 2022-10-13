@@ -95,7 +95,19 @@
                 left outer join MEMBER_IMAGE i on m.mem_no = i.mem_no
                 left outer join ADDRESS a on m.mem_no = a.mem_no
         WHERE
-            m.mem_No=#{memNo}
+            m.mem_no=#{memNo}
+    </select>
+    <select id="findByName" resultMap="memDtoMember">
+        SELECT
+            m.mem_no, m.mem_username, m.mem_nickname, m.mem_email, m.mem_brix, m.mem_created_at,
+            i.img_no, i.img_path,
+            a.address_no, a.address_si, a.address_gu, a.address_dong
+        FROM
+            MEMBER m
+                left outer join MEMBER_IMAGE i on m.mem_no = i.mem_no
+                left outer join ADDRESS a on m.mem_no = a.mem_no
+        WHERE
+            m.mem_username=#{memUsername}
     </select>
     <resultMap id="memDtoMember" type="com.hts.market.domain.member.dto.MemDto$Member">
         <id column="mem_no"                 property="memNo"/>
@@ -113,6 +125,16 @@
             <result column="address_dong"   property="addressDong"/>
         </collection>
     </resultMap>
+    <select id="findIdMemUsername" resultType="long">
+        <![CDATA[
+            SELECT
+                mem_no
+            FROM
+                MEMBER
+            WHERE
+                mem_username=#{memUsername} and rownum >= 1
+        ]]>
+    </select>
 
 
 

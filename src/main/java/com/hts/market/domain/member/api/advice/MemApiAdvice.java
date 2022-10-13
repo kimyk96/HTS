@@ -49,7 +49,12 @@ public class MemApiAdvice {
         if(e.getMember().getMemUsername().equals("null")){
             // 핸드폰 인증 화면으로
             response.sendRedirect("/login?memNo=" + e.getMember().getMemNo());
-        }else{
+        }
+        else if(e.getMember().getAddress().isEmpty()){
+            // 주소 기입창
+            response.sendRedirect("/member/address");
+        }
+        else{
             // 메인 화면으로
             UserDetails user = memDetailsService.loadUserByUsername(e.getMember().getMemUsername());
             Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());

@@ -34,7 +34,13 @@ public interface MemRepo {
     Integer updateByMemUsername(MemDto.Update dto);
     
     // 회원 정보 전체 조회(이미지, 주소)
-    MemDto.Member findById(Long memNo);
+    Optional<MemDto.Member> findById(Long memNo);
+
+    // 회원 정보 전체 조회(이미지, 주소)
+    Optional<MemDto.Member> findByName(String memUsername);
+    
+    // 회원명으로 회원번호 조회
+    Long findIdByMemUsername(String memUsername);
 
 
 
