@@ -4,7 +4,7 @@
     <!-- 주소 저장-->
     <insert id="save">
         <selectKey resultType="long" order="BEFORE" keyProperty="addressNo">
-            SELECT NVL(MAX(address_no),0)+1 FROM ADDRESS WHERE mem_no=#{memNo}
+            SELECT NVL(MAX(address_no),0)+1 FROM ADDRESS
         </selectKey>
         INSERT INTO
             ADDRESS( address_no, mem_no, address_si, address_gu, address_dong )
