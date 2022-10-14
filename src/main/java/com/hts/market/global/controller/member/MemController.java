@@ -30,4 +30,9 @@ public class MemController {
     public String login(){
         return "member/address_list";
     }
+
+    @GetMapping("profile")
+    public String profile(){
+        return "member/profile";
+    }
 }

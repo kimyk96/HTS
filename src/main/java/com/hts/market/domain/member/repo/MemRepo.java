@@ -42,6 +42,9 @@ public interface MemRepo {
     // 회원명으로 회원번호 조회
     Long findIdByMemUsername(String memUsername);
 
+    // 프로필사진주소와 닉네임 변경
+    Integer updateProfile(MemDto.Member dto);
+
 
 
 //

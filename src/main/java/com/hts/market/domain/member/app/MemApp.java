@@ -1,23 +1,31 @@
 package com.hts.market.domain.member.app;
 
 import com.hts.market.domain.member.dto.MemDto;
+import com.hts.market.domain.member.dto.MemImgDto;
 import com.hts.market.domain.member.dto.MemRoleDto;
 import com.hts.market.domain.member.entity.MemEntity;
 import com.hts.market.domain.member.exception.MemberAlreadyExsistException;
+import com.hts.market.domain.member.exception.MemberImageSaveFailException;
 import com.hts.market.domain.member.exception.MemberNotFoundException;
 import com.hts.market.domain.member.repo.MemImgRepo;
 import com.hts.market.domain.member.repo.MemRepo;
 import com.hts.market.domain.member.repo.MemRoleRepo;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Locale;
 
 @Service
 public class MemApp {
     @Autowired MemRepo memRepo;
     @Autowired MemRoleRepo memRoleRepo;
     @Autowired PasswordEncoder passwordEncoder;
+    @Autowired MemImgRepo memImgRepo;
 
     // 인증 코드
     public Integer code(String memUsername, String code, Long memNo) {
@@ -41,6 +49,9 @@ public class MemApp {
             MemRoleDto.Create memRoleDtoCreate = MemRoleDto.Create.builder()
                     .memNo(memCreateDto.getMemNo()).roleNo(2L).build();
             memRoleRepo.save(memRoleDtoCreate);
+            MemImgDto.Create memImgDtoCreate = MemImgDto.Create.builder()
+                    .memNo(memCreateDto.getMemNo()).imgPath("/img/example/profile.png").build();
+            memImgRepo.save(memImgDtoCreate);
         } else {
             // memNo 있음
             return Integer.parseInt(code);
@@ -75,4 +86,27 @@ public class MemApp {
         return member;
     }
 
+    // 프로필 사진 & 닉네임 수정
+    public Integer updateProfile(MemDto.Profile dto, String memUsername) {
+        // 정보 저장 dto 생성
+        dto.setMemUsername(memUsername);
+        dto.setMemNo(memRepo.findIdByMemUsername(memUsername));
+        try{
+            String fileName = dto.getMemUsername() + dto.getImage().getOriginalFilename().toLowerCase();
+            String imgSaveDir = "C:/HTS/img/profile/";
+            File profileImg = new File(imgSaveDir + fileName);
+            System.out.println(profileImg.getPath());
+            profileImg.getParentFile().mkdirs();
+            dto.getImage().transferTo(profileImg);
+
+            MemDto.Member member = MemDto.Member.builder()
+                    .memNo(dto.getMemNo())
+                    .imgPath(profileImg.getPath())
+                    .memNickname(dto.getMemNickname()).build();
+            return memRepo.updateProfile(member);
+        } catch (IOException e) {
+            System.out.println(e);
+            throw new MemberImageSaveFailException();
+        }
+    }
 }

@@ -135,7 +135,18 @@
                 mem_username=#{memUsername} and rownum >= 1
         ]]>
     </select>
-
+    <update id="updateProfile">
+        <![CDATA[
+            UPDATE
+                MEMBER m left join MEMBER_IMAGE i on m.mem_no=i.mem_no
+            SET
+                m.mem_nickname=#{memNickname}
+            SET
+                i.img_path=#{imgPath}
+            WHERE
+                m.mem_no=#{memNo} AND rownum <= 1
+        ]]>
+    </update>
 
 
 <!--    &lt;!&ndash;    // 새로 추가된 메소드&ndash;&gt;-->

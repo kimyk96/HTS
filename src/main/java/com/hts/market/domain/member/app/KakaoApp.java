@@ -1,12 +1,14 @@
 package com.hts.market.domain.member.app;
 
 import com.hts.market.domain.member.dto.MemDto;
+import com.hts.market.domain.member.dto.MemImgDto;
 import com.hts.market.domain.member.dto.MemRoleDto;
 import com.hts.market.domain.member.dto.RoleDto;
 import com.hts.market.domain.member.entity.MemEntity;
 import com.hts.market.domain.member.exception.KakaoMemberAlreadyExsistException;
 import com.hts.market.domain.member.exception.MemberAlreadyExsistException;
 import com.hts.market.domain.member.exception.MemberNotFoundException;
+import com.hts.market.domain.member.repo.MemImgRepo;
 import com.hts.market.domain.member.repo.MemRepo;
 import com.hts.market.domain.member.repo.MemRoleRepo;
 import com.hts.market.global.config.security.auth.MemDetailsService;
@@ -33,7 +35,7 @@ import java.util.Map;
 public class KakaoApp {
     @Autowired MemRepo memRepo;
     @Autowired MemRoleRepo memRoleRepo;
-    @Autowired MemDetailsService memDetailsService;
+    @Autowired MemImgRepo memImgRepo;
     @Autowired PasswordEncoder passwordEncoder;
 
     // 카카오 회원가입
@@ -62,6 +64,12 @@ public class KakaoApp {
             // 권한 부여 (일반 유저)
             MemRoleDto.Create memRoleDto = MemRoleDto.Create.builder().roleNo(2L).memNo(memDto.getMemNo()).build();
             memRoleRepo.save(memRoleDto);
+
+            // 기본 이미지 저장
+            MemImgDto.Create memImgDtoCreate = MemImgDto.Create.builder()
+                    .memNo(memDto.getMemNo()).imgPath("/img/example/profile.png").build();
+            memImgRepo.save(memImgDtoCreate);
+
             return memDto.getMemNo();
         }
     }

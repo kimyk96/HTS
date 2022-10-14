@@ -52,4 +52,10 @@ public class MemApi {
     public ResponseEntity<MemDto.Member> findByName(Principal principal){
         return ResponseEntity.ok().body(memApp.findByName(principal.getName()));
     }
+
+    @PatchMapping("update-profile")
+    public ResponseEntity<Integer> updateProfileByName(MemDto.Profile dto, Principal principal){
+        return ResponseEntity.ok().body(memApp.updateProfile(dto, principal.getName()));
+    }
+
 }

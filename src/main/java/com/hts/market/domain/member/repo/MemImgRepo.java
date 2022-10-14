@@ -9,5 +9,5 @@ public interface MemImgRepo {
     // 회원 이미지 추가
     Integer save(MemImgDto.Create dto);
     // 회원 이미지 삭제
-    Integer delete(MemImgDto.Delete dto);
+    Integer delete(Long memNo);
 }

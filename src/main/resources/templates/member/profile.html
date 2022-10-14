@@ -1,0 +1,97 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>프로필 사진 수정</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="/css/main.css">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="/js/main.js" charset="UTF-8"></script>
+    <style>
+        /* 프로필 사진 수정 */
+        #header div.btn_upload{ justify-content: flex-end; }
+        #header div h2{ font-size : 15px; font-weight : 400; }
+        #header div.btn_upload span{ padding : 0 10px; font-weight : 600; font-size : 15px; color : #FF9D2A;  }
+        #main section#profile{ width : 100%; display : flex; flex-direction: column; }
+        #main section#profile div.image_wrapper{ padding : 40px 0; width : 100%; display : flex; flex-direction: column; justify-content: center; align-items: center;}
+        #main section#profile div.image_wrapper label{ width : 100%; flex-direction: column; display : flex; justify-content: center; align-items: center; }
+        #main section#profile div.image_wrapper label img{ width : 30%; object-fit: cover; aspect-ratio: 1 / 1; border-radius: 50%; box-shadow: 0 0 5px -4px #000; }
+        #main section#profile div.image_wrapper label div{ box-shadow: 0 0 5px -4px #000; margin : -30px -15% 0 0; width : 40px; height : 40px; border-radius: 50%; background-color : #efefef; display : flex; justify-content: center; align-items: center; }
+        #main section#profile div.image_wrapper label div img{width : 55%; opacity : 0.65; }
+        #main section#profile div.image_wrapper label input{ width :0; height : 0; }
+
+        #main section#profile div.nickname_wrapper{ width : 90%; padding : 0 5%; display: flex; flex-direction: column; }
+        #main section#profile div.nickname_wrapper p{ padding : 10px 0; font-size : 16px; font-weight : 400; }
+        #main section#profile div.nickname_wrapper input{ padding : 15px; border-radius: 10px; border : 2px solid #e8e8e8;}
+    </style>
+</head>
+<body>
+<!-- 상단 메뉴바 -->
+<header id="header">
+    <div>
+        <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
+        <div>
+            <h2>프로필 수정</h2>
+        </div>
+    </div>
+    <div class="btn_upload">
+        <span>완료</span>
+    </div>
+</header>
+<!-- 메인정보 -->
+<main id="main">
+    <section id="profile">
+        <div class="image_wrapper">
+            <label for="input_file">
+                <img src="/img/example/profile.png" alt="profile" class="mem_img" id="profileImg">
+                <div>
+                    <img src="/img/icon/camera.png" alt="camera">
+                </div>
+                <input type="file" id="input_file" name="profileImg" accept="image/png, image/jpeg, image/gif">
+            </label>
+        </div>
+        <div class="nickname_wrapper">
+            <p>닉네임</p>
+            <input type="text" id="mem_nickname">
+        </div>
+    </section>
+</main>
+<script>
+        $(function(){
+            $.ajax({
+                method: "GET",
+                url: "/api/v1/mem/find-by-name"
+            }).done((res) => {
+                $("#mem_nickname").val(res.memNickname);
+                $("#profileImg").attr("src", res.imgPath);
+            });
+
+            // file 변경 감지 - 업로드 이미지 표시
+            $("#input_file").change(function () {
+                let $img = $("#profileImg");
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $img.attr("src", e.target.result);
+                };
+                reader.readAsDataURL(this.files[0]);
+            });
+            // 업로드
+            $(".btn_upload").click(function(){
+                let fd = new FormData();
+                fd.append("memNickname", $("#mem_nickname").val());
+                let img = $("#input_file")[0];
+                if(img.files[0]){ fd.append("image", img.files[0]); }
+
+                $.ajax({
+                    method: "PATCH",
+                    url: "/api/v1/mem/update-profile",
+                    data: fd,
+                    contentType: false,
+                    processData: false,
+                }).done((res) => {
+                    console.log(res);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

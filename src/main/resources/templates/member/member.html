@@ -57,7 +57,7 @@
     <main id="main">
         <section id="member">
             <div class="wrapper">
-                <div class="profile">
+                <div class="profile" onclick="$(location).attr('href', '/member/profile');">
                     <div class="img">
                         <img src="img/example/profile.png" alt="profile_img" id="img_path">
                     </div>
@@ -196,6 +196,8 @@
             .fail(function(res){
 
             })
+
+
         });
     </script>
 
