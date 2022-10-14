@@ -2,6 +2,8 @@ package com.hts.market.domain.board.dto;
 
 import lombok.*;
 
+import javax.validation.constraints.NotEmpty;
+
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class BrdImgDto {
 
@@ -9,23 +11,34 @@ public class BrdImgDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Create {
-        private Long brdImgNo;
+        private Long imgNo;
+        private Long brdNo;
+        private String imgPath;
+
     }
     @Data @Builder
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Update{
-        private Long brdImgNo;
+        private Long imgNo;
         private Long brdNo;
-        private Long brdMemNo;
+        private String imgPath;
+    }
+
+    @Data @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Read{
+        private Long imgNo;
+        private Long brdNo;
+        private String imgPath;
     }
     @Data @Builder
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Delete{
-        private Long brdImgNo;
+        private Long imgNo;
         private Long brdNo;
-        private Long brdMemNo;//작성자가 아니면 삭제할수,,,,,,,,,
     }
 
 }

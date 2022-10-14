@@ -5,6 +5,8 @@ import com.hts.market.domain.board.repo.BrdImgRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BrdImgApp {
 
@@ -25,9 +27,12 @@ public class BrdImgApp {
         return null;
     };
 
-    //이미지적용 게시물
-    public Long findAllByBrdNo(Long brdNo){
-        return null;
-    };
+    //대표이미지 적용
+    public String findMainImg(Long brdNo){return null;};
+
+    //이미지 전체 보기
+
+    public List<BrdImgDto.Read> findAllByBrdNo(Long brdNo){return null;};
+
 
 }

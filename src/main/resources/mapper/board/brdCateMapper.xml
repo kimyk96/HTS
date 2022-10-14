@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hts.market.domain.board.repo.BrdCateRepo">
+
+
+
+    <insert id="save">
+        <selectKey resultType="long" order="BEFORE" keyProperty="brdCateNo">
+            select nvl(max(brd_cate_no),0)+1 from BOARD_CATEGORY
+        </selectKey>
+        insert into BOARD_CATEGORY(brd_cate_no, brd_cate) values( #{brdCateNo}, #{brdCate})
+    </insert>
+
+
+
+    <select id="findAll" resultType="com.hts.market.domain.board.dto.BrdCateDto$Read">
+        select brd_cate_no, brd_cate from BOARD_CATEGORY
+
+    </select>
+
+
+
+</mapper>

@@ -39,7 +39,7 @@ public class BrdApi {
         return null;
     }
 
-    //게시물번호로 조회수 가져오기
+    //조회수 증가
     @GetMapping("views")
     public ResponseEntity<Long> findViewsByBrdNo(Long brdNo){
         return null;
