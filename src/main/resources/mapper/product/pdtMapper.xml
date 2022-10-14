@@ -24,10 +24,9 @@
         </trim>
         where pdt_no=#{pdtNo}
     </update>
-    <!-- 조회수 증가 -->
-    <update id="increaseInViews">
-        update PRODUCT set pdt_views = pdt_views+1 where pdt_no = #{pdtNo}
-        and pdt_seller_no != #{memNickname}
+<!--    &lt;!&ndash; 조회수 증가 &ndash;&gt;-->
+    <update id="increaseView">
+        update PRODUCT set pdt_views = pdt_views+1 where pdt_no = #{pdtNo} and pdt_seller_no != #{memNo}
     </update>
     <!-- 판매글 읽기 -->
     <select id="findByPdtNo" resultMap="pdtDtoRead">
@@ -41,7 +40,7 @@
             left outer join PRODUCT_IMAGE i on p.pdt_no = i.pdt_no
             left outer join PRODUCT_CATEGORY c on p.pdt_cate_no = c.pdt_cate_no
         where
-            p.pdt_no=#{pdtNo}
+            p.pdt_no=#{pdtNo} and rownum&lt;=1
     </select>
     <resultMap id="pdtDtoRead" type="com.hts.market.domain.product.dto.PdtDto$Detail">
             <result column="pdt_cate"           property="pdtCate"/>
@@ -62,7 +61,7 @@
             <result column="pdt_views"          property="pdtViews"/>
             <result column="pdt_created_at"     property="pdtCreatedAt"/>
         </association>
-        <collection property="images"        ofType="com.hts.market.domain.product.dto.PdtImgDto$Read">
+        <collection property="images"       ofType="com.hts.market.domain.product.dto.PdtImgDto$Read">
             <result column="pdt_no"             property="pdtNo"/>
             <result column="img_no"             property="imgNo"/>
             <result column="img_path"           property="imgPath"/>

@@ -17,8 +17,8 @@ public interface PdtFavoriteRepo {
     public List<PdtFavoriteDto.ReadList> findAllOfFavoriteList(Long memNo);
 
     // 상품별 관심수 확인
-    public Integer countByPdtNo(PdtFavoriteDto.CountFavorite dto);
+    public Integer countByPdtNo(Long pdtNo);
 
     // 관심목록 개수
-    public Long countOfFavoriteList(Long memNo);
+    public Integer countOfFavoriteList(Long memNo);
 }

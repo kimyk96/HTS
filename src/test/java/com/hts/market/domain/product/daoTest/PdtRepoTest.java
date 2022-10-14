@@ -2,10 +2,8 @@ package com.hts.market.domain.product.daoTest;
 
 import com.hts.market.domain.member.dto.AddressDto;
 import com.hts.market.domain.member.repo.AddressRepo;
-import com.hts.market.domain.product.dto.PdtCateDto;
 import com.hts.market.domain.product.dto.PdtDto;
 import com.hts.market.domain.product.dto.PdtImgDto;
-import com.hts.market.domain.product.repo.PdtCateRepo;
 import com.hts.market.domain.product.repo.PdtImgRepo;
 import com.hts.market.domain.product.repo.PdtRepo;
 import org.assertj.core.api.Assertions;
@@ -26,8 +24,6 @@ class PdtRepoTest {
     @Autowired
     AddressRepo addressRepo;
     @Autowired
-    PdtCateRepo pdtCateRepo;
-    @Autowired
     PdtImgRepo pdtImgRepo;
     // 판매글 작성 테스트
     @BeforeEach
@@ -38,13 +34,17 @@ class PdtRepoTest {
         AddressDto.Create dto2 =
                 AddressDto.Create.builder().memNo(1L).addressSi("인천").addressGu("부평").addressDong("부평1").build();
         PdtImgDto.Create dto3 =
-                PdtImgDto.Create.builder().pdtNo(1L).imgPath("abc123").build();
-        PdtCateDto.Create dto4 = PdtCateDto.Create.builder().pdtCate("가전").build();
+                PdtImgDto.Create.builder().imgNo(1L).pdtNo(1L).imgPath("abc1").build();
+        PdtImgDto.Create dto4 =
+                PdtImgDto.Create.builder().imgNo(2L).pdtNo(1L).imgPath("abc2").build();
+        PdtImgDto.Create dto5 =
+                PdtImgDto.Create.builder().imgNo(3L).pdtNo(1L).imgPath("abc3").build();
         // when
         pdtRepo.save(dto1);
         addressRepo.save(dto2);
         pdtImgRepo.save(dto3);
-        pdtCateRepo.save(dto4);
+        pdtImgRepo.save(dto4);
+        pdtImgRepo.save(dto5);
         // then
     }
     // 판매글 수정 테스트
@@ -59,23 +59,26 @@ class PdtRepoTest {
         Assertions.assertThat(result).isEqualTo(1);
 
     }
-    // 판매글 죄회수증가 테스트
-    @Test
-    void increaseInViewsTest(){
-        PdtDto.ViewCount dto = PdtDto.ViewCount.builder().pdtNo(1L).memNo(2L).build();
 
-        Integer views = pdtRepo.increaseInViews(dto);
-
-        Assertions.assertThat(views).isEqualTo(1);
-    }
     // 상품읽기 테스트
-//    @Test
+    @Test
     void findByPdtNo(){
         Long pdtNo = 1L;
 
         Optional<PdtDto.Detail> result = pdtRepo.findByPdtNo(pdtNo);
 
         Assertions.assertThat(result);
+    }
+
+    // 조회수 테스트
+    @Test
+    void increaseViews(){
+        Long pdtNo = 1L;
+        Long pdtSellerNo = 1L;
+
+        Integer result =  pdtRepo.increaseView(pdtNo, pdtSellerNo);
+
+        Assertions.assertThat(result).isEqualTo(0);
     }
     // 지역별 상품목록 테스트
     @Test
@@ -91,7 +94,7 @@ class PdtRepoTest {
     // 상품 삭제
     @Test
     void deleteTest(){
-        PdtDto.Delete dto = PdtDto.Delete.builder().pdtNo(1L).build();
+        PdtDto.Delete dto = PdtDto.Delete.builder().pdtNo(1L).pdtSellerNo(1L).build();
 
         Integer result = pdtRepo.delete(dto);
 

@@ -25,9 +25,4 @@ public class PdtFavoriteApp {
     public List<PdtFavoriteDto.ReadList> findAllOfFavoriteList(Long memNo){
         return pdtFavoriteRepo.findAllOfFavoriteList(memNo);
     }
-    // 관심수 확인
-//    public Integer countByPdtNo(PdtFavoriteDto.CountFavorite dto){
-//        return null;
-//    }
-
 }

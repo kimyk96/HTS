@@ -19,6 +19,6 @@ public class PdtCategoryTest {
     @Test
     void findAll(){
         List<PdtCateDto.Read> result = pdtCateApp.findAll();
-        Assertions.assertThat(result).hasSize(3);
+        Assertions.assertThat(result).hasSize(19);
     }
 }

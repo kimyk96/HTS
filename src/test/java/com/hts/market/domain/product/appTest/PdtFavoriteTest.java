@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @SpringBootTest
 @Transactional
 public class PdtFavoriteTest {
@@ -35,6 +37,14 @@ public class PdtFavoriteTest {
     }
 
     // 회원별 관심목록 보기
+    @Test
+    void findAllOfFavoriteListTest(){
+        Long memNo = 1L;
+
+        List<PdtFavoriteDto.ReadList> result = pdtFavoriteApp.findAllOfFavoriteList(memNo);
+
+        Assertions.assertThat(result).hasSize(1);
+    }
 
     // 상품별 관심수
 }

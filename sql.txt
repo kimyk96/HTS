@@ -66,8 +66,7 @@ CREATE TABLE TRANSACTION (
 	tx_no	NUMBER(20)		NOT NULL,
 	tx_pdt_no	NUMBER(20)		NOT NULL,
 	tx_buyer_no	NUMBER(20)		NOT NULL,
-	tx_created_at	DATE	DEFAULT sysdate	NOT NULL,
-	mem_no	NUMBER(20)		NULL
+	tx_created_at	DATE	DEFAULT sysdate	NOT NULL
 );
 
 DROP TABLE REVIEW;
@@ -82,7 +81,6 @@ DROP TABLE TRANSACTION_REVIEW;
 CREATE TABLE TRANSACTION_REVIEW (
 	tx_review_tx_no	NUMBER(20)		NOT NULL,
 	tx_review_review_no	NUMBER(20)		NOT NULL,
-	mem_no	NUMBER(20)		NULL,
 	tx_review_type	VARCHAR2(6 CHAR)		NOT NULL
 );
 
@@ -130,8 +128,7 @@ DROP TABLE PRODUCT_FAVORITE;
 
 CREATE TABLE PRODUCT_FAVORITE (
 	mem_no	NUMBER(20)		NOT NULL,
-	pdt_no	NUMBER(20)		NOT NULL,
-	mem_no2	NUMBER(20)		NULL
+	pdt_no	NUMBER(20)		NOT NULL
 );
 
 DROP TABLE BOARD_CATEGORY;
@@ -197,8 +194,7 @@ CREATE TABLE CHAT (
 	chat_content	VARCHAR2(300 CHAR)		NOT NULL,
 	chat_created_at	DATE	DEFAULT sysdate	NOT NULL,
 	chat_checked	NUMBER(1)	DEFAULT 0	NULL,
-	chat_is_seller	NUMBER(1)		NULL,
-	chat_username	NUMBER(20)		NULL
+	chat_is_seller	NUMBER(1)		NULL
 );
 
 ALTER TABLE MEMBER ADD CONSTRAINT PK_MEMBER PRIMARY KEY (
@@ -242,8 +238,7 @@ ALTER TABLE REVIEW ADD CONSTRAINT PK_REVIEW PRIMARY KEY (
 
 ALTER TABLE TRANSACTION_REVIEW ADD CONSTRAINT PK_TRANSACTION_REVIEW PRIMARY KEY (
 	tx_review_tx_no,
-	tx_review_review_no,
-	mem_no
+	tx_review_review_no
 );
 
 ALTER TABLE PRODUCT_CATEGORY ADD CONSTRAINT PK_PRODUCT_CATEGORY PRIMARY KEY (
@@ -265,8 +260,7 @@ ALTER TABLE PRODUCT ADD CONSTRAINT PK_PRODUCT PRIMARY KEY (
 
 ALTER TABLE PRODUCT_FAVORITE ADD CONSTRAINT PK_PRODUCT_FAVORITE PRIMARY KEY (
 	mem_no,
-	pdt_no,
-	mem_no2
+	pdt_no
 );
 
 ALTER TABLE BOARD_CATEGORY ADD CONSTRAINT PK_BOARD_CATEGORY PRIMARY KEY (
@@ -307,4 +301,38 @@ ALTER TABLE CHAT ADD CONSTRAINT PK_CHAT PRIMARY KEY (
 CREATE SEQUENCE mem_seq;
 INSERT INTO ROLE (role_no, role_name) VALUES (1, 'ROLE_ADMIN');
 INSERT INTO ROLE (role_no, role_name) VALUES (2, 'ROLE_USER');
+
+insert into product_category values(1, '디지털기기');
+insert into product_category values(2, '생활가전');
+insert into product_category values(3, '가구/인테리어');
+insert into product_category values(4, '생활/주방');
+insert into product_category values(5, '유아동');
+insert into product_category values(6, '유아도서');
+insert into product_category values(7, '여성의류');
+insert into product_category values(8, '여성잡화');
+insert into product_category values(9, '남성패션/잡화');
+insert into product_category values(10, '뷰티/미용');
+insert into product_category values(11, '스포츠/레저');
+insert into product_category values(12, '취미/게임/음반');
+insert into product_category values(13, '도서');
+insert into product_category values(14, '티켓/교환권');
+insert into product_category values(15, '가공식품');
+insert into product_category values(16, '반려동물용품');
+insert into product_category values(17, '식물');
+insert into product_category values(18, '기타 중고물품');
+insert into product_category values(19, '삽니다');
+
+insert into review(review_no,review)values
+    (1,'시간을 잘지켜요');
+    insert into review(review_no,review)values
+    (2,'현장에서 가격을 바꾸지 않았어요');
+    insert into review(review_no,review)values
+    (3,'상대방을 잘 배려했어요');
+    insert into review(review_no,review)values
+    (4,'응답이 빨라요');
+    insert into review(review_no,review)values
+    (5,'친절하고 매너가 좋아요');
+    insert into review(review_no,review)values
+    (6,'제가 있는 곳 까지와서 거래했어요');
+
 commit;

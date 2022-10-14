@@ -25,6 +25,7 @@ class PdtImgRepoTest {
 
         Assertions.assertThat(result).isEqualTo(1);
     }
+
     //이미지 수정 테스트
    @Test
     void update(){
@@ -34,25 +35,7 @@ class PdtImgRepoTest {
 
         Assertions.assertThat(result).isEqualTo(1);
     }
-//    //메인 이미지출력 테스트
-//    @Test
-//    void findMainImg(){
-//        PdtImgDto.Read dto = PdtImgDto.Read.builder().pdtNo(1L).imgNo(1L).build();
-//
-//        String result = pdtImgRepo.findMainImg(dto);
-//
-//        Assertions.assertThat(result).isEqualTo("stInDf1241");
-//    }
-//    //이미지 모두출력
-//   @Test
-//    void findAllByPdtNo(){
-//       Long pdtNo = 1L;
-//
-//       List<PdtImgDto.Read> result = pdtImgRepo.findAllByPdtNo(pdtNo);
-//
-//       Assertions.assertThat(result).hasSize(1);
-//
-//    }
+
     //이미지 삭제 테스트
     @Test
     void delete(){

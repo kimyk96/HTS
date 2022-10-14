@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @SpringBootTest
 @Transactional
 class PdtFavoriteRepoTest {
@@ -27,7 +29,7 @@ class PdtFavoriteRepoTest {
     }
 // 관심 해제 테스트
     @Test
-    void delete(){
+    void deleteTest(){
         PdtFavoriteDto.Delete dto = PdtFavoriteDto.Delete.builder().pdtNo(1L).memNo(1L).build();
 
         Integer result = pdtFavoriteRepo.delete(dto);
@@ -35,21 +37,30 @@ class PdtFavoriteRepoTest {
         Assertions.assertThat(result).isEqualTo(1);
     }
 // 관심 목록 테스트
-//    @Test
-//    void findAllByPdtNo(){
-//        PdtFavoriteDto.ReadList dto = PdtFavoriteDto.ReadList.builder().memNo(1L).build();
-//        Long memNo = 1;
-//        List<PdtFavoriteDto.ReadList> result = pdtFavoriteRepo.findAllOfFavoriteList(memNo);
-//
-//        Assertions.assertThat(result).hasSize(1);
-//    }
+    @Test
+    void findAllByPdtNoTest(){
+        Long memNo = 1L;
+
+        List<PdtFavoriteDto.ReadList> result = pdtFavoriteRepo.findAllOfFavoriteList(memNo);
+
+        Assertions.assertThat(result).hasSize(1);
+    }
 
 // 관심수 확인
     @Test
-    void countByPdtNo(){
-        PdtFavoriteDto.CountFavorite dto = PdtFavoriteDto.CountFavorite.builder().pdtNo(1L).build();
+    void countByPdtNoTest(){
+        Long pdtNo = 1L;
 
-        Integer result = pdtFavoriteRepo.countByPdtNo(dto);
+        Integer result = pdtFavoriteRepo.countByPdtNo(pdtNo);
+
+        Assertions.assertThat(result).isEqualTo(1);
+    }
+    // 멤버별 관심한 글 개수
+    @Test
+    void countOfFavoriteListTest(){
+        Long memNo = 1L;
+
+        Integer result = pdtFavoriteRepo.countOfFavoriteList(memNo);
 
         Assertions.assertThat(result).isEqualTo(1);
     }

@@ -17,13 +17,22 @@ public class PdtApp {
     private MemRepo memRepo;
 
     // 판매글 작성
-    public Integer save(PdtDto.Create dto) {
+    public Integer save(PdtDto.Create dto, String memUsername) {
+        dto.setPdtSellerNo(memRepo.findIdByMemUsername(memUsername));
         return pdtRepo.save(dto);
     }
 
     // 판매글 수정
     public Integer update(PdtDto.Update dto){
         return pdtRepo.update(dto);
+    }
+
+    // 글 읽기 - 관심수, 조회수 처리
+    public PdtDto.Detail findByPdtNo(Long pdtNo, String memUserName) {
+        PdtDto.Detail dto = pdtRepo.findByPdtNo(pdtNo).orElseThrow(()->new ProductNotFoundException());
+        Long memNo = memRepo.findIdByMemUsername(memUserName);
+        pdtRepo.increaseView(pdtNo, memNo);
+        return dto;
     }
 
     // 판매글 삭제
@@ -36,10 +45,7 @@ public class PdtApp {
         return pdtRepo.findAllByAddress(dto);
     }
 
-    // 글 읽기 - 관심수, 조회수 처리
-    public PdtDto.Detail findByPdtNo(Long pdtNo) {
-        return pdtRepo.findByPdtNo(pdtNo).orElseThrow(()->new ProductNotFoundException());
-    }
+
 
     // 키워드 검색
     public List<PdtDto.ReadList> findByPdtKeywordLike(PdtDto.SearchData dto){

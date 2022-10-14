@@ -43,14 +43,4 @@ public class PdtImgAppTest {
 
         Assertions.assertThat(result).isEqualTo(1);
     }
-//    // 대표이미지 보기
-//    @Test
-//    void findMainImg(){
-//        PdtImgDto.Read dto = PdtImgDto.Read.builder().pdtNo(1L).imgNo(1L).build();
-//
-//        String result = pdtImgApp.findByImgNo(dto);
-//
-//        Assertions.assertThat(result).isEqualTo(1);
-//    }
-
 }

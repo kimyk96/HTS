@@ -44,8 +44,8 @@ public class PdtDto {
         private Long pdtCateNo;
         private Long pdtAddressNo;
         private String pdtName;
-        private Integer pdtStatus;
         private String pdtDesc;
+        private Integer pdtStatus;
         private Integer pdtPrice;
 
     }
