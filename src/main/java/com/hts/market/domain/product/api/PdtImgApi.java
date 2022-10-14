@@ -8,6 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.security.Principal;
 
 @RestController
@@ -18,30 +19,26 @@ public class PdtImgApi {
     private PdtImgApp pdtImgApp;
 
     // 이미지저장
-    @PostMapping("save")
-    public ResponseEntity<Integer> save(@Valid PdtImgDto.Create dto, Principal principal){
+    @PostMapping("save-files")
+    public ResponseEntity<Integer> saveFiles(@Valid PdtImgDto.ListFile dto, Principal principal) throws IOException {
         return ResponseEntity.ok().body(pdtImgApp.save(dto));
     }
     // 이미지수정
-    @PutMapping("update")
-    public ResponseEntity<Integer> update(@Valid PdtImgDto.Update dto, Principal principal){
+    @PutMapping("update-file")
+    public ResponseEntity<Integer> updateFile(@Valid PdtImgDto.UpdateFile dto, Principal principal) throws IOException{
         return ResponseEntity.ok().body(pdtImgApp.update(dto));
     }
 
-    // 이미지삭제
-    @DeleteMapping("delete")
-    public ResponseEntity<Integer> delete(@Valid PdtImgDto.Delete dto, Principal principal){
-        return ResponseEntity.ok().body(pdtImgApp.delete(dto));
+    // 이미지 개별삭제
+    @DeleteMapping("delete-by-img-no")
+    public ResponseEntity<Integer> deleteByImgNo(@Valid PdtImgDto.Delete dto, Principal principal){
+        return ResponseEntity.ok().body(pdtImgApp.deleteByImgNo(dto));
     }
 
-//    //대표이미지 보기
-//    @GetMapping()
-//    public  ResponseEntity<String> readByMain(@Valid PdtImgDto.Read dto, Principal principal){
-//        return ResponseEntity.ok().body(pdtImgApp.findByImgNo(dto));
-//    }
-//    // 이미지목록 보기
-//    @GetMapping()
-//    public  ResponseEntity<PdtImgDto.Read> readByAll(){
-//        return null;
-//    }
+    // 이미지 전체삭제
+    @DeleteMapping("delete-all")
+    public ResponseEntity<Integer> deleteAll(@Valid PdtImgDto.Delete dto, Principal principal){
+        return ResponseEntity.ok().body(pdtImgApp.deleteAll(dto));
+    }
+
 }

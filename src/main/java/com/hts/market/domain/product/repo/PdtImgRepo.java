@@ -9,10 +9,9 @@ public interface PdtImgRepo {
     public Integer save(PdtImgDto.Create dto);
     // 이미지 수정
     public Integer update(PdtImgDto.Update dto);
-    // 이미지 삭제
-    public Integer delete(PdtImgDto.Delete dto);
-//    // 대표이미지 보기
-//    public String findMainImg(PdtImgDto.Read dto);
-//    // 이미지 모두보기
-//    public List<PdtImgDto.Read> findAllByPdtNo(Long pdtNo);
+    // 이미지 개별삭제
+    public Integer deleteByImgNo(PdtImgDto.Delete dto);
+    // 이미지 전체삭제
+    public Integer deleteAll(PdtImgDto.Delete dto);
+
 }

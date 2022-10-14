@@ -28,7 +28,7 @@
             FROM
                 MEMBER
             WHERE
-                mem_nickname=#{memNickname} and mem_no!=#{memNo} rownum <= 1
+                mem_nickname=#{memNickname} and mem_no!=#{memNo} and rownum <= 1
         ]]>
     </select>
     <insert id="save">

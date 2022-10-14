@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hts.market.domain.product.repo.PdtImgRepo">
-    <!-- 이미지 저장-->
+    <!-- 상품 이미지 저장-->
     <insert id="save">
         insert into
             PRODUCT_IMAGE(pdt_no, img_no, img_path )
         values
             ( #{pdtNo}, #{imgNo}, #{imgPath} )
     </insert>
-    <!-- 이미지 수정 -->
+    <!-- 상품 이미지 수정 -->
     <update id="update">
         update
             PRODUCT_IMAGE
@@ -17,12 +17,19 @@
         where
             pdt_no = #{pdtNo} and img_no = #{imgNo}
     </update>
-    <!-- 이미지 삭제 -->
-    <delete id="delete">
+    <!-- 상품 이미지 개별삭제 -->
+    <delete id="deleteByImgNo">
         delete from
-        PRODUCT_IMAGE
+            PRODUCT_IMAGE
         where
-        pdt_no=#{pdtNo} and img_no=#{imgNo}
+            pdt_no=#{pdtNo} and img_no=#{imgNo}
+    </delete>
+    <!-- 상품 이미지 전체삭제 -->
+    <delete id="deleteAll">
+        delete from
+            PRODUCT_IMAGE
+        where
+            pdt_no=#{pdtNo}
     </delete>
 <!--    &lt;!&ndash; 대표이미지 보기 &ndash;&gt;-->
 <!--    <select id="findMainImg" resultType="string">-->

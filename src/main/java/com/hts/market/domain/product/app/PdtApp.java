@@ -1,5 +1,7 @@
 package com.hts.market.domain.product.app;
 
+import com.hts.market.domain.member.dto.MemDto;
+import com.hts.market.domain.member.exception.MemberNotFoundException;
 import com.hts.market.domain.member.repo.MemRepo;
 import com.hts.market.domain.product.dto.PdtDto;
 import com.hts.market.domain.product.exception.ProductNotFoundException;
@@ -30,8 +32,9 @@ public class PdtApp {
     // 글 읽기 - 관심수, 조회수 처리
     public PdtDto.Detail findByPdtNo(Long pdtNo, String memUserName) {
         PdtDto.Detail dto = pdtRepo.findByPdtNo(pdtNo).orElseThrow(()->new ProductNotFoundException());
-        Long memNo = memRepo.findIdByMemUsername(memUserName);
-        pdtRepo.increaseView(pdtNo, memNo);
+        MemDto.Member member = memRepo.findByName(memUserName).orElseThrow(()->new MemberNotFoundException());
+        dto.setMember(member);
+        pdtRepo.increaseView(pdtNo, member.getMemNo());
         return dto;
     }
 

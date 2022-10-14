@@ -1,7 +1,9 @@
 package com.hts.market.domain.product.dto;
 
 import com.hts.market.domain.member.dto.AddressDto;
+import com.hts.market.domain.member.dto.MemDto;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -142,7 +144,7 @@ public class PdtDto {
         // product_category 에서 가져온 값
         private String pdtCate;
         // member
-//        private MemDto.Membermember;
+        private MemDto.Member member;
     }
 
     @Data
@@ -168,5 +170,15 @@ public class PdtDto {
     public static class ViewCount {
         private Long pdtNo;
         private Long memNo;
+    }
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Profile{
+        private Long pdtNo;
+        private Long imgNo;
+        private List<MultipartFile> image;
     }
 }
