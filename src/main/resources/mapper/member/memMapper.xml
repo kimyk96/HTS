@@ -135,16 +135,14 @@
                 mem_username=#{memUsername} and rownum >= 1
         ]]>
     </select>
-    <update id="updateProfile">
+    <update id="updateMemNickname">
         <![CDATA[
             UPDATE
-                MEMBER m left join MEMBER_IMAGE i on m.mem_no=i.mem_no
+                MEMBER
             SET
-                m.mem_nickname=#{memNickname}
-            SET
-                i.img_path=#{imgPath}
+                mem_nickname=#{memNickname}
             WHERE
-                m.mem_no=#{memNo} AND rownum <= 1
+                mem_no=#{memNo} AND rownum <= 1
         ]]>
     </update>
 

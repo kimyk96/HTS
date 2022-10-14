@@ -13,6 +13,7 @@ import com.hts.market.domain.member.repo.MemRoleRepo;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,8 @@ public class MemApp {
     @Autowired MemRoleRepo memRoleRepo;
     @Autowired PasswordEncoder passwordEncoder;
     @Autowired MemImgRepo memImgRepo;
+
+    @Value("${hts.imgUrl}") private String imgUrl;
 
     // 인증 코드
     public Integer code(String memUsername, String code, Long memNo) {
@@ -73,6 +76,8 @@ public class MemApp {
         MemDto.Member member = memRepo.findById(memNo).orElseThrow(() -> new MemberNotFoundException());
         if(member.getImgPath()==null){
             member.setImgPath("/img/example/profile.png");
+        }else{
+            member.setImgPath(imgUrl + member.getImgPath());
         }
         return member;
     }
@@ -82,6 +87,8 @@ public class MemApp {
         MemDto.Member member = memRepo.findByName(memUsername).orElseThrow(() -> new MemberNotFoundException());
         if(member.getImgPath()==null){
             member.setImgPath("/img/example/profile.png");
+        }else{
+            member.setImgPath(imgUrl + member.getImgPath());
         }
         return member;
     }
@@ -91,22 +98,30 @@ public class MemApp {
         // 정보 저장 dto 생성
         dto.setMemUsername(memUsername);
         dto.setMemNo(memRepo.findIdByMemUsername(memUsername));
-        try{
-            String fileName = dto.getMemUsername() + dto.getImage().getOriginalFilename().toLowerCase();
-            String imgSaveDir = "C:/HTS/img/profile/";
-            File profileImg = new File(imgSaveDir + fileName);
-            System.out.println(profileImg.getPath());
-            profileImg.getParentFile().mkdirs();
-            dto.getImage().transferTo(profileImg);
-
+        if(dto.getImage()==null){
             MemDto.Member member = MemDto.Member.builder()
                     .memNo(dto.getMemNo())
-                    .imgPath(profileImg.getPath())
                     .memNickname(dto.getMemNickname()).build();
-            return memRepo.updateProfile(member);
-        } catch (IOException e) {
-            System.out.println(e);
-            throw new MemberImageSaveFailException();
+            return memRepo.updateMemNickname(member);
+        }else{
+            try{
+                String fileName = "member/" + dto.getMemUsername() + "." + dto.getImage().getOriginalFilename().substring(dto.getImage().getOriginalFilename().lastIndexOf(".") + 1).toLowerCase();
+                String imgSaveDir = new File("").getAbsolutePath() + "\\" + "/images/";
+                File profileImg = new File(imgSaveDir + fileName);
+                profileImg.getParentFile().mkdirs();
+                dto.getImage().transferTo(profileImg);
+
+                MemDto.Member member = MemDto.Member.builder()
+                        .memNo(dto.getMemNo())
+                        .imgPath(fileName)
+                        .memNickname(dto.getMemNickname()).build();
+                memRepo.updateMemNickname(member);
+                memImgRepo.update(member);
+                return 1;
+            } catch (IOException e) {
+                System.out.println(e);
+                throw new MemberImageSaveFailException();
+            }
         }
     }
 }

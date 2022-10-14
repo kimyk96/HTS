@@ -1,5 +1,6 @@
 package com.hts.market.domain.member.repo;
 
+import com.hts.market.domain.member.dto.MemDto;
 import com.hts.market.domain.member.dto.MemImgDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.http.codec.multipart.Part;
@@ -10,4 +11,6 @@ public interface MemImgRepo {
     Integer save(MemImgDto.Create dto);
     // 회원 이미지 삭제
     Integer delete(Long memNo);
+    // 회원 이미지 수정
+    Integer update(MemDto.Member dto);
 }

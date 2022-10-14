@@ -79,6 +79,17 @@
                 let fd = new FormData();
                 fd.append("memNickname", $("#mem_nickname").val());
                 let img = $("#input_file")[0];
+<!--                if(img.files.length<1){-->
+<!--                    $.ajax({-->
+<!--                        method: "PATCH",-->
+<!--                        url: "/api/v1/mem/update-profile",-->
+<!--                        data: fd,-->
+<!--                        contentType: false,-->
+<!--                        processData: false,-->
+<!--                    }).done((res) => {-->
+<!--                        $(location).attr("href", "/member");-->
+<!--                    });-->
+<!--                }-->
                 if(img.files[0]){ fd.append("image", img.files[0]); }
 
                 $.ajax({
@@ -88,7 +99,7 @@
                     contentType: false,
                     processData: false,
                 }).done((res) => {
-                    console.log(res);
+                    $(location).attr("href", "/member");
                 });
             });
         });
