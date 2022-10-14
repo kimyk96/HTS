@@ -26,7 +26,8 @@
     </update>
     <!-- 조회수 증가 -->
     <update id="increaseInViews">
-        update PRODUCT set pdt_views = pdt_views+1 where pdt_no = #{pdtNo} and pdt_seller_no != #{memNickname}
+        update PRODUCT set pdt_views = pdt_views+1 where pdt_no = #{pdtNo}
+        and pdt_seller_no != #{memNickname}
     </update>
     <!-- 판매글 읽기 -->
     <select id="findByPdtNo" resultMap="pdtDtoRead">
@@ -103,8 +104,6 @@
         delete from PRODUCT where pdt_no=#{pdtNo} and pdt_seller_no = #{pdtSellerNo}
     </delete>
     <!-- 회원탈퇴시 판매글 삭제(추후 추가)-->
-
-
 
     <!-- 제목+내용, 카테고리로 검색 -->
     <select id="searchByKeywordLike" resultType="com.hts.market.domain.product.dto.PdtDto$ReadList">

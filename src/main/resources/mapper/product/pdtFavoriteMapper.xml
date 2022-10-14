@@ -10,7 +10,7 @@
         delete from PRODUCT_FAVORITE where pdt_no=#{pdtNo} and mem_no=#{memNo}
     </delete>
     <!-- 관심 목록 -->
-    <select id="findAllOfFavoriteList" resultType="com.hts.market.domain.product.dto.PdtDto$ReadList">
+    <select id="findAllOfFavoriteList" resultType="com.hts.market.domain.product.dto.PdtFavoriteDto$ReadList">
         SELECT
             b.*
         FROM
@@ -26,7 +26,7 @@
                             left outer join product_image i on f.pdt_no = i.pdt_no
                             left join address a on f.mem_no = a.mem_no
                         where
-                            f.mem_no=#{memNo} and img_no = 1
+                            f.mem_no=#{memNo}
                         ORDER BY
                             pdt_no DESC
                     ) a

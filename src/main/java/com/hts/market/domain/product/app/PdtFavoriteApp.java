@@ -1,6 +1,5 @@
 package com.hts.market.domain.product.app;
 
-import com.hts.market.domain.product.dto.PdtDto;
 import com.hts.market.domain.product.dto.PdtFavoriteDto;
 import com.hts.market.domain.product.repo.PdtFavoriteRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +22,8 @@ public class PdtFavoriteApp {
         return pdtFavoriteRepo.delete(dto);
     }
     // 관심 목록
-    public List<PdtDto.ReadList> findAllOfFavoriteList(Long memNo){
-        return null;
+    public List<PdtFavoriteDto.ReadList> findAllOfFavoriteList(Long memNo){
+        return pdtFavoriteRepo.findAllOfFavoriteList(memNo);
     }
     // 관심수 확인
 //    public Integer countByPdtNo(PdtFavoriteDto.CountFavorite dto){
