@@ -67,7 +67,7 @@ public class KakaoApp {
 
             // 기본 이미지 저장
             MemImgDto.Create memImgDtoCreate = MemImgDto.Create.builder()
-                    .memNo(memDto.getMemNo()).imgPath("/img/example/profile.png").build();
+                    .memNo(memDto.getMemNo()).imgPath("member/default.png").build();
             memImgRepo.save(memImgDtoCreate);
 
             return memDto.getMemNo();

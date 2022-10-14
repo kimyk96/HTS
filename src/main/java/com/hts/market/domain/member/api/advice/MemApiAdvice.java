@@ -46,7 +46,7 @@ public class MemApiAdvice {
     }
     @ExceptionHandler(KakaoMemberAlreadyExsistException.class)
     public void kakaoMemberAlreadyExsistExceptionHandler(HttpServletResponse response, KakaoMemberAlreadyExsistException e) throws IOException {
-        if(e.getMember().getMemUsername().equals("null")){
+        if(e.getMember().getMemUsername()==null||e.getMember().getMemUsername().equals("null")){
             // 핸드폰 인증 화면으로
             response.sendRedirect("/login?memNo=" + e.getMember().getMemNo());
         }
@@ -63,8 +63,8 @@ public class MemApiAdvice {
         }
     }
     @ExceptionHandler(MemberAlreadyExsistException.class)
-    public void memberAlreadyExsistExceptionHandler(HttpServletResponse response) throws IOException {
-        response.sendRedirect("/login?msg=" + URLEncoder.encode("이미 가입된 회원입니다.", "utf-8"));
+    public ResponseEntity<String> memberAlreadyExsistExceptionHandler(HttpServletResponse response) throws IOException {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body("이미 가입된 번호입니다");
     }
     @ExceptionHandler(MemberNotFoundException.class)
     public ResponseEntity<String> memberNotFoundExceptionHandler() {

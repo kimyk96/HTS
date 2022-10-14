@@ -67,18 +67,24 @@
                     data: { memUsername: $("#memPhone").val(), memNo: urlParams.get('memNo') }
                 })
                 .done(function(res){
-                    if(res==0){
-                        Swal.fire({
-                            icon: 'error',
-                            text: '인증코드 발송에 실패하였습니다'
-                        })
-                    }else{
+                    if(res==1){
                         code = res;
                         $("#memUsername").val($("#memPhone").val());
                         $(".phone_wrapper").css("display", "none");
                         $(".code_wrapper").css("display", "block");
                         startTimer();
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            text: res
+                        })
                     }
+                })
+                .fail(function(res){
+                    Swal.fire({
+                        icon: 'error',
+                        text: res.responseText
+                    })
                 })
             });
             // 인증코드 다시 받기

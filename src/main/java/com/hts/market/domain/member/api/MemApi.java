@@ -3,6 +3,7 @@ package com.hts.market.domain.member.api;
 import com.hts.market.domain.member.app.MemApp;
 import com.hts.market.domain.member.app.SmsApp;
 import com.hts.market.domain.member.dto.MemDto;
+import com.hts.market.domain.member.exception.MemberAlreadyExsistException;
 import com.hts.market.domain.member.repo.MemRepo;
 import com.hts.market.global.config.security.auth.MemDetails;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
@@ -25,10 +26,14 @@ import java.security.Principal;
 public class MemApi {
     @Autowired MemApp memApp;
     @Autowired SmsApp smsApp;
+    @Autowired MemRepo memRepo;
 
     // 인증번호
     @PostMapping("code")
     public ResponseEntity<Integer> code(String memUsername, Long memNo) throws CoolsmsException {
+        if(memNo!=null&&memRepo.countByMemUsername(memUsername)){
+            throw new MemberAlreadyExsistException();
+        }
         // 인증번호 발송
         String code = smsApp.send(memUsername);
         // 비밀번호->인증번호로 갱신

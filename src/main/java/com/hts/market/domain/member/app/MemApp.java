@@ -7,6 +7,7 @@ import com.hts.market.domain.member.entity.MemEntity;
 import com.hts.market.domain.member.exception.MemberAlreadyExsistException;
 import com.hts.market.domain.member.exception.MemberImageSaveFailException;
 import com.hts.market.domain.member.exception.MemberNotFoundException;
+import com.hts.market.domain.member.exception.NicknameAlreadyTakenException;
 import com.hts.market.domain.member.repo.MemImgRepo;
 import com.hts.market.domain.member.repo.MemRepo;
 import com.hts.market.domain.member.repo.MemRoleRepo;
@@ -53,7 +54,7 @@ public class MemApp {
                     .memNo(memCreateDto.getMemNo()).roleNo(2L).build();
             memRoleRepo.save(memRoleDtoCreate);
             MemImgDto.Create memImgDtoCreate = MemImgDto.Create.builder()
-                    .memNo(memCreateDto.getMemNo()).imgPath("/img/example/profile.png").build();
+                    .memNo(memCreateDto.getMemNo()).imgPath("member/default.png").build();
             memImgRepo.save(memImgDtoCreate);
         } else {
             // memNo 있음
@@ -63,6 +64,7 @@ public class MemApp {
     }
 
     public Integer updateMemUsernameById(String memUsername, Long memNo) {
+
         return memRepo.updateMemUsernameById(memUsername, memNo);
     }
 
@@ -95,6 +97,11 @@ public class MemApp {
 
     // 프로필 사진 & 닉네임 수정
     public Integer updateProfile(MemDto.Profile dto, String memUsername) {
+
+        if(memRepo.countByMemNickname(dto.getMemNo(), dto.getMemNickname())){
+            throw new NicknameAlreadyTakenException();
+        };
+
         // 정보 저장 dto 생성
         dto.setMemUsername(memUsername);
         dto.setMemNo(memRepo.findIdByMemUsername(memUsername));

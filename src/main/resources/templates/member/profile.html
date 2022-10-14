@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="/css/main.css">
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/js/main.js" charset="UTF-8"></script>
     <style>
         /* 프로필 사진 수정 */
@@ -22,6 +23,7 @@
         #main section#profile div.nickname_wrapper{ width : 90%; padding : 0 5%; display: flex; flex-direction: column; }
         #main section#profile div.nickname_wrapper p{ padding : 10px 0; font-size : 16px; font-weight : 400; }
         #main section#profile div.nickname_wrapper input{ padding : 15px; border-radius: 10px; border : 2px solid #e8e8e8;}
+        #main section#profile div.nickname_wrapper p.nickname_guide span{ display : none; color : red; font-size : 12px; font-weight : 400; }
     </style>
 </head>
 <body>
@@ -52,6 +54,7 @@
         <div class="nickname_wrapper">
             <p>닉네임</p>
             <input type="text" id="mem_nickname">
+            <p class="nickname_guide"><span>이미 사용중인 닉네임 입니다.</span></p>
         </div>
     </section>
 </main>
@@ -76,20 +79,10 @@
             });
             // 업로드
             $(".btn_upload").click(function(){
+                let memNickname = $("#mem_nickname").val();
                 let fd = new FormData();
-                fd.append("memNickname", $("#mem_nickname").val());
+                fd.append("memNickname", memNickname);
                 let img = $("#input_file")[0];
-<!--                if(img.files.length<1){-->
-<!--                    $.ajax({-->
-<!--                        method: "PATCH",-->
-<!--                        url: "/api/v1/mem/update-profile",-->
-<!--                        data: fd,-->
-<!--                        contentType: false,-->
-<!--                        processData: false,-->
-<!--                    }).done((res) => {-->
-<!--                        $(location).attr("href", "/member");-->
-<!--                    });-->
-<!--                }-->
                 if(img.files[0]){ fd.append("image", img.files[0]); }
 
                 $.ajax({
@@ -99,7 +92,15 @@
                     contentType: false,
                     processData: false,
                 }).done((res) => {
-                    $(location).attr("href", "/member");
+                    if(res==1){
+                        $(location).attr("href", "/member");
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            text: res
+                        })
+                    }
+
                 });
             });
         });
