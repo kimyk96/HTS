@@ -98,7 +98,7 @@ public class MemApp {
     // 프로필 사진 & 닉네임 수정
     public Integer updateProfile(MemDto.Profile dto, String memUsername) {
 
-        if(memRepo.countByMemNickname(dto.getMemNo(), dto.getMemNickname())){
+        if(memRepo.countByMemNickname(memUsername, dto.getMemNickname())){
             throw new NicknameAlreadyTakenException();
         };
 

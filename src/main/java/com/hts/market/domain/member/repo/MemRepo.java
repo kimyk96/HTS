@@ -44,7 +44,7 @@ public interface MemRepo {
     // 닉네임 변경
     Integer updateMemNickname(MemDto.Member dto);
 
-    Boolean countByMemNickname(Long memNo, String memNickname);
+    Boolean countByMemNickname(String memUsername, String memNickname);
 
 
 
