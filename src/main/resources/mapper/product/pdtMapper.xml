@@ -115,7 +115,7 @@
                 FROM
                     (
                         SELECT
-                            p.pdt_no, c.pdt_cate, p.pdt_name, p.pdt_status, p.pdt_price, p.pdt_views, p.pdt_created_at,
+                           distinct p.pdt_no, c.pdt_cate, p.pdt_name, p.pdt_status, p.pdt_price, p.pdt_views, p.pdt_created_at,
                             i.img_path, d.address_si, d.address_gu, d.address_dong
                         FROM
                             product p left outer join address d on p.pdt_address_no = d.address_no and p.pdt_seller_no = d.mem_no
