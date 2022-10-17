@@ -1,9 +1,12 @@
 package com.hts.market.domain.product.app;
 
+
 import com.hts.market.domain.product.dto.PdtRptDto;
 import com.hts.market.domain.product.repo.PdtRptRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class PdtRptApp {
@@ -12,18 +15,29 @@ public class PdtRptApp {
 
     // 신고등록
     public Integer save(PdtRptDto.Create dto){
-        return null;
+        return pdtRptRepo.save(dto);
     }
-    // 신고삭제
-    public Integer delete(PdtRptDto.Delete dto){
-        return null;
-    }
+
     // 신고목록
-    public Integer findByRptNo(PdtRptDto.Read dto){
-        return null;
+    public List<PdtRptDto.Read> findAllByDto(PdtRptDto.Read dto){
+        return pdtRptRepo.findAllByDto(dto);
     }
-    // 신고보기
-    public  Integer findAll(PdtRptDto.Read dto){
-        return null;
+
+    // 신고번호로 신고삭제
+    public Integer deleteByRptNo(PdtRptDto.Delete dto){
+        return pdtRptRepo.deleteByRptNo(dto);
     }
+
+    // 회원번호로 신고삭제
+    public Integer deleteByRptMemNo(PdtRptDto.Delete dto){
+        return pdtRptRepo.deleteByRptMemNo(dto);
+    }
+
+    // 상품번호로 신고삭제
+    public Integer deleteByRptPdtNo(PdtRptDto.Delete dto){
+        return pdtRptRepo.deleteByRptPdtNo(dto);
+    }
+
+
+
 }

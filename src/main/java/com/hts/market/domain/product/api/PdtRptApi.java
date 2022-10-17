@@ -5,13 +5,11 @@ import com.hts.market.domain.product.dto.PdtRptDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 @Validated
@@ -22,17 +20,28 @@ public class PdtRptApi {
 
     // 신고등록
     @PostMapping("save")
-    private ResponseEntity<Integer> save(@Valid PdtRptDto.Create dto, Principal principal){
-        return null;
-    }
-    // 신거읽기
-    @GetMapping("read")
-    private ResponseEntity<Integer> read(@Valid PdtRptDto.Read dto, Principal principal){
-        return null;
+    public ResponseEntity<Integer> save(@Valid PdtRptDto.Create dto, Principal principal){
+        return ResponseEntity.ok().body(pdtRptApp.save(dto));
     }
 
     // 신고목록
-    // 신고삭제
+    @GetMapping("find-all-by-dto")
+    public ResponseEntity<List<PdtRptDto.Read>> findAllByDto(@Valid  PdtRptDto.Read dto){
+        return ResponseEntity.ok().body(pdtRptApp.findAllByDto(dto));
+    }
+    // 신고번호삭제
+    @DeleteMapping("delete-by-rpt-no")
+    public ResponseEntity<Integer> deleteByRptNo(@Valid PdtRptDto.Delete dto){
+        return ResponseEntity.ok().body(pdtRptApp.deleteByRptNo(dto));
+    }
     // 신고회원삭제
+    @DeleteMapping("delete-by-rpt-mem-no")
+    public ResponseEntity<Integer> deleteByRptMemNo(@Valid PdtRptDto.Delete dto){
+        return ResponseEntity.ok().body(pdtRptApp.deleteByRptMemNo(dto));
+    }
     // 신고상품삭제
+    @DeleteMapping("delete-by-rpt-pdt-no")
+    public ResponseEntity<Integer> deleteByRptPdtNo(@Valid PdtRptDto.Delete dto){
+        return ResponseEntity.ok().body(pdtRptApp.deleteByRptPdtNo(dto));
+    }
 }

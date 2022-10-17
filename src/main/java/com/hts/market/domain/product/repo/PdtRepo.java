@@ -13,10 +13,10 @@ public interface PdtRepo {
     public Integer save(PdtDto.Create dto);
     // 판매글 수정
     public Integer update(PdtDto.Update dto);
-    // 판매글 조회수 증가
-    public Integer increaseInViews(PdtDto.ViewCount dto);
     // 글 읽기
-    public Optional<PdtDto.Read> findByPdtNo(Long pdtNo);
+    public Optional<PdtDto.Detail> findByPdtNo(Long pdtNo);
+    // 조회수 증가
+    public Integer increaseView(Long pdtNo,Long memNo);
     // 회원별 글목록
     public List<PdtDto.ReadList> findAllByAddress(PdtDto.AddressData dto);
     // 판매글 삭제

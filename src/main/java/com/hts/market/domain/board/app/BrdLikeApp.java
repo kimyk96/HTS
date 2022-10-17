@@ -5,27 +5,30 @@ import com.hts.market.domain.board.repo.BrdLikeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BrdLikeApp {
     @Autowired
-    BrdLikeRepo brdLikeRepo;
+    private BrdLikeRepo brdLikeRepo;
+    private Integer pagesize= 1000;
     //게시글 좋아요
     public Integer save(BrdLikeDto.Create dto){
-        return null;
+        return brdLikeRepo.save(dto);
     };
 
     //게시글 좋아요 취소
     public Integer delete(BrdLikeDto.Delete dto){
-        return null;
+        return brdLikeRepo.delete(dto);
     };
+//
+//    //좋아요를 누른 목록
+//    public List<BrdLikeDto.ReadList> (Long memNo)
+//    {return brdLikeRepo.findBrdNoByMemNo(memNo);}
 
-    //좋아요를 적용할 게시물의 번호
-    public Long findBrdNoByMemNo(Long memNo){
-        return null;
-    };
-
-    //좋아요를 적용하는 회원의 번호
-    public Long findMemNoByBrdNo(Long brdNo){
-        return null;
-    };
+//    //좋아요 횟수 (글에)
+//    public Integer countByBrdNo(Long brdNo){
+//        return null;
+//    };
 }
+

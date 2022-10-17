@@ -1,14 +1,18 @@
 package com.hts.market.domain.board.repo;
 
+import com.hts.market.domain.board.dto.BrdCateDto;
+import com.hts.market.domain.product.dto.PdtCateDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Mapper
 public interface BrdCateRepo {
-
-    //게시글 카테고리를 명을 번호를 통해 찾아라
-    public Long findBrdCateNameByCateNo();
+    public Integer save(BrdCateDto.Create dto);
+    //
+    public List<BrdCateDto.Read> findAll();
 
 
 

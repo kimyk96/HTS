@@ -20,6 +20,16 @@
                 mem_no=#{memNo}
         ]]>
     </delete>
+    <update id="update">
+        <![CDATA[
+            UPDATE
+                MEMBER_IMAGE
+            SET
+                img_path=#{imgPath}
+            WHERE
+                mem_no=#{memNo} AND rownum <= 1
+        ]]>
+    </update>
 </mapper>
 
 <!--        &lt;!&ndash;    회원이미지 조회&ndash;&gt;-->

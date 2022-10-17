@@ -11,4 +11,5 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 @RequestMapping("/api/v1/role")
 public class RoleApi {
+
 }

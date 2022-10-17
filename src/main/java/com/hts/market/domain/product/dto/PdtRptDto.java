@@ -2,6 +2,7 @@ package com.hts.market.domain.product.dto;
 
 import lombok.*;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -12,10 +13,13 @@ public class PdtRptDto {
     @NoArgsConstructor
     public static class Create{
         private Long rptNo;
-        private Long rptMemNo;
+        @NotNull
         private Long rptPdtNo;
+        @NotNull
+        private Long rptMemNo;
+        @NotNull
         private Long rptMsgNo;
-        private LocalDateTime rptCreatedAt;
+
     }
 
     @Data

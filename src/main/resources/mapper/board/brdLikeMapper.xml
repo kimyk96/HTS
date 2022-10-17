@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hts.market.domain.board.repo.BrdLikeRepo">
+
+
+
+
+        <insert id="save">
+            insert into board_like(brd_no, mem_no) values (#{brdNo}, #{memNo})
+        </insert>
+
+    <select id="findBrdNoByMemNo" resultType="com.hts.market.domain.board.dto.BrdLikeDto$Page">
+        select * from board_like where mem_no=#{memNo}
+    </select>
+
+
+    <delete id="delete">
+        <![CDATA[
+            DELETE FROM
+                board_like
+            WHERE
+                brd_no=#{brdNo} and mem_no=#{memNo}
+        ]]>
+    </delete>
+
+    <select id="countByBrdNo" resultType="int">
+        select count(brd_no) from board_like where brd_no=#{brdNo}
+    </select>
+
+
+
+</mapper>

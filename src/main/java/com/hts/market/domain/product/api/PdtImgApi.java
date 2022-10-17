@@ -8,6 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.security.Principal;
 
 @RestController
@@ -15,31 +16,30 @@ import java.security.Principal;
 @RequestMapping("/api/v1/pdt-img")
 public class PdtImgApi {
     @Autowired
+
     private PdtImgApp pdtImgApp;
 
     // 이미지저장
-    @PostMapping("save")
-    private ResponseEntity<Integer> save(@Valid PdtImgDto.Create dto, Principal principal){
-        return null;
+    @PostMapping("save-files")
+    public ResponseEntity<Integer> saveFiles(@Valid PdtImgDto.ListFile dto, Principal principal) throws IOException {
+        return ResponseEntity.ok().body(pdtImgApp.save(dto));
     }
     // 이미지수정
-    @PutMapping("update")
-    private ResponseEntity<Integer> update(@Valid PdtImgDto.Update dto, Principal principal){
-        return null;
+    @PutMapping("update-file")
+    public ResponseEntity<Integer> updateFile(@Valid PdtImgDto.UpdateFile dto, Principal principal) throws IOException{
+        return ResponseEntity.ok().body(pdtImgApp.update(dto));
     }
-    // 대표이미지 보기
-//    @GetMapping()
-//    public  ResponseEntity<PdtImgDto.Read> readByMain(){
-//        return null;
-//    }
-//    // 이미지목록 보기
-//    @GetMapping()
-//    public  ResponseEntity<PdtImgDto.Read> readByAll(){
-//        return null;
-//    }
-//    // 이미지삭제
-    @DeleteMapping("delete")
-    private ResponseEntity<Integer> delete(@Valid PdtImgDto.Delete dto, Principal principal){
-        return null;
+
+    // 이미지 개별삭제
+    @DeleteMapping("delete-by-img-no")
+    public ResponseEntity<Integer> deleteByImgNo(@Valid PdtImgDto.Delete dto, Principal principal){
+        return ResponseEntity.ok().body(pdtImgApp.deleteByImgNo(dto));
     }
+
+    // 이미지 전체삭제
+    @DeleteMapping("delete-all")
+    public ResponseEntity<Integer> deleteAll(@Valid PdtImgDto.Delete dto, Principal principal){
+        return ResponseEntity.ok().body(pdtImgApp.deleteAll(dto));
+    }
+
 }

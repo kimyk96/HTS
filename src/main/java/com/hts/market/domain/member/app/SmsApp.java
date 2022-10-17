@@ -21,7 +21,13 @@ public class SmsApp {
         String randomNumber = String.format("%04d", number);
 
         // 테스트 시에는 콘솔로그로 확인, 아래 주석 풀면 코드 잘 보내짐
-        System.out.println(randomNumber);
+        System.out.println("======================================================================");
+        System.out.println("======================================================================");
+        System.out.println(" ");
+        System.out.println("인증코드 : " + randomNumber);
+        System.out.println(" ");
+        System.out.println("======================================================================");
+        System.out.println("======================================================================");
 
 //        // 메세지 발송
 //        String apiKey = "NCSYNLELHDWX1Q70";

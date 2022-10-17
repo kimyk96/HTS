@@ -3,7 +3,6 @@ package com.hts.market.domain.member.repo;
 import com.hts.market.domain.member.dto.MemDto;
 import com.hts.market.domain.member.entity.MemEntity;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Update;
 
 import java.util.Optional;
 
@@ -41,6 +40,11 @@ public interface MemRepo {
     
     // 회원명으로 회원번호 조회
     Long findIdByMemUsername(String memUsername);
+
+    // 닉네임 변경
+    Integer updateMemNickname(MemDto.Member dto);
+
+    Boolean countByMemNickname(String memUsername, String memNickname);
 
 
 

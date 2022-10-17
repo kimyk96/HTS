@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hts.market.domain.board.repo.BrdRepo">
+
+
+<!--    게시글 작성-->
+    <insert id="save">
+        <selectKey keyProperty="brdNo" order="BEFORE" resultType="long">
+            select nvl(max(brd_no),0)+1 from BOARD
+        </selectKey>
+        insert into
+        board(brd_no, brd_writer_no, brd_title, brd_content, brd_cate_no)
+        values(#{brdNo}, #{brdWriterNo}, #{brdTitle}, #{brdContent}, #{brdCateNo})
+    </insert>
+
+
+
+
+    <!-- 제목, 내용, 조회수, 좋아요, 싫어요, 댓글수 중 사용자가 선택한 컬럼을 변경 -->
+    <update id="update">
+        update board
+        <trim prefix="set" suffixOverrides=",">
+            <if test="brdCateNo != null">brd_cate_no=#{brdCateNo},</if>
+            <if test="brdWriterNo != null">brd_writer_no=#{brdWriterNo},</if>
+            <if test="brdTitle != null">brd_title=#{brdTitle},</if>
+            <if test="brdContent != null">brd_content=#{brdContent},</if>
+        </trim>
+        where pdt_no=#{pdtNo}
+<!--        <![CDATA[-->
+<!--            UPDATE-->
+<!--                BOARD-->
+<!--            SET-->
+<!--                BRD_TITLE=#{brdTitle}, BRD_CONTENT=#{brdContent}, BRD_CATE_NO=#{brdCateNo}-->
+<!--            WHERE-->
+<!--                 BRD_NO=#{brdNo}-->
+<!--        ]]>-->
+    </update>
+
+    <!-- 조회수 증가 -->
+    <update id="findViewsByBrdNo">
+        update BOARD set brd_views = brd_views+1 where brd_no = #{brdNo} and brd_writer_no != #{brdWriterNo}
+    </update>
+
+    <!--게시물 읽기 -->
+    <select id="findByBrdNo" resultType="com.hts.market.domain.board.dto.BrdDto$Read">
+        select
+        b.brd_no, b.brd_writer_no, b.brd_title, b.brd_content, b.brd_views, b.brd_created_at
+        , i.img_path, c.brd_cate, m.brd_cmt, m.cmt_writer, m.cmt_content, m.cmt_created_at
+        from
+        BOARD b left join COMMENTS m on m.brd_cmt_no = m.cmt_no
+        left join BOARD_IMAGE i on b.brd_no = i.brd_no
+        left join BOARD_CATEGORY c on b.brd_cate_no = c.brd_cate_no
+        where
+        b.brd_no=#{brdNo}
+    </select>
+
+
+
+    <!-- 제목+내용, 카테고리로 검색 -->
+    <select id="searchByKeywordLike" resultType="com.hts.market.domain.board.dto.BrdDto$Read">
+        SELECT
+        b.*
+        FROM
+        (
+        SELECT /*+ index_desc(BOARD PK_BOARD) */
+        ROWNUM AS rnum, a.*
+        FROM
+        (
+        SELECT
+        b.brd_no, b.brd_writer_no, b.brd_title, b.brd_content, b.brd_views, b.brd_created_at
+        , i.img_path, c.brd_cate, m.brd_cmt, m.cmt_writer, m.cmt_content, m.cmt_created_at
+        FROM
+        BOARD b left join COMMENTS m on m.brd_cmt_no = m.cmt_no
+        left join BOARD_IMAGE i on b.brd_no = i.brd_no
+        left join BOARD_CATEGORY c on b.brd_cate_no = c.brd_cate_no
+        where
+        b.brd_no=#{brdNo}
+        <choose>
+            <when test="brdTitle != null and brdContent != null">
+                and brd_title LIKE '%'|| #{brdTitle} ||'%' or brd_content Like '%'|| #{brdContent} ||'%'
+            </when>
+            <when test="brdCateNo != null">
+                and  brd_cate LIKE '%'|| #{brdCate} ||'%'
+            </when>
+        </choose>
+        ORDER BY
+        brd_no DESC
+        ) a
+        WHERE
+        ROWNUM &lt;= #{end}
+        ) b
+        WHERE
+        b.rnum &gt;= #{start}
+    </select>
+
+
+
+
+
+    <delete id="delete">
+        <![CDATA[
+            DELETE FROM
+                BOARD
+            WHERE
+                BRD_WRITER_NO=#{brdWriterNo} and BRD_NO=#{brdNo}
+        ]]>
+    </delete>
+
+
+
+<!--    <select id="Views">-->
+<!--        update BOARD set brd_views = brd_views+1 where brd_no = #{brdNo}-->
+<!--    </select>-->
+
+    <select id="findCreatedAtByBrdNo" resultType="date">
+        select brd_created_at from board where brd_no=#{brdNo} and rownum&lt;=1
+    </select>
+
+    <select id="findCateNoByBrdNo" resultType="long">
+        select brd_cate_no from board where brd_no=#{brdNo} and rownum&lt;=1
+    </select>
+</mapper>

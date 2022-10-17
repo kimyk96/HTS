@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 @Getter
 public class PdtRptEntity {
     private Long rptNo;
-    private Long rptMagNo;
-    private Long rptMemNo;
     private Long rptPdtNo;
+    private Long rptMemNo;
+    private Long rptMsgNo;
     private LocalDateTime rptCreatedAt;
 }

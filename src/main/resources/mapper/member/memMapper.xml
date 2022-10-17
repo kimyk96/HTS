@@ -21,6 +21,16 @@
                 mem_no=#{memNo} and rownum <= 1
         ]]>
     </select>
+    <select id="countByMemNickname" resultType="boolean">
+        <![CDATA[
+            SELECT
+                count(*)
+            FROM
+                MEMBER
+            WHERE
+                mem_nickname=#{memNickname} and mem_username!=#{memUsername} and rownum <= 1
+        ]]>
+    </select>
     <insert id="save">
         <selectKey resultType="long" order="BEFORE" keyProperty="memNo">
             <if test="memNo==null">
@@ -135,7 +145,16 @@
                 mem_username=#{memUsername} and rownum >= 1
         ]]>
     </select>
-
+    <update id="updateMemNickname">
+        <![CDATA[
+            UPDATE
+                MEMBER
+            SET
+                mem_nickname=#{memNickname}
+            WHERE
+                mem_no=#{memNo} AND rownum <= 1
+        ]]>
+    </update>
 
 
 <!--    &lt;!&ndash;    // 새로 추가된 메소드&ndash;&gt;-->

@@ -2,32 +2,32 @@ package com.hts.market.domain.board.repo;
 
 import com.hts.market.domain.board.dto.BrdDto;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 
 @Mapper
 public interface BrdRepo {
     //글쓰기
-    public Integer save(BrdDto.Create dto);
-
+    Integer save(BrdDto.Create dto);
+            //리턴 받는 타입
     //글 수정
-    public Integer update(BrdDto.Update dto);
+    Integer update(BrdDto.Update dto);
 
     //글 삭제
-    public Integer delete(Long brdNo);
+    Integer delete(BrdDto.Delete dto );
 
-    //게시물 검색
-    public Long findByBrdNo();
+    //게시물 읽기
+    Optional<BrdDto.Detail> findByBrdNo(Long brdNo);
 
-    //게시글 번호로 조회수 가져오기
-    public Long findViewsByBrdNo();
+    //게시글 번호로 조회수 가져오기(조회수증가)
+    Integer findViewsByBrdNo(Long brdNo, Long memNo);
 
-    //게시물 작성시간
+    //게시물 찾기
 
-    public LocalDateTime findCreatedAtByBrdNo();
+    List<BrdDto.Read> searchByKeyword(BrdDto.SearchData dto);
 
     //카테고리 등록
 
-    public Long findCateNoByBrdNo();
+    Long findCateNoByBrdNo(Long brdNo);
 }

@@ -1,6 +1,8 @@
 package com.hts.market.domain.member.dto;
 
 import lombok.*;
+import org.springframework.http.codec.multipart.Part;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -33,7 +35,6 @@ public class MemDto {
         private String memNickname;
         private String memEmail;
     }
-
     @Data @Builder @AllArgsConstructor @NoArgsConstructor
     public static class Member{
         private Long memNo;
@@ -45,5 +46,12 @@ public class MemDto {
         private Long imgNo;
         private String imgPath;
         private List<AddressDto.Read> address;
+    }
+    @Data @Builder @AllArgsConstructor @NoArgsConstructor
+    public static class Profile{
+        private Long memNo;
+        private String memUsername;
+        private String memNickname;
+        private MultipartFile image;
     }
 }
