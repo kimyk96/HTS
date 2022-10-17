@@ -86,6 +86,8 @@ public class PdtApp {
 
     // 판매글 삭제
     public Integer delete(PdtDto.Delete dto){
+
+
        return pdtRepo.delete(dto);
     }
 

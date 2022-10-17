@@ -42,6 +42,6 @@
     </select>
     <!--  관심 여부-->
     <select id="active" resultType="boolean">
-        select * from PRODUCT_FAVORITE where pdt_no=#{pdtNo} and mem_no = #{memNo}
+        select count(*) from PRODUCT_FAVORITE where pdt_no=#{pdtNo} and mem_no = #{memNo}
     </select>
 </mapper>
