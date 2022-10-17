@@ -4,6 +4,7 @@ import com.hts.market.domain.member.dto.MemDto;
 import com.hts.market.domain.member.exception.MemberNotFoundException;
 import com.hts.market.domain.member.repo.MemRepo;
 import com.hts.market.domain.product.dto.PdtDto;
+import com.hts.market.domain.product.dto.PdtImgDto;
 import com.hts.market.domain.product.exception.ProductNotFoundException;
 import com.hts.market.domain.product.repo.PdtRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +36,16 @@ public class PdtApp {
     // 글 읽기 - 관심수, 조회수 처리
     public PdtDto.Detail findByPdtNo(Long pdtNo, String memUserName) {
         PdtDto.Detail dto = pdtRepo.findByPdtNo(pdtNo).orElseThrow(()->new ProductNotFoundException());
+        for(PdtImgDto.Read read : dto.getImages()){
+            read.setImgPath(imgUrl + read.getImgPath());
+        }
+
         MemDto.Member member = memRepo.findByName(memUserName).orElseThrow(()->new MemberNotFoundException());
-        dto.setMember(member);
+        member.setImgPath(imgUrl+member.getImgPath());
+
         pdtRepo.increaseView(pdtNo, member.getMemNo());
+
+        dto.setMember(member);
         return dto;
     }
 
