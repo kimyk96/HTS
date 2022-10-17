@@ -145,6 +145,10 @@ public class PdtDto {
         private String pdtCate;
         // member
         private MemDto.Member member;
+        // 판매내역
+        private List<PdtDto.ReadList> sellerList;
+        // 카테고리목록
+        private List<PdtDto.ReadList> cateList;
     }
 
     @Data
@@ -161,6 +165,7 @@ public class PdtDto {
         private String pdtDesc;
         private Long pdtCateNo;
         private String pdtCate;
+        private Long pdtSellerNo;
     }
 
     @Data

@@ -127,8 +127,11 @@
                                 <when test="pdtName != null and pdtDesc != null">
                                     and pdt_name LIKE '%'|| #{pdtName} ||'%' or pdt_desc Like '%'|| #{pdtDesc} ||'%'
                                 </when>
-                                <when test="pdtCateNo != null">
-                                    and  pdt_cate LIKE '%'|| #{pdtCate} ||'%'
+                                <when test="pdtCate != null">
+                                    and  pdt_cate = #{pdtCate}
+                                </when>
+                                <when test="pdtSellerNo != null">
+                                    and  pdt_seller_no = #{pdtSellerNo}
                                 </when>
                             </choose>
                         ORDER BY

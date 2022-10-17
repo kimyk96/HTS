@@ -44,6 +44,21 @@ public class PdtApp {
         member.setImgPath(imgUrl+member.getImgPath());
 
         pdtRepo.increaseView(pdtNo, member.getMemNo());
+        // 판매내역
+        dto.setSellerList(pdtRepo.searchByKeywordLike(PdtDto.SearchData.builder()
+                .addressSi(dto.getAddress().getAddressSi())
+                .addressGu(dto.getAddress().getAddressGu())
+                .addressDong(dto.getAddress().getAddressDong())
+                .start(1).end(4).pdtSellerNo(dto.getMember().getMemNo())
+                .build()));
+
+        // 카테고리 내역검색
+        dto.setCateList(pdtRepo.searchByKeywordLike(PdtDto.SearchData.builder()
+            .addressSi(dto.getAddress().getAddressSi())
+            .addressGu(dto.getAddress().getAddressGu())
+            .addressDong(dto.getAddress().getAddressDong())
+            .start(1).end(4).pdtCate(dto.getPdtCate())
+            .build()));
 
         dto.setMember(member);
         return dto;
