@@ -125,17 +125,17 @@
                             d.address_si = #{addressSi} and d.address_gu = #{addressGu} and d.address_dong = #{addressDong} and i.img_no=1
                             <choose>
                                 <when test="pdtName != null and pdtDesc != null">
-                                    and pdt_name LIKE '%'|| #{pdtName} ||'%' or pdt_desc Like '%'|| #{pdtDesc} ||'%'
+                                    and p.pdt_name LIKE '%'|| #{pdtName} ||'%' or p.pdt_desc Like '%'|| #{pdtDesc} ||'%'
                                 </when>
                                 <when test="pdtCate != null and pdtNo !=null">
-                                    and  pdt_cate = #{pdtCate} and pdt_no != #{pdtNo}
+                                    and c.pdt_cate = #{pdtCate} and p.pdt_no != #{pdtNo}
                                 </when>
                                 <when test="pdtSellerNo != null and pdtNo !=null">
-                                    and  pdt_seller_no = #{pdtSellerNo} and pdt_no != #{pdtNo}
+                                    and p.pdt_seller_no = #{pdtSellerNo} and p.pdt_no != #{pdtNo}
                                 </when>
                             </choose>
                         ORDER BY
-                            pdt_no DESC
+                            p.pdt_no DESC
                     ) a
                 WHERE
             ROWNUM &lt;= #{end}
