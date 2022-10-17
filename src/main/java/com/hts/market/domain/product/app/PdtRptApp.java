@@ -34,10 +34,7 @@ public class PdtRptApp {
     }
 
     // 상품번호로 신고삭제
-    public Integer deleteByRptPdtNo(PdtRptDto.Delete dto){
-        return pdtRptRepo.deleteByRptPdtNo(dto);
+    public Integer deleteByRptPdtNo(Long pdtNo){
+        return pdtRptRepo.deleteByRptPdtNo(pdtNo);
     }
-
-
-
 }

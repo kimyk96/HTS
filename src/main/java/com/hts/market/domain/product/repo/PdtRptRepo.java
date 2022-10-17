@@ -16,6 +16,6 @@ public interface PdtRptRepo {
     // 회원별 삭제
     public Integer deleteByRptMemNo(PdtRptDto.Delete dto);
     // 상품별 삭제
-    public Integer deleteByRptPdtNo(PdtRptDto.Delete dto);
+    public Integer deleteByRptPdtNo(Long pdtNo);
 
 }

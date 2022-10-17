@@ -40,7 +40,7 @@
             left outer join PRODUCT_IMAGE i on p.pdt_no = i.pdt_no
             left outer join PRODUCT_CATEGORY c on p.pdt_cate_no = c.pdt_cate_no
         where
-            p.pdt_no=#{pdtNo} and rownum&lt;=1
+            p.pdt_no=#{pdtNo}
     </select>
     <resultMap id="pdtDtoRead" type="com.hts.market.domain.product.dto.PdtDto$Detail">
             <result column="pdt_cate"           property="pdtCate"/>
@@ -125,14 +125,17 @@
                             d.address_si = #{addressSi} and d.address_gu = #{addressGu} and d.address_dong = #{addressDong} and i.img_no=1
                             <choose>
                                 <when test="pdtName != null and pdtDesc != null">
-                                    and pdt_name LIKE '%'|| #{pdtName} ||'%' or pdt_desc Like '%'|| #{pdtDesc} ||'%'
+                                    and p.pdt_name LIKE '%'|| #{pdtName} ||'%' or p.pdt_desc Like '%'|| #{pdtDesc} ||'%'
                                 </when>
-                                <when test="pdtCateNo != null">
-                                    and  pdt_cate LIKE '%'|| #{pdtCate} ||'%'
+                                <when test="pdtCate != null and pdtNo !=null">
+                                    and c.pdt_cate = #{pdtCate} and p.pdt_no != #{pdtNo}
+                                </when>
+                                <when test="pdtSellerNo != null and pdtNo !=null">
+                                    and p.pdt_seller_no = #{pdtSellerNo} and p.pdt_no != #{pdtNo}
                                 </when>
                             </choose>
                         ORDER BY
-                            pdt_no DESC
+                            p.pdt_no DESC
                     ) a
                 WHERE
             ROWNUM &lt;= #{end}

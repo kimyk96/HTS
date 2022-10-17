@@ -20,5 +20,5 @@ public interface PdtFavoriteRepo {
     public Integer countByPdtNo(Long pdtNo);
 
     // 관심글 확인
-    public Integer active(PdtFavoriteDto.CountFavorite dto);
+    public Boolean active(Long pdtNo, Long memNo);
 }

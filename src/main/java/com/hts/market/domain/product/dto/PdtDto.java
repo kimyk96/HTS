@@ -79,6 +79,10 @@ public class PdtDto {
         private String addressSi;
         private String addressGu;
         private String addressDong;
+        // 관심 체크
+        private Boolean favoriteCheck;
+        // 관심수
+        private Integer favoriteCount;
     }
 
     // 주소별 검색에 필요한 데이터
@@ -87,6 +91,8 @@ public class PdtDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class AddressData{
+        @NotNull
+        private long pdtNo;
         @NotEmpty
         private String addressSi;
         @NotEmpty
@@ -94,9 +100,9 @@ public class PdtDto {
         @NotEmpty
         private String addressDong;
         @NotNull
-        private Integer start = 1;
+        private Integer start;
         @NotNull
-        private Integer end = 10;
+        private Integer end;
     }
 
     @Data
@@ -123,15 +129,10 @@ public class PdtDto {
         private Integer pdtPrice;
         private Integer pdtViews;
         private LocalDateTime pdtCreatedAt;
-        // address 에서 가져온 값
-//        private String addressSi;
-//        private String addressGu;
-//        private String addressDong;
-        // product_image 에서 가져온 값
-//        private List<PdtImgDto.Read> imgList;
-//        // product_category 에서 가져온 값
-//        private String pdtCate;
-        // member
+        // 관심 체크
+        private Boolean favoriteCheck;
+        // 관심수
+        private Integer favoriteCount;
     }
     @Data
     @Builder
@@ -145,6 +146,11 @@ public class PdtDto {
         private String pdtCate;
         // member
         private MemDto.Member member;
+        // 판매내역
+        private List<PdtDto.ReadList> sellerList;
+        // 카테고리목록
+        private List<PdtDto.ReadList> cateList;
+
     }
 
     @Data
@@ -152,15 +158,17 @@ public class PdtDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class SearchData{
+        private Long pdtNo;
         private String addressSi;
         private String addressGu;
         private String addressDong;
-        private Integer start = 1;
-        private Integer end = 10;
+        private Integer start;
+        private Integer end;
         private String pdtName;
         private String pdtDesc;
         private Long pdtCateNo;
         private String pdtCate;
+        private Long pdtSellerNo;
     }
 
     @Data

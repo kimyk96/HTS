@@ -36,8 +36,8 @@ public class PdtApi {
 
     // 상품삭제
     @DeleteMapping("delete")
-    public ResponseEntity<Integer> delete(@Valid PdtDto.Delete dto, Principal principal, BindingResult bindingResult) {
-       return ResponseEntity.ok().body(pdtApp.delete(dto));
+    public ResponseEntity<Integer> delete(@NotNull Long pdtNo, Principal principal, BindingResult bindingResult) {
+       return ResponseEntity.ok().body(pdtApp.delete(pdtNo, principal.getName()));
     }
 
     // 판맥글 보기
@@ -51,7 +51,7 @@ public class PdtApi {
     // 회원별(지정지역) 상품목록보기
     @GetMapping("find-all-by-pdt-address-no")
     public ResponseEntity<List<PdtDto.ReadList>> findAllByAddressNo(@Valid  PdtDto.AddressData dto, Principal principal, BindingResult bindingResult) {
-        return ResponseEntity.ok().body(pdtApp.findAllByPdtAddress(dto));
+        return ResponseEntity.ok().body(pdtApp.findAllByPdtAddress(dto, principal.getName()));
     }
 
     // 제목+내용, 카테고리 검색
