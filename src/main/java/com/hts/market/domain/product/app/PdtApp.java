@@ -35,23 +35,22 @@ public class PdtApp {
 
     // 글 읽기 - 관심수, 조회수 처리
     public PdtDto.Detail findByPdtNo(Long pdtNo, String memUserName) {
+        // 상품 정보
         PdtDto.Detail dto = pdtRepo.findByPdtNo(pdtNo).orElseThrow(()->new ProductNotFoundException());
         for(PdtImgDto.Read read : dto.getImages()){
             read.setImgPath(imgUrl + read.getImgPath());
         }
-
+        // 회원정보
         MemDto.Member member = memRepo.findByName(memUserName).orElseThrow(()->new MemberNotFoundException());
         member.setImgPath(imgUrl+member.getImgPath());
-
-        pdtRepo.increaseView(pdtNo, member.getMemNo());
+        dto.setMember(member);
         // 판매내역
         dto.setSellerList(pdtRepo.searchByKeywordLike(PdtDto.SearchData.builder()
-                .addressSi(dto.getAddress().getAddressSi())
-                .addressGu(dto.getAddress().getAddressGu())
-                .addressDong(dto.getAddress().getAddressDong())
-                .start(1).end(4).pdtSellerNo(dto.getMember().getMemNo())
-                .build()));
-
+            .addressSi(dto.getAddress().getAddressSi())
+            .addressGu(dto.getAddress().getAddressGu())
+            .addressDong(dto.getAddress().getAddressDong())
+            .start(1).end(4).pdtSellerNo(member.getMemNo())
+            .build()));
         // 카테고리 내역검색
         dto.setCateList(pdtRepo.searchByKeywordLike(PdtDto.SearchData.builder()
             .addressSi(dto.getAddress().getAddressSi())
@@ -60,7 +59,8 @@ public class PdtApp {
             .start(1).end(4).pdtCate(dto.getPdtCate())
             .build()));
 
-        dto.setMember(member);
+        pdtRepo.increaseView(pdtNo, member.getMemNo());
+
         return dto;
     }
 
