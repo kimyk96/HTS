@@ -56,7 +56,7 @@ class PdtRptRepoTest {
     // 신고상품별 삭제 테스트
     @Test
     void deleteByRptPdtNo(){
-        PdtRptDto.Delete dto = PdtRptDto.Delete.builder().rptPdtNo(1L).build();
+        Long dto = 1L;
 
         Integer result = pdtRptRepo.deleteByRptPdtNo(dto);
 

@@ -79,6 +79,10 @@ public class PdtDto {
         private String addressSi;
         private String addressGu;
         private String addressDong;
+        // 관심 체크
+        private Boolean favoriteCheck;
+        // 관심수
+        private Integer favoriteCount;
     }
 
     // 주소별 검색에 필요한 데이터
@@ -87,6 +91,8 @@ public class PdtDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class AddressData{
+        @NotNull
+        private long pdtNo;
         @NotEmpty
         private String addressSi;
         @NotEmpty
@@ -127,15 +133,6 @@ public class PdtDto {
         private Boolean favoriteCheck;
         // 관심수
         private Integer favoriteCount;
-        // address 에서 가져온 값
-//        private String addressSi;
-//        private String addressGu;
-//        private String addressDong;
-        // product_image 에서 가져온 값
-//        private List<PdtImgDto.Read> imgList;
-//        // product_category 에서 가져온 값
-//        private String pdtCate;
-        // member
     }
     @Data
     @Builder

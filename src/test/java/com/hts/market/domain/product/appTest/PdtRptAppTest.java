@@ -52,7 +52,7 @@ public class PdtRptAppTest {
     // 상품번호로 신고 삭제
     @Test
     void deleteByRptPdtNo(){
-        PdtRptDto.Delete dto = PdtRptDto.Delete.builder().rptPdtNo(1L).build();
+        Long dto = 1L;
         Integer result = pdtRptApp.deleteByRptPdtNo(dto);
         Assertions.assertThat(result).isEqualTo(1);
     }
