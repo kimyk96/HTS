@@ -8,6 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.security.Principal;
 
@@ -25,8 +26,8 @@ public class PdtImgApi {
         return ResponseEntity.ok().body(pdtImgApp.save(dto));
     }
     // 이미지수정
-    @PutMapping("update-file")
-    public ResponseEntity<Integer> updateFile(@Valid PdtImgDto.UpdateFile dto, Principal principal) throws IOException{
+    @PutMapping("update-files")
+    public ResponseEntity<Integer> updateFile(@Valid PdtImgDto.ListFile dto, Principal principal) throws IOException{
         return ResponseEntity.ok().body(pdtImgApp.update(dto));
     }
 
@@ -38,8 +39,8 @@ public class PdtImgApi {
 
     // 이미지 전체삭제
     @DeleteMapping("delete-all")
-    public ResponseEntity<Integer> deleteAll(@Valid PdtImgDto.Delete dto, Principal principal){
-        return ResponseEntity.ok().body(pdtImgApp.deleteAll(dto));
+    public ResponseEntity<Integer> deleteAll(@NotNull Long pdtNo, Principal principal){
+        return ResponseEntity.ok().body(pdtImgApp.deleteAll(pdtNo));
     }
 
 }

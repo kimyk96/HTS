@@ -4,12 +4,12 @@ import com.hts.market.domain.product.dto.PdtImgDto;
 import com.hts.market.domain.product.exception.ProductImageSaveFailException;
 import com.hts.market.domain.product.repo.PdtImgRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 @Service
 public class PdtImgApp {
@@ -38,18 +38,15 @@ public class PdtImgApp {
     }
 
     // 이미지 수정
-    public Integer update(PdtImgDto.UpdateFile dto) throws IOException{
-            try {
-                String fileName = "product/" + dto.getPdtNo() + "-" + dto.getImgNo() + "." + dto.getFile().getOriginalFilename().substring(dto.getFile().getOriginalFilename().lastIndexOf(".") + 1).toLowerCase();
-                String imgUpdateDir = new File("").getAbsolutePath() + "\\" + "/images/";
-                File pdtImg = new File(imgUpdateDir + fileName);
-                pdtImg.getParentFile().mkdirs();
-                dto.getFile().transferTo(pdtImg);
-                pdtImgRepo.update(PdtImgDto.Update.builder().pdtNo(dto.getPdtNo()).imgNo(dto.getImgNo()).imgPath(fileName).build());
-            } catch (IOException e){
-                System.out.println(e);
-                throw new ProductImageSaveFailException();
-            }
+    public Integer update(PdtImgDto.ListFile dto) throws IOException{
+        List<PdtImgDto.Read> oldList = pdtImgRepo.searchOfPdtNo(dto.getPdtNo());
+        for(PdtImgDto.Read deleteImg : oldList){
+            String imgUpdateDir = new File("").getAbsolutePath() + "\\" + "/images/";
+            File file = new File(imgUpdateDir + deleteImg.getImgPath());
+            boolean result = file.delete();
+        }
+        pdtImgRepo.deleteAll(dto.getPdtNo());
+        Integer update = save(dto);
         return 1;
     }
 
@@ -59,8 +56,8 @@ public class PdtImgApp {
     }
 
     // 이미지 전체삭제
-    public Integer deleteAll(PdtImgDto.Delete dto){
-        return pdtImgRepo.deleteAll(dto);
+    public Integer deleteAll(Long pdtNo){
+        return pdtImgRepo.deleteAll(pdtNo);
     }
 
 }

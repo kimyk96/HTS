@@ -8,15 +8,19 @@
         values
             ( #{pdtNo}, #{imgNo}, #{imgPath} )
     </insert>
-    <!-- 상품 이미지 수정 -->
-    <update id="update">
-        update
-            PRODUCT_IMAGE
-        set
-            img_path=#{imgPath}
-        where
-            pdt_no = #{pdtNo} and img_no = #{imgNo}
-    </update>
+<!--    &lt;!&ndash; 상품 이미지 수정 &ndash;&gt;-->
+<!--    <update id="update">-->
+<!--        update-->
+<!--            PRODUCT_IMAGE-->
+<!--        set-->
+<!--            img_path=#{imgPath}-->
+<!--        where-->
+<!--            pdt_no = #{pdtNo} and img_no = #{imgNo}-->
+<!--    </update>-->
+    <!-- 이미지 조회 -->
+    <select id="imageSearch" resultType="com.hts.market.domain.product.dto.PdtImgDto$Read">
+        select * from PRODUCT_IMAGE where pdt_no=#{pdtNo}
+    </select>
     <!-- 상품 이미지 개별삭제 -->
     <delete id="deleteByImgNo">
         delete from

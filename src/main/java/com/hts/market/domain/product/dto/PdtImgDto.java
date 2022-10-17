@@ -31,25 +31,15 @@ public class PdtImgDto {
     }
 
 
-    @Data
-    @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class UpdateFile {
-        private Long pdtNo;
-        private Long imgNo;
-        private MultipartFile file;
-    }
 
     @Data
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Update {
-        private Long pdtNo;
         @NotNull
+        private Long pdtNo;
         private Long imgNo;
-        @NotEmpty
         private String imgPath;
     }
     @Data

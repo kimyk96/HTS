@@ -40,7 +40,7 @@
             left outer join PRODUCT_IMAGE i on p.pdt_no = i.pdt_no
             left outer join PRODUCT_CATEGORY c on p.pdt_cate_no = c.pdt_cate_no
         where
-            p.pdt_no=#{pdtNo} and rownum&lt;=1
+            p.pdt_no=#{pdtNo}
     </select>
     <resultMap id="pdtDtoRead" type="com.hts.market.domain.product.dto.PdtDto$Detail">
             <result column="pdt_cate"           property="pdtCate"/>
