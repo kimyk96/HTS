@@ -124,7 +124,7 @@ public class PdtDto {
         private Integer pdtViews;
         private LocalDateTime pdtCreatedAt;
         // 관심 체크
-        private Integer favoriteCheck;
+        private Boolean favoriteCheck;
         // 관심수
         private Integer favoriteCount;
         // address 에서 가져온 값
