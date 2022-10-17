@@ -60,11 +60,12 @@ public class ChatDto {
         private Long chatMemNo;
 
     }
+
     @Data
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class ChatMemInfo{
+    public static class ChatMemInfo {
         private Integer chatMemBrix;
         private String chatNickname;
         private String chatMemImg;
@@ -76,15 +77,14 @@ public class ChatDto {
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class ChatUserInfo{
+    public static class ChatUserInfo {
         private MemDto.Member member;
         private PdtDto.Read product;
         private List<ChatDto.Read> chat;
     }
 
+
 }
-
-
 //{
 //    member: {
 //        mem_nickname: "한라봉 소년단",

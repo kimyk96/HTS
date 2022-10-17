@@ -45,4 +45,11 @@ public class ChatApi {
         return ResponseEntity.ok().body(messageList);
     }
 
+//    // 회원 상품별 채팅 수
+//    @GetMapping("count-chat-by-pdt-no")
+//    public ResponseEntity<Long> countChatByPdtNo(ChatDto.Chatcount chatCount){
+//        long countChatList = chatApp.countChatByPdtNo(ChatDto.Chatcount chatCount)
+//
+//
+//    }
 }

@@ -2,6 +2,7 @@ package com.hts.market.domain.chat.repo;
 
 import com.hts.market.domain.chat.dto.ChatDto;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -14,7 +15,11 @@ public interface ChatRepo {
     public List<ChatDto.Pk> findAllByChatMemNo(Long chatMemNo);
 
     // 회원간 채팅내역
-    public List<ChatDto.Read> findAllByChatMemNoAndChatPdtNo(ChatDto.ListStartEnd scroll);
+    public List<ChatDto.Read> findAllByChatMemNoAndChatPdtNo(ChatDto.ListStartEnd listStartEnd);
+
+    //countChatPdtNo
+    public Integer countChatByPdtNo(Long pdtNo);
+
 
 
 }

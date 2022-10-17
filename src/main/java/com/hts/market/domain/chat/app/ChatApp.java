@@ -83,13 +83,13 @@ public class ChatApp {
         // 채팅 불러오기
         List<ChatDto.Read> list = chatRepo.findAllByChatMemNoAndChatPdtNo(listStartEnd);
         // 상품불러오기
-        Optional<PdtDto.Read> pdtDto = pdtRepo.findByPdtNo(listStartEnd.getChatPdtNo());
+        Optional<PdtDto.Detail> pdtDto = pdtRepo.findByPdtNo(listStartEnd.getChatPdtNo());
         // 상품대표사진 가져오기
-        String pdtImg = pdtImgRepo.findMainImg(listStartEnd.getChatPdtNo());
+//        String pdtImg = pdtImgRepo.findMainImg(listStartEnd.getChatPdtNo());
         //  MEMBER
         MemDto.Member memInfo = memRepo.findByName(memUsername).orElseThrow(()->new MemberNotFoundException());
         // Dto 패키징
-        ChatDto.ChatUserInfo chatUserInfo = ChatDto.ChatUserInfo.builder().member(memInfo).product(pdtDto.get()).chat(list).build();
+//        ChatDto.ChatUserInfo chatUserInfo = ChatDto.ChatUserInfo.builder().member(memInfo).product(pdtDto.get()).chat(list).build();
 
 
         if(list.size()==0){
