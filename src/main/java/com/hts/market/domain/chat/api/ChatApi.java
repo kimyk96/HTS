@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -30,17 +31,17 @@ public class ChatApi {
     }
 
 
-      // 회원 채팅방 및 최근 메세지
+    // 회원 채팅방 및 최근 메세지
     @GetMapping("find-all-by-chat-mem-no")
-    public ResponseEntity<List<ChatDto.PK>> findAllByChatMemNo(Long chatMemNo) {
-        List<ChatDto.PK> chatList =  chatApp.findAllByChatMemNo(chatMemNo);
+    public ResponseEntity<List<ChatDto.Pk>> findAllByChatMemNo(Long chatMemNo) {
+        List<ChatDto.Pk> chatList =  chatApp.findAllByChatMemNo(chatMemNo);
         return ResponseEntity.ok().body(chatList);
     }
 
     // 회원간 채팅내역
     @GetMapping("find-all-by-chat-mem-no-and-chat-pdt-no")
-    public ResponseEntity<List<ChatDto.Read>> findAllByChatMemNoAndChatPdtNo(ChatDto.scroll scroll) {
-        List<ChatDto.Read> messageList =  chatApp.findAllByChatMemNoAndChatPdtNo(scroll);
+    public ResponseEntity<List<ChatDto.Read>> findAllByChatMemNoAndChatPdtNo(ChatDto.ListStartEnd listStartEnd, Principal principal) {
+        List<ChatDto.Read> messageList =  chatApp.findAllByChatMemNoAndChatPdtNo(listStartEnd, principal.getName());
         return ResponseEntity.ok().body(messageList);
     }
 
