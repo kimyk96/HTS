@@ -7,6 +7,7 @@ import com.hts.market.domain.product.dto.PdtDto;
 import com.hts.market.domain.product.exception.ProductNotFoundException;
 import com.hts.market.domain.product.repo.PdtRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +18,8 @@ public class PdtApp {
     private PdtRepo pdtRepo;
     @Autowired
     private MemRepo memRepo;
+
+    @Value("${hts.imgUrl}") private String imgUrl;
 
     // 판매글 작성
     public Integer save(PdtDto.Create dto, String memUsername) {
@@ -45,7 +48,11 @@ public class PdtApp {
 
     // 판매자별 글목록 - 관심수, 조회수 처리
     public List<PdtDto.ReadList> findAllByPdtAddress(PdtDto.AddressData dto){
-        return pdtRepo.findAllByAddress(dto);
+        List<PdtDto.ReadList> list = pdtRepo.findAllByAddress(dto);
+        for(PdtDto.ReadList pdt : list){
+            pdt.setImgPath(imgUrl + pdt.getImgPath());
+        }
+        return list;
     }
 
 

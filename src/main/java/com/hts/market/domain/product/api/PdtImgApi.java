@@ -16,6 +16,7 @@ import java.security.Principal;
 @RequestMapping("/api/v1/pdt-img")
 public class PdtImgApi {
     @Autowired
+
     private PdtImgApp pdtImgApp;
 
     // 이미지저장

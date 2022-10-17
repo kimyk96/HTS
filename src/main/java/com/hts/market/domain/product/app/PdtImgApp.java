@@ -4,6 +4,7 @@ import com.hts.market.domain.product.dto.PdtImgDto;
 import com.hts.market.domain.product.exception.ProductImageSaveFailException;
 import com.hts.market.domain.product.repo.PdtImgRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,6 +15,8 @@ import java.io.IOException;
 public class PdtImgApp {
     @Autowired
     private PdtImgRepo pdtImgRepo;
+
+
 
     // 이미지 저장
     public Integer save(PdtImgDto.ListFile dto) throws IOException {

@@ -19,6 +19,6 @@ public interface PdtFavoriteRepo {
     // 상품별 관심수 확인
     public Integer countByPdtNo(Long pdtNo);
 
-    // 관심목록 개수
-    public Integer countOfFavoriteList(Long memNo);
+    // 관심글 확인
+    public Integer active(PdtFavoriteDto.CountFavorite dto);
 }

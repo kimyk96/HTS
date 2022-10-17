@@ -40,8 +40,8 @@
     <select id="countByPdtNo" resultType="int">
         select count(pdt_no) from PRODUCT_FAVORITE where pdt_no=#{pdtNo}
     </select>
-    <!--  관심목록 개수-->
-    <select id="countOfFavoriteList" resultType="int">
-        select count(pdt_No) from PRODUCT_FAVORITE where mem_no = #{memNo}
+    <!--  관심 여부-->
+    <select id="Active" resultType="int">
+        select * from PRODUCT_FAVORITE where pdt_no=#{pdtNo} and mem_no = #{memNo}
     </select>
 </mapper>
