@@ -12,8 +12,8 @@
         (#{chatMsgNo},#{chatMemNo},#{chatPdtNo},#{chatContent})
     </insert>
 
-    <!--countChatlistByPdtNo-->
-    <select id="countChatlistByPdtNo" resultType="int">
+    <!--countChatByPdtNo-->
+    <select id="countChatByPdtNo" resultType="int">
         SELECT COUNT (DISTINCT chat_mem_no) FROM chat where  chat_pdt_no = #{chatPdtNo};
 
     </select>

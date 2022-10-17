@@ -79,7 +79,7 @@ public class ChatDto {
     @NoArgsConstructor
     public static class ChatUserInfo {
         private MemDto.Member member;
-        private PdtDto.Read product;
+        private PdtDto.Detail product;
         private List<ChatDto.Read> chat;
     }
 

@@ -45,11 +45,18 @@ public class ChatApi {
         return ResponseEntity.ok().body(messageList);
     }
 
-//    // 회원 상품별 채팅 수
-//    @GetMapping("count-chat-by-pdt-no")
-//    public ResponseEntity<Long> countChatByPdtNo(ChatDto.Chatcount chatCount){
-//        long countChatList = chatApp.countChatByPdtNo(ChatDto.Chatcount chatCount)
-//
-//
-//    }
+    //상품별 채팅 수
+    @GetMapping("count-chat-by-pdt-no")
+    public ResponseEntity<Integer> countChatByPdtNo(Long pdtNo){
+        Integer countMemNo = chatApp.countChatByPdtNo(pdtNo);
+        return ResponseEntity.ok().body(countMemNo);
+    };
+
+    // 상품별 관심
+    @GetMapping("count-chat-by-pdt-no-and-mem-no")
+    public ResponseEntity<Boolean> countChatByPdtNoAndMemNo (Long chatPdtNo, Long chatMemNo){
+        boolean count = chatApp.countChatByPdtNoAndMemNo(chatPdtNo, chatMemNo);
+        return ResponseEntity.ok().body(count);
+    };
+
 }
