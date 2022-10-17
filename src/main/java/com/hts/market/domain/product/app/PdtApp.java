@@ -46,6 +46,7 @@ public class PdtApp {
         dto.setMember(member);
         // 판매내역
         dto.setSellerList(pdtRepo.searchByKeywordLike(PdtDto.SearchData.builder()
+            .pdtNo(pdtNo)
             .addressSi(dto.getAddress().getAddressSi())
             .addressGu(dto.getAddress().getAddressGu())
             .addressDong(dto.getAddress().getAddressDong())
@@ -53,6 +54,7 @@ public class PdtApp {
             .build()));
         // 카테고리 내역검색
         dto.setCateList(pdtRepo.searchByKeywordLike(PdtDto.SearchData.builder()
+            .pdtNo(pdtNo)
             .addressSi(dto.getAddress().getAddressSi())
             .addressGu(dto.getAddress().getAddressGu())
             .addressDong(dto.getAddress().getAddressDong())

@@ -94,9 +94,9 @@ public class PdtDto {
         @NotEmpty
         private String addressDong;
         @NotNull
-        private Integer start = 1;
+        private Integer start;
         @NotNull
-        private Integer end = 10;
+        private Integer end;
     }
 
     @Data
@@ -156,11 +156,12 @@ public class PdtDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class SearchData{
+        private Long pdtNo;
         private String addressSi;
         private String addressGu;
         private String addressDong;
-        private Integer start = 1;
-        private Integer end = 10;
+        private Integer start;
+        private Integer end;
         private String pdtName;
         private String pdtDesc;
         private Long pdtCateNo;
