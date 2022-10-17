@@ -55,10 +55,10 @@ public class ChatRepoTest {
         Long chatMemNo = 1L;
 
         //WHEN
-        List<ChatDto.PK> result = chatrepo.findAllByChatMemNo(chatMemNo);
+        List<ChatDto.Pk> result = chatrepo.findAllByChatMemNo(chatMemNo);
 
         //THEN
-            Assertions.assertThat(result).hasSize(21);
+        Assertions.assertThat(result).hasSize(21);
 
     }
 
@@ -66,11 +66,11 @@ public class ChatRepoTest {
     @Test
     public void findAllByChatMemNoAndChatPdtNo() {
         //GIVEN
-        ChatDto.scroll scroll = ChatDto.scroll.builder().chatMemNo(1L).chatPdtNo(1L).start(1).end(20).build();
+        ChatDto.ListStartEnd listStartEnd = ChatDto.ListStartEnd.builder().chatMemNo(1L).chatPdtNo(1L).start(1).end(20).build();
 
 
         //WHEN
-        List<ChatDto.Read> result = chatrepo.findAllByChatMemNoAndChatPdtNo(scroll);
+        List<ChatDto.Read> result = chatrepo.findAllByChatMemNoAndChatPdtNo(listStartEnd);
 
         //THEN
         Assertions.assertThat(result).hasSize(20);

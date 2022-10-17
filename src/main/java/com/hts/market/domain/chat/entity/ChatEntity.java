@@ -10,14 +10,15 @@ import java.time.LocalDateTime;
 @Builder
 @ToString
 public class ChatEntity {
-    public Long chatPdtNo;
-    public Long chatMemNo;
-    public Long chatMsgNo;
-    public String chatContent;
-    public Boolean chatChecked;
-    public LocalDateTime chatCreatedAt;
+    private Long chatPdtNo;
+    private Long chatMemNo;
+    private Long chatMsgNo;
+    private String chatContent;
+    private Boolean chatChecked;
+    private LocalDateTime chatCreatedAt;
+    private String username;
+    private boolean isSeller;
 }
-
 
 
 
