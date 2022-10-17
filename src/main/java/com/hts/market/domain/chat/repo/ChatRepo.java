@@ -17,8 +17,13 @@ public interface ChatRepo {
     // 회원간 채팅내역
     public List<ChatDto.Read> findAllByChatMemNoAndChatPdtNo(ChatDto.ListStartEnd listStartEnd);
 
-    //countChatPdtNo
+    //상품별 채팅 수
     public Integer countChatByPdtNo(Long pdtNo);
+
+    // 상품별 관심
+
+    public boolean countChatByPdtNoAndMemNo (Long chatPdtNo, Long chatMemNo);
+
 
 
 

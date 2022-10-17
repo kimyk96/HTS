@@ -18,6 +18,12 @@
 
     </select>
 
+    <!--countChatByPdtNoAndMemNo-->
+    <select id="countChatByPdtNoAndMemNo" resultType="boolean">
+        SELECT COUNT (DISTINCT chat_mem_no) FROM chat where  chat_pdt_no = #{chatPdtNo} And chat_mem_no= #{chatMemNo};
+
+    </select>
+
     <!-- findAllByPk //채팅방목록 및 최근메세지  -->
     <select id="findAllByChatMemNo" resultType="com.hts.market.domain.chat.dto.ChatDto$Read">
         SELECT DISTINCT chat_pdt_no, (select max(chat_msg_no)
