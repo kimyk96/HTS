@@ -6,6 +6,7 @@ import com.hts.market.domain.member.repo.MemRepo;
 import com.hts.market.domain.product.dto.PdtDto;
 import com.hts.market.domain.product.dto.PdtImgDto;
 import com.hts.market.domain.product.exception.ProductNotFoundException;
+import com.hts.market.domain.product.repo.PdtFavoriteRepo;
 import com.hts.market.domain.product.repo.PdtRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,6 +20,8 @@ public class PdtApp {
     private PdtRepo pdtRepo;
     @Autowired
     private MemRepo memRepo;
+    @Autowired
+    private PdtFavoriteRepo pdtFavoriteRepo;
 
     @Value("${hts.imgUrl}") private String imgUrl;
 
@@ -45,23 +48,38 @@ public class PdtApp {
         member.setImgPath(imgUrl+member.getImgPath());
         dto.setMember(member);
         // 판매내역
-        dto.setSellerList(pdtRepo.searchByKeywordLike(PdtDto.SearchData.builder()
-            .pdtNo(pdtNo)
-            .addressSi(dto.getAddress().getAddressSi())
-            .addressGu(dto.getAddress().getAddressGu())
-            .addressDong(dto.getAddress().getAddressDong())
-            .start(1).end(4).pdtSellerNo(member.getMemNo())
-            .build()));
+        List<PdtDto.ReadList> sellerList = pdtRepo.searchByKeywordLike(PdtDto.SearchData.builder()
+                .pdtNo(pdtNo)
+                .addressSi(dto.getAddress().getAddressSi())
+                .addressGu(dto.getAddress().getAddressGu())
+                .addressDong(dto.getAddress().getAddressDong())
+                .start(1).end(4).pdtSellerNo(member.getMemNo())
+                .build());
+        for(PdtDto.ReadList read : sellerList){
+            read.setImgPath(imgUrl + read.getImgPath());
+        }
+        dto.setSellerList(sellerList);
+
         // 카테고리 내역검색
-        dto.setCateList(pdtRepo.searchByKeywordLike(PdtDto.SearchData.builder()
-            .pdtNo(pdtNo)
-            .addressSi(dto.getAddress().getAddressSi())
-            .addressGu(dto.getAddress().getAddressGu())
-            .addressDong(dto.getAddress().getAddressDong())
-            .start(1).end(4).pdtCate(dto.getPdtCate())
-            .build()));
+        List<PdtDto.ReadList> cateList = pdtRepo.searchByKeywordLike(PdtDto.SearchData.builder()
+                .pdtNo(pdtNo)
+                .addressSi(dto.getAddress().getAddressSi())
+                .addressGu(dto.getAddress().getAddressGu())
+                .addressDong(dto.getAddress().getAddressDong())
+                .start(1).end(4).pdtCate(dto.getPdtCate())
+                .build());
+        for(PdtDto.ReadList read : cateList){
+            read.setImgPath(imgUrl + read.getImgPath());
+        }
+        dto.setCateList(cateList);
 
         pdtRepo.increaseView(pdtNo, member.getMemNo());
+
+        // 관심수
+        dto.getProduct().setFavoriteCount(pdtFavoriteRepo.countByPdtNo(pdtNo));
+
+        // 관심체크
+        dto.getProduct().setFavoriteCheck(pdtFavoriteRepo.active(dto.getProduct().getPdtNo(), dto.getMember().getMemNo()));
 
         return dto;
     }

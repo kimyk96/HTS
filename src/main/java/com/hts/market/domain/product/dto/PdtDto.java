@@ -123,6 +123,10 @@ public class PdtDto {
         private Integer pdtPrice;
         private Integer pdtViews;
         private LocalDateTime pdtCreatedAt;
+        // 관심 체크
+        private Integer favoriteCheck;
+        // 관심수
+        private Integer favoriteCount;
         // address 에서 가져온 값
 //        private String addressSi;
 //        private String addressGu;
@@ -149,6 +153,7 @@ public class PdtDto {
         private List<PdtDto.ReadList> sellerList;
         // 카테고리목록
         private List<PdtDto.ReadList> cateList;
+
     }
 
     @Data
