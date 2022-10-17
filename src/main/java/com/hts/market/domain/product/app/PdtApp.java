@@ -118,7 +118,7 @@ public class PdtApp {
     // 판매자별 글목록
     public List<PdtDto.ReadList> findAllByPdtAddress(PdtDto.AddressData dto, String userName){
         List<PdtDto.ReadList> list = pdtRepo.findAllByAddress(dto);
-        long memNo = memRepo.findIdByMemUsername(userName);
+        Long memNo = memRepo.findIdByMemUsername(userName);
         for(PdtDto.ReadList pdt : list){
             pdt.setImgPath(imgUrl + pdt.getImgPath());
             // 관심수
@@ -127,7 +127,7 @@ public class PdtApp {
             pdt.setFavoriteCheck(pdtFavoriteRepo.active(dto.getPdtNo(),memNo));
             // 채팅수
             pdt.setChatCount(chatRepo.countChatByPdtNo(pdt.getPdtNo()));
-            //
+            // 채팅체크
             pdt.setChatCheck(chatRepo.countChatByPdtNoAndMemNo(pdt.getPdtNo(),memNo));
         }
         return list;
