@@ -67,4 +67,8 @@ public class PdtApiAdvice {
     public ResponseEntity<String> productDeleteFailException(){
         return ResponseEntity.status(HttpStatus.CONFLICT).body("상품삭제에 실패했습니다");
     }
+    @ExceptionHandler(ReportSaveFailException.class)
+    public ResponseEntity<String > reportSaveFailException(){
+        return ResponseEntity.status(HttpStatus.CONFLICT).body("해당상품을 이미 신고하셨습니다");
+    }
 }

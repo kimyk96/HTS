@@ -60,7 +60,7 @@ public class PdtApp {
         dto.setMember(member);
 
         // 판매내역
-        List<PdtDto.ReadList> sellerList = pdtRepo.searchByKeywordLike(PdtDto.SearchData.builder()
+        List<PdtDto.ReadList> sellerList = pdtRepo.findAllByData(PdtDto.ListData.builder()
                 .pdtNo(pdtNo)
                 .addressSi(dto.getAddress().getAddressSi())
                 .addressGu(dto.getAddress().getAddressGu())
@@ -73,7 +73,7 @@ public class PdtApp {
         dto.setSellerList(sellerList);
 
         // 카테고리 내역검색
-        List<PdtDto.ReadList> cateList = pdtRepo.searchByKeywordLike(PdtDto.SearchData.builder()
+        List<PdtDto.ReadList> cateList = pdtRepo.findAllByData(PdtDto.ListData.builder()
                 .pdtNo(pdtNo)
                 .addressSi(dto.getAddress().getAddressSi())
                 .addressGu(dto.getAddress().getAddressGu())
@@ -116,8 +116,8 @@ public class PdtApp {
     }
 
     // 판매자별 글목록
-    public List<PdtDto.ReadList> findAllByPdtAddressNo(PdtDto.AddressData dto, String userName){
-        List<PdtDto.ReadList> list = pdtRepo.findAllByAddress(dto);
+    public List<PdtDto.ReadList> findAllByData(PdtDto.ListData dto, String userName){
+        List<PdtDto.ReadList> list = pdtRepo.findAllByData(dto);
         Long memNo = memRepo.findIdByMemUsername(userName);
         for(PdtDto.ReadList pdt : list){
             pdt.setImgPath(imgUrl + pdt.getImgPath());
@@ -133,10 +133,6 @@ public class PdtApp {
         return list;
     }
 
-    // 키워드 검색
-    public List<PdtDto.ReadList> findByPdtKeywordLike(PdtDto.SearchData dto){
-        return pdtRepo.searchByKeywordLike(dto);
-    }
 
     // 판자번호 조회
     public Long findPdtSellerNo(Long pdtSellerNo) {

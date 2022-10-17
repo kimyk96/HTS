@@ -11,7 +11,11 @@
         values
             ( #{rptNo}, #{rptPdtNo}, #{rptMemNo}, #{rptMsgNo})
     </insert>
+    <!-- 신고자번호 조회 -->
+    <select id="findIdByRptPdtNo" resultType="long">
+        select rpt_mem_no from product_report where rpt_pdt_no = #{rptPdtNo}
 
+    </select>
     <!-- 신고목록 -->
     <select id="findAllByDto" resultType="com.hts.market.domain.product.dto.PdtRptDto$Read">
         select

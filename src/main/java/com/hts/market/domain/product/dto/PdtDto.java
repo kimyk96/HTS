@@ -89,25 +89,6 @@ public class PdtDto {
         private Boolean chatCheck;
     }
 
-    // 주소별 검색에 필요한 데이터
-    @Data
-    @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class AddressData{
-        @NotNull
-        private long pdtNo;
-        @NotEmpty
-        private String addressSi;
-        @NotEmpty
-        private String addressGu;
-        @NotEmpty
-        private String addressDong;
-        @NotNull
-        private Integer start;
-        @NotNull
-        private Integer end;
-    }
 
     @Data
     @Builder
@@ -161,19 +142,45 @@ public class PdtDto {
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class SearchData{
+    public static class ListData{
+        @NotNull
         private Long pdtNo;
+        @NotEmpty
         private String addressSi;
+        @NotEmpty
         private String addressGu;
+        @NotEmpty
         private String addressDong;
+        @NotNull
         private Integer start;
+        @NotNull
         private Integer end;
-        private String pdtName;
-        private String pdtDesc;
+        private String keyword;
         private Long pdtCateNo;
         private String pdtCate;
         private Long pdtSellerNo;
     }
+
+//    // 주소별 검색에 필요한 데이터
+//    @Data
+//    @Builder
+//    @AllArgsConstructor
+//    @NoArgsConstructor
+//    public static class AddressData{
+//        @NotNull
+//        private long pdtNo;
+//        @NotEmpty
+//        private String addressSi;
+//        @NotEmpty
+//        private String addressGu;
+//        @NotEmpty
+//        private String addressDong;
+//        @NotNull
+//        private Integer start;
+//        @NotNull
+//        private Integer end;
+//    }
+
 
     @Data
     @Builder

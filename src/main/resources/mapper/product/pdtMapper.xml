@@ -70,34 +70,34 @@
     <!---->
 <!--left outer join MEMBER m on p.seller_no = m.mem_no-->
     <!-- 판매글 지역별로 목록보기 -->
-    <select id="findAllByAddress" resultType="com.hts.market.domain.product.dto.PdtDto$ReadList">
-        SELECT
-            b.*
-        FROM
-            (
-                SELECT /*+ index_desc(PRODUCT PK_PRODUCT) */
-                    ROWNUM AS rnum,
-                    a.*
-                FROM
-                    (
-                        SELECT
-                            p.pdt_no, c.pdt_cate, p.pdt_name, p.pdt_status, p.pdt_price, p.pdt_views, p.pdt_created_at,
-                            i.img_path, d.address_si, d.address_gu, d.address_dong
-                         FROM
-                            product p left outer join address d on p.pdt_address_no = d.address_no and p.pdt_seller_no = d.mem_no
-                            left outer join product_image i on p.pdt_no=i.pdt_no
-                            left outer join product_category c on p.pdt_cate_no = c.pdt_cate_no
-                        where
-                            d.address_si = #{addressSi} and d.address_gu = #{addressGu} and d.address_dong = #{addressDong} and i.img_no=1
-                        ORDER BY
-                            pdt_no DESC
-                    ) a
-                WHERE
-                    ROWNUM &lt;= #{end}
-            ) b
-        WHERE
-            b.rnum &gt;= #{start}
-    </select>
+<!--    <select id="findAllByAddress" resultType="com.hts.market.domain.product.dto.PdtDto$ReadList">-->
+<!--        SELECT-->
+<!--            b.*-->
+<!--        FROM-->
+<!--            (-->
+<!--                SELECT /*+ index_desc(PRODUCT PK_PRODUCT) */-->
+<!--                    ROWNUM AS rnum,-->
+<!--                    a.*-->
+<!--                FROM-->
+<!--                    (-->
+<!--                        SELECT-->
+<!--                            p.pdt_no, c.pdt_cate, p.pdt_name, p.pdt_status, p.pdt_price, p.pdt_views, p.pdt_created_at,-->
+<!--                            i.img_path, d.address_si, d.address_gu, d.address_dong-->
+<!--                         FROM-->
+<!--                            product p left outer join address d on p.pdt_address_no = d.address_no and p.pdt_seller_no = d.mem_no-->
+<!--                            left outer join product_image i on p.pdt_no=i.pdt_no-->
+<!--                            left outer join product_category c on p.pdt_cate_no = c.pdt_cate_no-->
+<!--                        where-->
+<!--                            d.address_si = #{addressSi} and d.address_gu = #{addressGu} and d.address_dong = #{addressDong} and i.img_no=1-->
+<!--                        ORDER BY-->
+<!--                            pdt_no DESC-->
+<!--                    ) a-->
+<!--                WHERE-->
+<!--                    ROWNUM &lt;= #{end}-->
+<!--            ) b-->
+<!--        WHERE-->
+<!--            b.rnum &gt;= #{start}-->
+<!--    </select>-->
     <!-- 판매글 삭제 -->
     <delete id="delete">
         delete from PRODUCT where pdt_no=#{pdtNo} and pdt_seller_no = #{pdtSellerNo}
@@ -105,7 +105,7 @@
     <!-- 회원탈퇴시 판매글 삭제(추후 추가)-->
 
     <!-- 제목+내용, 카테고리로 검색 -->
-    <select id="searchByKeywordLike" resultType="com.hts.market.domain.product.dto.PdtDto$ReadList">
+    <select id="findAllByData" resultType="com.hts.market.domain.product.dto.PdtDto$ReadList">
         SELECT
              b.*
         FROM
@@ -124,8 +124,8 @@
                         where
                             d.address_si = #{addressSi} and d.address_gu = #{addressGu} and d.address_dong = #{addressDong} and i.img_no=1
                             <choose>
-                                <when test="pdtName != null and pdtDesc != null">
-                                    and p.pdt_name LIKE '%'|| #{pdtName} ||'%' or p.pdt_desc Like '%'|| #{pdtDesc} ||'%'
+                                <when test="keyword != null">
+                                    and p.pdt_name LIKE '%'|| #{keyword} ||'%' or p.pdt_desc Like '%'|| #{keyword} ||'%'
                                 </when>
                                 <when test="pdtCate != null and pdtNo !=null">
                                     and c.pdt_cate = #{pdtCate} and p.pdt_no != #{pdtNo}
@@ -147,25 +147,4 @@
     <select id="findSellerNoById" resultType="long">
         select pdt_seller_no from PRODUCT where pdt_no = #{pdtNo} and rownum &lt;=1;
     </select>
-    <!-- 카테고리로 검색 -->
-    <!-- 검색기능 분리 여부는 추후 판단-->
-<!--    <select id="searchByPdtKeywordLike" resultType="com.hts.market.domain.product.dto.PdtDto$ResdList">-->
-<!--        select pdt_no, pdt_name, pdt_status, pdt_price, pdt_views, pdt_created_at from PRODUCT-->
-<!--        <include refid="search"/>-->
-<!--        order by pdt_no desc-->
-<!--    </select>-->
-
-    <!--    &lt;!&ndash; 검색할 키워드를 만드는 sql &ndash;&gt;-->
-    <!--    <sql id="search">-->
-    <!--        <if test="pdtName == #{pdtName}">-->
-    <!--            WHERE pdt_name LIKE CONCAT('%'||#{keyword}||'%')-->
-    <!--        </if>-->
-    <!--        <if test="pdtDesc == #{pdtDesc}">-->
-    <!--            WHERE pdt_desc LIKE CONCAT('%'||#{keyword}||'%')-->
-    <!--        </if>-->
-    <!--        <if test="pdtCate == #{pdtCate}">-->
-    <!--            WHERE pdt_cate LIKE CONCAT('%'||#{keyword}||'%')-->
-    <!--        </if>-->
-    <!--    </sql>-->
-
 </mapper>

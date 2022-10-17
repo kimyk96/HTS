@@ -1,7 +1,9 @@
 package com.hts.market.domain.product.app;
 
 
+import com.hts.market.domain.member.repo.MemRepo;
 import com.hts.market.domain.product.dto.PdtRptDto;
+import com.hts.market.domain.product.exception.ReportSaveFailException;
 import com.hts.market.domain.product.repo.PdtRptRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,12 +11,20 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+
 public class PdtRptApp {
     @Autowired
     private PdtRptRepo pdtRptRepo;
-
+    @Autowired
+    private MemRepo memRepo;
+    //@Scheduled(cron = "* * * * * *")
     // 신고등록
-    public Integer save(PdtRptDto.Create dto){
+    public Integer save(PdtRptDto.Create dto, String userName){
+        Long memNo = pdtRptRepo.findIdByRptPdtNo(dto.getRptPdtNo());
+        Long writerNo = memRepo.findIdByMemUsername(userName);
+        if (memNo==writerNo){
+            throw new ReportSaveFailException();
+        }
         return pdtRptRepo.save(dto);
     }
 
