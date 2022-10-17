@@ -1,5 +1,6 @@
 package com.hts.market.domain.product.app;
 
+import com.hts.market.domain.chat.repo.ChatRepo;
 import com.hts.market.domain.member.dto.MemDto;
 import com.hts.market.domain.member.exception.MemberNotFoundException;
 import com.hts.market.domain.member.repo.MemRepo;
@@ -29,6 +30,8 @@ public class PdtApp {
     private PdtImgRepo pdtImgRepo;
     @Autowired
     private PdtRptRepo pdtRptRepo;
+    @Autowired
+    private ChatRepo chatRepo;
 
     @Value("${hts.imgUrl}") private String imgUrl;
 
@@ -115,13 +118,18 @@ public class PdtApp {
     // 판매자별 글목록
     public List<PdtDto.ReadList> findAllByPdtAddress(PdtDto.AddressData dto, String userName){
         List<PdtDto.ReadList> list = pdtRepo.findAllByAddress(dto);
+        long memNo = memRepo.findIdByMemUsername(userName);
         for(PdtDto.ReadList pdt : list){
             pdt.setImgPath(imgUrl + pdt.getImgPath());
+            // 관심수
+            pdt.setFavoriteCount(pdtFavoriteRepo.countByPdtNo(dto.getPdtNo()));
+            // 관심체크
+            pdt.setFavoriteCheck(pdtFavoriteRepo.active(dto.getPdtNo(),memNo));
+            // 채팅수
+            pdt.setChatCount(chatRepo.countChatByPdtNo(pdt.getPdtNo()));
+            //
+            pdt.setChatCheck(chatRepo.countChatByPdtNoAndMemNo(pdt.getPdtNo(),memNo));
         }
-        // 관심수
-        PdtDto.ReadList.builder().favoriteCount(pdtFavoriteRepo.countByPdtNo(dto.getPdtNo()));
-        // 관심체크
-        PdtDto.ReadList.builder().favoriteCheck(pdtFavoriteRepo.active(dto.getPdtNo(),memRepo.findIdByMemUsername(userName)));
         return list;
     }
 

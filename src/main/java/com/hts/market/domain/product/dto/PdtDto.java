@@ -79,10 +79,14 @@ public class PdtDto {
         private String addressSi;
         private String addressGu;
         private String addressDong;
-        // 관심 체크
-        private Boolean favoriteCheck;
         // 관심수
         private Integer favoriteCount;
+        // 관심 체크
+        private Boolean favoriteCheck;
+        // 채팅수
+        private Integer chatCount;
+        // 채팅 체크
+        private Boolean chatCheck;
     }
 
     // 주소별 검색에 필요한 데이터
