@@ -38,7 +38,7 @@
     </select>
     <!-- 관심수 확인 -->
     <select id="countByPdtNo" resultType="int">
-        select count(pdt_no) from PRODUCT_FAVORITE where pdt_no=#{pdtNo}
+        select count(mem_no) from PRODUCT_FAVORITE where pdt_no=#{pdtNo}
     </select>
     <!--  관심 여부-->
     <select id="active" resultType="boolean">
