@@ -143,7 +143,6 @@ public class PdtDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class ListData{
-        @NotNull
         private Long pdtNo;
         @NotEmpty
         private String addressSi;
