@@ -20,7 +20,7 @@ public class PdtRptApp {
     //@Scheduled(cron = "* * * * * *")
     // 신고등록
     public Integer save(PdtRptDto.Create dto, String userName){
-        Long memNo = pdtRptRepo.findIdByRptPdtNo(dto.getRptPdtNo());
+        Long memNo = pdtRptRepo.findIdByRptMemNo(dto.getRptMemNo());
         Long writerNo = memRepo.findIdByMemUsername(userName);
         if (memNo==writerNo){
             throw new ReportSaveFailException();

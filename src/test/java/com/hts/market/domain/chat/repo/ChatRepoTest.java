@@ -1,7 +1,6 @@
 package com.hts.market.domain.chat.repo;
 
 import com.hts.market.domain.chat.dto.ChatDto;
-import com.hts.market.domain.member.dto.AddressDto;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -84,9 +83,7 @@ public class ChatRepoTest {
         //WHEN
 
         //THEN
-        Assertions.assertThat().
     }
-
 }
 
 

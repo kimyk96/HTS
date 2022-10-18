@@ -20,9 +20,9 @@ public class PdtRptAppTest {
     // 신고 등록
     @BeforeEach
     void saveTest(){
+        String userName = "00000000";
         PdtRptDto.Create dto = PdtRptDto.Create.builder().rptPdtNo(1L).rptMemNo(1L).rptMsgNo(1L).build();
-        Integer result = pdtRptApp.save(dto);
-        Assertions.assertThat(result).isEqualTo(1);
+        pdtRptApp.save(dto, userName);
     }
 
     // 신고 목록 조회
@@ -30,7 +30,7 @@ public class PdtRptAppTest {
     void findAllByDto(){
         PdtRptDto.Read dto = PdtRptDto.Read.builder().rptPdtNo(1L).build();
         List<PdtRptDto.Read> result = pdtRptApp.findAllByDto(dto);
-        Assertions.assertThat(result).hasSize(1);
+        Assertions.assertThat(result).hasSize(4);
     }
 
     // 신고번호로 신고 삭제

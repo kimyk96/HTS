@@ -125,7 +125,7 @@
                             d.address_si = #{addressSi} and d.address_gu = #{addressGu} and d.address_dong = #{addressDong} and i.img_no=1
                             <choose>
                                 <when test="keyword != null">
-                                    and p.pdt_name LIKE '%'|| #{keyword} ||'%' or p.pdt_desc Like '%'|| #{keyword} ||'%'
+                                    and (p.pdt_name LIKE '%'|| #{keyword} ||'%' or p.pdt_desc Like '%'|| #{keyword} ||'%')
                                 </when>
                                 <when test="pdtCate != null and pdtNo !=null">
                                     and c.pdt_cate = #{pdtCate} and p.pdt_no != #{pdtNo}

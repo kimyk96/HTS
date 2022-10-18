@@ -55,13 +55,4 @@ class PdtFavoriteRepoTest {
 
         Assertions.assertThat(result).isEqualTo(1);
     }
-    // 멤버별 관심한 글 개수
-    @Test
-    void countOfFavoriteListTest(){
-        Long memNo = 1L;
-
-        Integer result = pdtFavoriteRepo.countOfFavoriteList(memNo);
-
-        Assertions.assertThat(result).isEqualTo(1);
-    }
 }

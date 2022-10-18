@@ -1,5 +1,6 @@
 package com.hts.market.domain.product.app;
 
+import com.hts.market.domain.chat.dto.ChatDto;
 import com.hts.market.domain.chat.repo.ChatRepo;
 import com.hts.market.domain.member.dto.MemDto;
 import com.hts.market.domain.member.exception.MemberNotFoundException;
@@ -128,7 +129,7 @@ public class PdtApp {
             // 채팅수
             pdt.setChatCount(chatRepo.countChatByPdtNo(pdt.getPdtNo()));
             // 채팅체크
-            pdt.setChatCheck(chatRepo.countChatByPdtNoAndMemNo(pdt.getPdtNo(),memNo));
+            pdt.setChatCheck(chatRepo.countChatByPdtNoAndMemNo(ChatDto.ChatLike.builder().chatPdtNo(pdt.getPdtNo()).chatMemNo(memNo).build()));
         }
         return list;
     }

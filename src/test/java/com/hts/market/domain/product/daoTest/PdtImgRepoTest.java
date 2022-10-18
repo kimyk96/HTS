@@ -27,21 +27,33 @@ class PdtImgRepoTest {
     }
 
     //이미지 수정 테스트
-   @Test
-    void update(){
-        PdtImgDto.Update dto = PdtImgDto.Update.builder().pdtNo(1L).imgNo(1L).imgPath("수정경로").build();
+//   @Test
+//    void update(){
+//        PdtImgDto.ListFile dto = PdtImgDto.Update.builder().imgNo(1L).imgPath(1).pdtNo(1L).build();
+//
+//        Integer result = pdtImgRepo.(dto);
+//
+//        Assertions.assertThat(result).isEqualTo(1);
+//    }
 
-        Integer result = pdtImgRepo.update(dto);
+    //이미지 삭제 테스트
+    @Test
+    void deleteByImgNo(){
+        PdtImgDto.Delete dto = PdtImgDto.Delete.builder().pdtNo(1L).imgNo(1L).build();
+
+        Integer result = pdtImgRepo.deleteByImgNo(dto);
 
         Assertions.assertThat(result).isEqualTo(1);
+
+
     }
 
     //이미지 삭제 테스트
     @Test
-    void delete(){
-        PdtImgDto.Delete dto = PdtImgDto.Delete.builder().pdtNo(1L).imgNo(1L).build();
+    void deleteAllTest(){
+        Long dto = 1L;
 
-        Integer result = pdtImgRepo.delete(dto);
+        Integer result = pdtImgRepo.deleteAll(dto);
 
         Assertions.assertThat(result).isEqualTo(1);
 
