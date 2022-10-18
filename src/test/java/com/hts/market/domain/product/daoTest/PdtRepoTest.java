@@ -83,9 +83,9 @@ class PdtRepoTest {
     // 지역별 상품목록 테스트
     @Test
     void findAllByAddressTest(){
-        PdtDto.AddressData dto = PdtDto.AddressData.builder().addressSi("인천").addressGu("부평").addressDong("부평1").start(1).end(1).build();
+        PdtDto.ListData dto = PdtDto.ListData.builder().addressSi("인천").addressGu("부평").addressDong("부평1").start(1).end(1).build();
 
-        List<PdtDto.ReadList> result = pdtRepo.findAllByAddress(dto);
+        List<PdtDto.ReadList> result = pdtRepo.findAllByData(dto);
 
         Assertions.assertThat(result).hasSize(1);
 
@@ -103,9 +103,9 @@ class PdtRepoTest {
     // 상품 제목+내용으로 검색
     @Test
     void searchByKeywordTest(){
-        PdtDto.SearchData dto = PdtDto.SearchData.builder().addressSi("인천").addressGu("부평").addressDong("부평1").start(1).end(1).pdtName("상").pdtDesc("").build();
+        PdtDto.ListData dto = PdtDto.ListData.builder().addressSi("인천").addressGu("부평").addressDong("부평1").start(1).end(1).keyword("상").build();
 
-        List<PdtDto.ReadList> result = pdtRepo.searchByKeywordLike(dto);
+        List<PdtDto.ReadList> result = pdtRepo.findAllByData(dto);
 
         Assertions.assertThat(result).hasSize(1);
     }
@@ -113,9 +113,9 @@ class PdtRepoTest {
     // 카테고리로 검색
     @Test
     void searchByCateLikeTest(){
-        PdtDto.SearchData dto = PdtDto.SearchData.builder().addressSi("인천").addressGu("부평").addressDong("부평1").start(1).end(1).pdtCate("가").build();
+        PdtDto.ListData dto = PdtDto.ListData.builder().addressSi("인천").addressGu("부평").addressDong("부평1").start(1).end(1).pdtCate("가").build();
 
-        List<PdtDto.ReadList> result = pdtRepo.searchByKeywordLike(dto);
+        List<PdtDto.ReadList> result = pdtRepo.findAllByData(dto);
 
         Assertions.assertThat(result).hasSize(1);
 

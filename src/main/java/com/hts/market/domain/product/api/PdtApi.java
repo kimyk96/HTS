@@ -48,16 +48,10 @@ public class PdtApi {
         return ResponseEntity.ok().body(result);
     }
 
-    // 회원별(지정지역) 상품목록보기
-    @GetMapping("find-all-by-pdt-address-no")
-    public ResponseEntity<List<PdtDto.ReadList>> findAllByAddressNo(@Valid  PdtDto.AddressData dto, Principal principal, BindingResult bindingResult) {
-        return ResponseEntity.ok().body(pdtApp.findAllByPdtAddressNo(dto, principal.getName()));
-    }
-
-    // 제목+내용, 카테고리 검색
-    @GetMapping("find-by-keyword-like")
-    public ResponseEntity<List<PdtDto.ReadList>> findByKeywordLike(@Valid PdtDto.SearchData dto, Principal principal) {
-        return ResponseEntity.ok().body(pdtApp.findByPdtKeywordLike(dto));
+    // 목록 조회
+    @GetMapping("find-all-by-data")
+    public ResponseEntity<List<PdtDto.ReadList>> findAllByData(@Valid  PdtDto.ListData dto, Principal principal, BindingResult bindingResult) {
+        return ResponseEntity.ok().body(pdtApp.findAllByData(dto, principal.getName()));
     }
 
     // 판매자 찾기

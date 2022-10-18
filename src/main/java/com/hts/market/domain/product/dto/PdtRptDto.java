@@ -19,7 +19,6 @@ public class PdtRptDto {
         private Long rptMemNo;
         @NotNull
         private Long rptMsgNo;
-
     }
 
     @Data

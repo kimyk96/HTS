@@ -22,7 +22,7 @@ public class PdtRptApi {
     // 신고등록
     @PostMapping("save")
     public ResponseEntity<Integer> save(@Valid PdtRptDto.Create dto, Principal principal){
-        return ResponseEntity.ok().body(pdtRptApp.save(dto));
+        return ResponseEntity.ok().body(pdtRptApp.save(dto, principal.getName()));
     }
 
     // 신고목록
