@@ -21,10 +21,10 @@ public class PdtImgApi {
     private PdtImgApp pdtImgApp;
 
     // 이미지저장
-    @PostMapping("save-files")
-    public ResponseEntity<Integer> saveFiles(@Valid PdtImgDto.ListFile dto, Principal principal) throws IOException {
-        return ResponseEntity.ok().body(pdtImgApp.save(dto));
-    }
+//    @PostMapping("save-files")
+//    public ResponseEntity<Integer> saveFiles(@Valid PdtImgDto.ListFile dto, Principal principal) throws IOException {
+//        return ResponseEntity.ok().body(pdtImgApp.save(dto));
+//    }
     // 이미지수정
     @PutMapping("update-files")
     public ResponseEntity<Integer> updateFile(@Valid PdtImgDto.ListFile dto, Principal principal) throws IOException{

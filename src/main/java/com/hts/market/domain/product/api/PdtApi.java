@@ -46,7 +46,6 @@ public class PdtApi {
     }
 
     // 판맥글 보기
-    // 현재 문제 이미지가 2개 이상들어간 글을 조회할 수 없음 이미지 테이블 제외해야할 것 같음
     @GetMapping("find-by-pdt-no")
     public ResponseEntity<PdtDto.Detail> findByPdtNo(@NotNull Long pdtNo, Principal principal){
         PdtDto.Detail result = pdtApp.findByPdtNo(pdtNo, principal.getName());
