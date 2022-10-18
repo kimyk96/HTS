@@ -48,7 +48,6 @@ public class PdtDto {
         private String pdtDesc;
         private Integer pdtStatus;
         private Integer pdtPrice;
-        @NotEmpty
         private List<MultipartFile> images;
     }
 
