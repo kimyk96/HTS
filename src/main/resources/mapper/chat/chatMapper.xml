@@ -6,21 +6,30 @@
         <selectKey resultType="long" order="BEFORE" keyProperty="chatMsgNo">
             select nvl(max(chat_msg_no),0)+1 from chat where chat_mem_no =#{chatMemNo} and chat_pdt_no =#{chatPdtNo}
         </selectKey>
-        insert into
-        CHAT(chat_msg_no, chat_mem_no, chat_pdt_no, chat_content)
-        values
-        (#{chatMsgNo},#{chatMemNo},#{chatPdtNo},#{chatContent})
+        insert
+                into
+                    CHAT(chat_msg_no, chat_mem_no, chat_pdt_no, chat_content)
+                values
+                    (#{chatMsgNo},#{chatMemNo},#{chatPdtNo},#{chatContent})
     </insert>
 
-    <!--countChatByPdtNo-->
+    <!--상품별 메세지 현황-->
     <select id="countChatByPdtNo" resultType="int">
-        SELECT COUNT (DISTINCT chat_mem_no) FROM chat where  chat_pdt_no = #{chatPdtNo};
+        SELECT
+            COUNT
+                (DISTINCT chat_mem_no)
+            FROM
+                chat where  chat_pdt_no = #{chatPdtNo}
 
     </select>
 
-    <!--countChatByPdtNoAndMemNo-->
+    <!--관심목록-->
     <select id="countChatByPdtNoAndMemNo" resultType="boolean">
-        SELECT COUNT (DISTINCT chat_mem_no) FROM chat where  chat_pdt_no = #{chatPdtNo} And chat_mem_no= #{chatMemNo};
+        SELECT
+            COUNT
+                (DISTINCT chat_mem_no)
+            FROM
+                chat where  chat_pdt_no = #{chatPdtNo} And chat_mem_no= #{chatMemNo}
 
     </select>
 
