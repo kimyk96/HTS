@@ -19,16 +19,15 @@ public class PdtRptApp {
     //@Scheduled(cron = "* * * * * *")
     // 신고등록
     public Integer save(PdtRptDto.Create dto, String userName){
-        PdtRptDto.Read memNo =
-                pdtRptRepo.findIdByReadDto(
-                        PdtRptDto.Read.builder()
-                                .rptMemNo(dto.getRptMemNo())
-                                .rptPdtNo(dto.getRptPdtNo())
-                                .build());
+        dto.setRptMemNo(memRepo.findIdByMemUsername(userName));
+        PdtRptDto.Read memNo = pdtRptRepo.findIdByReadDto(
+                PdtRptDto.Read
+                        .builder()
+                        .rptMemNo(memRepo.findIdByMemUsername(userName))
+                        .rptPdtNo(dto.getRptPdtNo())
+                        .build());
 
-        Long writerNo = memRepo.findIdByMemUsername(userName);
-
-        if (memNo.equals(writerNo)){
+        if (dto.getRptMemNo().equals(memNo)){
             throw new ReportSaveFailException();
         }
         return pdtRptRepo.save(dto);

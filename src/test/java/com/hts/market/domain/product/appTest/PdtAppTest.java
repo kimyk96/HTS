@@ -1,19 +1,18 @@
 package com.hts.market.domain.product.appTest;
 
-import com.hts.market.domain.product.app.PdtCateApp;
+import com.hts.market.domain.product.app.PdtApp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 @Transactional
-public class PdtCategoryAppTest {
+public class PdtAppTest {
     @Autowired
-    private PdtCateApp pdtCateApp;
-
-//    @Test
-//    void findAll(){
-//        List<PdtCateDto.Read> result = pdtCateApp.findAll();
-//        Assertions.assertThat(result).hasSize(19);
+    PdtApp pdtApp;
+//
+//    @BeforeEach
+//    void saveTest(){
+//        PdtDto.Create dto = PdtDto.Create.builder().build();
 //    }
 }

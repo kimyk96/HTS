@@ -37,8 +37,8 @@ public class PdtApp {
     @Value("${hts.imgUrl}") private String imgUrl;
 
     // 판매글 작성
-    public Integer save(PdtDto.Create dto, String memUsername) {
-        dto.setPdtSellerNo(memRepo.findIdByMemUsername(memUsername));
+    public Integer save(PdtDto.Create dto, String userName) {
+        dto.setPdtSellerNo(memRepo.findIdByMemUsername(userName));
         return pdtRepo.save(dto);
     }
 

@@ -3,7 +3,6 @@ package com.hts.market.domain.product.repoTest;
 import com.hts.market.domain.product.dto.PdtCateDto;
 import com.hts.market.domain.product.repo.PdtCateRepo;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,9 +16,9 @@ class PdtCateRepoTest {
     @Autowired
     PdtCateRepo pdtCateRepo;
 
-    @BeforeEach
+    @Test
     void saveTest(){
-        PdtCateDto.Create dto = PdtCateDto.Create.builder().pdtCate("가전").build();
+        PdtCateDto.Create dto = PdtCateDto.Create.builder().pdtCate("test").build();
 
         Integer result = pdtCateRepo.save(dto);
 
@@ -28,6 +27,6 @@ class PdtCateRepoTest {
     @Test
     void  findAll(){
         List<PdtCateDto.Read> result = pdtCateRepo.findAll();
-        Assertions.assertThat(result).hasSize(1);
+        Assertions.assertThat(result).hasSize(19);
     }
 }
