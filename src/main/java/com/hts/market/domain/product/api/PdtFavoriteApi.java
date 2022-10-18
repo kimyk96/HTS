@@ -8,7 +8,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.security.Principal;
 import java.util.List;
 
@@ -22,16 +21,16 @@ public class PdtFavoriteApi {
     // 관심등록
     @PostMapping("save")
     public ResponseEntity<Integer> save(@Valid PdtFavoriteDto.Create dto, Principal principal){
-        return ResponseEntity.ok().body(pdtFavoriteApp.save(dto));
+        return ResponseEntity.ok().body(pdtFavoriteApp.save(dto, principal.getName()));
     }
     // 관심해제
     @DeleteMapping("delete")
     public ResponseEntity<Integer> delete(@Valid PdtFavoriteDto.Delete dto, Principal principal){
-        return ResponseEntity.ok().body(pdtFavoriteApp.delete(dto));
+        return ResponseEntity.ok().body(pdtFavoriteApp.delete(dto, principal.getName()));
     }
     // 관심목록
     @GetMapping("/find-all-of-favorite-list")
-    public ResponseEntity<List<PdtFavoriteDto.ReadList>> findAllOfFavoriteList(@NotNull Long memNo, Principal principal){
-        return ResponseEntity.ok().body(pdtFavoriteApp.findAllOfFavoriteList(memNo));
+    public ResponseEntity<List<PdtFavoriteDto.ReadList>> findAllOfFavoriteList(Principal principal){
+        return ResponseEntity.ok().body(pdtFavoriteApp.findAllOfFavoriteList(principal.getName()));
     }
 }

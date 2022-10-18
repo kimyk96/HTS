@@ -12,8 +12,8 @@
             ( #{rptNo}, #{rptPdtNo}, #{rptMemNo}, #{rptMsgNo})
     </insert>
     <!-- 신고자번호 조회 -->
-    <select id="findIdByRptMemNo" resultType="long">
-        select rpt_mem_no from product_report where rpt_mem_no = #{rptMemNo}
+    <select id="findIdByReadDto" resultType="com.hts.market.domain.product.dto.PdtRptDto$Read">
+        select rpt_mem_no from product_report where rpt_mem_no = #{rptMemNo} and rpt_pdt_no = #{rptPdtNo}
     </select>
     <!-- 신고목록 -->
     <select id="findAllByDto" resultType="com.hts.market.domain.product.dto.PdtRptDto$Read">

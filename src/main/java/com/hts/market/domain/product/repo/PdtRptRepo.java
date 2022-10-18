@@ -17,7 +17,9 @@ public interface PdtRptRepo {
     public Integer deleteByRptMemNo(PdtRptDto.Delete dto);
     // 상품별 삭제
     public Integer deleteByRptPdtNo(Long pdtNo);
+
+    public PdtRptDto.Read findIdByReadDto(PdtRptDto.Read dto);
     // 신고자번호 조회
-    public Long findIdByRptMemNo(Long MemNo);
+
 
 }
