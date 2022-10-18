@@ -75,6 +75,18 @@ public class ChatRepoTest {
         //THEN
         Assertions.assertThat(result).hasSize(20);
     }
+
+    @DisplayName("4)회원 관심")
+    @Test
+    public void countChatByPdtNoAndMemNo (){
+        //GIVEN
+
+        //WHEN
+
+        //THEN
+        Assertions.assertThat().
+    }
+
 }
 
 

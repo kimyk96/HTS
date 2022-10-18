@@ -73,9 +73,9 @@ public class ChatApp {
 
     // 상품별 관심
 
-    public Boolean countChatByPdtNoAndMemNo (Long chatPdtNo, Long chatMemNo) {
-     Boolean a = chatRepo.countChatByPdtNoAndMemNo(chatPdtNo, chatMemNo);
-     if(chatPdtNo == chatMemNo){
+    public Boolean countChatByPdtNoAndMemNo (ChatDto.ChatLike chatLike) {
+     Boolean like = chatRepo.countChatByPdtNoAndMemNo();
+     if(like == true){
          return true;
 
      }

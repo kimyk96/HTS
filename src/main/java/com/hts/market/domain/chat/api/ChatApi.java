@@ -54,8 +54,8 @@ public class ChatApi {
 
     // 상품별 관심
     @GetMapping("count-chat-by-pdt-no-and-mem-no")
-    public ResponseEntity<Boolean> countChatByPdtNoAndMemNo (Long chatPdtNo, Long chatMemNo){
-        boolean count = chatApp.countChatByPdtNoAndMemNo(chatPdtNo, chatMemNo);
+    public ResponseEntity<Boolean> countChatByPdtNoAndMemNo (ChatDto.ChatLike chatLike){
+        boolean count = chatApp.countChatByPdtNoAndMemNo(chatLike);
         return ResponseEntity.ok().body(count);
     };
 

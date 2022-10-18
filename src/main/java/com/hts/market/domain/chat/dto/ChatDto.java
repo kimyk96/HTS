@@ -82,6 +82,14 @@ public class ChatDto {
         private PdtDto.Detail product;
         private List<ChatDto.Read> chat;
     }
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class ChatLike{
+        private Long chatMemNo;
+        private Long chatPdtNo;
+    }
 
 
 }
