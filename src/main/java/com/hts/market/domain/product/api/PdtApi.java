@@ -35,7 +35,7 @@ public class PdtApi {
 
     // 상품수정
     @PutMapping("update")
-    public ResponseEntity<Integer> update(@Valid PdtDto.Update dto, Principal principal) throws IOException {
+    public ResponseEntity<Integer> update(@Valid PdtDto.Update dto, Principal principal, BindingResult bindingResult) throws IOException {
         Integer pdtUpdate = pdtApp.update(dto, principal.getName());
         Integer pdtImgUpdate = pdtImgApp.update(PdtImgDto.ListFile.builder().pdtNo(dto.getPdtNo()).files(dto.getImages()).build());
         return ResponseEntity.ok().body(1);
