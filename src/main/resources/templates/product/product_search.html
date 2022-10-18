@@ -1,14 +1,20 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>상품</title>
+    <title>상품검색</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="/css/main.css">
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-    <script src="js/main.js" charset="UTF-8"></script>
+    <script src="/js/main.js" charset="UTF-8"></script>
     <style>
-        /* 상품 */
+        /* 상품 검색 */
         #main section#product{ width : 95%; padding : 0 2.5%; display : flex; flex-direction: column; justify-content: center; align-items: center; }
+        #main #product div{ width : 100%; }
+        #main #product div input{ width : 100%; padding : 15px; border-radius: 10px; border : 2px solid #efefef; font-size : 16px; font-weight : 400; margin : 7px 0; letter-spacing: -1px; ;}
+        #main #product div button{ background-color : #FF9D2A; color : #fff; width : 100%; padding : 10px; border-radius: 10px; border : 2px solid #efefef; font-size : 17px; font-weight : 400; margin : 7px 0; letter-spacing: -1px; ;}
+        #main #product div button:disabled, button[disabled]{ background-color: transparent; }
+
+
         #main section#product ul{ width : 100%; display: flex; flex-direction: column; justify-content: center; }
         #main section#product ul li{ width : 100%; border-bottom : 1px solid #efefef; padding : 3.5vw 0; display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start; }
         #main section#product ul li div.img_wrapper{ width : 30%; }
@@ -30,49 +36,34 @@
     </style>
 </head>
 <body>
-    <!-- 상단 메뉴바 -->
-    <header id="header">
+<!-- 상단 메뉴바 -->
+<header id="header">
+    <div>
+        <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
         <div>
-            <select name="address" id="address"></select>
+            <h2>
+                상품 검색
+            </h2>
+        </div>
+    </div>
+    <div>
+        <select name="address" id="address"></select>
+    </div>
+</header>
+<!-- 메인정보 -->
+<main id="main">
+    <section id="product">
+        <div>
+            <input type="text" id="search_keyword" placeholder="제목 + 본문으로 검색하기">
+<!--            <button id="btn_submit">검색</button>-->
         </div>
         <div>
-            <ul>
-                <li id="header_search" onclick="$(location).attr('href', '/product/search')"><img src="img/icon/search.png" alt="search"></li>
-                <li id="header_menu"><img src="img/icon/menu.png" alt="menu"></li>
-                <li id="header_notification"><img src="img/icon/notification.png" alt="notification"></li>
+            <ul id="search_list">
+                <li>검색어를 입력 해주세요</li>
             </ul>
         </div>
-    </header>
-    <!-- 메인정보 -->
-    <main id="main">
-        <section id="product">
-            <ul></ul>
-        </section>
-    </main>
-    <!-- 하단 메뉴바 -->
-    <nav id="nav">
-        <div id="btn_add" onclick="$(location).attr('href', '/product/upload')">
-            <img src="img/icon/add.png" alt="btn_add">
-        </div>
-        <ul>
-            <li id="nav_product" class="selected">
-                <img src="img/icon/product.png" alt="nav_product">
-                <p>홈</p>
-            </li>
-            <li id="nav_board">
-                <img src="img/icon/board.png" alt="nav_board">
-                <p>동네생활</p>
-            </li>
-            <li id="nav_chat">
-                <img src="img/icon/chat.png" alt="nav_chat">
-                <p>채팅</p>
-            </li>
-            <li id="nav_member">
-                <img src="img/icon/member.png" alt="nav_member">
-                <p>나의 한라봉</p>
-            </li>
-        </ul>
-    </nav>
+    </section>
+</main>
 
     <script>
         $(function(){
@@ -91,30 +82,47 @@
                         .text(item.addressDong)
                         .appendTo($address);
                 }
-                $("#product ul").empty();
-                getPdtList(res.address[0].addressSi, res.address[0].addressGu, res.address[0].addressDong, "", "", 1, 10);
+
             })
 
             $("#address").change(function() {
-                let addressSi = $(this).find(':selected').data('si');
-                let addressGu = $(this).find(':selected').data('gu');
-                let addressDong = $(this).find(':selected').data('dong');
-                $("#product ul").empty();
-                getPdtList(addressSi, addressGu, addressDong,  "", "", 1, 10);
+                let si = $(this).find(':selected').data('si');
+                let gu = $(this).find(':selected').data('gu');
+                let dong = $(this).find(':selected').data('dong');
+                getPdtList(si, gu, dong, "", "", 1, 10);
+            });
+            let lastKeyword;
+            $("#search_keyword").on("input", async function(){
+                if($("#search_keyword").val()==lastKeyword){
+                    return;
+                }
+                console.log("change detected")
+                let si = $("#address").find(':selected').data('si');
+                let gu = $("#address").find(':selected').data('gu');
+                let dong = $("#address").find(':selected').data('dong');
+                await getPdtList(si, gu, dong, $("#search_keyword").val(), "", 1, 10);
+                lastKeyword=$("#search_keyword").val();
             });
 
-        })
+        });
+
 
         // 상품 목록 검색
-        function getPdtList(addressSi, addressGu, addressDong, keyword, pdtCate, start, end){
-            $.ajax({
+        async function getPdtList(addressSi, addressGu, addressDong, keyword, pdtCate, start, end){
+            if(keyword==""){
+                return;
+            }
+            if(start==1){
+                $("#search_list").empty();
+            }
+
+            await $.ajax({
                 method: "GET",
                 url: "/api/v1/pdt/find-all-by-data",
                 data : {addressSi, addressGu, addressDong, keyword, pdtCate, start, end}
             })
             .done(function(res){
-                let $ul = $("#product ul");
-                console.log(res);
+                let $ul = $("#search_list");
                 for( li of res ){
                     $(`
                     <li onclick="$(location).attr('href', '/product/' + ${li.pdtNo})">
@@ -134,11 +142,11 @@
                             </div>
                             <div class="count">
                                 <p class="count_chat">
-                                    <img src="img/icon/chat.png" alt="chat_count" class="${ li.chatCheck ? 'selected' : '' }">
+                                    <img src="/img/icon/chat.png" alt="chat_count" class="${ li.chatCheck ? 'selected' : '' }">
                                     <span>${li.chatCount}</span>
                                 </p>
                                 <p class="count_like">
-                                    <img src="img/icon/member.png" alt="like_count" class="${ li.favoriteCheck ? 'selected' : '' }">
+                                    <img src="/img/icon/member.png" alt="like_count" class="${ li.favoriteCheck ? 'selected' : '' }">
                                     <span>${li.favoriteCount}</span>
                                 </p>
                             </div>

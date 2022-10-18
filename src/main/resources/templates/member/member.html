@@ -3,9 +3,9 @@
     <meta charset="UTF-8">
     <title>회원</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="/css/main.css">
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-    <script src="js/main.js" charset="UTF-8"></script>
+    <script src="/js/main.js" charset="UTF-8"></script>
     <style>
         /* 회원 */
         #main section#member{ width : 100%; display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start; }
@@ -59,7 +59,7 @@
             <div class="wrapper">
                 <div class="profile" onclick="$(location).attr('href', '/member/profile');">
                     <div class="img">
-                        <img src="img/example/profile.png" alt="profile_img" id="img_path">
+                        <img src="/img/example/profile.png" alt="profile_img" id="img_path">
                     </div>
                     <div class="info">
                         <h3 id="mem_nickname"></h3>
@@ -67,7 +67,7 @@
                         <p id="mem_created_at"></p>
                     </div>
                     <div class="arrow">
-                        <img src="img/icon/arrow_right.png" alt="arrow_right">
+                        <img src="/img/icon/arrow_right.png" alt="arrow_right">
                     </div>
                 </div>
                 <div class="brix">
@@ -82,7 +82,7 @@
                 </div>
                 <div class="kakao_pay">
                     <span class="kakao_pay_img">
-                        <img src="img/icon/kakao.png" alt="kakao"> <span>pay</span>
+                        <img src="/img/icon/kakao.png" alt="kakao"> <span>pay</span>
                     </span>
                     <span>
                         중고 거래도 카카오페이로 결제 하실수 있어요!
@@ -91,19 +91,19 @@
                 <div class="transaction">
                     <div onclick="$(location).attr('href', '/transaction/sell');">
                         <span>
-                            <img src="img/icon/sell.png" alt="sell">
+                            <img src="/img/icon/sell.png" alt="sell">
                         </span>
                         <p>판매내역</p>
                     </div>
                     <div onclick="$(location).attr('href', '/transaction/purchase');">
                         <span>
-                            <img src="img/icon/buy.png" alt="buy">
+                            <img src="/img/icon/buy.png" alt="buy">
                         </span>
                         <p>구매내역</p>
                     </div>
                     <div onclick="$(location).attr('href', '/member/like');">
                         <span>
-                            <img src="img/icon/heart.png" alt="heart">
+                            <img src="/img/icon/heart.png" alt="heart">
                         </span>
                         <p>관심목록</p>
                     </div>
@@ -115,37 +115,37 @@
                     <li onclick="$(location).attr('href', '/member/address-list');">
                         <span>내 동네 설정</span>
                         <span>
-                            <img src="img/icon/arrow_right.png" alt="arrow">
+                            <img src="/img/icon/arrow_right.png" alt="arrow">
                         </span>
                     </li>
                     <li onclick="$(location).attr('href', '/member/address');">
                         <span>가계부</span>
                         <span>
-                            <img src="img/icon/arrow_right.png" alt="arrow">
+                            <img src="/img/icon/arrow_right.png" alt="arrow">
                         </span>
                     </li>
                     <li onclick="$(location).attr('href', '/member/address');">
                         <span>내 글/댓글</span>
                         <span>
-                            <img src="img/icon/arrow_right.png" alt="arrow">
+                            <img src="/img/icon/arrow_right.png" alt="arrow">
                         </span>
                     </li>
                     <li onclick="$(location).attr('href', '/member/address');">
                         <span>판매상품</span>
                         <span>
-                            <img src="img/icon/arrow_right.png" alt="arrow">
+                            <img src="/img/icon/arrow_right.png" alt="arrow">
                         </span>
                     </li>
                     <li onclick="$(location).attr('href', '/member/address');">
                         <span>받은 후기</span>
                         <span>
-                            <img src="img/icon/arrow_right.png" alt="arrow">
+                            <img src="/img/icon/arrow_right.png" alt="arrow">
                         </span>
                     </li>
                     <li onclick="$(location).attr('href', '/member/address');">
                         <span>공지사항</span>
                         <span>
-                            <img src="img/icon/arrow_right.png" alt="arrow">
+                            <img src="/img/icon/arrow_right.png" alt="arrow">
                         </span>
                     </li>
                 </ul>
@@ -156,19 +156,19 @@
     <nav id="nav">
         <ul>
             <li id="nav_product">
-                <img src="img/icon/product.png" alt="nav_product">
+                <img src="/img/icon/product.png" alt="nav_product">
                 <p>홈</p>
             </li>
             <li id="nav_board">
-                <img src="img/icon/board.png" alt="nav_board">
+                <img src="/img/icon/board.png" alt="nav_board">
                 <p>동네생활</p>
             </li>
             <li id="nav_chat">
-                <img src="img/icon/chat.png" alt="nav_chat">
+                <img src="/img/icon/chat.png" alt="nav_chat">
                 <p>채팅</p>
             </li>
             <li id="nav_member" class="selected">
-                <img src="img/icon/member.png" alt="nav_member">
+                <img src="/img/icon/member.png" alt="nav_member">
                 <p>나의 한라봉</p>
             </li>
         </ul>

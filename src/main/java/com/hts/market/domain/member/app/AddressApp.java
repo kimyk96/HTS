@@ -12,6 +12,11 @@ import java.util.List;
 public class AddressApp {
     @Autowired AddressRepo addressRepo;
     @Autowired MemRepo memRepo;
+
+    // 주소 조회
+    public List<AddressDto.Read> findAllByName(String memUsername){
+        return addressRepo.findAllByName(memRepo.findIdByMemUsername(memUsername));
+    }
     
     // 주소 생성
     public Integer save(AddressDto.Create dto, String memUsername) {

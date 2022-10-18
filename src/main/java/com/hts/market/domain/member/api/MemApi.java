@@ -58,6 +58,12 @@ public class MemApi {
         return ResponseEntity.ok().body(memApp.findByName(principal.getName()));
     }
 
+    // 타 회원 정보 조회
+    @GetMapping("find-by-id")
+    public ResponseEntity<MemDto.Member> findById(Long memNo){
+        return ResponseEntity.ok().body(memApp.findById(memNo));
+    }
+
     @PatchMapping("update-profile")
     public ResponseEntity<Integer> updateProfileByName(MemDto.Profile dto, Principal principal){
         return ResponseEntity.ok().body(memApp.updateProfile(dto, principal.getName()));

@@ -4,10 +4,11 @@
     <title>상품상세</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="/css/main.css">
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-    <script src="js/main.js" charset="UTF-8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/js/main.js" charset="UTF-8"></script>
     <style>
         /* 상품 상세 */
         #main{ margin: 0 0 70px 0; position : relative }
@@ -47,8 +48,8 @@
 
         #main section#btn_action{ width : 90%; height : 50px; padding : 10px 5%; display : flex; flex-direction: row; justify-content: space-between; align-items: center; background-color : #fff; position : fixed; bottom : 0; left : 0;  }
         #main section#btn_action div{ display : flex; align-items: center; }
-        #main section#btn_action div img{ content: url(img/icon/like.png); width : 25px; padding-right : 10px; margin-right : 10px; border-right : 1px solid #efefef; }
-        #main section#btn_action div img.selected{ content: url(img/icon/like_selected.png); }
+        #main section#btn_action div img{ content: url(/img/icon/like.png); width : 25px; padding-right : 10px; margin-right : 10px; border-right : 1px solid #efefef; }
+        #main section#btn_action div img.selected{ content: url(/img/icon/like_selected.png); }
         #main section#btn_action div div{ display: flex; flex-direction: column; align-items: flex-start; }
         #main section#btn_action div p{ font-size : 15px; opacity : 0.5; }
         #main section#btn_action div p.pdt_price{ font-weight: 600; opacity : 1; }
@@ -56,137 +57,75 @@
     </style>
 </head>
 <body>
-    <!-- 상단 메뉴바 -->
-    <!-- <header id="header">
-        <div>
-            <img src="img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
-            <img src="img/icon/product.png" alt="nav_product" id="nav_product">
-            <div>
-                <h2>부평1동</h2>
-            </div>
-        </div>
-        <div>
-            <ul>
-                <li id="header_search"><img src="img/icon/search.png" alt="search"></li>
-                <li id="header_menu"><img src="img/icon/menu.png" alt="menu"></li>
-                <li id="header_notification"><img src="img/icon/notification.png" alt="notification"></li>
-            </ul>
-        </div>
-    </header> -->
     <!-- 메인정보 -->
     <main id="main">
         <section id="btn_nav">
             <div>
-                <img src="img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
-                <img src="img/icon/product.png" alt="nav_product" id="nav_product">
+                <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
+                <img src="/img/icon/product.png" alt="nav_product" id="nav_product">
             </div>
         </section>
-        <section id="product_detail">
+        <section id="product_detail" th:attr="data-pdt-no=${pdtNo}">
             <div class="swiper">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <img src="img/example/square.png" alt="product_image">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="img/example/square.png" alt="product_image">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="img/example/square.png" alt="product_image">
-                    </div>
-                </div>
+                <div class="swiper-wrapper"></div>
                 <div class="swiper-pagination"></div>
             </div>
             <div class="mem_info">
                 <div class="mem_left">
-                    <img src="img/example/profile.png" alt="profile" class="mem_profile_image">
+                    <img src="/img/example/profile.png" alt="profile" class="mem_profile_image">
                     <div>
-                        <p class="mem_nickname">한라봉 소년단</p>
-                        <p class="mem_address">부평구 부평1동</p>
+                        <p class="mem_nickname"></p>
+                        <p class="mem_address"></p>
                     </div>
                 </div>
                 <div class="mem_right">
-                    <p class="mem_brix">55 브릭스</p>
+                    <p class="mem_brix"></p>
                     <p class="mem_brix_title">당도</p>
                 </div>
             </div>
             <div class="pdt_info">
-                <h3 class="pdt_title">
-                    삼성 메모리 ddr4 2400T 16gb 2개 
-                </h3>
+                <h3 class="pdt_title"></h3>
                 <div>
-                    <span class="pdt_cate">디지털기기</span>
-                    <span class="pdt_created_at">5분 전</span>
+                    <span class="pdt_cate"></span>
+                    <span class="pdt_created_at"></span>
                 </div>
-                <div class="pdt_desc">
-                    데스크탑용 정상작동<br>16gb 2개 일괄<br>학익동<br><br><br><br>
-                    동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세, 무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세. 남산위에 저 소나무 철갑을 두른듯 바람 서리 불변함은 우리 기상 일세, 무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세.
-                </div>
+                <div class="pdt_desc"></div>
                 <div class="pdt_counts">
-                    관심 <span class="pdt_likes">2</span> 조회 <span class="pdt_views">6</span>
+                    관심 <span class="pdt_likes"></span> 조회 <span class="pdt_views"></span>
                 </div>
             </div>
             <div class="pdt_rpt_info pdt_list">
                 <div class="pdt_plusmenu">
                     <span>이 게시글 신고하기</span>
-                    <img src="img/icon/arrow_right.png" alt="arrow_right">
+                    <img src="/img/icon/arrow_right.png" alt="arrow_right">
                 </div>
             </div>
             <div class="mem_transaction_info pdt_list">
                 <div class="pdt_plusmenu">
-                    <span>한라봉 소년님의 판매 내역</span>
-                    <img src="img/icon/arrow_right.png" alt="arrow_right">
+                    <span><span class="mem_nickname"></span>님의 판매 내역</span>
+                    <img src="/img/icon/arrow_right.png" alt="arrow_right">
                 </div>
                 <div class="pdt_list_wrapper">
-                    <ul>
-                        <li>
-                            <img src="img/example/square.png" alt="productImg">
-                            <div>
-                                <p class="item_title">삼성 65인치 4k 크리스탈 울트라 캡숑 모니터 짱짱짱</p>
-                                <p class="item_price">850,000원</p>
-                            </div>
-                        </li>
-                        <li>
-                            <img src="img/example/square.png" alt="productImg">
-                            <div>
-                                <p class="item_title">삼성 65인치 4k 크리스탈 울트라 캡숑 모니터 짱짱짱</p>
-                                <p class="item_price">850,000원</p>
-                            </div>
-                        </li>
-                    </ul>
+                    <ul></ul>
                 </div>    
             </div>
             <div class="pdt_cate_recommend pdt_list">
                 <div class="pdt_plusmenu">
                     <span>카테고리 추천</span>
-                    <img src="img/icon/arrow_right.png" alt="arrow_right">
+                    <img src="/img/icon/arrow_right.png" alt="arrow_right">
                 </div>
                 <div class="pdt_list_wrapper">
-                    <ul>
-                        <li>
-                            <img src="img/example/square.png" alt="productImg">
-                            <div>
-                                <p class="item_title">삼성 65인치 4k 크리스탈 울트라 캡숑 모니터 짱짱짱</p>
-                                <p class="item_price">850,000원</p>
-                            </div>
-                        </li>
-                        <li>
-                            <img src="img/example/square.png" alt="productImg">
-                            <div>
-                                <p class="item_title">삼성 65인치 4k 크리스탈 울트라 캡숑 모니터 짱짱짱</p>
-                                <p class="item_price">850,000원</p>
-                            </div>
-                        </li>
-                    </ul>
+                    <ul></ul>
                 </div> 
             </div>
         </section>
         <section id="btn_action">
             <div>
-                <div >
-                    <img src="img/icon/like.png" alt="like">
+                <div>
+                    <img src="/img/icon/like.png" alt="like">
                 </div>
                 <div>
-                    <p class="pdt_price">100,000원</p>
+                    <p class="pdt_price"></p>
                     <p>가격제안불가</p>
                 </div>
             </div>
@@ -196,12 +135,95 @@
         </section>
     </main>
     <script>
-        /* 상품 사진 스와이퍼 */
-        const swiper = new Swiper('.swiper', {
-            direction: 'horizontal',
-            loop: true,
-            pagination: { el: '.swiper-pagination', }
-        });
+        $(function(){
+            let pdtNo = $("#product_detail").data("pdt-no");
+
+            $.ajax({
+                method:'GET',
+                url:'/api/v1/pdt/find-by-pdt-no',
+                data:{pdtNo : pdtNo}
+            })
+            .done(function(res){
+                console.log(res);
+
+                // 제품 사진
+                for( img of res.images ){
+                    $(`<div class="swiper-slide"> <img src="${img.imgPath}" alt="product_image"> </div>`).appendTo(".swiper-wrapper")
+                }
+
+                /* 상품 사진 스와이퍼 */
+                const swiper = new Swiper('.swiper', {
+                    direction: 'horizontal',
+                    loop: true,
+                    pagination: { el: '.swiper-pagination', }
+                });
+
+
+                // 회원 정보
+                $(".mem_profile_image").attr("src", res.member.imgPath)
+                $(".mem_nickname").text(res.member.memNickname)
+                $(".mem_address").text(res.address.addressGu + " " + res.address.addressDong)
+                $(".mem_brix").text(res.member.memBrix + " 브릭스")
+                $(".mem_info").attr("onclick", "$(location).attr('href', '/member/"+ res.member.memNo +"')")
+                // 제품 정보
+                $(".pdt_title").text(res.product.pdtName);
+                $(".pdt_cate").text(res.pdtCate);
+                $(".pdt_created_at").text(res.product.pdtCreatedAt);
+                $(".pdt_desc").text(res.product.pdtDesc);
+                $(".pdt_views").text(res.product.pdtViews);
+                $(".pdt_likes").text(res.product.favoriteCount);
+                // 판매자의 판매내역
+                let $seller_list = $(".mem_transaction_info ul");
+                $seller_list.empty()
+                if(res.sellerList.length==0){
+                    $(".mem_transaction_info").css("display", "none");
+                }else{
+                    for( item of res.sellerList ){
+                        $(`<li onclick="$(location).attr('href', '/product/${item.pdtNo}')">
+                                <img src="${item.imgPath}" alt="productImg">
+                                <div>
+                                    <p class="item_title">${item.pdtName}</p>
+                                    <p class="item_price">${item.pdtPrice}원</p>
+                                </div>
+                            </li>`).appendTo($seller_list)
+                    }
+                }
+                // 카테고리 추천내역
+                let $recommend_list = $(".pdt_cate_recommend ul");
+                $recommend_list.empty();
+                if(res.cateList.length==0){
+                    $(".pdt_cate_recommend").css("display", "none");
+                }else{
+                    for( item of res.cateList ){
+                        $(`<li onclick="$(location).attr('href', '/product/${item.pdtNo}')">
+                                <img src="${item.imgPath}" alt="productImg">
+                                <div>
+                                    <p class="item_title">${item.pdtName}</p>
+                                    <p class="item_price">${item.pdtPrice}원</p>
+                                </div>
+                            </li>`).appendTo($recommend_list)
+                    }
+                }
+                // 하단 버튼 내역
+                if($("#btn_action img").hasClass("selected")){
+                    $("#btn_action img").removeClass("selected");
+                }
+                if(res.product.favoriteCheck==true){
+                    $("#btn_action img").addClass("selected");
+                }
+                $(".pdt_price").text(res.product.pdtPrice +"원");
+
+            })
+            .fail(function(res){
+                Swal.fire({
+                    icon: 'error',
+                    text: res.responseText
+                }).then(function() {
+                    $(location).attr("href", "/product")
+                });
+
+            });
+        })
     </script>
 </body>
 </html>

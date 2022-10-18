@@ -12,16 +12,24 @@
         (#{chatMsgNo},#{chatMemNo},#{chatPdtNo},#{chatContent})
     </insert>
 
-    <!--countChatByPdtNo-->
+    <!--countChatlistByPdtNo-->
     <select id="countChatByPdtNo" resultType="int">
-        SELECT COUNT (DISTINCT chat_mem_no) FROM chat where  chat_pdt_no = #{chatPdtNo};
-
+        SELECT
+            COUNT(DISTINCT chat_mem_no)
+        FROM
+            CHAT
+        WHERE
+            chat_pdt_no=#{chatPdtNo}
     </select>
 
     <!--countChatByPdtNoAndMemNo-->
     <select id="countChatByPdtNoAndMemNo" resultType="boolean">
-        SELECT COUNT (DISTINCT chat_mem_no) FROM chat where  chat_pdt_no = #{chatPdtNo} And chat_mem_no= #{chatMemNo};
-
+        SELECT
+            COUNT(DISTINCT chat_mem_no)
+        FROM
+            CHAT
+        WHERE
+            chat_pdt_no=#{chatPdtNo} and chat_mem_no=#{chatMemNo}
     </select>
 
     <!-- findAllByPk //채팅방목록 및 최근메세지  -->
