@@ -22,7 +22,7 @@ public class PdtDto {
         @NotNull
         private Long pdtCateNo;
         private Long pdtSellerNo;
-        @NotNull(message = "주소가 없습니다")
+        @NotNull
         private Long pdtAddressNo;
         @NotEmpty
         private String pdtName;
