@@ -21,14 +21,11 @@ public class PdtDto {
         private Long pdtNo;
         @NotNull
         private Long pdtCateNo;
-        @NotNull
         private Long pdtSellerNo;
         @NotNull
         private Long pdtAddressNo;
         @NotEmpty
         private String pdtName;
-        @NotNull
-        private Integer pdtStatus;
         @NotNull
         private Integer pdtPrice;
         private List<MultipartFile> images;

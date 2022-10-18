@@ -33,7 +33,7 @@ public class PdtApp {
     private PdtRptRepo pdtRptRepo;
     @Autowired
     private ChatRepo chatRepo;
-
+    private PdtStatus pdtStatus;
     @Value("${hts.imgUrl}") private String imgUrl;
 
     // 판매글 작성
@@ -140,4 +140,8 @@ public class PdtApp {
     public Long findPdtSellerNo(Long pdtSellerNo) {
         return pdtRepo.findSellerNoById(pdtSellerNo);
     }
+}
+
+enum PdtStatus {
+    판매중, 거래중, 판매완료
 }
