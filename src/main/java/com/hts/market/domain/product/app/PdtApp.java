@@ -48,7 +48,7 @@ public class PdtApp {
         return pdtRepo.update(dto);
     }
 
-    // 글 읽기 - 관심수, 조회수 처리
+    // 글 읽기
     public PdtDto.Detail findByPdtNo(Long pdtNo, String userName) {
         // 상품 정보
         PdtDto.Detail dto = pdtRepo.findByPdtNo(pdtNo).orElseThrow(()->new ProductNotFoundException());

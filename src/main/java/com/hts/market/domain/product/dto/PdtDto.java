@@ -22,7 +22,7 @@ public class PdtDto {
         @NotNull
         private Long pdtCateNo;
         private Long pdtSellerNo;
-        @NotNull
+        @NotNull(message = "주소가 없습니다")
         private Long pdtAddressNo;
         @NotEmpty
         private String pdtName;
@@ -30,6 +30,7 @@ public class PdtDto {
         private String pdtDesc;
         @NotNull
         private Integer pdtPrice;
+        @NotEmpty
         private List<MultipartFile> images;
     }
 
