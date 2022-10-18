@@ -19,9 +19,9 @@ public class PdtDto {
     @NoArgsConstructor
     public static class Create {
         private Long pdtNo;
+        private Long pdtSellerNo;
         @NotNull
         private Long pdtCateNo;
-        private Long pdtSellerNo;
         @NotNull
         private Long pdtAddressNo;
         @NotEmpty

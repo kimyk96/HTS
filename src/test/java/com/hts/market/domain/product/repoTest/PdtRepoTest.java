@@ -30,7 +30,7 @@ class PdtRepoTest {
     void saveTest() {
         // given
         PdtDto.Create dto1 =
-                PdtDto.Create.builder().pdtCateNo(1L).pdtSellerNo(1L).pdtAddressNo(1L).pdtName("상품").pdtStatus(1).pdtDesc("설명").pdtPrice(7900).build();
+                PdtDto.Create.builder().pdtCateNo(1L).pdtSellerNo(1L).pdtAddressNo(1L).pdtName("상품").pdtDesc("설명").pdtPrice(7900).build();
         AddressDto.Create dto2 =
                 AddressDto.Create.builder().memNo(1L).addressSi("인천").addressGu("부평").addressDong("부평1").build();
         PdtImgDto.Create dto3 =

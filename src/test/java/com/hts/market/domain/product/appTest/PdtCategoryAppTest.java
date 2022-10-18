@@ -12,7 +12,7 @@ import java.util.List;
 
 @SpringBootTest
 @Transactional
-public class PdtCategoryTest {
+public class PdtCategoryAppTest {
     @Autowired
     private PdtCateApp pdtCateApp;
 

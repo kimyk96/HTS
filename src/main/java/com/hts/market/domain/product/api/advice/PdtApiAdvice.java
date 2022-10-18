@@ -27,7 +27,6 @@ public class PdtApiAdvice {
     public ResponseEntity<String> sellerNotFoundException(){
         return ResponseEntity.status(HttpStatus.CONFLICT).body("해당 작성자를 찾을 수 없습니다");
     }
-
     // pdtCateApiAdvice
     @ExceptionHandler(ProductCategoryNotFoundException.class)
     public ResponseEntity<String > productCategoryNotFoundException(){
