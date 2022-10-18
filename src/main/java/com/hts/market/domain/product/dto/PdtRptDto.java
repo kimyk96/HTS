@@ -15,7 +15,6 @@ public class PdtRptDto {
         private Long rptNo;
         @NotNull
         private Long rptPdtNo;
-        @NotNull
         private Long rptMemNo;
         @NotNull
         private Long rptMsgNo;

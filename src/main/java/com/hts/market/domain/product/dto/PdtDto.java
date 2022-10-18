@@ -19,21 +19,19 @@ public class PdtDto {
     @NoArgsConstructor
     public static class Create {
         private Long pdtNo;
+        private Long pdtSellerNo;
         @NotNull
         private Long pdtCateNo;
-        @NotNull
-        private Long pdtSellerNo;
         @NotNull
         private Long pdtAddressNo;
         @NotEmpty
         private String pdtName;
-        @NotNull
-        private Integer pdtStatus;
         @NotEmpty
         private String pdtDesc;
         @NotNull
         private Integer pdtPrice;
-
+        @NotEmpty
+        private List<MultipartFile> images;
     }
 
     @Data
@@ -43,13 +41,16 @@ public class PdtDto {
     public static class Update {
         @NotNull
         private Long pdtNo;
+        @NotNull
+        private Long pdtSellerNo;
         private Long pdtCateNo;
         private Long pdtAddressNo;
         private String pdtName;
         private String pdtDesc;
         private Integer pdtStatus;
         private Integer pdtPrice;
-
+        @NotEmpty
+        private List<MultipartFile> images;
     }
 
     @Data

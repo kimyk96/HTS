@@ -5,12 +5,14 @@ import com.hts.market.domain.product.dto.PdtImgDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
-import java.security.Principal;
 
 @RestController
 @Validated
@@ -21,25 +23,25 @@ public class PdtImgApi {
     private PdtImgApp pdtImgApp;
 
     // 이미지저장
-    @PostMapping("save-files")
-    public ResponseEntity<Integer> saveFiles(@Valid PdtImgDto.ListFile dto, Principal principal) throws IOException {
-        return ResponseEntity.ok().body(pdtImgApp.save(dto));
-    }
+//    @PostMapping("save-files")
+//    public ResponseEntity<Integer> saveFiles(@Valid PdtImgDto.ListFile dto) throws IOException {
+//        return ResponseEntity.ok().body(pdtImgApp.save(dto));
+//    }
     // 이미지수정
     @PutMapping("update-files")
-    public ResponseEntity<Integer> updateFile(@Valid PdtImgDto.ListFile dto, Principal principal) throws IOException{
+    public ResponseEntity<Integer> updateFile(@Valid PdtImgDto.ListFile dto) throws IOException{
         return ResponseEntity.ok().body(pdtImgApp.update(dto));
     }
 
     // 이미지 개별삭제
     @DeleteMapping("delete-by-img-no")
-    public ResponseEntity<Integer> deleteByImgNo(@Valid PdtImgDto.Delete dto, Principal principal){
+    public ResponseEntity<Integer> deleteByImgNo(@Valid PdtImgDto.Delete dto){
         return ResponseEntity.ok().body(pdtImgApp.deleteByImgNo(dto));
     }
 
     // 이미지 전체삭제
     @DeleteMapping("delete-all")
-    public ResponseEntity<Integer> deleteAll(@NotNull Long pdtNo, Principal principal){
+    public ResponseEntity<Integer> deleteAll(@NotNull Long pdtNo){
         return ResponseEntity.ok().body(pdtImgApp.deleteAll(pdtNo));
     }
 

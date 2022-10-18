@@ -16,8 +16,6 @@ public class PdtImgApp {
     @Autowired
     private PdtImgRepo pdtImgRepo;
 
-
-
     // 이미지 저장
     public Integer save(PdtImgDto.ListFile dto) throws IOException {
        Long i = 0L;

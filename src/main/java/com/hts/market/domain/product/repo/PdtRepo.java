@@ -21,8 +21,7 @@ public interface PdtRepo {
     public List<PdtDto.ReadList> findAllByData(PdtDto.ListData dto);
     // 판매글 삭제
     public Integer delete(PdtDto.Delete dto);
-//    // 키워드 검색
-//    public List<PdtDto.ReadList> searchByKeywordLike(PdtDto.SearchData dto);
     // 판매자 찾기
     public Long findSellerNoById(Long pdtNo);
+
 }

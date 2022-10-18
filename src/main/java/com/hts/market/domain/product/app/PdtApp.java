@@ -33,21 +33,22 @@ public class PdtApp {
     private PdtRptRepo pdtRptRepo;
     @Autowired
     private ChatRepo chatRepo;
-
+    private PdtStatus pdtStatus;
     @Value("${hts.imgUrl}") private String imgUrl;
 
     // 판매글 작성
-    public Integer save(PdtDto.Create dto, String memUsername) {
-        dto.setPdtSellerNo(memRepo.findIdByMemUsername(memUsername));
+    public Integer save(PdtDto.Create dto, String userName) {
+        dto.setPdtSellerNo(memRepo.findIdByMemUsername(userName));
         return pdtRepo.save(dto);
     }
 
     // 판매글 수정
-    public Integer update(PdtDto.Update dto){
+    public Integer update(PdtDto.Update dto, String userName){
+        dto.setPdtSellerNo(memRepo.findIdByMemUsername(userName));
         return pdtRepo.update(dto);
     }
 
-    // 글 읽기 - 관심수, 조회수 처리
+    // 글 읽기
     public PdtDto.Detail findByPdtNo(Long pdtNo, String userName) {
         // 상품 정보
         PdtDto.Detail dto = pdtRepo.findByPdtNo(pdtNo).orElseThrow(()->new ProductNotFoundException());
@@ -139,4 +140,8 @@ public class PdtApp {
     public Long findPdtSellerNo(Long pdtSellerNo) {
         return pdtRepo.findSellerNoById(pdtSellerNo);
     }
+}
+
+enum PdtStatus {
+    판매중, 거래중, 판매완료
 }

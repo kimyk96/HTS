@@ -1,4 +1,4 @@
-package com.hts.market.domain.product.daoTest;
+package com.hts.market.domain.product.repoTest;
 
 import com.hts.market.domain.product.dto.PdtImgDto;
 import com.hts.market.domain.product.repo.PdtImgRepo;
@@ -19,22 +19,22 @@ class PdtImgRepoTest {
     //이미지 저장 테스트
     @BeforeEach
     void save(){
-        PdtImgDto.Create dto = PdtImgDto.Create.builder().pdtNo(1L).imgNo(1L).imgPath("stInDf1241").build();
+        PdtImgDto.Create dto = PdtImgDto.Create.builder().pdtNo(100L).imgNo(1L).imgPath("stInDf1241").build();
 
         Integer result = pdtImgRepo.save(dto);
 
         Assertions.assertThat(result).isEqualTo(1);
     }
 
-    //이미지 수정 테스트
-//   @Test
-//    void update(){
-//        PdtImgDto.ListFile dto = PdtImgDto.Update.builder().imgNo(1L).imgPath(1).pdtNo(1L).build();
-//
-//        Integer result = pdtImgRepo.(dto);
-//
-//        Assertions.assertThat(result).isEqualTo(1);
-//    }
+//    이미지 수정 테스트
+   @Test
+    void update(){
+        PdtImgDto.Update dto = PdtImgDto.Update.builder().imgNo(1L).imgPath("bvc1314").pdtNo(1L).build();
+
+        Integer result = pdtImgRepo.update(dto);
+
+        Assertions.assertThat(result).isEqualTo(1);
+    }
 
     //이미지 삭제 테스트
     @Test
@@ -51,7 +51,7 @@ class PdtImgRepoTest {
     //이미지 삭제 테스트
     @Test
     void deleteAllTest(){
-        Long dto = 1L;
+        Long dto = 100L;
 
         Integer result = pdtImgRepo.deleteAll(dto);
 

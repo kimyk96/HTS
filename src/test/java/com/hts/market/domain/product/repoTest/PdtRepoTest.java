@@ -1,9 +1,8 @@
-package com.hts.market.domain.product.daoTest;
+package com.hts.market.domain.product.repoTest;
 
 import com.hts.market.domain.member.dto.AddressDto;
 import com.hts.market.domain.member.repo.AddressRepo;
 import com.hts.market.domain.product.dto.PdtDto;
-import com.hts.market.domain.product.dto.PdtImgDto;
 import com.hts.market.domain.product.repo.PdtImgRepo;
 import com.hts.market.domain.product.repo.PdtRepo;
 import org.assertj.core.api.Assertions;
@@ -30,21 +29,21 @@ class PdtRepoTest {
     void saveTest() {
         // given
         PdtDto.Create dto1 =
-                PdtDto.Create.builder().pdtCateNo(1L).pdtSellerNo(1L).pdtAddressNo(1L).pdtName("상품").pdtStatus(1).pdtDesc("설명").pdtPrice(7900).build();
+                PdtDto.Create.builder().pdtCateNo(1L).pdtSellerNo(1L).pdtAddressNo(1L).pdtName("상품").pdtDesc("설명").pdtPrice(7900).build();
         AddressDto.Create dto2 =
-                AddressDto.Create.builder().memNo(1L).addressSi("인천").addressGu("부평").addressDong("부평1").build();
-        PdtImgDto.Create dto3 =
-                PdtImgDto.Create.builder().imgNo(1L).pdtNo(1L).imgPath("abc1").build();
-        PdtImgDto.Create dto4 =
-                PdtImgDto.Create.builder().imgNo(2L).pdtNo(1L).imgPath("abc2").build();
-        PdtImgDto.Create dto5 =
-                PdtImgDto.Create.builder().imgNo(3L).pdtNo(1L).imgPath("abc3").build();
+                AddressDto.Create.builder().memNo(1L).addressSi("인천광역시").addressGu("미추홀구").addressDong("학익2동").build();
+//        PdtImgDto.Create dto3 =
+//                PdtImgDto.Create.builder().pdtNo(1L).imgNo(1L).imgPath("1번사진").build();
+//        PdtImgDto.Create dto4 =
+//                PdtImgDto.Create.builder().pdtNo(1L).imgNo(1L).imgPath("2번사진").build();
+//        PdtImgDto.Create dto5 =
+//                PdtImgDto.Create.builder().pdtNo(1L).imgNo(1L).imgPath("3번사진").build();
         // when
         pdtRepo.save(dto1);
         addressRepo.save(dto2);
-        pdtImgRepo.save(dto3);
-        pdtImgRepo.save(dto4);
-        pdtImgRepo.save(dto5);
+//        pdtImgRepo.save(dto3);
+//        pdtImgRepo.save(dto4);
+//        pdtImgRepo.save(dto5);
         // then
     }
     // 판매글 수정 테스트
@@ -52,11 +51,11 @@ class PdtRepoTest {
     void updateTest() {
         PdtDto.Update dto =
                 PdtDto.Update.builder()
-                        .pdtNo(1l).pdtCateNo(2L).pdtAddressNo(1L).pdtName("수정상품").pdtStatus(1).pdtDesc("수정설명").pdtPrice(99000).build();
+                        .pdtNo(2l).pdtCateNo(2L).pdtAddressNo(1L).pdtName("수정상품").pdtStatus(1).pdtDesc("수정설명").pdtSellerNo(1L).pdtPrice(99000).build();
 
         Integer result = pdtRepo.update(dto);
 
-        Assertions.assertThat(result).isEqualTo(1);
+        Assertions.assertThat(result).isEqualTo(0);
 
     }
 
@@ -78,16 +77,16 @@ class PdtRepoTest {
 
         Integer result =  pdtRepo.increaseView(pdtNo, pdtSellerNo);
 
-        Assertions.assertThat(result).isEqualTo(0);
+        Assertions.assertThat(result).isEqualTo(1);
     }
-    // 지역별 상품목록 테스트
+    // 상품목록 테스트
     @Test
-    void findAllByAddressTest(){
-        PdtDto.ListData dto = PdtDto.ListData.builder().addressSi("인천").addressGu("부평").addressDong("부평1").start(1).end(1).build();
+    void findAllByDataTest(){
+        PdtDto.ListData dto = PdtDto.ListData.builder().addressSi("인천광역시").addressGu("미추홀구").addressDong("학익2동").start(1).end(10).build();
 
         List<PdtDto.ReadList> result = pdtRepo.findAllByData(dto);
 
-        Assertions.assertThat(result).hasSize(1);
+        Assertions.assertThat(result).hasSize(5);
 
     }
 
@@ -98,26 +97,26 @@ class PdtRepoTest {
 
         Integer result = pdtRepo.delete(dto);
 
-        Assertions.assertThat(result).isEqualTo(1);
+        Assertions.assertThat(result).isEqualTo(0);
     }
     // 상품 제목+내용으로 검색
     @Test
     void searchByKeywordTest(){
-        PdtDto.ListData dto = PdtDto.ListData.builder().addressSi("인천").addressGu("부평").addressDong("부평1").start(1).end(1).keyword("상").build();
+        PdtDto.ListData dto = PdtDto.ListData.builder().addressSi("인천광역시").addressGu("미추홀구").addressDong("학익2동").start(1).end(10).keyword("1").build();
 
         List<PdtDto.ReadList> result = pdtRepo.findAllByData(dto);
 
-        Assertions.assertThat(result).hasSize(1);
+        Assertions.assertThat(result).hasSize(5);
     }
 
     // 카테고리로 검색
     @Test
     void searchByCateLikeTest(){
-        PdtDto.ListData dto = PdtDto.ListData.builder().addressSi("인천").addressGu("부평").addressDong("부평1").start(1).end(1).pdtCate("가").build();
+        PdtDto.ListData dto = PdtDto.ListData.builder().addressSi("인천광역시").addressGu("미추홀구").addressDong("학익2동").start(1).end(10).keyword("1").build();
 
         List<PdtDto.ReadList> result = pdtRepo.findAllByData(dto);
 
-        Assertions.assertThat(result).hasSize(1);
+        Assertions.assertThat(result).hasSize(5);
 
     }
 

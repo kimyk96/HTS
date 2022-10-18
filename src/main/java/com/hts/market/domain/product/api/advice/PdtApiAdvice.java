@@ -27,7 +27,6 @@ public class PdtApiAdvice {
     public ResponseEntity<String> sellerNotFoundException(){
         return ResponseEntity.status(HttpStatus.CONFLICT).body("해당 작성자를 찾을 수 없습니다");
     }
-
     // pdtCateApiAdvice
     @ExceptionHandler(ProductCategoryNotFoundException.class)
     public ResponseEntity<String > productCategoryNotFoundException(){
@@ -61,7 +60,7 @@ public class PdtApiAdvice {
     }
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<String> constraintViolationExceptionHandler(){
-        return ResponseEntity.status(HttpStatus.CONFLICT).body("필수입력 값이 없습니다");
+        return ResponseEntity.status(HttpStatus.CONFLICT).body("글을 작성할 수 없습니다");
     }
     @ExceptionHandler(ProductDeleteFailException.class)
     public ResponseEntity<String> productDeleteFailException(){

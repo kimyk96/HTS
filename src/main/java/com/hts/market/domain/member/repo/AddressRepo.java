@@ -7,6 +7,8 @@ import java.util.List;
 
 @Mapper
 public interface AddressRepo {
+    // 주소 목록 조회
+    List<AddressDto.Read> findAllByName(Long memNo);
     // 주소 저장
     Integer save(AddressDto.Create dto);
     // 주소 삭제

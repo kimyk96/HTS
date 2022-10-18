@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-
 public class PdtRptApp {
     @Autowired
     private PdtRptRepo pdtRptRepo;
@@ -20,9 +19,15 @@ public class PdtRptApp {
     //@Scheduled(cron = "* * * * * *")
     // 신고등록
     public Integer save(PdtRptDto.Create dto, String userName){
-        Long memNo = pdtRptRepo.findIdByRptMemNo(dto.getRptMemNo());
-        Long writerNo = memRepo.findIdByMemUsername(userName);
-        if (memNo==writerNo){
+        dto.setRptMemNo(memRepo.findIdByMemUsername(userName));
+        PdtRptDto.Read memNo = pdtRptRepo.findIdByReadDto(
+                PdtRptDto.Read
+                        .builder()
+                        .rptMemNo(memRepo.findIdByMemUsername(userName))
+                        .rptPdtNo(dto.getRptPdtNo())
+                        .build());
+
+        if (dto.getRptMemNo().equals(memNo)){
             throw new ReportSaveFailException();
         }
         return pdtRptRepo.save(dto);

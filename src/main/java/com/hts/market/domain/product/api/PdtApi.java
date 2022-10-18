@@ -1,37 +1,44 @@
 package com.hts.market.domain.product.api;
 
 import com.hts.market.domain.product.app.PdtApp;
+import com.hts.market.domain.product.app.PdtImgApp;
 import com.hts.market.domain.product.dto.PdtDto;
+import com.hts.market.domain.product.dto.PdtImgDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 
 @RestController
 @Validated
 @RequestMapping("/api/v1/pdt")
-@Secured("ROLE_USER")
 public class PdtApi {
     @Autowired
     private PdtApp pdtApp;
+    @Autowired
+    private PdtImgApp pdtImgApp;
     // 상품등록
 //    @PreAuthorize("")
     @PostMapping("save")
-    public ResponseEntity<Integer> save(@Valid PdtDto.Create dto, Principal principal) {
-        return ResponseEntity.ok().body(pdtApp.save(dto, principal.getName()));
+    public ResponseEntity<Integer> save(@Valid PdtDto.Create dto, Principal principal) throws IOException {
+        Integer pdtSave = pdtApp.save(dto, principal.getName());
+        Integer pdtImgSave = pdtImgApp.save(PdtImgDto.ListFile.builder().pdtNo(dto.getPdtNo()).files(dto.getImages()).build());
+        return ResponseEntity.ok().body(1);
     }
 
     // 상품수정
     @PutMapping("update")
-    public ResponseEntity<Integer> update(@Valid PdtDto.Update dto, Principal principal) {
-        return ResponseEntity.ok().body(pdtApp.update(dto));
+    public ResponseEntity<Integer> update(@Valid PdtDto.Update dto, Principal principal) throws IOException {
+        Integer pdtUpdate = pdtApp.update(dto, principal.getName());
+        Integer pdtImgUpdate = pdtImgApp.update(PdtImgDto.ListFile.builder().pdtNo(dto.getPdtNo()).files(dto.getImages()).build());
+        return ResponseEntity.ok().body(1);
     }
 
     // 상품삭제
@@ -41,7 +48,6 @@ public class PdtApi {
     }
 
     // 판맥글 보기
-    // 현재 문제 이미지가 2개 이상들어간 글을 조회할 수 없음 이미지 테이블 제외해야할 것 같음
     @GetMapping("find-by-pdt-no")
     public ResponseEntity<PdtDto.Detail> findByPdtNo(@NotNull Long pdtNo, Principal principal){
         PdtDto.Detail result = pdtApp.findByPdtNo(pdtNo, principal.getName());

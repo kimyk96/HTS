@@ -116,7 +116,7 @@ CREATE TABLE PRODUCT (
 	pdt_cate_no	NUMBER(20)		NOT NULL,
 	pdt_address_no	NUMBER(20)		NOT NULL,
 	pdt_name	VARCHAR2(100 CHAR)		NOT NULL,
-	pdt_status	NUMBER(1)		NOT NULL,
+	pdt_status	NUMBER(1)	DEFAULT 0	NOT NULL,
 	pdt_desc	VARCHAR2(3000 CHAR)		NOT NULL,
 	pdt_price	NUMBER(8)		NOT NULL,
 	pdt_views	NUMBER(10)	DEFAULT 0	NOT NULL,

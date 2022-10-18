@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,6 +20,11 @@ public class MemController {
     @GetMapping("")
     public String member(){
         return "member/member";
+    }
+
+    @GetMapping("/{memNo}")
+    public ModelAndView profile(@PathVariable Long memNo){
+        return new ModelAndView("member/member_other").addObject("memNo", memNo) ;
     }
 
     @GetMapping("address")
