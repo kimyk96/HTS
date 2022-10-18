@@ -3,54 +3,229 @@
     <meta charset="UTF-8">
     <title>상품 수정</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="/css/main.css">
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-    <script src="js/main.js" charset="UTF-8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/js/main.js" charset="UTF-8"></script>
     <style>
         /* 상품 수정 */
         #header div.btn_upload{ justify-content: flex-end; }
         #header div h2{ font-size : 15px; font-weight : 400; }
         #header div.btn_upload span{ padding : 0 10px; font-weight : 600; font-size : 15px; color : #FF9D2A;  }
-        #main section#product_upload{ width : 95%; padding : 0 2.5%; display : flex; flex-direction: column; justify-content: center; align-items: center; }
-        #main section#product_upload > div{ padding : 20px 0; }
+        #main section#product_upload{ width : 100% display : flex; flex-direction: column; justify-content: center; align-items: center; }
+        #main section#product_upload #img_wrapper{ width : 100%; display : flex; flex-direction : row; padding : 10px 0; }
+        #main section#product_upload #img_wrapper #input_wrapper{ width : 25%; display : flex; justify-content : center; align-items: flex-end; }
+        #main section#product_upload #img_wrapper #input_wrapper input{ display : none; }
+        #main section#product_upload #img_wrapper #input_wrapper button{ width: 74px; height: 74px; display: flex; flex-direction: column; justify-content: center; align-items: center; border: 2px solid #efefef; border-radius: 7px; }
+        #main section#product_upload #img_wrapper #input_wrapper button img{ width : 33%; padding : 3px 0;}
+        #main section#product_upload #preview_wrapper{ width: 75%; overflow: scroll; }
+        #main section#product_upload #preview_wrapper::-webkit-scrollbar{ display: none; }
+        #main section#product_upload #preview_wrapper ul#previews{ overflow: auto; white-space : nowrap; }
+        #main section#product_upload #preview_wrapper ul#previews::-webkit-scrollbar{ display: none; }
+        #main section#product_upload #preview_wrapper ul#previews li{ width : 70px; margin-right : 20px; position :relative;}
+        #main section#product_upload #preview_wrapper ul#previews li img{ width : 100%; border-radius : 14px; border : 2px solid #efefef; }
+        #main section#product_upload #preview_wrapper ul#previews li span{ position : absolute; top : -2px; left : 0px; width : 84px; margin-bottom : -15px; display : flex; justify-content : flex-end; }
+        #main section#product_upload #preview_wrapper ul#previews li span img{ z-index : 2; background-color : #fff; width : 20px; border-radius : 50%; box-shadow : 0 0 3px -2px #303030; }
+
+        #main section#product_upload #pdt_wrapper{ width : 95%; padding : 10px 2.5%; }
+        #main section#product_upload #pdt_wrapper div{ width : 100%; border-bottom : 1px solid #efefef; display : flex; flex-direction : column; align-items: center; border-bottom : 1px solid #efefef;  }
+        #main section#product_upload #pdt_wrapper div *{ width : 100%; margin : 5px 0; padding : 15px; border : none; font-family: 'Noto Sans KR', sans-serif;}
     </style>
 </head>
 <body>
     <!-- 상단 메뉴바 -->
     <header id="header">
         <div>
-            <img src="img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
+            <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
             <div>
                 <h2>중고거래 글쓰기</h2>
             </div>
         </div>
         <div class="btn_upload">
-            <span>완료</span>
+            <span onclick="updatePdt();">완료</span>
         </div>
     </header>
     <!-- 메인정보 -->
     <main id="main">
         <section id="product_upload">
-            <div class="upload_img">
-                <input type="file" multiple accept="image/jpeg, image/png">
+            <div id="img_wrapper">
+                <div id="input_wrapper">
+                    <input type="file" multiple accept="image/jpeg, image/png" id="images">
+                    <button onclick="$('#images').click();"><img src="/img/icon/camera.png"><span id="img_count">0/10</span></button>
+                </div>
+                <div id="preview_wrapper">
+                    <ul id="previews"></ul>
+                </div>
             </div>
-            <div class="upload_title">
-                <input type="text" id="title" placeholder="제목">
-            </div>
-            <div class="upload_cate">
-                <select id="cate" name="cate">
-                    <option value="1" selected="selected">디지털기기</option>
-                    <option value="2">축산물</option>
-                    <option value="3">파인애플</option>
-                </select>
-            </div>
-            <div class="upload_price">
-                <input type="number" id="price" name="price" placeholder="가격">
-            </div>
-            <div class="upload_desc">
-                <textarea name="desc" id="desc" cols="30" rows="10" placeholder="상품을 설명해 주세요!"></textarea>
+            <div id="pdt_wrapper">
+                <div class="upload_title">
+                    <input type="text" id="title" placeholder="제목">
+                </div>
+                <div class="upload_cate">
+                    <select id="cate" name="cate">
+                        <option value="" selected disabled hidden>카테고리 선택</option>
+                    </select>
+                </div>
+                <div class="upload_address">
+                    <select id="address" name="address">
+                        <option value="" selected disabled hidden>주소 선택</option>
+                    </select>
+                </div>
+                <div class="upload_price">
+                    <input type="number" id="price" name="price" placeholder="가격">
+                </div>
+                <div class="upload_desc">
+                    <textarea name="desc" id="desc" cols="30" rows="10" placeholder="상품을 설명해 주세요!"></textarea>
+                </div>
             </div>
         </section>
     </main>
+    <script>
+        $(function(){
+            // 이미지 개별 저장을 위한 변수
+            let urlParams = new URL(location.href).searchParams;
+            let pdtNo = urlParams.get("pdtNo");
+            let imgArray;
+            const dataTransfer = new DataTransfer();
+
+            // 카테고리 가져오기
+            $.ajax({
+                method : "GET",
+                url: "/api/v1/pdt-cate/find-all"
+            })
+            .done(function(res){
+                for(cate of res){
+                    $(`<option value="${cate.pdtCateNo}">${cate.pdtCate}</option>`).appendTo("#cate");
+                }
+            })
+
+            // 회원주소 가져오기
+            $.ajax({
+                method : "GET",
+                url: "/api/v1/address"
+            })
+            .done(function(res){
+                for(ad of res){
+                    $(`<option value="${ad.addressNo}">${ad.addressSi} ${ad.addressGu} ${ad.addressDong}</option>`).appendTo("#address");
+                }
+            })
+
+            // 상품 정보 가져오기
+            $.ajax({
+                method : "GET",
+                url: "/api/v1/pdt/find-by-pdt-no",
+                data: {pdtNo : pdtNo}
+            })
+            .done(function(res){
+                console.log(res);
+                $("#address").val(res.address.addressNo).prop("selected", true);
+                $("select[name='cate'] option:contains('" + res.pdtCate + "')").prop("selected", true);
+                $("#title").val(res.product.pdtName);
+                $("#desc").val(res.product.pdtDesc);
+                $("#price").val(res.product.pdtPrice);
+
+                for(img of res.images){
+                    new Promise((resolve, reject) => {
+                        let image = new Image();
+                        image.onload = () => {
+                            let canvas = document.createElement('canvas');
+                            canvas.width = image.naturalWidth;
+                            canvas.height = image.naturalHeight;
+                            canvas.getContext('2d').drawImage(image, 0, 0);
+
+                            let uri = canvas.toDataURL('image/png', 1.0);
+                            resolve(uri);
+
+                            $(`<li class="preview">
+                                <span>
+                                    <img src="/img/icon/delete.png" alt="delete" class="deleteImg">
+                                </span>
+                                <img src="${uri}">
+                            </li>`).appendTo("#previews");
+
+                            var file = dataURLtoFile(uri,'File');
+                            imgArray.push(file);
+                            console.log(imgArray)
+                        }
+                        image.src = img.imgPath;
+                    });
+                }
+                $("#img_count").text( res.images.length + "/10");
+
+                // dataTransfer.clearData();
+                // imgArray.forEach(ee => { dataTransfer.items.add(ee); });
+                // $('#images')[0].files = dataTransfer.files;
+                imgArray = Array.from($("#images")[0].files);
+            })
+
+
+
+
+            // 이미지 불러오기
+            $("#images").change(function(){
+                console.log("변경됨")
+                $("#previews").empty();
+                let images = $(this).prop('files');
+
+                if( images.length > 10 ){
+                    Swal.fire({
+                        icon: 'error',
+                        text: '이미지는 10장을 넘을 수 없습니다.'
+                    })
+                    return;
+                }
+
+                for(img of images){
+                    if(img.size>=10485760){
+                        Swal.fire({
+                            icon: 'error',
+                            text: '이미지는 10MB를 넘을 수 없습니다.'
+                        })
+                    }else{
+                        fr = new FileReader();
+                        fr.onload = function (e) {
+                            $(`<li class="preview">
+                                <span>
+                                    <img src="/img/icon/delete.png" alt="delete" class="deleteImg">
+                                </span>
+                                <img src="${e.target.result}">
+                            </li>`).appendTo("#previews");
+                        };
+                        fr.readAsDataURL( img );
+                    }
+                }
+                $("#img_count").text( images.length + "/10");
+                imgArray = Array.from($("#images")[0].files);
+            })
+
+            // 개별 이미지 삭제
+            $(document).on("click",".preview span img", function(){
+                dataTransfer.clearData();
+                imgArray.splice($(this).closest('.preview').index() ,1)
+                imgArray.forEach(file => { dataTransfer.items.add(file); });
+                $('#images')[0].files = dataTransfer.files;
+
+                $(this).closest('.preview').remove();
+                $('#img_count').text( $('.preview').length + '/10');
+            });
+        });
+
+        const dataURLtoFile = (dataurl, fileName) => {
+
+            var arr = dataurl.split(','),
+                mime = arr[0].match(/:(.*?);/)[1],
+                bstr = atob(arr[1]),
+                n = bstr.length,
+                u8arr = new Uint8Array(n);
+
+            while(n--){
+                u8arr[n] = bstr.charCodeAt(n);
+            }
+            console.log(arr, mime, u8arr)
+            return new File([u8arr], fileName, {type:mime});
+        }
+
+
+    </script>
 </body>
 </html>

@@ -26,7 +26,7 @@ public class PdtFavoriteApi {
     // 관심해제
     @DeleteMapping("delete")
     public ResponseEntity<Integer> delete(@Valid PdtFavoriteDto.Delete dto, Principal principal){
-        return ResponseEntity.ok().body(pdtFavoriteApp.delete(dto, principal.getName()));
+        return ResponseEntity.ok().body(pdtFavoriteApp.delete(dto));
     }
     // 관심목록
     @GetMapping("/find-all-of-favorite-list")

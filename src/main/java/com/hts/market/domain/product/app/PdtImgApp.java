@@ -36,7 +36,7 @@ public class PdtImgApp {
     }
 
     // 이미지 수정
-    public Integer update(PdtImgDto.ListFile dto) throws IOException{
+    public Integer update(PdtImgDto.ListFile dto) throws IOException{;
         List<PdtImgDto.Read> oldList = pdtImgRepo.searchOfPdtNo(dto.getPdtNo());
         for(PdtImgDto.Read deleteImg : oldList){
             String imgUpdateDir = new File("").getAbsolutePath() + "\\" + "/images/";

@@ -41,15 +41,18 @@ public class PdtDto {
     public static class Update {
         @NotNull
         private Long pdtNo;
-        @NotNull
         private Long pdtSellerNo;
+        @NotNull
         private Long pdtCateNo;
+        @NotNull
         private Long pdtAddressNo;
-        private String pdtName;
-        private String pdtDesc;
-        private Integer pdtStatus;
-        private Integer pdtPrice;
         @NotEmpty
+        private String pdtName;
+        @NotEmpty
+        private String pdtDesc;
+        @NotNull
+        private Integer pdtPrice;
+        private Integer pdtStatus;
         private List<MultipartFile> images;
     }
 

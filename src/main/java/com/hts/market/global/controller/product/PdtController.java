@@ -30,4 +30,9 @@ public class PdtController {
     public String upload(){
         return "product/product_upload";
     }
+
+    @GetMapping("/edit")
+    public String edit(){
+        return "product/product_edit";
+    }
 }

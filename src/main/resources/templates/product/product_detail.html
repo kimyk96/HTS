@@ -64,6 +64,9 @@
                 <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
                 <img src="/img/icon/product.png" alt="nav_product" id="nav_product">
             </div>
+            <div>
+                <img src="/img/icon/more.png" alt="more" id="more">
+            </div>
         </section>
         <section id="product_detail" th:attr="data-pdt-no=${pdtNo}">
             <div class="swiper">
@@ -137,6 +140,18 @@
     <script>
         $(function(){
             let pdtNo = $("#product_detail").data("pdt-no");
+            $("#more").click(function(){
+                Swal.fire({
+                    showCancelButton: true,
+                    confirmButtonText: '수정하기',
+                    cancelButtonText: '닫기'
+                })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        $(location).attr("href", "/product/edit?pdtNo=" + pdtNo)
+                    }
+                })
+            })
 
             $.ajax({
                 method:'GET',
