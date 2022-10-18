@@ -1,8 +1,12 @@
 package com.hts.market.domain.product.api;
 
+import com.hts.market.domain.member.repo.MemRepo;
 import com.hts.market.domain.product.app.PdtApp;
+import com.hts.market.domain.product.app.PdtFavoriteApp;
 import com.hts.market.domain.product.app.PdtImgApp;
+import com.hts.market.domain.product.app.PdtRptApp;
 import com.hts.market.domain.product.dto.PdtDto;
+import com.hts.market.domain.product.dto.PdtFavoriteDto;
 import com.hts.market.domain.product.dto.PdtImgDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +28,12 @@ public class PdtApi {
     private PdtApp pdtApp;
     @Autowired
     private PdtImgApp pdtImgApp;
+    @Autowired
+    private PdtFavoriteApp pdtFavoriteApp;
+    @Autowired
+    private PdtRptApp pdtRptApp;
+    @Autowired
+    private MemRepo memRepo;
     // 상품등록
 //    @PreAuthorize("")
     @PostMapping("save")
@@ -45,8 +55,12 @@ public class PdtApi {
 
     // 상품삭제
     @DeleteMapping("delete")
-    public ResponseEntity<Integer> delete(@NotNull Long pdtNo, Principal principal, BindingResult bindingResult) {
-       return ResponseEntity.ok().body(pdtApp.delete(pdtNo, principal.getName()));
+    public ResponseEntity<Integer> delete(@NotNull Long pdtNo, Principal principal, BindingResult bindingResult){
+        Integer pdtDelete = pdtApp.delete(pdtNo, principal.getName());
+        Integer pdtImgDelete = pdtImgApp.deleteAll(pdtNo);
+        Integer pdtFavoriteDelete = pdtFavoriteApp.delete(PdtFavoriteDto.Delete.builder().pdtNo(pdtNo).memNo(memRepo.findIdByMemUsername(principal.getName())).build());
+        Integer pdtRptDelete = pdtRptApp.deleteByRptPdtNo(pdtNo);
+       return ResponseEntity.ok().body(1);
     }
 
     // 판맥글 보기

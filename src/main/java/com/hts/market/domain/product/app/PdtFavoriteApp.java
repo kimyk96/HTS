@@ -21,8 +21,7 @@ public class PdtFavoriteApp {
         return pdtFavoriteRepo.save(dto);
     }
     // 관심 해제
-    public Integer delete(PdtFavoriteDto.Delete dto, String userName){
-        dto.setMemNo(memRepo.findIdByMemUsername(userName));
+    public Integer delete(PdtFavoriteDto.Delete dto){
         return pdtFavoriteRepo.delete(dto);
     }
     // 관심 목록
