@@ -41,7 +41,6 @@ public class PdtDto {
     public static class Update {
         @NotNull
         private Long pdtNo;
-        @NotNull
         private Long pdtSellerNo;
         private Long pdtCateNo;
         private Long pdtAddressNo;
