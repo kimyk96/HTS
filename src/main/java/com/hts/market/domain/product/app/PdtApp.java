@@ -43,7 +43,8 @@ public class PdtApp {
     }
 
     // 판매글 수정
-    public Integer update(PdtDto.Update dto){
+    public Integer update(PdtDto.Update dto, String userName){
+        dto.setPdtSellerNo(memRepo.findIdByMemUsername(userName));
         return pdtRepo.update(dto);
     }
 

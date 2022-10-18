@@ -1,37 +1,42 @@
 package com.hts.market.domain.product.api;
 
 import com.hts.market.domain.product.app.PdtApp;
+import com.hts.market.domain.product.app.PdtImgApp;
 import com.hts.market.domain.product.dto.PdtDto;
+import com.hts.market.domain.product.dto.PdtImgDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 
 @RestController
 @Validated
 @RequestMapping("/api/v1/pdt")
-@Secured("ROLE_USER")
 public class PdtApi {
     @Autowired
     private PdtApp pdtApp;
+    @Autowired
+    private PdtImgApp pdtImgApp;
     // 상품등록
 //    @PreAuthorize("")
     @PostMapping("save")
-    public ResponseEntity<Integer> save(@Valid PdtDto.Create dto, Principal principal) {
-        return ResponseEntity.ok().body(pdtApp.save(dto, principal.getName()));
+    public ResponseEntity<Integer> save(@Valid PdtDto.Create dto, Principal principal) throws IOException {
+        Integer pdtSave = pdtApp.save(dto, principal.getName());
+        Integer pdtImgSave = pdtImgApp.save(PdtImgDto.ListFile.builder().pdtNo(dto.getPdtNo()).files(dto.getImages()).build());
+        return ResponseEntity.ok().body(1);
     }
 
     // 상품수정
     @PutMapping("update")
     public ResponseEntity<Integer> update(@Valid PdtDto.Update dto, Principal principal) {
-        return ResponseEntity.ok().body(pdtApp.update(dto));
+        return ResponseEntity.ok().body(pdtApp.update(dto, principal.getName()));
     }
 
     // 상품삭제

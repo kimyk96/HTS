@@ -7,9 +7,9 @@
             select nvl(max(pdt_no),0)+1 from Product
         </selectKey>
         insert into
-            PRODUCT( pdt_no, pdt_cate_no, pdt_seller_no, pdt_address_no, pdt_name, pdt_desc, pdt_price, pdt_status)
+            PRODUCT( pdt_no, pdt_cate_no, pdt_seller_no, pdt_address_no, pdt_name, pdt_desc, pdt_price)
         values
-            ( #{pdtNo}, #{pdtCateNo}, #{pdtSellerNo}, #{pdtAddressNo}, #{pdtName}, #{pdtDesc}, #{pdtPrice}, #{pdtStatus} )
+            ( #{pdtNo}, #{pdtCateNo}, #{pdtSellerNo}, #{pdtAddressNo}, #{pdtName}, #{pdtDesc}, #{pdtPrice})
     </insert>
     <!-- 판매글수정 -->
     <update id="update">
@@ -22,9 +22,9 @@
             <if test="pdtPrice != null">pdt_price=#{pdtPrice},</if>
             <if test="pdtStatus != null">pdt_status=#{pdtStatus},</if>
         </trim>
-        where pdt_no=#{pdtNo}
+        where pdt_no=#{pdtNo} and pdt_seller_no = #{pdtSellerNo}
     </update>
-<!--    &lt;!&ndash; 조회수 증가 &ndash;&gt;-->
+    <!-- 조회수 증가 -->
     <update id="increaseView">
         update PRODUCT set pdt_views = pdt_views+1 where pdt_no = #{pdtNo} and pdt_seller_no != #{memNo}
     </update>
@@ -102,9 +102,7 @@
     <delete id="delete">
         delete from PRODUCT where pdt_no=#{pdtNo} and pdt_seller_no = #{pdtSellerNo}
     </delete>
-    <!-- 회원탈퇴시 판매글 삭제(추후 추가)-->
-
-    <!-- 제목+내용, 카테고리로 검색 -->
+    <!-- 목록 출력 -->
     <select id="findAllByData" resultType="com.hts.market.domain.product.dto.PdtDto$ReadList">
         SELECT
              b.*

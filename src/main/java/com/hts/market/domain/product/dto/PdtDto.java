@@ -29,11 +29,9 @@ public class PdtDto {
         private String pdtName;
         @NotNull
         private Integer pdtStatus;
-        @NotEmpty
-        private String pdtDesc;
         @NotNull
         private Integer pdtPrice;
-
+        private List<MultipartFile> images;
     }
 
     @Data
@@ -45,6 +43,7 @@ public class PdtDto {
         private Long pdtNo;
         private Long pdtCateNo;
         private Long pdtAddressNo;
+        private Long pdtSellerNo;
         private String pdtName;
         private String pdtDesc;
         private Integer pdtStatus;

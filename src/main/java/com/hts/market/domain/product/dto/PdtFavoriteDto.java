@@ -3,7 +3,6 @@ package com.hts.market.domain.product.dto;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
-import java.util.Collection;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PdtFavoriteDto {
@@ -16,16 +15,6 @@ public class PdtFavoriteDto {
         private Long pdtNo;
         @NotNull
         private Long memNo;
-    }
-
-    @Data
-    @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class Page {
-        private Long pageNo;
-        private Long totalNo;
-        private Collection<ReadList> boardList;
     }
 
     @Data
