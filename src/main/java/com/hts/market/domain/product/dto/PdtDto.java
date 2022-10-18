@@ -26,6 +26,8 @@ public class PdtDto {
         private Long pdtAddressNo;
         @NotEmpty
         private String pdtName;
+        @NotEmpty
+        private String pdtDesc;
         @NotNull
         private Integer pdtPrice;
         private List<MultipartFile> images;
