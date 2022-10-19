@@ -10,6 +10,7 @@ import com.hts.market.domain.member.repo.MemImgRepo;
 import com.hts.market.domain.member.repo.MemRepo;
 import com.hts.market.domain.product.dto.PdtDto;
 import com.hts.market.domain.product.exception.ProductNotFoundException;
+import com.hts.market.domain.product.exception.SellerNotFoundException;
 import com.hts.market.domain.product.repo.PdtImgRepo;
 import com.hts.market.domain.product.repo.PdtRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,7 +95,9 @@ public class ChatApp {
         }
         // 상품불러오기
         PdtDto.Detail pdtDto = pdtRepo.findByPdtNo(listStartEnd.getChatPdtNo()).orElseThrow(()->new ProductNotFoundException());
-        //  MEMBER
+        // 판매자정보 추가
+        pdtDto.setMember(memRepo.findById(pdtDto.getProduct().getPdtSellerNo()).orElseThrow(()->new SellerNotFoundException()));
+        //  로그인회원 정보
         MemDto.Member memInfo = memRepo.findByName(memUsername).orElseThrow(()->new MemberNotFoundException());
         //이미지 경로 불러오기
         pdtDto.getImages().get(0).setImgPath(imgUrl + pdtDto.getImages().get(0).getImgPath());
