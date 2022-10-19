@@ -13,7 +13,6 @@ public class PdtFavoriteDto {
     public static class Create {
         @NotNull
         private Long pdtNo;
-        @NotNull
         private Long memNo;
     }
 

@@ -24,7 +24,6 @@ public class PdtRptApi {
     public ResponseEntity<Integer> save(@Valid PdtRptDto.Create dto, Principal principal){
         return ResponseEntity.ok().body(pdtRptApp.save(dto, principal.getName()));
     }
-
     // 신고목록
     @GetMapping("find-all-by-dto")
     public ResponseEntity<List<PdtRptDto.Read>> findAllByDto(@Valid  PdtRptDto.Read dto){
