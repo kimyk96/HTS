@@ -64,6 +64,7 @@
                         headers: { Authorization: "KakaoAK 1b484f0bd9bd6502362669834ce3920a" }
                     })
                     .done(function(result){
+                        console.log(result)
                         let ul = $("#address_list");
                         ul.empty();
                         for(address of result.documents){
@@ -96,16 +97,31 @@
                     headers: { Authorization: "KakaoAK 1b484f0bd9bd6502362669834ce3920a" }
                 })
                 .done(function(result){
+                    console.log(result)
                     let ul = $("#address_list");
                     ul.empty();
                     for(address of result.documents){
                         if(address.address.region_3depth_h_name){
-                            $("<li class='btn_address'></li>")
-                            .text(address.address.address_name)
-                            .attr("data-si", address.address.region_1depth_name)
-                            .attr("data-gu", address.address.region_2depth_name)
-                            .attr("data-dong", address.address.region_3depth_h_name)
-                            .appendTo(ul);
+                            $.ajax({
+                                method: "GET",
+                                url: "https://dapi.kakao.com/v2/local/geo/coord2regioncode.json",
+                                data: { x: address.x, y: address.y },
+                                headers: { Authorization: "KakaoAK 1b484f0bd9bd6502362669834ce3920a" }
+                            })
+                            .done(function(result){
+                                console.log(result)
+                                let ul = $("#address_list");
+                                for(address of result.documents){
+                                    if(address.region_type=='H' && address.region_3depth_name){
+                                        $("<li class='btn_address'></li>")
+                                        .text(address.address_name)
+                                        .attr("data-si", address.region_1depth_name)
+                                        .attr("data-gu", address.region_2depth_name)
+                                        .attr("data-dong", address.region_3depth_name)
+                                        .appendTo(ul);
+                                    }
+                                }
+                            })
                         }
                     }
                 })
@@ -113,6 +129,11 @@
         })
         // 주소 등록
         $(document).on("click", ".btn_address", function(){
+
+
+
+
+
             $.ajax({
                 method: "POST",
                 url: "/api/v1/address",

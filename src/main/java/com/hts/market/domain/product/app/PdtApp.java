@@ -6,7 +6,6 @@ import com.hts.market.domain.member.dto.MemDto;
 import com.hts.market.domain.member.exception.MemberNotFoundException;
 import com.hts.market.domain.member.repo.MemRepo;
 import com.hts.market.domain.product.dto.PdtDto;
-import com.hts.market.domain.product.dto.PdtFavoriteDto;
 import com.hts.market.domain.product.dto.PdtImgDto;
 import com.hts.market.domain.product.exception.ProductNotFoundException;
 import com.hts.market.domain.product.repo.PdtFavoriteRepo;
@@ -100,21 +99,21 @@ public class PdtApp {
 
     // 판매글 삭제
     public Integer delete(Long pdtNo, String userName){
-        pdtRepo.delete(
+        Integer dto = pdtRepo.delete(
                 PdtDto.Delete
                         .builder()
                         .pdtNo(pdtNo)
                         .pdtSellerNo(memRepo.findIdByMemUsername(userName))
                         .build());
-        pdtFavoriteRepo.delete(
-                PdtFavoriteDto.Delete
-                        .builder()
-                        .pdtNo(pdtNo)
-                        .memNo(memRepo.findIdByMemUsername(userName))
-                        .build());
-        pdtImgRepo.deleteAll(pdtNo);
-        pdtRptRepo.deleteByRptPdtNo(pdtNo);
-        return 1;
+//        pdtFavoriteRepo.delete(
+//                PdtFavoriteDto.Delete
+//                        .builder()
+//                        .pdtNo(pdtNo)
+//                        .memNo(memRepo.findIdByMemUsername(userName))
+//                        .build());
+//        pdtImgRepo.deleteAll(pdtNo);
+//        pdtRptRepo.deleteByRptPdtNo(pdtNo);
+        return dto;
     }
 
     // 판매자별 글목록

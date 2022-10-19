@@ -50,11 +50,18 @@ public class PdtImgApp {
 
     // 이미지 개별삭제
     public Integer deleteByImgNo(PdtImgDto.Delete dto){
+
         return pdtImgRepo.deleteByImgNo(dto);
     }
 
     // 이미지 전체삭제
-    public Integer deleteAll(Long pdtNo){
+    public Integer deleteAll(Long pdtNo) throws IOException{
+        List<PdtImgDto.Read> oldList = pdtImgRepo.searchOfPdtNo(pdtNo);
+        for(PdtImgDto.Read deleteImg : oldList){
+            String imgUpdateDir = new File("").getAbsolutePath() + "\\" + "/images/";
+            File file = new File(imgUpdateDir + deleteImg.getImgPath());
+            boolean result = file.delete();
+        }
         return pdtImgRepo.deleteAll(pdtNo);
     }
 
