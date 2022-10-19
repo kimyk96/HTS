@@ -21,7 +21,7 @@ public class ChatDto {
         private Long chatMemNo;
         @NotNull
         private Long chatPdtNo;
-        @NotEmpty(message = "메세지를 입력해주세요")
+
         private String chatContent;
         private Integer chatIsSeller;
 
