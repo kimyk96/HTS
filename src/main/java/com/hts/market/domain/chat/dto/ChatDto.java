@@ -7,6 +7,7 @@ import lombok.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Optional;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ChatDto {
@@ -18,10 +19,11 @@ public class ChatDto {
         private Long chatMsgNo;
         @NotNull(message = "하잇~")
         private Long chatMemNo;
+        @NotNull
         private Long chatPdtNo;
         @NotEmpty(message = "메세지를 입력해주세요")
         private String chatContent;
-        private Boolean chatIsSeller;
+        private Integer chatIsSeller;
 
     }
 
@@ -35,7 +37,7 @@ public class ChatDto {
         private Long chatPdtNo;
         private String chatContent;
         private Boolean chatChecked;
-        private Boolean isSeller;
+        private Boolean chatIsSeller;
     }
 
     @Data
@@ -46,6 +48,8 @@ public class ChatDto {
         private Long chatPdtNo;
         private Long chatMemNo;
         private Long chatMsgNo;
+        private Boolean chatChecked;
+
 
     }
 
@@ -58,7 +62,9 @@ public class ChatDto {
         private Integer end;
         private Long chatPdtNo;
         private Long chatMemNo;
-
+        private Boolean chatChecked;
+        private Boolean chatIsSeller;
+        private Long chatMsgNo;
     }
 
     @Data

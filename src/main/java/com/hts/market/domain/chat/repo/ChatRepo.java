@@ -4,6 +4,7 @@ import com.hts.market.domain.chat.dto.ChatDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.http.ResponseEntity;
 
+import java.security.Principal;
 import java.util.List;
 
 @Mapper

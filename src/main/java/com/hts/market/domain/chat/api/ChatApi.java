@@ -3,6 +3,7 @@ package com.hts.market.domain.chat.api;
 
 import com.hts.market.domain.chat.app.ChatApp;
 import com.hts.market.domain.chat.dto.ChatDto;
+import com.hts.market.domain.member.repo.MemRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,8 +26,8 @@ public class ChatApi {
 
     // 채팅 보내기
     @PostMapping(path = "save", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Integer> save(ChatDto.Create creDto) {
-        Integer sendMessage = chatApp.save(creDto);
+    public ResponseEntity<Integer> save(ChatDto.Create creDto, Principal principal) {
+        Integer sendMessage = chatApp.save(creDto, principal.getName());
         return ResponseEntity.ok().body(sendMessage);
     }
 
@@ -40,22 +41,22 @@ public class ChatApi {
 
     // 회원간 채팅내역
     @GetMapping("find-all-by-chat-mem-no-and-chat-pdt-no")
-    public ResponseEntity<List<ChatDto.Read>> findAllByChatMemNoAndChatPdtNo(ChatDto.ListStartEnd listStartEnd, Principal principal) {
-        List<ChatDto.Read> messageList =  chatApp.findAllByChatMemNoAndChatPdtNo(listStartEnd, principal.getName());
+    public ResponseEntity<ChatDto.ChatUserInfo> findAllByChatMemNoAndChatPdtNo(ChatDto.ListStartEnd listStartEnd, Principal principal) {
+        ChatDto.ChatUserInfo messageList =  chatApp.findAllByChatMemNoAndChatPdtNo(listStartEnd, principal.getName());
         return ResponseEntity.ok().body(messageList);
     }
 
     //상품별 채팅 수
     @GetMapping("count-chat-by-pdt-no")
-    public ResponseEntity<Integer> countChatByPdtNo(Long pdtNo){
-        Integer countMemNo = chatApp.countChatByPdtNo(pdtNo);
+    public ResponseEntity<Integer> countChatByPdtNo(Long chatPdtNo){
+        Integer countMemNo = chatApp.countChatByPdtNo(chatPdtNo);
         return ResponseEntity.ok().body(countMemNo);
     };
 
     // 상품별 관심
-    @GetMapping("count-chat-by-pdt-no-and-mem-no")
+   @GetMapping("count-chat-by-pdt-no-and-mem-no")
     public ResponseEntity<Boolean> countChatByPdtNoAndMemNo (ChatDto.ChatLike chatLike){
-        boolean count = chatApp.countChatByPdtNoAndMemNo(chatLike);
+       boolean count = chatApp.countChatByPdtNoAndMemNo(chatLike);
         return ResponseEntity.ok().body(count);
     };
 

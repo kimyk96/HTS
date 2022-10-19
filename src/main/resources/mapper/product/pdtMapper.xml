@@ -143,6 +143,6 @@
     </select>
     <!-- 판매자 찾기-->
     <select id="findSellerNoById" resultType="long">
-        select pdt_seller_no from PRODUCT where pdt_no = #{pdtNo} and rownum &lt;=1;
+        select pdt_seller_no from PRODUCT where pdt_no = #{pdtNo} and rownum &lt;=1
     </select>
 </mapper>

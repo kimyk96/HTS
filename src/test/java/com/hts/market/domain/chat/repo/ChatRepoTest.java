@@ -1,5 +1,6 @@
 package com.hts.market.domain.chat.repo;
 
+import com.hts.market.domain.chat.app.ChatApp;
 import com.hts.market.domain.chat.dto.ChatDto;
 import com.hts.market.domain.member.dto.AddressDto;
 import org.assertj.core.api.Assertions;
@@ -17,6 +18,8 @@ import java.util.List;
 public class ChatRepoTest {
     @Autowired
     ChatRepo chatrepo;
+    @Autowired
+    ChatApp chatapp;
 
     @BeforeEach
     public void beforeEach() {
@@ -89,7 +92,7 @@ public class ChatRepoTest {
     }
 
     @DisplayName("5)상품별 메세지 카운트")
-    @Test
+   // @Test
     public void countChatByPdtNo(){
         //GIVEN
         Long dto = 1L;
@@ -98,6 +101,8 @@ public class ChatRepoTest {
         //THEN
         Assertions.assertThat(result).isEqualTo(1);
     }
+
+
 
 }
 

@@ -8,18 +8,19 @@
         </selectKey>
         insert
                 into
-                    CHAT(chat_msg_no, chat_mem_no, chat_pdt_no, chat_content)
+                    CHAT(chat_msg_no, chat_mem_no, chat_pdt_no, chat_content, chat_is_seller)
                 values
-                    (#{chatMsgNo},#{chatMemNo},#{chatPdtNo},#{chatContent})
+                    (#{chatMsgNo},#{chatMemNo},#{chatPdtNo},#{chatContent},#{chatIsSeller})
     </insert>
 
-    <!--상품별 메세지 현황-->
+    <!--상품별 메세지 수-->
     <select id="countChatByPdtNo" resultType="int">
         SELECT
             COUNT
                 (DISTINCT chat_mem_no)
             FROM
-                chat where  chat_pdt_no = #{chatPdtNo}
+                chat where chat_pdt_no = #{chatPdtNo}
+
 
     </select>
 
@@ -33,16 +34,16 @@
 
     </select>
 
-    <!-- findAllByPk //채팅방목록 및 최근메세지  -->
+    <!-- findAllByPk //채팅방목록 & 최근메세지  -->
     <select id="findAllByChatMemNo" resultType="com.hts.market.domain.chat.dto.ChatDto$Read">
         SELECT DISTINCT chat_pdt_no, (select max(chat_msg_no)
         FROM
-        chat c where c.chat_pdt_no=chat.chat_pdt_no) chat_msg_no, chat_content FROM chat WHERE chat_mem_no=#{chatMemNo}
+        chat c where c.chat_pdt_no=chat.chat_pdt_no) chat_msg_no, chat_content, FROM chat WHERE chat_mem_no=#{chatMemNo}
     </select>
 
 
 
-    <!-- findAllByChatMemNoAndChatPdtNoAndChatMsgNo // 채팅내역 -->
+    <!-- findAllByChatMemNoAndChatPdtNoAndChatMsgNo // 회원간 채팅내역 -->
     <select id="findAllByChatMemNoAndChatPdtNo" resultType="com.hts.market.domain.chat.dto.ChatDto$Read">
         <![CDATA[
         SELECT
