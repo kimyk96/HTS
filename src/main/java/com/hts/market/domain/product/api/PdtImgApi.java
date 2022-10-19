@@ -35,13 +35,13 @@ public class PdtImgApi {
 
     // 이미지 개별삭제
     @DeleteMapping("delete-by-img-no")
-    public ResponseEntity<Integer> deleteByImgNo(@Valid PdtImgDto.Delete dto){
+    public ResponseEntity<Integer> deleteByImgNo(@Valid PdtImgDto.Delete dto) throws IOException {
         return ResponseEntity.ok().body(pdtImgApp.deleteByImgNo(dto));
     }
 
     // 이미지 전체삭제
     @DeleteMapping("delete-all")
-    public ResponseEntity<Integer> deleteAll(@NotNull Long pdtNo){
+    public ResponseEntity<Integer> deleteAll(@NotNull Long pdtNo) throws IOException {
         return ResponseEntity.ok().body(pdtImgApp.deleteAll(pdtNo));
     }
 

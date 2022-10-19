@@ -55,7 +55,7 @@ public class PdtApi {
 
     // 상품삭제
     @DeleteMapping("delete")
-    public ResponseEntity<Integer> delete(@NotNull Long pdtNo, Principal principal, BindingResult bindingResult){
+    public ResponseEntity<Integer> delete(@NotNull Long pdtNo, Principal principal) throws IOException {
         Integer pdtDelete = pdtApp.delete(pdtNo, principal.getName());
         Integer pdtImgDelete = pdtImgApp.deleteAll(pdtNo);
         Integer pdtFavoriteDelete = pdtFavoriteApp.delete(PdtFavoriteDto.Delete.builder().pdtNo(pdtNo).memNo(memRepo.findIdByMemUsername(principal.getName())).build());
