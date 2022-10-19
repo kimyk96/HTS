@@ -162,10 +162,17 @@
 
                     // 채팅 정보
                     let $ul = $("#chatroom ul");
-                    let isSeller = ( res.member.memNo != res.product.member.memNo ) ? true : false;
+                    let isSeller = ( res.member.memNo == res.product.member.memNo ) ? true : false;
+                    console.log("판매자 여부 : " + isSeller)
+
+
 
                     for(msg of res.chat){
-                        $(`<li class="chat_balloon ${ isSeller && msg.chatIsSeller ? '' : 'mychat' }">
+                        let mychat = isSeller && msg.chatIsSeller
+                        console.log(msg.chatIsSeller ? "판매자채팅" : "구매자 채팅")
+
+
+                        $(`<li class="chat_balloon ${ (isSeller==false && msg.chatIsSeller==false) || (isSeller==true && msg.chatIsSeller==true ) ? 'mychat' : '' }">
                             <div class="mem_img">
                                 <img src="${guestImgPath}" alt="profile">
                             </div>
