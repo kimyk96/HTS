@@ -82,6 +82,7 @@
     </div>
     <script>
         $(function(){
+
             $("#main").animate({ scrollTop: 9999 });
             let searchParams = new URL(location.href).searchParams;
 
@@ -131,36 +132,53 @@
                 console.log(res);
                 let hostNo = res.member.memNo;
                 let guestNo = ( res.member.memNo != res.product.member.memNo ) ? res.product.member.memNo : res.chat[0].chatMemNo;
+                // 게스트 정보
+                var guestUsername;
+                var guestNickname;
+                var guestImgPath;
+                var guestBrix;
 
-                console.log("host : " + hostNo);
-                console.log("guest : " + guestNo);
+                $.ajax({
+                    method:'GET',
+                    url:'/api/v1/mem/find-by-id',
+                    data:{memNo : guestNo}
+                })
+                .done(function(res2){
+                    console.log(res2);
+                    guestUsername = res2.memUsername;
+                    guestNickname = res2.memNickname;
+                    guestImgPath = res2.imgPath;
+                    guestBrix = res2.memBrix;
+
+                    // 회원 정보
+                    $("#header h2").text(guestNickname);
+                    $("#header p").text(guestBrix + " 브릭스");
+                    $("#header_phone a").attr("href", "tel:" + guestUsername);
+
+                    // 상품 정보
+                    $("#pdt_info img").attr("src", res.product.images[0].imgPath);
+                    $("#pdt_info .title").text(res.product.product.pdtName);
+                    $("#pdt_info .price").text(res.product.product.pdtPrice);
+
+                    // 채팅 정보
+                    let $ul = $("#chatroom ul");
+                    for(msg of res.chat){
+                        $(`<li class="chat_balloon ${ ( res.member.memNo != res.product.member.memNo ) ? ( msg.chatIsSeller ? '' : 'mychat' ) : ( msg.chatIsSeller ? '' : 'mychat' ) }">
+                            <div class="mem_img">
+                                <img src="${guestImgPath}" alt="profile">
+                            </div>
+                            <div class="chat_msg">
+                                <p>${msg.chatContent}</p>
+                            </div>
+                            <div class="chat_created_at">
+                                ${msg.chatCreatedAt}
+                            </div>
+                        </li>`).prependTo($ul)
+                    }
+                })
 
 
-                // 회원 정보
-                $("#header h2").text(res.product.member.memNickname);
-                $("#header p").text(res.product.member.memBrix + " 브릭스");
-                $("#header_phone a").attr("href", "tel:" + res.product.member.memUsername);
 
-                // 상품 정보
-                $("#pdt_info img").attr("src", res.product.images[0].imgPath);
-                $("#pdt_info .title").text(res.product.product.pdtName);
-                $("#pdt_info .price").text(res.product.product.pdtPrice);
-
-                // 채팅 정보
-                let $ul = $("#chatroom ul");
-                for(msg of res.chat){
-                    $(`<li class="chat_balloon ${msg.chatIsSeller==false&&searchParams.memNo==searchParams.chatMemNo ? 'mychat' : ''}">
-                        <div class="mem_img">
-                            <img src="${res.member.imgPath}" alt="profile">
-                        </div>
-                        <div class="chat_msg">
-                            <p>${msg.chatContent}</p>
-                        </div>
-                        <div class="chat_created_at">
-                            ${msg.chatCreatedAt}
-                        </div>
-                    </li>`).prependTo($ul)
-                }
 
             })
             .fail(function(res){
