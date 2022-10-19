@@ -35,6 +35,8 @@ public class ChatApp {
 
     @Autowired
     MemRepo memRepo;
+    @Autowired
+    PdtImgRepo pdtImgRepo;
     //    @Autowired
 //    MemImgRepo memImgRepo;
     // 고을호 > 서버(저장) > 김용광
@@ -72,8 +74,16 @@ public class ChatApp {
         List<ChatDto.Pk> seller = chatRepo.findAllAsSeller(memNo);
         List<ChatDto.Pk> buyer = chatRepo.findAllAsBuyer(memNo);
         List<ChatDto.Pk> allUser = new ArrayList<ChatDto.Pk>() ;
-       seller.stream().forEach((ChatDto.Pk item)->allUser.add(item));
-        buyer.stream().forEach((ChatDto.Pk item)->allUser.add(item));
+        seller.stream().forEach((ChatDto.Pk item)->{
+            allUser.add(item);
+            item.setMember(memRepo.findById(item.getChatMemNo()).orElseThrow(()->new MemberNotFoundException()));
+            item.setPdtImg(pdtImgRepo.findMainImg(item.getChatPdtNo()));
+        });
+        buyer.stream().forEach((ChatDto.Pk item)->{
+            allUser.add(item);
+            item.setMember(memRepo.findById(pdtRepo.findSellerNoById(item.getChatPdtNo())).orElseThrow(()->new SellerNotFoundException()));
+            item.setPdtImg(pdtImgRepo.findMainImg(item.getChatPdtNo()));
+        });
         return allUser;
     }
 
