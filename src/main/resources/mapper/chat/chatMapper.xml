@@ -36,23 +36,57 @@
 
     <!-- findAllByPk //  구매자로서의 채팅 내역-->
     <select id="findAllAsBuyer" resultType="com.hts.market.domain.chat.dto.ChatDto$Pk">
-        select distinct chat_pdt_no, chat_checked, (select chat_created_at from chat where chat_msg_no = (select max(chat_msg_no)
-        from chat c where c.chat_pdt_no=chat.chat_pdt_no)) as chat_created_at, (select chat_content
-        from chat where chat_msg_no = (select max(chat_msg_no) from chat c where c.chat_pdt_no=chat.chat_pdt_no))
-        as chat_content, chat_mem_no from chat where chat_mem_no=#{memNo}
-
-
-
+        select
+            chat_pdt_no,
+            chat_checked,
+            chat_mem_no,
+            chat_created_at,
+            chat_content
+        from
+            chat
+        where
+            chat_mem_no=#{memNo} and chat_msg_no = (select max(chat_msg_no) from chat)
     </select>
+<!--    <select id="findAllAsBuyer" resultType="com.hts.market.domain.chat.dto.ChatDto$Pk">-->
+<!--        select-->
+<!--            distinct chat_pdt_no,-->
+<!--            chat_checked,-->
+<!--            chat_mem_no,-->
+<!--            (select chat_created_at from chat where chat_msg_no = (select max(chat_msg_no) from chat c where c.chat_pdt_no=chat.chat_pdt_no)) as chat_created_at,-->
+<!--            (select chat_content from chat where chat_msg_no = (select max(chat_msg_no) from chat d where d.chat_pdt_no=chat.chat_pdt_no)) as chat_content-->
+
+<!--        from-->
+<!--            chat-->
+<!--        where-->
+<!--            chat_mem_no=#{memNo}-->
+<!--    </select>-->
 
     <!-- finAllAsSeller//  판매자로서의 채팅 내역-->
     <select id="findAllAsSeller" resultType="com.hts.market.domain.chat.dto.ChatDto$Pk">
-        select distinct c.chat_pdt_no, c.chat_checked, (select chat_created_at from chat where chat_msg_no = (select max(chat_msg_no)
-        from chat c where c.chat_pdt_no=chat.chat_pdt_no)) as chat_created_at, (select chat_content
-        from chat where chat_msg_no = (select max(chat_msg_no) from chat c where c.chat_pdt_no=chat.chat_pdt_no))
-        as chat_content, c.chat_mem_no from chat c left join product p on c.chat_pdt_no=p.pdt_no where p.pdt_seller_no= #{memNo}
-
+        select
+            c.chat_pdt_no,
+            c.chat_checked,
+            c.chat_mem_no,
+            c.chat_created_at,
+            c.chat_content
+        from
+            chat c left join product p on c.chat_pdt_no=p.pdt_no
+        where
+            p.pdt_seller_no= #{memNo} and c.chat_msg_no = (select max(chat_msg_no) from chat)
     </select>
+<!--    <select id="findAllAsSeller" resultType="com.hts.market.domain.chat.dto.ChatDto$Pk">-->
+<!--        select-->
+<!--        distinct c.chat_pdt_no,-->
+<!--        c.chat_checked,-->
+<!--        c.chat_mem_no,-->
+<!--        (select chat_created_at from chat where chat_msg_no = (select max(chat_msg_no) from chat d where d.chat_pdt_no=chat.chat_pdt_no)) as chat_created_at,-->
+<!--        (select chat_content from chat where chat_msg_no = (select max(chat_msg_no) from chat e where e.chat_pdt_no=chat.chat_pdt_no)) as chat_content-->
+
+<!--        from-->
+<!--        chat c left join product p on c.chat_pdt_no=p.pdt_no-->
+<!--        where-->
+<!--        p.pdt_seller_no= #{memNo}-->
+<!--    </select>-->
 
 
 
