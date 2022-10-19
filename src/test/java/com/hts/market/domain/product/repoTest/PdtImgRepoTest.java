@@ -19,7 +19,7 @@ class PdtImgRepoTest {
     //이미지 저장 테스트
     @BeforeEach
     void save(){
-        PdtImgDto.Create dto = PdtImgDto.Create.builder().pdtNo(100L).imgNo(1L).imgPath("stInDf1241").build();
+        PdtImgDto.Create dto = PdtImgDto.Create.builder().pdtNo(10L).imgNo(1L).imgPath("stInDf1241").build();
 
         Integer result = pdtImgRepo.save(dto);
 
@@ -51,12 +51,10 @@ class PdtImgRepoTest {
     //이미지 삭제 테스트
     @Test
     void deleteAllTest(){
-        Long dto = 100L;
+        Long dto = 10L;
 
         Integer result = pdtImgRepo.deleteAll(dto);
 
         Assertions.assertThat(result).isEqualTo(1);
-
-
     }
 }

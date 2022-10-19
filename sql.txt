@@ -191,7 +191,7 @@ CREATE TABLE CHAT (
 	chat_msg_no	NUMBER(20)		NOT NULL,
 	chat_pdt_no	NUMBER(20)	DEFAULT 0	NOT NULL,
 	chat_mem_no	NUMBER(20)		NOT NULL,
-	chat_content	VARCHAR2(300 CHAR)		NOT NULL,
+	chat_content	VARCHAR2(300 CHAR)		NULL,
 	chat_created_at	DATE	DEFAULT sysdate	NOT NULL,
 	chat_checked	NUMBER(1)	DEFAULT 0	NULL,
 	chat_is_seller	NUMBER(1)		NULL

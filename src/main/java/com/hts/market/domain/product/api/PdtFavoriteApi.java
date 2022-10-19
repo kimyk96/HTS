@@ -1,6 +1,7 @@
 package com.hts.market.domain.product.api;
 
 import com.hts.market.domain.product.app.PdtFavoriteApp;
+import com.hts.market.domain.product.dto.PdtDto;
 import com.hts.market.domain.product.dto.PdtFavoriteDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +31,7 @@ public class PdtFavoriteApi {
     }
     // 관심목록
     @GetMapping("/find-all-of-favorite-list")
-    public ResponseEntity<List<PdtFavoriteDto.ReadList>> findAllOfFavoriteList(Principal principal){
+    public ResponseEntity<List<PdtDto.ReadList>> findAllOfFavoriteList(Principal principal){
         return ResponseEntity.ok().body(pdtFavoriteApp.findAllOfFavoriteList(principal.getName()));
     }
 }

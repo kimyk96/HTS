@@ -1,5 +1,8 @@
 package com.hts.market.domain.product.repoTest;
 
+import com.hts.market.domain.member.dto.AddressDto;
+import com.hts.market.domain.member.repo.AddressRepo;
+import com.hts.market.domain.product.dto.PdtDto;
 import com.hts.market.domain.product.dto.PdtFavoriteDto;
 import com.hts.market.domain.product.repo.PdtFavoriteRepo;
 import org.assertj.core.api.Assertions;
@@ -16,18 +19,20 @@ import java.util.List;
 class PdtFavoriteRepoTest {
     @Autowired
     PdtFavoriteRepo pdtFavoriteRepo;
+    @Autowired
+    AddressRepo addressRepo;
 
-//  관심 등록 테스트
+    // 관심 등록 테스트
     @BeforeEach
     void saveTest() {
-        PdtFavoriteDto.Create dto = PdtFavoriteDto.Create.builder().pdtNo(1L).memNo(1L).build();
+        PdtFavoriteDto.Create dto1 = PdtFavoriteDto.Create.builder().pdtNo(1L).memNo(1L).build();
+        AddressDto.Create dto2 =
+                AddressDto.Create.builder().memNo(1L).addressSi("인천광역시").addressGu("미추홀구").addressDong("학익2동").build();
 
-        Integer result = pdtFavoriteRepo.save(dto);
-
-        Assertions.assertThat(result).isEqualTo(1);
-
+        pdtFavoriteRepo.save(dto1);
+        addressRepo.save(dto2);
     }
-// 관심 해제 테스트
+    // 관심 해제 테스트
     @Test
     void deleteTest(){
         PdtFavoriteDto.Delete dto = PdtFavoriteDto.Delete.builder().pdtNo(1L).memNo(1L).build();
@@ -36,17 +41,17 @@ class PdtFavoriteRepoTest {
 
         Assertions.assertThat(result).isEqualTo(1);
     }
-// 관심 목록 테스트
+    // 관심 목록 테스트
     @Test
     void findAllByPdtNoTest(){
         Long memNo = 1L;
 
-        List<PdtFavoriteDto.ReadList> result = pdtFavoriteRepo.findAllOfFavoriteList(memNo);
+        List<PdtDto.ReadList> result = pdtFavoriteRepo.findAllOfFavoriteList(memNo);
 
         Assertions.assertThat(result).hasSize(1);
     }
 
-// 관심수 확인
+    // 관심수 확인
     @Test
     void countByPdtNoTest(){
         Long pdtNo = 1L;

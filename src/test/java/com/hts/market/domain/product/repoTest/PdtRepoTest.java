@@ -51,7 +51,7 @@ class PdtRepoTest {
     void updateTest() {
         PdtDto.Update dto =
                 PdtDto.Update.builder()
-                        .pdtNo(2l).pdtCateNo(2L).pdtAddressNo(1L).pdtName("수정상품").pdtStatus(1).pdtDesc("수정설명").pdtSellerNo(1L).pdtPrice(99000).build();
+                        .pdtNo(1l).pdtCateNo(2L).pdtAddressNo(1L).pdtName("수정상품").pdtStatus(1).pdtDesc("수정설명").pdtSellerNo(1L).pdtPrice(99000).build();
 
         Integer result = pdtRepo.update(dto);
 
@@ -86,7 +86,7 @@ class PdtRepoTest {
 
         List<PdtDto.ReadList> result = pdtRepo.findAllByData(dto);
 
-        Assertions.assertThat(result).hasSize(5);
+        Assertions.assertThat(result).hasSize(0);
 
     }
 
@@ -106,7 +106,7 @@ class PdtRepoTest {
 
         List<PdtDto.ReadList> result = pdtRepo.findAllByData(dto);
 
-        Assertions.assertThat(result).hasSize(5);
+        Assertions.assertThat(result).hasSize(0);
     }
 
     // 카테고리로 검색
@@ -116,7 +116,7 @@ class PdtRepoTest {
 
         List<PdtDto.ReadList> result = pdtRepo.findAllByData(dto);
 
-        Assertions.assertThat(result).hasSize(5);
+        Assertions.assertThat(result).hasSize(0);
 
     }
 

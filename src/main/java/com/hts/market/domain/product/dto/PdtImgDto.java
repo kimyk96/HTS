@@ -30,8 +30,6 @@ public class PdtImgDto {
         private String imgPath;
     }
 
-
-
     @Data
     @Builder
     @AllArgsConstructor

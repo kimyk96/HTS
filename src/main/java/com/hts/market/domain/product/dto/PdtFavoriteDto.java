@@ -15,21 +15,6 @@ public class PdtFavoriteDto {
         private Long pdtNo;
         private Long memNo;
     }
-
-    @Data
-    @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class ReadList{
-        private Long pdtNo;
-        private Long memNo;
-        private String imgPath;
-        private String pdtName;
-        private String addressSi;
-        private String addressGu;
-        private String addressDong;
-        private Integer price;
-    }
     @Data
     @Builder
     @AllArgsConstructor
