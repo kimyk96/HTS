@@ -13,6 +13,7 @@ import com.hts.market.domain.product.exception.ProductNotFoundException;
 import com.hts.market.domain.product.repo.PdtImgRepo;
 import com.hts.market.domain.product.repo.PdtRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
@@ -35,6 +36,7 @@ public class ChatApp {
 //    @Autowired
 //    MemImgRepo memImgRepo;
     // 고을호 > 서버(저장) > 김용광
+    @Value("${hts.imgUrl}") private String imgUrl;
 
 
     // 메세지보내기
@@ -94,6 +96,14 @@ public class ChatApp {
         PdtDto.Detail pdtDto = pdtRepo.findByPdtNo(listStartEnd.getChatPdtNo()).orElseThrow(()->new ProductNotFoundException());
         //  MEMBER
         MemDto.Member memInfo = memRepo.findByName(memUsername).orElseThrow(()->new MemberNotFoundException());
+        //이미지 경로 불러오기
+        pdtDto.getImages().get(0).setImgPath(imgUrl + pdtDto.getImages().get(0).getImgPath());
+        memInfo.setImgPath(imgUrl + memInfo.getImgPath());
+
+
+
+
+
         // Dto 패키징
         return ChatDto.ChatUserInfo.builder().member(memInfo).product(pdtDto).chat(list).build();
 
