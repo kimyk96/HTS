@@ -58,7 +58,7 @@ public class PdtApi {
     public ResponseEntity<Integer> delete(@NotNull Long pdtNo, Principal principal) throws IOException {
         Integer pdtDelete = pdtApp.delete(pdtNo, principal.getName());
         Integer pdtImgDelete = pdtImgApp.deleteAll(pdtNo);
-        Integer pdtFavoriteDelete = pdtFavoriteApp.delete(PdtFavoriteDto.Delete.builder().pdtNo(pdtNo).memNo(memRepo.findIdByMemUsername(principal.getName())).build());
+        Integer pdtFavoriteDelete = pdtFavoriteApp.delete(PdtFavoriteDto.Delete.builder().pdtNo(pdtNo).build(), principal.getName());
         Integer pdtRptDelete = pdtRptApp.deleteByRptPdtNo(pdtNo);
        return ResponseEntity.ok().body(1);
     }

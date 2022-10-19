@@ -38,7 +38,6 @@ public class PdtFavoriteDto {
     public static class Delete{
         @NotNull
         private Long pdtNo;
-        @NotNull
         private Long memNo;
     }
     @Data
