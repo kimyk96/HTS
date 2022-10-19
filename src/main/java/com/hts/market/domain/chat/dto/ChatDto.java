@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,6 +39,7 @@ public class ChatDto {
         private String chatContent;
         private Boolean chatChecked;
         private Boolean chatIsSeller;
+        private LocalDateTime chatCreatedAt;
     }
 
     @Data
