@@ -59,6 +59,7 @@
 <body>
     <!-- 메인정보 -->
     <main id="main">
+        <div sec:authentication="name" style="display : none;" id="memUsername"></div>
         <section id="btn_nav">
             <div>
                 <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
@@ -140,15 +141,40 @@
     <script>
         $(function(){
             let pdtNo = $("#product_detail").data("pdt-no");
+
+
+
+
             $("#more").click(function(){
                 Swal.fire({
                     showCancelButton: true,
+                    showDenyButton: true,
                     confirmButtonText: '수정하기',
+                    denyButtonText: '삭제하기',
                     cancelButtonText: '닫기'
                 })
                 .then((result) => {
                     if (result.isConfirmed) {
                         $(location).attr("href", "/product/edit?pdtNo=" + pdtNo)
+                    }else if (result.isDenied) {
+                        // 삭제 ajax
+                        $.ajax({
+                            method:'DELETE',
+                            url : '/api/v1/pdt/delete',
+                            data: {pdtNo}
+                        })
+                        .done(function(res){
+                            Swal.fire({
+                              position: 'top-end',
+                              icon: 'success',
+                              title: '삭제되었습니다',
+                              showConfirmButton: false,
+                              timer: 1000
+                            })
+                            .then((result)=>{
+                                $(location).attr("href", "/product")
+                            })
+                        })
                     }
                 })
             })
@@ -173,13 +199,18 @@
                     pagination: { el: '.swiper-pagination', }
                 });
 
-
                 // 회원 정보
                 $(".mem_profile_image").attr("src", res.member.imgPath)
                 $(".mem_nickname").text(res.member.memNickname)
                 $(".mem_address").text(res.address.addressGu + " " + res.address.addressDong)
                 $(".mem_brix").text(res.member.memBrix + " 브릭스")
                 $(".mem_info").attr("onclick", "$(location).attr('href', '/member/"+ res.member.memNo +"')")
+                if(res.member.memUsername==$("#memUsername").text()){
+                    $("#more").css("display", "block");
+                }else{
+                    $("#more").css("display", "none");
+                }
+
                 // 제품 정보
                 $(".pdt_title").text(res.product.pdtName);
                 $(".pdt_cate").text(res.pdtCate);

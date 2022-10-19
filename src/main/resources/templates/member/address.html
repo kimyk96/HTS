@@ -64,6 +64,7 @@
                         headers: { Authorization: "KakaoAK 1b484f0bd9bd6502362669834ce3920a" }
                     })
                     .done(function(result){
+                        console.log(result)
                         let ul = $("#address_list");
                         ul.empty();
                         for(address of result.documents){
@@ -96,6 +97,7 @@
                     headers: { Authorization: "KakaoAK 1b484f0bd9bd6502362669834ce3920a" }
                 })
                 .done(function(result){
+                    console.log(result)
                     let ul = $("#address_list");
                     ul.empty();
                     for(address of result.documents){
