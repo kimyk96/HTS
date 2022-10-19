@@ -109,6 +109,8 @@
                         </li>`).appendTo($ul)
                     }
                     $("#main").animate({ scrollTop: 9999 });
+                    $("#chat_msg").val('');
+                    $("#chat_msg").focus();
                 })
                 .fail(function(res){
                     Swal.fire({
