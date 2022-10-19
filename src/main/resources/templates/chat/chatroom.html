@@ -129,6 +129,12 @@
             })
             .done(function(res){
                 console.log(res);
+                let hostNo = res.member.memNo;
+                let guestNo = ( res.member.memNo != res.product.member.memNo ) ? res.product.member.memNo : res.chat[0].chatMemNo;
+
+                console.log("host : " + hostNo);
+                console.log("guest : " + guestNo);
+
 
                 // 회원 정보
                 $("#header h2").text(res.product.member.memNickname);
@@ -167,6 +173,7 @@
                 })
             })
         });
+
     </script>
 </body>
 </html>
