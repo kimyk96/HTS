@@ -34,30 +34,34 @@ public class ChatApi {
 
     // 회원 채팅방 및 최근 메세지
     @GetMapping("list")
-    public ResponseEntity<List<ChatDto.Pk>> findAllByChatMemNo(Long chatMemNo) {
-        List<ChatDto.Pk> chatList =  chatApp.findAllByChatMemNo(chatMemNo);
+    public ResponseEntity<List<ChatDto.Pk>> findAllByChatMemNo(Principal principal) {
+        List<ChatDto.Pk> chatList = chatApp.findAllByChatMemNo(principal.getName());
         return ResponseEntity.ok().body(chatList);
     }
 
     // 회원간 채팅내역
     @GetMapping("")
     public ResponseEntity<ChatDto.ChatUserInfo> findAllByChatMemNoAndChatPdtNo(ChatDto.ListStartEnd listStartEnd, Principal principal) {
-        ChatDto.ChatUserInfo messageList =  chatApp.findAllByChatMemNoAndChatPdtNo(listStartEnd, principal.getName());
+        ChatDto.ChatUserInfo messageList = chatApp.findAllByChatMemNoAndChatPdtNo(listStartEnd, principal.getName());
         return ResponseEntity.ok().body(messageList);
     }
 
     //상품별 채팅 수
     @GetMapping("count-chat-by-pdt-no")
-    public ResponseEntity<Integer> countChatByPdtNo(Long chatPdtNo){
+    public ResponseEntity<Integer> countChatByPdtNo(Long chatPdtNo) {
         Integer countMemNo = chatApp.countChatByPdtNo(chatPdtNo);
         return ResponseEntity.ok().body(countMemNo);
-    };
+    }
+
+    ;
 
     // 상품별 관심
-   @GetMapping("count-chat-by-pdt-no-and-mem-no")
-    public ResponseEntity<Boolean> countChatByPdtNoAndMemNo (ChatDto.ChatLike chatLike){
-       boolean count = chatApp.countChatByPdtNoAndMemNo(chatLike);
+    @GetMapping("count-chat-by-pdt-no-and-mem-no")
+    public ResponseEntity<Boolean> countChatByPdtNoAndMemNo(ChatDto.ChatLike chatLike) {
+        boolean count = chatApp.countChatByPdtNoAndMemNo(chatLike);
         return ResponseEntity.ok().body(count);
-    };
+    }
+
+    ;
 
 }
