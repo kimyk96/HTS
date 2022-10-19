@@ -22,7 +22,6 @@ public class ChatDto {
         private Long chatMemNo;
         @NotNull
         private Long chatPdtNo;
-
         private String chatContent;
         private Integer chatIsSeller;
 

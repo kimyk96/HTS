@@ -42,7 +42,8 @@ public class ChatApp {
 
     // 메세지보내기
     public Integer save(ChatDto.Create creDto, String username) {
-        Long sellerNo= pdtRepo.findSellerNoById(creDto.getChatPdtNo());
+        Long pdtNo =creDto.getChatPdtNo();
+        Long sellerNo= pdtRepo.findSellerNoById(pdtNo);
          Long memNo = memRepo.findIdByMemUsername(username);
 
         if(memNo == sellerNo){
