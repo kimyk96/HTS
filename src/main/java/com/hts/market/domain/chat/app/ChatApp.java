@@ -99,10 +99,6 @@ public class ChatApp {
     public ChatDto.ChatUserInfo findAllByChatMemNoAndChatPdtNo(ChatDto.ListStartEnd listStartEnd, String memUsername) {
         // 채팅 불러오기
         List<ChatDto.Read> list = chatRepo.findAllByChatMemNoAndChatPdtNo(listStartEnd);
-        if (list.size() == 0) {
-            //             채팅내역이 없습니다.
-            throw new ChatListNotFoundException();
-        }
         // 상품불러오기
         PdtDto.Detail pdtDto = pdtRepo.findByPdtNo(listStartEnd.getChatPdtNo()).orElseThrow(() -> new ProductNotFoundException());
         // 판매자정보 추가

@@ -176,6 +176,13 @@
                 })
             })
             .fail(function(res){
+                Swal.fire({
+                    icon: 'error',
+                    text: res.responseText
+                })
+                .then(function(result){
+                    history.back();
+                })
             })
         });
 
