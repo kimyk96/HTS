@@ -20,8 +20,9 @@ public class ChatApiAdivce {
     public ResponseEntity<String> cutUserExceptionHandler() {
         return ResponseEntity.status(HttpStatus.CONFLICT).body("상대방이 차단하였습니다");
     }
+
     @ExceptionHandler(ChatListNotFoundException.class)
-    public ResponseEntity<String> ChatListNotFoundExceptionHandler(){
+    public ResponseEntity<String> ChatListNotFoundExceptionHandler() {
         return ResponseEntity.status(HttpStatus.CONFLICT).body("판매자에게 채팅을 보내보세요");
     }
 

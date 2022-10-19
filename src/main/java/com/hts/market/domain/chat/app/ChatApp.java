@@ -30,16 +30,11 @@ public class ChatApp {
     ChatRepo chatRepo;
     @Autowired
     PdtRepo pdtRepo;
-//    @Autowired
-//    PdtImgRepo pdtImgRepo;
-
     @Autowired
     MemRepo memRepo;
     @Autowired
     PdtImgRepo pdtImgRepo;
-    //    @Autowired
-//    MemImgRepo memImgRepo;
-    // 고을호 > 서버(저장) > 김용광
+
     @Value("${hts.imgUrl}")
     private String imgUrl;
 
@@ -62,27 +57,22 @@ public class ChatApp {
 
     // 회원 채팅방 목록 및 메세지 불러오기
     public List<ChatDto.Pk> findAllByUser(String username) {
-//        List<ChatDto.Pk> result = chatRepo.findAllByChatMemNo(memRepo.findIdByMemUsername(username));
-//        if (result.size() == 0) {
-//            // 채팅내역이 없습니다.
-//            throw new ChatListNotFoundException();
-//        } else {
-//            // 채팅 내역이 있음.
-//            return result;
-//        }
+
         Long memNo = memRepo.findIdByMemUsername(username);
         List<ChatDto.Pk> seller = chatRepo.findAllAsSeller(memNo);
         List<ChatDto.Pk> buyer = chatRepo.findAllAsBuyer(memNo);
-        List<ChatDto.Pk> allUser = new ArrayList<ChatDto.Pk>() ;
-        seller.stream().forEach((ChatDto.Pk item)->{
+        List<ChatDto.Pk> allUser = new ArrayList<ChatDto.Pk>();
+        seller.stream().forEach((ChatDto.Pk item) -> {
+            item.setMember(memRepo.findById(item.getChatMemNo()).orElseThrow(() -> new MemberNotFoundException()));
+            item.getMember().setImgPath(imgUrl + item.getMember().getImgPath());
+            item.setPdtImg(imgUrl + pdtImgRepo.findMainImg(item.getChatPdtNo()));
             allUser.add(item);
-            item.setMember(memRepo.findById(item.getChatMemNo()).orElseThrow(()->new MemberNotFoundException()));
-            item.setPdtImg(pdtImgRepo.findMainImg(item.getChatPdtNo()));
         });
-        buyer.stream().forEach((ChatDto.Pk item)->{
+        buyer.stream().forEach((ChatDto.Pk item) -> {
+            item.setMember(memRepo.findById(pdtRepo.findSellerNoById(item.getChatPdtNo())).orElseThrow(() -> new SellerNotFoundException()));
+            item.getMember().setImgPath(imgUrl + item.getMember().getImgPath());
+            item.setPdtImg(imgUrl + pdtImgRepo.findMainImg(item.getChatPdtNo()));
             allUser.add(item);
-            item.setMember(memRepo.findById(pdtRepo.findSellerNoById(item.getChatPdtNo())).orElseThrow(()->new SellerNotFoundException()));
-            item.setPdtImg(pdtImgRepo.findMainImg(item.getChatPdtNo()));
         });
         return allUser;
     }

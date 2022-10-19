@@ -50,8 +50,10 @@ public class ChatDto {
         private Long chatMemNo;
         private Boolean chatChecked;
         private String chatContent;
+        private LocalDateTime chatCreatedAt;
         private MemDto.Member member;
         private String pdtImg;
+
 
 
     }
@@ -100,7 +102,6 @@ public class ChatDto {
         private Long chatMemNo;
         private Long chatPdtNo;
     }
-
 
 
 }
