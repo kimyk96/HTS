@@ -81,6 +81,4 @@ public class PdtApi {
     public ResponseEntity<Long> findPdtSellerNo(@NotNull Long pdtSellerNo, Principal principal){
         return ResponseEntity.ok().body(pdtApp.findPdtSellerNo(pdtSellerNo));
     }
-
-
 }
