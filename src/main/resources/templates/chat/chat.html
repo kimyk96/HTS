@@ -3,9 +3,9 @@
     <meta charset="UTF-8">
     <title>채팅</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="/css/main.css">
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-    <script src="js/main.js" charset="UTF-8"></script>
+    <script src="/js/main.js" charset="UTF-8"></script>
     <style>
         /* 채팅 페이지 */
         #main section#chat{ width : 100%; display : flex; flex-direction: column; justify-content: center; align-items: center; }
@@ -31,8 +31,6 @@
         </div>
         <div>
             <ul>
-                <!-- <li id="header_search"><img src="img/icon/search.png" alt="search"></li> -->
-                <!-- <li id="header_menu"><img src="img/icon/menu.png" alt="menu"></li> -->
                 <li id="header_notification"><img src="img/icon/notification.png" alt="notification"></li>
             </ul>
         </div>
@@ -41,96 +39,6 @@
     <main id="main">
         <section id="chat">
             <ul>
-                <li class="chat_wrapper">
-                    <div class="img_wrapper">
-                        <img src="img/example/profile.png" alt="profile">
-                    </div>
-                    <div class="info_wrapper">
-                        <p>
-                            <span class="info_name">한라봉 소년단</span>
-                            <span class="info_address">부평1동</span>
-                            <span class="info_created_at">1분 전</span>
-                        </p>
-                        <p>
-                            <span class="info_msg">네~ 맞춰서 나가있겠습니다~ 잠시 후에 봬요~~</span>
-                        </p>
-                    </div>
-                    <div class="product_wrapper">
-                        <img src="img/example/square.png" alt="product">
-                    </div>
-                </li>
-                <li class="chat_wrapper">
-                    <div class="img_wrapper">
-                        <img src="img/example/profile.png" alt="profile">
-                    </div>
-                    <div class="info_wrapper">
-                        <p>
-                            <span class="info_name">한라봉 소년단</span>
-                            <span class="info_address">부평1동</span>
-                            <span class="info_created_at">1분 전</span>
-                        </p>
-                        <p>
-                            <span class="info_msg">네~ 맞춰서 나가있겠습니다~ 잠시 후에 봬요~~</span>
-                        </p>
-                    </div>
-                    <div class="product_wrapper">
-                        <img src="img/example/square.png" alt="product">
-                    </div>
-                </li>
-                <li class="chat_wrapper">
-                    <div class="img_wrapper">
-                        <img src="img/example/profile.png" alt="profile">
-                    </div>
-                    <div class="info_wrapper">
-                        <p>
-                            <span class="info_name">한라봉 소년단</span>
-                            <span class="info_address">부평1동</span>
-                            <span class="info_created_at">1분 전</span>
-                        </p>
-                        <p>
-                            <span class="info_msg">네~ 맞춰서 나가있겠습니다~ 잠시 후에 봬요~~</span>
-                        </p>
-                    </div>
-                    <div class="product_wrapper">
-                        <img src="img/example/square.png" alt="product">
-                    </div>
-                </li>
-                <li class="chat_wrapper">
-                    <div class="img_wrapper">
-                        <img src="img/example/profile.png" alt="profile">
-                    </div>
-                    <div class="info_wrapper">
-                        <p>
-                            <span class="info_name">한라봉 소년단</span>
-                            <span class="info_address">부평1동</span>
-                            <span class="info_created_at">1분 전</span>
-                        </p>
-                        <p>
-                            <span class="info_msg">네~ 맞춰서 나가있겠습니다~ 잠시 후에 봬요~~</span>
-                        </p>
-                    </div>
-                    <div class="product_wrapper">
-                        <img src="img/example/square.png" alt="product">
-                    </div>
-                </li>
-                <li class="chat_wrapper">
-                    <div class="img_wrapper">
-                        <img src="img/example/profile.png" alt="profile">
-                    </div>
-                    <div class="info_wrapper">
-                        <p>
-                            <span class="info_name">한라봉 소년단</span>
-                            <span class="info_address">부평1동</span>
-                            <span class="info_created_at">1분 전</span>
-                        </p>
-                        <p>
-                            <span class="info_msg">네~ 맞춰서 나가있겠습니다~ 잠시 후에 봬요~~</span>
-                        </p>
-                    </div>
-                    <div class="product_wrapper">
-                        <img src="img/example/square.png" alt="product">
-                    </div>
-                </li>
                 <li class="chat_wrapper">
                     <div class="img_wrapper">
                         <img src="img/example/profile.png" alt="profile">
@@ -173,5 +81,25 @@
             </li>
         </ul>
     </nav>
+
+<script>
+    $(function(){
+        $.ajax({
+            method: 'GET',
+            url: '/api/v1/chat/list'
+        })
+        .done(function(res){
+            console.log(res);
+
+            let $ul = $("#chat ul");
+            for(item of res){
+
+            }
+
+        })
+
+    })
+
+</script>
 </body>
 </html>
