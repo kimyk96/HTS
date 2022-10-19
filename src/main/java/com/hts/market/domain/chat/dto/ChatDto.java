@@ -48,8 +48,8 @@ public class ChatDto {
     public static class Pk {
         private Long chatPdtNo;
         private Long chatMemNo;
-        private Long chatMsgNo;
         private Boolean chatChecked;
+        private String chatContent;
 
 
     }

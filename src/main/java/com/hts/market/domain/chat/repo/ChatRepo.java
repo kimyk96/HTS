@@ -12,8 +12,11 @@ public interface ChatRepo {
     // 채팅저장
     public Integer save(ChatDto.Create creDto);
 
-    // 회원 채팅방 목록 및 메세지 불러오기
-    public List<ChatDto.Pk> findAllByChatMemNo(Long chatMemNo);
+    // 회원 채팅방 (판매자))
+    public List<ChatDto.Pk> findAllAsSeller(Long memNo);
+
+    // 회원 채팅방 (구매자))
+    public List<ChatDto.Pk> findAllAsBuyer(Long memNo);
 
     // 회원간 채팅내역
     public List<ChatDto.Read> findAllByChatMemNoAndChatPdtNo(ChatDto.ListStartEnd listStartEnd);

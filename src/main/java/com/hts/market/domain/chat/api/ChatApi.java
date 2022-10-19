@@ -35,7 +35,7 @@ public class ChatApi {
     // 회원 채팅방 및 최근 메세지
     @GetMapping("list")
     public ResponseEntity<List<ChatDto.Pk>> findAllByChatMemNo(Principal principal) {
-        List<ChatDto.Pk> chatList = chatApp.findAllByChatMemNo(principal.getName());
+        List<ChatDto.Pk> chatList = chatApp.findAllByUser(principal.getName());
         return ResponseEntity.ok().body(chatList);
     }
 

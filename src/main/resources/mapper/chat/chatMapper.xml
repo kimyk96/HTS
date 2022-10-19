@@ -34,12 +34,15 @@
 
     </select>
 
-    <!-- findAllByPk //채팅방목록 & 최근메세지  -->
-    <select id="findAllByChatMemNo" resultType="com.hts.market.domain.chat.dto.ChatDto$Read">
-        SELECT DISTINCT chat_pdt_no, (select max(chat_msg_no) FROM
-            chat c where c.chat_pdt_no=chat.chat_pdt_no) chat_msg_no, chat_content,
-        FROM
-            chat WHERE chat_mem_no=#{chatMemNo}
+    <!-- findAllByPk //  구매자로서의 채팅 내역-->
+    <select id="findAllAsBuyer" resultType="com.hts.market.domain.chat.dto.ChatDto$Pk">
+
+        select distinct chat_pdt_no,chat_checked, (select chat_content from chat where chat_msg_no = (select max(chat_msg_no) from chat c where c.chat_pdt_no=chat.chat_pdt_no)) as chat_content, chat_mem_no from chat where chat_mem_no=#{memNo}
+    </select>
+
+    <!-- finAllAsSeller//  판매자로서의 채팅 내역-->
+    <select id="findAllAsSeller" resultType="com.hts.market.domain.chat.dto.ChatDto$Pk">
+        select distinct c.chat_pdt_no,c.chat_checked, (select chat_content from chat where chat_msg_no = (select max(chat_msg_no) from chat c where c.chat_pdt_no=chat.chat_pdt_no)) as chat_content, c.chat_mem_no from chat c left join product p on c.chat_pdt_no=p.pdt_no where p.pdt_seller_no= #{memNo}
     </select>
 
 

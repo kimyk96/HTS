@@ -60,18 +60,18 @@ public class ChatApiTest {
 //        }
 
 
-    @DisplayName("2)채팅리스트&최근메세지")
-     @Test
-    public void findAllByChatMemNo() {
-        //GIVEN
-        Long chatMemNo = 1L;
-
-        //WHEN
-        ResponseEntity<List<ChatDto.Pk>> result = chatapi.findAllByChatMemNo(chatMemNo);
-
-        //THEN
-        ResponseEntity.ok(result);
-    }
+//    @DisplayName("2)채팅리스트&최근메세지")
+//     @Test
+//    public void findAllByChatMemNo() {
+//        //GIVEN
+//        Long chatMemNo = 1L;
+//
+//        //WHEN
+//        ResponseEntity<List<ChatDto.Pk>> result = chatapi.findAllByChatMemNo(chatMemNo);
+//
+//        //THEN
+//        ResponseEntity.ok(result);
+//    }
 
 
 //    @DisplayName("3)회원간 채팅내역")
