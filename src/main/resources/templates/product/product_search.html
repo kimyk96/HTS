@@ -8,6 +8,7 @@
     <script src="/js/main.js" charset="UTF-8"></script>
     <style>
         /* 상품 검색 */
+        #header .right{ justify-content : flex-end; }
         #main section#product{ width : 95%; padding : 0 2.5%; display : flex; flex-direction: column; justify-content: center; align-items: center; }
         #main #product div{ width : 100%; }
         #main #product div input{ width : 100%; padding : 15px; border-radius: 10px; border : 2px solid #efefef; font-size : 16px; font-weight : 400; margin : 7px 0; letter-spacing: -1px; ;}
@@ -46,7 +47,7 @@
             </h2>
         </div>
     </div>
-    <div>
+    <div class="right">
         <select name="address" id="address"></select>
     </div>
 </header>
@@ -123,6 +124,9 @@
             })
             .done(function(res){
                 let $ul = $("#search_list");
+                if(res.length==0){
+                    $("<li style='text-align : center;'>검색 결과가 없습니다.</li>").appendTo($ul);
+                }
                 for( li of res ){
                     $(`
                     <li onclick="$(location).attr('href', '/product/' + ${li.pdtNo})">
