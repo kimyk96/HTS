@@ -55,6 +55,7 @@
         #main section#btn_action div p{ font-size : 15px; opacity : 0.5; }
         #main section#btn_action div p.pdt_price{ font-weight: 600; opacity : 1; }
         #main section#btn_action div span{ font-size: 15px; font-weight: 400; background-color : #FF9D2A; padding : 7px 17px; color : #fff; border-radius: 7px; }
+        #main section#btn_action #btn_chat{ display : none; }
     </style>
 </head>
 <body>
@@ -135,14 +136,29 @@
                 </div>
             </div>
             <div>
-                <span>채팅하기</span>
+                <span id="btn_chat">채팅하기</span>
             </div>
         </section>
     </main>
     <script>
         $(function(){
             let pdtNo = $("#product_detail").data("pdt-no");
+            let memNo;
 
+            $.ajax({
+                method: 'GET',
+                url:'/api/v1/mem/find-id-by-mem-username'
+            })
+            .done(function(res){
+                memNo = res;
+            })
+
+            // 채팅 하기
+            $("#btn_chat").click(function(){
+                $(location).attr("href", "/chat/room?chatPdtNo="+pdtNo+"&chatMemNo="+memNo+"&memNo="+memNo);
+            })
+
+            // 관심 등록
             $("#btn_favorite").click(function(){
                 if($("#btn_favorite").hasClass("selected")){
                     $.ajax({
@@ -239,9 +255,13 @@
                 $(".mem_info").attr("onclick", "$(location).attr('href', '/member/"+ res.member.memNo +"')")
                 if(res.member.memUsername==$("#memUsername").text()){
                     $("#more").css("display", "block");
+                    $("#btn_chat").css("display", "none");
                 }else{
                     $("#more").css("display", "none");
+                    $("#btn_chat").css("display", "block");
                 }
+
+
 
                 // 제품 정보
                 $(".pdt_title").text(res.product.pdtName);

@@ -3,9 +3,10 @@
     <meta charset="UTF-8">
     <title>채팅방</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="/css/main.css">
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-    <script src="js/main.js" charset="UTF-8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/js/main.js" charset="UTF-8"></script>
     <style>
         /* 채팅방 페이지 */
         #main{ margin-top : 120px; }
@@ -44,16 +45,16 @@
     <!-- 상단 메뉴바 -->
     <header id="header">
         <div>
-            <img src="img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
+            <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
             <div>
-                <h2>한라봉 소년단</h2>
-                <p>55 브릭스</p>
+                <h2></h2>
+                <p></p>
             </div>
         </div>
         <div>
             <ul>
-                <li id="header_phone"><img src="img/icon/phone.png" alt="phone"></li>
-                <li id="header_more"><img src="img/icon/more.png" alt="more"></li>
+                <li id="header_phone"><a href=""><img src="/img/icon/phone.png" alt="phone"></a></li>
+                <li id="header_more"><img src="/img/icon/more.png" alt="more"></li>
             </ul>
         </div>
     </header>
@@ -61,180 +62,13 @@
     <main id="main">
         <section id="chatroom">
             <div id="pdt_info">
-                <img src="img/example/square.png" alt="pdt_img">
+                <img src="/img/example/square.png" alt="pdt_img">
                 <div>
-                    <p class="title">삼성 오딧세이 노트북 </p>
-                    <p class="price">680,000 원</p>
+                    <p class="title"></p>
+                    <p class="price"></p>
                 </div>
             </div>
-            <ul>
-                <li class="chat_balloon">
-                    <div class="mem_img">
-                        <img src="img/example/profile.png" alt="profile">
-                    </div>
-                    <div class="chat_msg">
-                        <p>안녕하세요~ 혹시 몇년도에 구매한 제품인지 알 수 있을까요?</p>
-                    </div>
-                    <div class="chat_created_at">
-                        15:38
-                    </div>
-                </li>
-                <li class="chat_balloon mychat">
-                    <div class="mem_img">
-                        <img src="img/example/profile.png" alt="profile">
-                    </div>
-                    <div class="chat_msg">
-                        <p>안녕하세요! 17년인가 18년으로 기억합니다</p>
-                    </div>
-                    <div class="chat_created_at">
-                        15:38
-                    </div>
-                </li>
-                <li class="chat_balloon">
-                    <div class="mem_img">
-                        <img src="img/example/profile.png" alt="profile">
-                    </div>
-                    <div class="chat_msg">
-                        <p>네 확인 감사합니다. As나 수리이력은 따로 없으신 건가요?</p>
-                    </div>
-                    <div class="chat_created_at">
-                        15:38
-                    </div>
-                </li>
-                <li class="chat_balloon mychat">
-                    <div class="mem_img">
-                        <img src="img/example/profile.png" alt="profile">
-                    </div>
-                    <div class="chat_msg">
-                        <p>넵 없습니다~</p>
-                    </div>
-                    <div class="chat_created_at">
-                        15:38
-                    </div>
-                </li>
-                <li class="chat_balloon">
-                    <div class="mem_img">
-                        <img src="img/example/profile.png" alt="profile">
-                    </div>
-                    <div class="chat_msg">
-                        <p>네 혹시 가방은 따로 없으신지요?</p>
-                        <p>자꾸 이것저것 물어봐서 죄송합니다 ㅜㅜ</p>
-                    </div>
-                    <div class="chat_created_at">
-                        15:38
-                    </div>
-                </li>
-                <li class="chat_balloon mychat">
-                    <div class="mem_img">
-                        <img src="img/example/profile.png" alt="profile">
-                    </div>
-                    <div class="chat_msg">
-                        <p>네 포함된 가방은 따로 없네요 ㅠㅠ</p>
-                    </div>
-                    <div class="chat_created_at">
-                        15:38
-                    </div>
-                </li>
-                <li class="chat_balloon">
-                    <div class="mem_img">
-                        <img src="img/example/profile.png" alt="profile">
-                    </div>
-                    <div class="chat_msg">
-                        <p>답변 감사드립니다. 제가 계신 곳으로 가서 물건 보고 결정을 해도 괜찮을까요? 퇴근 후에 7시반 ~ 8시 쯤이나 가능할 거 같은데요</p>
-                    </div>
-                    <div class="chat_created_at">
-                        15:38
-                    </div>
-                </li>
-                <li class="chat_balloon mychat">
-                    <div class="mem_img">
-                        <img src="img/example/profile.png" alt="profile">
-                    </div>
-                    <div class="chat_msg">
-                        <p>네네 상황보고 연락 주세요~</p>
-                    </div>
-                    <div class="chat_created_at">
-                        15:38
-                    </div>
-                </li>
-                <li class="chat_balloon">
-                    <div class="mem_img">
-                        <img src="img/example/profile.png" alt="profile">
-                    </div>
-                    <div class="chat_msg">
-                        <p>네 그럼 출발하면 연락드릴게요!</p>
-                    </div>
-                    <div class="chat_created_at">
-                        15:38
-                    </div>
-                </li>
-                <li class="chat_balloon mychat">
-                    <div class="mem_img">
-                        <img src="img/example/profile.png" alt="profile">
-                    </div>
-                    <div class="chat_msg">
-                        <p>네~</p>
-                    </div>
-                    <div class="chat_created_at">
-                        15:38
-                    </div>
-                </li>
-                <li class="chat_balloon">
-                    <div class="mem_img">
-                        <img src="img/example/profile.png" alt="profile">
-                    </div>
-                    <div class="chat_msg">
-                        <p>차 타고 갈 예정인데요. 근처에 차 대기 편한곳이 있을까요?</p>
-                    </div>
-                    <div class="chat_created_at">
-                        15:38
-                    </div>
-                </li>
-                <li class="chat_balloon mychat">
-                    <div class="mem_img">
-                        <img src="img/example/profile.png" alt="profile">
-                    </div>
-                    <div class="chat_msg">
-                        <p>아 그럼 부평여고 정문에서 볼까요?</p>
-                    </div>
-                    <div class="chat_created_at">
-                        15:38
-                    </div>
-                </li>
-                <li class="chat_balloon">
-                    <div class="mem_img">
-                        <img src="img/example/profile.png" alt="profile">
-                    </div>
-                    <div class="chat_msg">
-                        <p>네네 그렇게 하시죠~! 이따 출발하면 채팅 드릴게요!!!</p>
-                    </div>
-                    <div class="chat_created_at">
-                        15:38
-                    </div>
-                </li>
-                <li class="chat_balloon mychat">
-                    <div class="mem_img">
-                        <img src="img/example/profile.png" alt="profile">
-                    </div>
-                    <div class="chat_msg">
-                        <p>네~</p>
-                    </div>
-                    <div class="chat_created_at">
-                        15:38
-                    </div>
-                </li>
-                <li class="chat_balloon">
-                    <div class="mem_img">
-                        <img src="img/example/profile.png" alt="profile">
-                    </div>
-                    <div class="chat_msg">
-                        <p>지금 출발합니다. 차 맥혀서 1시간 정도 걸리겠네요..!!! 이따 도착전에 채팅 드릴게요~</p>
-                    </div>
-                    <div class="chat_created_at">
-                        15:38
-                    </div>
-                </li>
-            </ul>
+            <ul></ul>
         </section>
     </main>
     <!-- 보내기 부분 -->
@@ -243,12 +77,95 @@
             <input type="text" inputmode="text" id="chat_msg" placeholder="메세지 보내기">
         </div>
         <div class="icon_wrapper">
-            <img src="img/icon/send.png" alt="send">
+            <img src="/img/icon/send.png" alt="send" id="btn_send">
         </div>
     </div>
     <script>
         $(function(){
             $("#main").animate({ scrollTop: 9999 });
+            let searchParams = new URL(location.href).searchParams;
+
+            // 채팅 보내기
+            $("#btn_send").click(function(){
+                let msg = $("#chat_msg").val();
+                $.ajax({
+                    method: "POST",
+                    url: '/api/v1/chat/save',
+                    data : { chatPdtNo : searchParams.get("chatPdtNo"), chatMemNo : searchParams.get("chatMemNo"), chatContent: msg }
+                })
+                .done(function(res){
+                    console.log(res);
+                    if(res==1){
+                        let $ul = $("#chatroom ul");
+                        $(`<li class="chat_balloon mychat">
+                            <div class="mem_img">
+                                <img src="" alt="profile">
+                            </div>
+                            <div class="chat_msg">
+                                <p>${msg}</p>
+                            </div>
+                            <div class="chat_created_at">
+                                ${new Date()}
+                            </div>
+                        </li>`).appendTo($ul)
+                    }
+                    $("#main").animate({ scrollTop: 9999 });
+                })
+                .fail(function(res){
+                    Swal.fire({
+                        icon: 'error',
+                        text: res.responseText
+                    })
+                })
+
+            })
+
+
+            // 채팅 내역 가져오기
+            $.ajax({
+                method:'GET',
+                url:'/api/v1/chat',
+                data:{chatPdtNo : searchParams.get("chatPdtNo"), chatMemNo: searchParams.get("chatMemNo"), start : 1, end : 20 }
+            })
+            .done(function(res){
+                console.log(res);
+
+                // 회원 정보
+                $("#header h2").text(res.product.member.memNickname);
+                $("#header p").text(res.product.member.memBrix + " 브릭스");
+                $("#header_phone a").attr("href", "tel:" + res.product.member.memUsername);
+
+                // 상품 정보
+                $("#pdt_info img").attr("src", res.product.images[0].imgPath);
+                $("#pdt_info .title").text(res.product.product.pdtName);
+                $("#pdt_info .price").text(res.product.product.pdtPrice);
+
+                // 채팅 정보
+                let $ul = $("#chatroom ul");
+                for(msg of res.chat){
+                    $(`<li class="chat_balloon ${msg.chatIsSeller==false&&searchParams.memNo==searchParams.chatMemNo ? 'mychat' : ''}">
+                        <div class="mem_img">
+                            <img src="${res.member.imgPath}" alt="profile">
+                        </div>
+                        <div class="chat_msg">
+                            <p>${msg.chatContent}</p>
+                        </div>
+                        <div class="chat_created_at">
+                            ${msg.chatCreatedAt}
+                        </div>
+                    </li>`).prependTo($ul)
+                }
+
+            })
+            .fail(function(res){
+                Swal.fire({
+                    icon: 'error',
+                    text: res.responseText
+                })
+                .then(function(result){
+                    history.back();
+                })
+            })
         });
     </script>
 </body>

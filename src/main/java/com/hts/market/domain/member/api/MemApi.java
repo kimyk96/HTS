@@ -69,4 +69,9 @@ public class MemApi {
         return ResponseEntity.ok().body(memApp.updateProfile(dto, principal.getName()));
     }
 
+    @GetMapping("find-id-by-mem-username")
+    public ResponseEntity<Long> findIdByMemUsername(Principal principal){
+        return ResponseEntity.ok().body(memApp.findIdByMemUsername(principal.getName()));
+    }
+
 }

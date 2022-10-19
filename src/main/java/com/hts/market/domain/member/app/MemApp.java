@@ -131,4 +131,8 @@ public class MemApp {
             }
         }
     }
+
+    public Long findIdByMemUsername(String memUsername) {
+        return memRepo.findIdByMemUsername(memUsername);
+    }
 }
