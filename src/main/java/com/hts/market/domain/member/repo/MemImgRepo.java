@@ -3,7 +3,6 @@ package com.hts.market.domain.member.repo;
 import com.hts.market.domain.member.dto.MemDto;
 import com.hts.market.domain.member.dto.MemImgDto;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.http.codec.multipart.Part;
 
 @Mapper
 public interface MemImgRepo {

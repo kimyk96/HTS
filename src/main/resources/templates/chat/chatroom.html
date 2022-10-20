@@ -8,39 +8,16 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/js/main.js" charset="UTF-8"></script>
     <style>
-        /* 채팅방 페이지 */
         header div ul li{ width : 25%; }
         header div ul li a{ text-align : right; }
         #main{ margin-top : 120px; }
-        #main section#chatroom{ width : 100%; display : flex; flex-direction: column; justify-content: center; align-items: center; }
-        #main section#chatroom div#pdt_info{ border-bottom : 1px solid #efefef; position : fixed; top : 50px; left : 0; width : 95%; padding : 10px 2.5%; display : flex; flex-direction: row; justify-content: flex-start; align-items: center; }
-        #main section#chatroom div#pdt_info img{ width : 50px; border-radius: 5px;}
-        #main section#chatroom div#pdt_info div{ padding : 0 10px; }
-        #main section#chatroom div#pdt_info div p{ font-size : 14px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 1; line-clamp: 1; -webkit-box-orient: vertical; }
-        #main section#chatroom div#pdt_info div p.price{ font-size : 15px; font-weight : 600; }
-
-        #main section#chatroom ul{ width : 95%; padding : 0 2.5%; display : flex; flex-direction: column; }
-        #main section#chatroom ul li{ width : 100%; padding : 10px 0; display : flex; flex-direction: row; justify-content: flex-start; }
-        #main section#chatroom ul li div{ display: flex; }
-        #main section#chatroom ul li div.mem_img{ width : 11%; align-items: flex-start; }
-        #main section#chatroom ul li div.mem_img img{ width : 100%; border-radius: 50%; border: 1px solid #efefef; }
-        #main section#chatroom ul li div.chat_msg{ max-width : 70%; margin-left : 3%; align-items: flex-start; flex-direction: column; }
-        #main section#chatroom ul li div.chat_msg p{ word-break: keep-all; margin : 2px 0; max-width : 90%; background-color : #efefef; padding : 10px 15px; border-radius : 18px; font-size : 12px; }
-        #main section#chatroom ul li div.chat_created_at{ width : 8%; font-size : 10px; font-weight : 100; align-items: flex-end; opacity : 0.5;}
-        #main section#chatroom ul li.mychat{ flex-direction: row-reverse; }
-        #main section#chatroom ul li.mychat div.mem_img{ display : none; }
-        #main section#chatroom ul li.mychat div.chat_msg{ margin : 0; }
-        #main section#chatroom ul li.mychat div.chat_msg p{ color : #fff; background-color : #FF9D2A; }
-        #main section#chatroom ul li.mychat div.chat_created_at{ margin :  }
-
-        #chatroom_keyboard{ width : 100%; padding : 10px 0 0 0; height : 40px; position : fixed; bottom : 0; left : 0; display : flex; flex-direction: row; justify-content: space-between; align-items: center;}
-        #chatroom_keyboard div{ display : flex; justify-content: center; align-items: center; }
-        #chatroom_keyboard div.icon_wrapper{ width : 12%; }
-        #chatroom_keyboard div.icon_wrapper img{ width : 20px; margin-top : -5px; }
-        #chatroom_keyboard div.input_wrapper{ width : 88%; justify-content: flex-end; }
-        #chatroom_keyboard div.input_wrapper input{ width : 95%; padding : 0 5%; font-size : 11px; height : 40px; border-radius : 20px; border : none; background-color: #efefef;}
-        #chatroom_keyboard div.input_wrapper input:focus{ outline: none; }
-
+        #chat_room_keyboard{ width : 100%; padding : 10px 0 0 0; height : 40px; position : fixed; bottom : 0; left : 0; display : flex; flex-direction: row; justify-content: space-between; align-items: center;}
+        #chat_room_keyboard div{ display : flex; justify-content: center; align-items: center; }
+        #chat_room_keyboard div.icon_wrapper{ width : 12%; }
+        #chat_room_keyboard div.icon_wrapper img{ width : 20px; margin-top : -5px; }
+        #chat_room_keyboard div.input_wrapper{ width : 88%; justify-content: flex-end; }
+        #chat_room_keyboard div.input_wrapper input{ width : 95%; padding : 0 5%; font-size : 11px; height : 40px; border-radius : 20px; border : none; background-color: #efefef;}
+        #chat_room_keyboard div.input_wrapper input:focus{ outline: none; }
     </style>
 </head>
 <body>
@@ -62,7 +39,7 @@
     </header>
     <!-- 메인정보 -->
     <main id="main">
-        <section id="chatroom">
+        <section id="chat_room">
             <div id="pdt_info">
                 <img src="" alt="pdt_img">
                 <div>
@@ -74,7 +51,7 @@
         </section>
     </main>
     <!-- 보내기 부분 -->
-    <div id="chatroom_keyboard">
+    <div id="chat_room_keyboard">
         <div class="input_wrapper">
             <input type="text" inputmode="text" id="chat_msg" placeholder="메세지 보내기">
         </div>
@@ -97,12 +74,12 @@
                 let msg = $("#chat_msg").val();
                 $.ajax({
                     method: "POST",
-                    url: '/api/v1/chat/save',
+                    url: '/api/v1/chat',
                     data : { chatPdtNo : searchParams.get("chatPdtNo"), chatMemNo : searchParams.get("chatMemNo"), chatContent: msg }
                 })
                 .done(function(res){
                     if(res==1){
-                        let $ul = $("#chatroom ul");
+                        let $ul = $("#chat_room ul");
                         $(`<li class="chat_balloon mychat">
                             <div class="mem_img">
                                 <img src="" alt="profile">
@@ -171,7 +148,7 @@
                     $("#pdt_info .price").text(numberWithCommas(res.product.product.pdtPrice));
 
                     // 채팅 정보
-                    let $ul = $("#chatroom ul");
+                    let $ul = $("#chat_room ul");
                     let isSeller = ( res.member.memNo == res.product.member.memNo ) ? true : false;
 
                     for(msg of res.chat){

@@ -8,28 +8,9 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/js/main.js" charset="UTF-8"></script>
     <style>
-        /* 상품 수정 */
         #header div.btn_upload{ justify-content: flex-end; }
         #header div h2{ font-size : 15px; font-weight : 400; }
         #header div.btn_upload span{ padding : 0 10px; font-weight : 600; font-size : 15px; color : #FF9D2A;  }
-        #main section#product_upload{ width : 100% display : flex; flex-direction: column; justify-content: center; align-items: center; }
-        #main section#product_upload #img_wrapper{ width : 100%; display : flex; flex-direction : row; padding : 10px 0; }
-        #main section#product_upload #img_wrapper #input_wrapper{ width : 25%; display : flex; justify-content : center; align-items: flex-end; }
-        #main section#product_upload #img_wrapper #input_wrapper input{ display : none; }
-        #main section#product_upload #img_wrapper #input_wrapper button{ width: 74px; height: 74px; display: flex; flex-direction: column; justify-content: center; align-items: center; border: 2px solid #efefef; border-radius: 7px; }
-        #main section#product_upload #img_wrapper #input_wrapper button img{ width : 33%; padding : 3px 0;}
-        #main section#product_upload #preview_wrapper{ width: 75%; overflow: scroll; }
-        #main section#product_upload #preview_wrapper::-webkit-scrollbar{ display: none; }
-        #main section#product_upload #preview_wrapper ul#previews{ overflow: auto; white-space : nowrap; }
-        #main section#product_upload #preview_wrapper ul#previews::-webkit-scrollbar{ display: none; }
-        #main section#product_upload #preview_wrapper ul#previews li{ width : 70px; margin-right : 20px; position :relative;}
-        #main section#product_upload #preview_wrapper ul#previews li img{ width : 100%; border-radius : 14px; border : 2px solid #efefef; }
-        #main section#product_upload #preview_wrapper ul#previews li span{ position : absolute; top : -2px; left : 0px; width : 84px; margin-bottom : -15px; display : flex; justify-content : flex-end; }
-        #main section#product_upload #preview_wrapper ul#previews li span img{ z-index : 2; background-color : #fff; width : 20px; border-radius : 50%; box-shadow : 0 0 3px -2px #303030; }
-
-        #main section#product_upload #pdt_wrapper{ width : 95%; padding : 10px 2.5%; }
-        #main section#product_upload #pdt_wrapper div{ width : 100%; border-bottom : 1px solid #efefef; display : flex; flex-direction : column; align-items: center; border-bottom : 1px solid #efefef;  }
-        #main section#product_upload #pdt_wrapper div *{ width : 100%; margin : 5px 0; padding : 15px; border : none; font-family: 'Noto Sans KR', sans-serif;}
     </style>
 </head>
 <body>
@@ -117,7 +98,6 @@
                 data: {pdtNo : pdtNo}
             })
             .done(function(res){
-                console.log(res);
                 $("#address").val(res.address.addressNo).prop("selected", true);
                 $("select[name='cate'] option:contains('" + res.pdtCate + "')").prop("selected", true);
                 $("#title").val(res.product.pdtName);
@@ -151,19 +131,11 @@
                     });
                 }
                 $("#img_count").text( res.images.length + "/10");
-
-                // dataTransfer.clearData();
-                // imgArray.forEach(ee => { dataTransfer.items.add(ee); });
-                // $('#images')[0].files = dataTransfer.files;
                 imgArray = Array.from($("#images")[0].files);
-            })
-
-
-
+            });
 
             // 이미지 불러오기
             $("#images").change(function(){
-                console.log("변경됨")
                 $("#previews").empty();
                 let images = $(this).prop('files');
 
@@ -209,23 +181,6 @@
                 $('#img_count').text( $('.preview').length + '/10');
             });
         });
-
-        const dataURLtoFile = (dataurl, fileName) => {
-
-            var arr = dataurl.split(','),
-                mime = arr[0].match(/:(.*?);/)[1],
-                bstr = atob(arr[1]),
-                n = bstr.length,
-                u8arr = new Uint8Array(n);
-
-            while(n--){
-                u8arr[n] = bstr.charCodeAt(n);
-            }
-            console.log(arr, mime, u8arr)
-            return new File([u8arr], fileName, {type:mime});
-        }
-
-
     </script>
 </body>
 </html>

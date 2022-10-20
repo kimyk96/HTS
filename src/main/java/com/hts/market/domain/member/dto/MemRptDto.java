@@ -4,9 +4,7 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Builder
-@ToString
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MemRptDto {
     @Data
     @Builder @AllArgsConstructor

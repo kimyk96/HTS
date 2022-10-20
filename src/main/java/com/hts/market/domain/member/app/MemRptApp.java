@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MemRptApp {
-
     @Autowired MemRptRepo memRptRepo;
     
     // 회원 신고

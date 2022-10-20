@@ -1,32 +1,28 @@
-// 화면 로딩 후
 $(function(){
     /* 상단 메뉴 */
-    // 뒤로가기
     $("#header_goback").click(function(){history.back();});
     /* 하단 메뉴 */
-    // 상품
     $("#nav_product").click(function(){ $(location).attr("href", "/product"); });
-    // 게시판
     $("#nav_board").click(function(){ $(location).attr("href", "/board"); });
-    // 채팅
     $("#nav_chat").click(function(){ $(location).attr("href", "/chat"); });
-    // 회원
     $("#nav_member").click(function(){ $(location).attr("href", "/member"); });
 })
 
 // 상품 저장
 function savePdt(){
     let fd = new FormData();
+
     fd.append("pdtCateNo", $("#cate").find(':selected').val());
     fd.append("pdtAddressNo", $("#address").find(':selected').val());
     fd.append("pdtName", $("#title").val());
     fd.append("pdtDesc", $("#desc").val());
     fd.append("pdtPrice", $("#price").val());
+
     for(file of $("#images")[0].files){
         fd.append("images", file);
         console.log(file);
     }
-
+    // 상품 저장
     $.ajax({
         method: "POST",
         url: "/api/v1/pdt/save",
@@ -34,14 +30,7 @@ function savePdt(){
         contentType: false,
         processData: false,
     }).done((res) => {
-        if(res==1){
-            $(location).attr("href", "/product");
-        }else{
-            Swal.fire({
-                icon: 'error',
-                text: res
-            })
-        }
+        $(location).attr("href", "/product");
     }).fail((res)=>{
         Swal.fire({
             icon: 'error',
@@ -54,32 +43,27 @@ function savePdt(){
 function updatePdt(){
     let pdtNo = new URL(location.href).searchParams.get("pdtNo")
     let fd = new FormData();
+
     fd.append("pdtCateNo", $("#cate").find(':selected').val());
     fd.append("pdtAddressNo", $("#address").find(':selected').val());
     fd.append("pdtName", $("#title").val());
     fd.append("pdtDesc", $("#desc").val());
     fd.append("pdtPrice", $("#price").val());
     fd.append("pdtNo", pdtNo);
+
     for(file of $("#images")[0].files){
         fd.append("images", file);
-        console.log(file);
     }
 
+    // 상품 수정
     $.ajax({
         method: "PUT",
         url: "/api/v1/pdt/update",
         data: fd,
         contentType: false,
         processData: false,
-    }).done((res) => {
-        if(res==1){
-            $(location).attr("href", "/product/" + pdtNo);
-        }else{
-            Swal.fire({
-                icon: 'error',
-                text: res
-            })
-        }
+    }).done((res)=>{
+        $(location).attr("href", "/product/" + pdtNo);
     }).fail((res)=>{
         Swal.fire({
             icon: 'error',
@@ -89,15 +73,12 @@ function updatePdt(){
 }
 
 // 상품 목록 검색
-async function searchPdtList(addressSi, addressGu, addressDong, keyword, pdtCateNo, start, end){
-    if(keyword==""){
-        return;
-    }
-    if(start==1){
-        $("#search_list").empty();
-    }
+function searchPdtList(addressSi, addressGu, addressDong, keyword, pdtCateNo, start, end){
+    if(keyword==""){ return; }
+    if(start==1){ $("#search_list").empty(); }
 
-    await $.ajax({
+    // 상품 목록 검색
+    $.ajax({
         method: "GET",
         url: "/api/v1/pdt/find-all-by-data",
         data : {addressSi, addressGu, addressDong, keyword, pdtCateNo, start, end}
@@ -139,9 +120,13 @@ async function searchPdtList(addressSi, addressGu, addressDong, keyword, pdtCate
             .appendTo($ul);
         }
     })
-    .fail(function(res){})
+    .fail(function(res){
+        Swal.fire({
+            icon: 'error',
+            text: res.responseText
+        });
+    })
 }
-
 
 
 // 3자리 마다 반점
@@ -171,4 +156,17 @@ function timeForToday(value) {
         }
 
         return `${Math.floor(betweenTimeDay / 365)}년전`;
+ }
+
+// base64 -> File
+function dataURLtoFile(dataurl, fileName){
+     var arr = dataurl.split(','),
+         mime = arr[0].match(/:(.*?);/)[1],
+         bstr = atob(arr[1]),
+         n = bstr.length,
+         u8arr = new Uint8Array(n);
+     while(n--){
+         u8arr[n] = bstr.charCodeAt(n);
+     }
+     return new File([u8arr], fileName, {type:mime});
  }

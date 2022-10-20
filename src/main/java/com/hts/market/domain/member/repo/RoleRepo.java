@@ -1,6 +1,5 @@
 package com.hts.market.domain.member.repo;
 
-import com.hts.market.domain.member.dto.MemRoleDto;
 import com.hts.market.domain.member.dto.RoleDto;
 import org.apache.ibatis.annotations.Mapper;
 

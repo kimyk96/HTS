@@ -1,23 +1,26 @@
 package com.hts.market.domain.member.app;
 
-import com.hts.market.domain.member.repo.MemRepo;
-import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 //import org.json.simple.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.Random;
 
 @Service
 public class SmsApp {
+
+    private Random rand = SecureRandom.getInstanceStrong();
+
+    public SmsApp() throws NoSuchAlgorithmException {
+
+    }
+
     // 인증코드 발송
     public String send(String phoneNumber) throws CoolsmsException {
         // 랜덤 4자리 숫자 생성
-        Random random  = new Random();
-        Integer number = random.nextInt(9999);
+        Integer number = this.rand.nextInt(9999);
         String randomNumber = String.format("%04d", number);
 
         // 테스트 시에는 콘솔로그로 확인, 아래 주석 풀면 코드 잘 보내짐

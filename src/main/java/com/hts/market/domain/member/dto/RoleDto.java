@@ -2,11 +2,7 @@ package com.hts.market.domain.member.dto;
 
 import lombok.*;
 
-import java.time.LocalDateTime;
-
-@Getter
-@Builder
-@ToString
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class RoleDto {
     @Data
     @Builder @AllArgsConstructor

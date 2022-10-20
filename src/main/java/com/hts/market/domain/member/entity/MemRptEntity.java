@@ -3,7 +3,6 @@ package com.hts.market.domain.member.entity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
-import net.bytebuddy.asm.Advice;
 
 import java.time.LocalDateTime;
 

@@ -23,8 +23,6 @@ public class MemDetailsService implements UserDetailsService {
     @Autowired MemRepo memRepo;
     @Autowired MemRoleRepo memRoleRepo;
     @Autowired RoleRepo roleRepo;
-
-
     @Override
     public UserDetails loadUserByUsername(String memUsername) throws UsernameNotFoundException {
         // memUsername 으로 유저 확인

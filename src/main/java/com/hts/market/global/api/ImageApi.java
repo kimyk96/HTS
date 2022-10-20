@@ -18,7 +18,6 @@ public class ImageApi {
     @GetMapping(path="/{dir}/{img}", produces= MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public ResponseEntity<byte[]> images(@PathVariable String dir, @PathVariable String img) {
         File file = new File(new File("").getAbsolutePath() + "\\" + "/images/", dir + "/" + img);
-        System.out.println(file.getPath());
         if(file.exists()==false){
             return null;
         }

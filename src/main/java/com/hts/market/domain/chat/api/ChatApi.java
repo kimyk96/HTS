@@ -23,45 +23,33 @@ public class ChatApi {
     @Autowired
     ChatApp chatApp;
 
-
-    // 채팅 보내기
-    @PostMapping(path = "save", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Integer> save(ChatDto.Create creDto, Principal principal) {
-        Integer sendMessage = chatApp.save(creDto, principal.getName());
-        return ResponseEntity.ok().body(sendMessage);
-    }
-
-
-    // 회원 채팅방 및 최근 메세지
-    @GetMapping("list")
-    public ResponseEntity<List<ChatDto.Pk>> findAllByChatMemNo(Principal principal) {
-        List<ChatDto.Pk> chatList = chatApp.findAllByUser(principal.getName());
-        return ResponseEntity.ok().body(chatList);
-    }
-
-    // 회원간 채팅내역
+    // 채팅 조회
     @GetMapping("")
-    public ResponseEntity<ChatDto.ChatUserInfo> findAllByChatMemNoAndChatPdtNo(ChatDto.ListStartEnd listStartEnd, Principal principal) {
-        ChatDto.ChatUserInfo messageList = chatApp.findAllByChatMemNoAndChatPdtNo(listStartEnd, principal.getName());
-        return ResponseEntity.ok().body(messageList);
+    public ResponseEntity<ChatDto.ChatUserInfo> findChat(ChatDto.ListStartEnd listStartEnd, Principal principal) {
+        return ResponseEntity.ok().body(chatApp.findAllByChatMemNoAndChatPdtNo(listStartEnd, principal.getName()));
+    }
+    
+    // 채팅 리스트 조회
+    @GetMapping("list")
+    public ResponseEntity<List<ChatDto.Pk>> findChatList(Principal principal) {
+        return ResponseEntity.ok().body(chatApp.findAllByUser(principal.getName()));
     }
 
-    //상품별 채팅 수
+    // 채팅 저장
+    @PostMapping("")
+    public ResponseEntity<Integer> save(ChatDto.Create creDto, Principal principal) {
+        return ResponseEntity.ok().body(chatApp.save(creDto, principal.getName()));
+    }
+
+    // 상품 채팅수
     @GetMapping("count-chat-by-pdt-no")
     public ResponseEntity<Integer> countChatByPdtNo(Long chatPdtNo) {
-        Integer countMemNo = chatApp.countChatByPdtNo(chatPdtNo);
-        return ResponseEntity.ok().body(countMemNo);
+        return ResponseEntity.ok().body(chatApp.countChatByPdtNo(chatPdtNo));
     }
 
-    ;
-
-    // 상품별 관심
+    // 상품 채팅여부
     @GetMapping("count-chat-by-pdt-no-and-mem-no")
     public ResponseEntity<Boolean> countChatByPdtNoAndMemNo(ChatDto.ChatLike chatLike) {
-        boolean count = chatApp.countChatByPdtNoAndMemNo(chatLike);
-        return ResponseEntity.ok().body(count);
+        return ResponseEntity.ok().body(chatApp.countChatByPdtNoAndMemNo(chatLike));
     }
-
-    ;
-
 }

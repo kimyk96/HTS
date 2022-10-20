@@ -3,24 +3,18 @@ package com.hts.market.domain.member.app;
 import com.hts.market.domain.member.dto.MemDto;
 import com.hts.market.domain.member.dto.MemImgDto;
 import com.hts.market.domain.member.dto.MemRoleDto;
-import com.hts.market.domain.member.entity.MemEntity;
-import com.hts.market.domain.member.exception.MemberAlreadyExsistException;
 import com.hts.market.domain.member.exception.MemberImageSaveFailException;
 import com.hts.market.domain.member.exception.MemberNotFoundException;
 import com.hts.market.domain.member.exception.NicknameAlreadyTakenException;
 import com.hts.market.domain.member.repo.MemImgRepo;
 import com.hts.market.domain.member.repo.MemRepo;
 import com.hts.market.domain.member.repo.MemRoleRepo;
-import net.nurigo.java_sdk.exceptions.CoolsmsException;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.io.File;
 import java.io.IOException;
-import java.util.Locale;
 
 @Service
 public class MemApp {
@@ -37,7 +31,7 @@ public class MemApp {
         if (memNo == null) {
             // 이미 가입된 회원 확인
             Boolean usernameTaken = memRepo.countByMemUsername(memUsername);
-            if (usernameTaken) {
+            if (Boolean.TRUE.equals(usernameTaken)) {
                 // 비밀번호 갱신
                 MemDto.Update updateDto = MemDto.Update.builder()
                         .memUsername(memUsername).memPassword(passwordEncoder.encode(code)).build();
@@ -48,7 +42,9 @@ public class MemApp {
                     .memUsername(memUsername)
                     .memPassword(passwordEncoder.encode(code))
                     .memNickname("")
-                    .memEmail("").build();
+                    .memEmail("")
+                    .memIsEnabled(1)
+                    .build();
             memRepo.save(memCreateDto);
             MemRoleDto.Create memRoleDtoCreate = MemRoleDto.Create.builder()
                     .memNo(memCreateDto.getMemNo()).roleNo(2L).build();
@@ -75,7 +71,7 @@ public class MemApp {
 
     // 회원번호로 정보 조회
     public MemDto.Member findById(Long memNo) {
-        MemDto.Member member = memRepo.findById(memNo).orElseThrow(() -> new MemberNotFoundException());
+        MemDto.Member member = memRepo.findById(memNo).orElseThrow(MemberNotFoundException::new);
         if(member.getImgPath()==null){
             member.setImgPath("/img/example/profile.png");
         }else{
@@ -86,7 +82,7 @@ public class MemApp {
 
     // 회원명으로 정보 조회
     public MemDto.Member findByName(String memUsername) {
-        MemDto.Member member = memRepo.findByName(memUsername).orElseThrow(() -> new MemberNotFoundException());
+        MemDto.Member member = memRepo.findByName(memUsername).orElseThrow(MemberNotFoundException::new);
         if(member.getImgPath()==null){
             member.setImgPath("/img/example/profile.png");
         }else{
@@ -98,9 +94,9 @@ public class MemApp {
     // 프로필 사진 & 닉네임 수정
     public Integer updateProfile(MemDto.Profile dto, String memUsername) {
 
-        if(memRepo.countByMemNickname(memUsername, dto.getMemNickname())){
+        if(Boolean.TRUE.equals(memRepo.countByMemNickname(memUsername, dto.getMemNickname()))){
             throw new NicknameAlreadyTakenException();
-        };
+        }
 
         // 정보 저장 dto 생성
         dto.setMemUsername(memUsername);

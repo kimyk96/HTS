@@ -1,9 +1,7 @@
 package com.hts.market.domain.member.dto;
 
 import lombok.*;
-import org.springframework.http.codec.multipart.Part;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,6 +14,7 @@ public class MemDto {
         private String memPassword;
         private String memEmail;
         private String memNickname;
+        private Integer memIsEnabled;
     }
     @Data @Builder @AllArgsConstructor @NoArgsConstructor
     public static class Read{

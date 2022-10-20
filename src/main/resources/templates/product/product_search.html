@@ -7,33 +7,7 @@
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="/js/main.js" charset="UTF-8"></script>
     <style>
-        /* 상품 검색 */
         #header .right{ justify-content : flex-end; }
-        #main section#product{ width : 95%; padding : 0 2.5%; display : flex; flex-direction: column; justify-content: center; align-items: center; }
-        #main #product div{ width : 100%; }
-        #main #product div input{ width : 100%; padding : 15px; border-radius: 10px; border : 2px solid #efefef; font-size : 16px; font-weight : 400; margin : 7px 0; letter-spacing: -1px; ;}
-        #main #product div button{ background-color : #FF9D2A; color : #fff; width : 100%; padding : 10px; border-radius: 10px; border : 2px solid #efefef; font-size : 17px; font-weight : 400; margin : 7px 0; letter-spacing: -1px; ;}
-        #main #product div button:disabled, button[disabled]{ background-color: transparent; }
-
-
-        #main section#product ul{ width : 100%; display: flex; flex-direction: column; justify-content: center; }
-        #main section#product ul li{ width : 100%; border-bottom : 1px solid #efefef; padding : 3.5vw 0; display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start; }
-        #main section#product ul li div.img_wrapper{ width : 30%; }
-        #main section#product ul li div.img_wrapper img{ width : 100%; object-fit: cover; aspect-ratio: 1 / 1;  box-shadow: 0px 0px 4px 0px #efefef; border-radius: 2.5vw;}
-        #main section#product ul li div.info_wrapper{ width : 70%; display: flex; flex-direction: column; justify-content: space-between;}
-        #main section#product ul li div.info_wrapper .info{ width : 88%; padding : 8px 7% 22px 5%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        #main section#product ul li div.info_wrapper .info h3{ width : 100%; line-height : 1.2; font-size : 12px; font-weight : 400; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; word-break: keep-all; }
-        #main section#product ul li div.info_wrapper .info p{ width : 100%; padding : 4px 0 0 0; font-size : 10px; font-weight : 100; }
-        #main section#product ul li div.info_wrapper .info p span.info_price{ font-size : 12px; font-weight : 600; }
-        #main section#product ul li div.info_wrapper .count{ width : 100%; display : flex; flex-direction: row; justify-content: right; }
-        #main section#product ul li div.info_wrapper .count p{ width : 12%; display: flex; flex-direction: row; align-items: center; justify-content: space-evenly; opacity : 0.8;}
-        #main section#product ul li div.info_wrapper .count p img{ width : 16px; height : 16px; }
-        #main section#product ul li div.info_wrapper .count p.count_chat img{ content: url(/img/icon/chat.png); }
-        #main section#product ul li div.info_wrapper .count p.count_chat img.selected{ content: url(/img/icon/chat_selected.png); }
-        #main section#product ul li div.info_wrapper .count p.count_like img{ content: url(/img/icon/like.png); }
-        #main section#product ul li div.info_wrapper .count p.count_like img.selected{ content: url(/img/icon/like_selected.png); }
-        #main section#product ul li div.info_wrapper .count p span{ font-size : 11px; }
-
     </style>
 </head>
 <body>
@@ -51,7 +25,7 @@
 </header>
 <!-- 메인정보 -->
 <main id="main">
-    <section id="product">
+    <section id="product_search">
         <div>
             <input type="text" id="search_keyword" placeholder="제목 + 본문으로 검색하기">
         </div>

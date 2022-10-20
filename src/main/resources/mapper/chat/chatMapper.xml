@@ -1,37 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hts.market.domain.chat.repo.ChatRepo">
-    <!-- save() -->
+    <!-- 채팅 저장 -->
     <insert id="save">
         <selectKey resultType="long" order="BEFORE" keyProperty="chatMsgNo">
             select nvl(max(chat_msg_no),0)+1 from chat where chat_mem_no =#{chatMemNo} and chat_pdt_no =#{chatPdtNo}
         </selectKey>
-        insert
-                into
-                    CHAT(chat_msg_no, chat_mem_no, chat_pdt_no, chat_content, chat_is_seller)
-                values
-                    (#{chatMsgNo},#{chatMemNo},#{chatPdtNo},#{chatContent},#{chatIsSeller})
+        INSERT INTO
+            CHAT(chat_msg_no, chat_mem_no, chat_pdt_no, chat_content, chat_is_seller)
+        VALUES
+            (#{chatMsgNo},#{chatMemNo},#{chatPdtNo},#{chatContent},#{chatIsSeller})
     </insert>
 
     <!--상품별 메세지 수-->
     <select id="countChatByPdtNo" resultType="int">
         SELECT
-            COUNT
-                (DISTINCT chat_mem_no)
-            FROM
-                chat where chat_pdt_no = #{chatPdtNo}
-
-
+            COUNT(DISTINCT chat_mem_no)
+        FROM
+            chat
+        WHERE
+            chat_pdt_no=#{chatPdtNo}
     </select>
 
     <!--관심목록-->
     <select id="countChatByPdtNoAndMemNo" resultType="boolean">
         SELECT
-            COUNT
-                (DISTINCT chat_mem_no)
-            FROM
-                chat where  chat_pdt_no = #{chatPdtNo} And chat_mem_no= #{chatMemNo}
-
+            COUNT(DISTINCT chat_mem_no)
+        FROM
+            chat
+        WHERE
+            chat_pdt_no=#{chatPdtNo} and chat_mem_no=#{chatMemNo}
     </select>
 
     <!-- findAllByPk //  구매자로서의 채팅 내역-->
@@ -46,38 +44,31 @@
         select distinct chat_pdt_no, chat_mem_no, (select max(chat_msg_no) from chat c where c.chat_pdt_no=chat.chat_pdt_no) chat_msg_no from chat left join product p on p.pdt_no=chat.chat_pdt_no where p.pdt_seller_no = #{memNo} )
     </select>
 
-
-
     <!-- findAllByChatMemNoAndChatPdtNoAndChatMsgNo // 회원간 채팅내역 -->
     <select id="findAllByChatMemNoAndChatPdtNo" resultType="com.hts.market.domain.chat.dto.ChatDto$Read">
         <![CDATA[
-        SELECT
-        b.*
-        FROM
-        (
-        SELECT
-        ROWNUM AS rnum,
-        a.*
-        FROM
-        (
-        SELECT
-        *
-        FROM
-        chat
-        WHERE
-        chat_pdt_no=#{chatPdtNo} and chat_mem_no =#{chatMemNo}
-        ORDER BY
-        chat_msg_no DESC
-        ) a
-        WHERE
-        ROWNUM <= #{end}
-        ) b
-        WHERE
-        b.rnum >= #{start}
-
-  ]]>
+            SELECT
+                b.*
+            FROM
+                (
+                    SELECT
+                        ROWNUM AS rnum, a.*
+                    FROM
+                        (
+                            SELECT
+                                *
+                            FROM
+                                CHAT
+                            WHERE
+                                chat_pdt_no=#{chatPdtNo} and chat_mem_no=#{chatMemNo}
+                            ORDER BY
+                                chat_msg_no DESC
+                        ) a
+                    WHERE
+                        ROWNUM <= #{end}
+                ) b
+            WHERE
+                b.rnum >= #{start}
+        ]]>
     </select>
-
-
-
 </mapper>

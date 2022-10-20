@@ -2,9 +2,7 @@ package com.hts.market.domain.member.dto;
 
 import lombok.*;
 
-@Getter
-@Builder
-@ToString
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MemImgDto {
     @Data
     @Builder @AllArgsConstructor

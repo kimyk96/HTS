@@ -3,32 +3,18 @@ package com.hts.market.domain.member.app;
 import com.hts.market.domain.member.dto.MemDto;
 import com.hts.market.domain.member.dto.MemImgDto;
 import com.hts.market.domain.member.dto.MemRoleDto;
-import com.hts.market.domain.member.dto.RoleDto;
-import com.hts.market.domain.member.entity.MemEntity;
 import com.hts.market.domain.member.exception.KakaoMemberAlreadyExsistException;
-import com.hts.market.domain.member.exception.MemberAlreadyExsistException;
 import com.hts.market.domain.member.exception.MemberNotFoundException;
 import com.hts.market.domain.member.repo.MemImgRepo;
 import com.hts.market.domain.member.repo.MemRepo;
 import com.hts.market.domain.member.repo.MemRoleRepo;
-import com.hts.market.global.config.security.auth.MemDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 @Service
@@ -46,9 +32,9 @@ public class KakaoApp {
         Map memProfile = (Map) memAccount.get("profile");
 
         // 회원 가입 여부 확인
-        if(memRepo.countByMemNo(Long.parseLong(memInfo.get("id").toString()))){
+        if(Boolean.TRUE.equals(memRepo.countByMemNo(Long.parseLong(memInfo.get("id").toString())))){
             // 이미 가입된 회원 -> 자동 로그인
-            MemDto.Member member = memRepo.findById(Long.parseLong(memInfo.get("id").toString())).orElseThrow(()->new MemberNotFoundException());
+            MemDto.Member member = memRepo.findById(Long.parseLong(memInfo.get("id").toString())).orElseThrow(MemberNotFoundException::new);
             throw new KakaoMemberAlreadyExsistException(member);
         }else{
             // 회원 가입 진행
@@ -58,6 +44,7 @@ public class KakaoApp {
                     .memPassword(passwordEncoder.encode(memInfo.get("id").toString()))
                     .memNickname(memProfile.get("nickname").toString())
                     .memEmail(memAccount.get("email").toString())
+                    .memIsEnabled(1)
                     .build();
             memRepo.save(memDto);
 
@@ -73,6 +60,7 @@ public class KakaoApp {
             return memDto.getMemNo();
         }
     }
+
     // accessToken
     public Map getTokens(String code) {
         // Request Body

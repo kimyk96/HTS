@@ -5,19 +5,11 @@ import com.hts.market.domain.member.app.SmsApp;
 import com.hts.market.domain.member.dto.MemDto;
 import com.hts.market.domain.member.exception.MemberAlreadyExsistException;
 import com.hts.market.domain.member.repo.MemRepo;
-import com.hts.market.global.config.security.auth.MemDetails;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.security.Principal;
 
 @RestController

@@ -127,6 +127,12 @@
                             <if test="pdtCateNo != null">
                                 and p.pdt_cate_no = #{pdtCateNo}
                             </if>
+                            <if test="pdtCate != null and pdtNo !=null">
+                                and c.pdt_cate = #{pdtCate} and p.pdt_no != #{pdtNo}
+                            </if>
+                            <if test="pdtSellerNo != null and pdtNo !=null">
+                                and p.pdt_seller_no = #{pdtSellerNo} and p.pdt_no != #{pdtNo}
+                            </if>
                         ORDER BY
                             p.pdt_no DESC
                     ) a

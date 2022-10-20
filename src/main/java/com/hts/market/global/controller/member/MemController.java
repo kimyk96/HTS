@@ -35,17 +35,17 @@ public class MemController {
 
     @GetMapping("address")
     public String address(){
-        return "member/address";
+        return "member/member_address";
     }
 
     @GetMapping("address-list")
-    public String login(){
-        return "member/address_list";
+    public String addressList(){
+        return "member/member_address_list";
     }
 
     @GetMapping("profile")
     public String profile(){
-        return "member/profile";
+        return "member/member_profile";
     }
 
     @GetMapping("favorite")

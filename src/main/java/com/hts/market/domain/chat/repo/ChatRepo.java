@@ -25,7 +25,7 @@ public interface ChatRepo {
     public Integer countChatByPdtNo(Long pdtNo);
 
     // 상품별 관심
-    public boolean countChatByPdtNoAndMemNo(ChatDto.ChatLike chatLike);
+    public Boolean countChatByPdtNoAndMemNo(ChatDto.ChatLike chatLike);
 
 
 }

@@ -41,9 +41,9 @@
             </if>
         </selectKey>
         INSERT INTO
-            MEMBER( mem_no, mem_username, mem_password, mem_email, mem_nickname )
+            MEMBER( mem_no, mem_username, mem_password, mem_email, mem_nickname, mem_is_enabled )
         VALUES
-            ( #{memNo}, #{memUsername}, #{memPassword}, #{memEmail}, #{memNickname} )
+            ( #{memNo}, #{memUsername}, #{memPassword}, #{memEmail}, #{memNickname}, #{memIsEnabled} )
     </insert>
     <update id="updateMemPassword">
         <![CDATA[

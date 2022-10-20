@@ -6,22 +6,6 @@
     <link rel="stylesheet" href="/css/main.css">
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="/js/main.js" charset="UTF-8"></script>
-    <style>
-        /* 채팅 페이지 */
-        #main section#chat{ width : 100%; display : flex; flex-direction: column; justify-content: center; align-items: center; }
-        #main section#chat ul{ width : 93%; padding : 0 3.5%; display: flex; flex-direction: column; justify-content: center; }
-        #main section#chat ul li{ padding : 20px 0; border-bottom : 1px solid #efefef; display: flex; flex-direction: row; justify-content: space-between; align-items: center; }
-        #main section#chat ul li div.img_wrapper{ width : 15%; display: flex; justify-content: center; align-items: center; }
-        #main section#chat ul li div.img_wrapper img{ width : 95%; border-radius : 50%; box-shadow: 0 0 3px -2px #303030; }
-        #main section#chat ul li div.info_wrapper{ width : 60%; display :flex; flex-direction: column; }
-        #main section#chat ul li div.info_wrapper p{ padding : 1px 0; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 1; line-clamp: 1; -webkit-box-orient: vertical; word-break: keep-all; }
-        #main section#chat ul li div.info_wrapper p span.info_name{ font-size : 15px; font-weight : 600; }
-        #main section#chat ul li div.info_wrapper p span.info_address{ font-size : 11px; font-weight : 100; }
-        #main section#chat ul li div.info_wrapper p span.info_created_at{ font-size : 11px; font-weight : 100; }
-        #main section#chat ul li div.info_wrapper p span.info_msg{ font-size : 13px; font-weight : 100; }
-        #main section#chat ul li div.product_wrapper{ width : 15%; display: flex; justify-content: center; align-items: center; }
-        #main section#chat ul li div.product_wrapper img{ width : 85%; border-radius : 5px; box-shadow: 0 0 3px -2px #303030; }
-    </style>
 </head>
 <body>
     <!-- 상단 메뉴바 -->
@@ -31,7 +15,7 @@
         </div>
         <div>
             <ul>
-                <li id="header_notification"><img src="img/icon/notification.png" alt="notification"></li>
+                <li id="header_notification"><img src="/img/icon/notification.png" alt="notification"></li>
             </ul>
         </div>
     </header>
@@ -47,19 +31,19 @@
     <nav id="nav">
         <ul>
             <li id="nav_product">
-                <img src="img/icon/product.png" alt="nav_product">
+                <img src="/img/icon/product.png" alt="nav_product">
                 <p>홈</p>
             </li>
             <li id="nav_board">
-                <img src="img/icon/board.png" alt="nav_board">
+                <img src="/img/icon/board.png" alt="nav_board">
                 <p>동네생활</p>
             </li>
             <li id="nav_chat" class="selected">
-                <img src="img/icon/chat.png" alt="nav_chat">
+                <img src="/img/icon/chat.png" alt="nav_chat">
                 <p>채팅</p>
             </li>
             <li id="nav_member">
-                <img src="img/icon/member.png" alt="nav_member">
+                <img src="/img/icon/member.png" alt="nav_member">
                 <p>나의 한라봉</p>
             </li>
         </ul>
@@ -84,7 +68,7 @@
                     <div class="info_wrapper">
                         <p>
                             <span class="info_name">${item.member.memNickname}</span>
-                            <span class="info_address">${item.member.address[0].addressDong}</span>
+                            <span class="info_address">${item.member.address==null ? '' : item.member.address[0].addressDong}</span>
                             <span class="info_created_at">${timeForToday(item.chatCreatedAt)}</span>
                         </p>
                         <p>

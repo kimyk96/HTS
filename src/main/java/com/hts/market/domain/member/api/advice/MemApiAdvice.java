@@ -6,23 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.client.RestTemplate;
-
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 @RestControllerAdvice
 public class MemApiAdvice {
@@ -63,7 +52,7 @@ public class MemApiAdvice {
         }
     }
     @ExceptionHandler(MemberAlreadyExsistException.class)
-    public ResponseEntity<String> memberAlreadyExsistExceptionHandler(HttpServletResponse response) throws IOException {
+    public ResponseEntity<String> memberAlreadyExsistExceptionHandler(HttpServletResponse response) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body("이미 가입된 번호입니다");
     }
     @ExceptionHandler(MemberNotFoundException.class)
