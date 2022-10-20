@@ -5,6 +5,7 @@ import com.hts.market.domain.product.dto.PdtDto;
 import com.hts.market.domain.product.dto.PdtFavoriteDto;
 import com.hts.market.domain.product.repo.PdtFavoriteRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +16,8 @@ public class PdtFavoriteApp {
     private PdtFavoriteRepo pdtFavoriteRepo;
     @Autowired
     private MemRepo memRepo;
+
+    @Value("${hts.imgUrl}") private String imgUrl;
 
     // 관심 등록
     public Integer save(PdtFavoriteDto.Create dto, String userName){
@@ -28,6 +31,10 @@ public class PdtFavoriteApp {
     }
     // 관심 목록
     public List<PdtDto.ReadList> findAllOfFavoriteList(String userName){
-        return pdtFavoriteRepo.findAllOfFavoriteList(memRepo.findIdByMemUsername(userName));
+        List<PdtDto.ReadList> list = pdtFavoriteRepo.findAllOfFavoriteList(memRepo.findIdByMemUsername(userName));
+        for(PdtDto.ReadList read : list){
+            read.setImgPath(imgUrl + read.getImgPath());
+        }
+        return list;
     }
 }
