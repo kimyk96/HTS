@@ -192,7 +192,7 @@
 
 
 
-
+            // 더보기 버튼
             $("#more").click(function(){
                 Swal.fire({
                     showCancelButton: true,
@@ -227,6 +227,8 @@
                 })
             })
 
+
+            // 상품 정보 가져오기
             $.ajax({
                 method:'GET',
                 url:'/api/v1/pdt/find-by-pdt-no',
@@ -260,8 +262,6 @@
                     $("#more").css("display", "none");
                     $("#btn_chat").css("display", "block");
                 }
-
-
 
                 // 제품 정보
                 $(".pdt_title").text(res.product.pdtName);
@@ -302,12 +302,8 @@
                             </li>`).appendTo($recommend_list)
                     }
                 }
-                // 하단 버튼 내역
-                if($("#btn_action img").hasClass("selected")){
-                    $("#btn_action img").removeClass("selected");
-                }
                 if(res.product.favoriteCheck==true){
-                    $("#btn_action img").addClass("selected");
+                    $("#btn_favorite").addClass("selected");
                 }
                 $(".pdt_price").text(res.product.pdtPrice +"원");
 

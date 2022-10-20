@@ -49,6 +49,9 @@ public class PdtApp {
 
     // 글 읽기
     public PdtDto.Detail findByPdtNo(Long pdtNo, String userName) {
+        // 로그인 회원 번호 가져오기
+        Long memNo = memRepo.findIdByMemUsername(userName);
+
         // 상품 정보
         PdtDto.Detail dto = pdtRepo.findByPdtNo(pdtNo).orElseThrow(()->new ProductNotFoundException());
         for(PdtImgDto.Read read : dto.getImages()){
@@ -86,13 +89,13 @@ public class PdtApp {
         }
         dto.setCateList(cateList);
 
-        pdtRepo.increaseView(pdtNo, memRepo.findIdByMemUsername(userName));
+        pdtRepo.increaseView(pdtNo, memNo);
 
         // 관심수
         dto.getProduct().setFavoriteCount(pdtFavoriteRepo.countByPdtNo(pdtNo));
 
         // 관심체크
-        dto.getProduct().setFavoriteCheck(pdtFavoriteRepo.active(dto.getProduct().getPdtNo(), dto.getMember().getMemNo()));
+        dto.getProduct().setFavoriteCheck(pdtFavoriteRepo.active(dto.getProduct().getPdtNo(), memNo));
 
         return dto;
     }
