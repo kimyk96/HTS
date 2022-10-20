@@ -24,6 +24,19 @@ public class PdtFavoriteDto {
         private Long pdtNo;
         private Long memNo;
     }
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class ReadList{
+        private Long memNo;
+        @NotNull
+        private Integer start;
+        @NotNull
+        private Integer end;
+    }
+
     @Data
     @Builder
     @AllArgsConstructor

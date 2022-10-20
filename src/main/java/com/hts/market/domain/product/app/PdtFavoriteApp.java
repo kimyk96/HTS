@@ -16,7 +16,6 @@ public class PdtFavoriteApp {
     private PdtFavoriteRepo pdtFavoriteRepo;
     @Autowired
     private MemRepo memRepo;
-
     @Value("${hts.imgUrl}") private String imgUrl;
 
     // 관심 등록
@@ -30,8 +29,9 @@ public class PdtFavoriteApp {
         return pdtFavoriteRepo.delete(dto);
     }
     // 관심 목록
-    public List<PdtDto.ReadList> findAllOfFavoriteList(String userName){
-        List<PdtDto.ReadList> list = pdtFavoriteRepo.findAllOfFavoriteList(memRepo.findIdByMemUsername(userName));
+    public List<PdtDto.ReadList> findAllOfFavoriteList(PdtFavoriteDto.ReadList dto ,String userName){
+        dto.setMemNo(memRepo.findIdByMemUsername(userName));
+        List<PdtDto.ReadList> list = pdtFavoriteRepo.findAllOfFavoriteList(dto);
         for(PdtDto.ReadList read : list){
             read.setImgPath(imgUrl + read.getImgPath());
         }
