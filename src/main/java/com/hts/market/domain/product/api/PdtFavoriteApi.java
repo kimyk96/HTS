@@ -30,7 +30,7 @@ public class PdtFavoriteApi {
         return ResponseEntity.ok().body(pdtFavoriteApp.delete(dto, principal.getName()));
     }
     // 관심목록
-    @GetMapping("/find-all-of-favorite-list")
+    @GetMapping("find-all-of-favorite-list")
     public ResponseEntity<List<PdtDto.ReadList>> findAllOfFavoriteList(PdtFavoriteDto.ReadList dto, Principal principal){
         return ResponseEntity.ok().body(pdtFavoriteApp.findAllOfFavoriteList(dto, principal.getName()));
     }

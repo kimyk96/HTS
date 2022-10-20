@@ -300,7 +300,7 @@ ALTER TABLE CHAT ADD CONSTRAINT PK_CHAT PRIMARY KEY (
 
 
 
-
+drop sequence mem_seq;
 CREATE SEQUENCE mem_seq;
 INSERT INTO ROLE (role_no, role_name) VALUES (1, 'ROLE_ADMIN');
 INSERT INTO ROLE (role_no, role_name) VALUES (2, 'ROLE_USER');
