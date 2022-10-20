@@ -6,6 +6,7 @@ import com.hts.market.domain.member.dto.MemDto;
 import com.hts.market.domain.member.repo.MemRepo;
 import com.hts.market.domain.product.dto.PdtDto;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,13 +16,13 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 @SpringBootTest
-//@Transactional
+@Transactional
 public class BrdRepoTest {
     @Autowired
     BrdRepo brdRepo;
 
     //    // 회원가입
-    //@Test
+    @BeforeEach
     public void save() {
         // given ( 주어진 값 )
         BrdDto.Create dto = BrdDto.Create.builder()
@@ -91,15 +92,15 @@ public class BrdRepoTest {
 
 
     //@Test
-    public void findCateNoByBrdNo() {
-        // given
-        Long brdNo = 1L;
-        // when
-        Long result = brdRepo.findCateNoByBrdNo(brdNo);
-        // then
-        Assertions.assertThat(result).isEqualTo(1L);
-
-    }
+//    public void findCateNoByBrdNo() {
+//        // given
+//        Long brdNo = 1L;
+//        // when
+//        Long result = brdRepo.findCateNoByBrdNo(brdNo);
+//        // then
+//        Assertions.assertThat(result).isEqualTo(1L);
+//
+//    }
 
 }
 

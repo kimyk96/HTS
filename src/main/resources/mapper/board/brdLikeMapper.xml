@@ -4,16 +4,18 @@
 
 
 
-
+        <!--좋아요 저장-->
         <insert id="save">
             insert into board_like(brd_no, mem_no) values (#{brdNo}, #{memNo})
         </insert>
 
-    <select id="findBrdNoByMemNo" resultType="com.hts.market.domain.board.dto.BrdLikeDto$Page">
+
+
+    <select id="findLikeByMemNo" resultType="com.hts.market.domain.board.dto.BrdLikeDto$Page">
         select * from board_like where mem_no=#{memNo}
     </select>
 
-
+        <!--  조하용삭제  -->
     <delete id="delete">
         <![CDATA[
             DELETE FROM
@@ -22,10 +24,16 @@
                 brd_no=#{brdNo} and mem_no=#{memNo}
         ]]>
     </delete>
-
+    <!--좋아요 확인-->
     <select id="countByBrdNo" resultType="int">
         select count(brd_no) from board_like where brd_no=#{brdNo}
     </select>
+<!--  조항요 여부  -->
+    <select id="active" resultType="boolean">
+        select count(*) from BOARD_LIKE where brd_no=#{brdNo} and mem_no = #{memNo}
+    </select>
+
+
 
 
 

@@ -50,7 +50,7 @@ public class BrdApiAdvice {
         return ResponseEntity.status(HttpStatus.CONFLICT).body("작성자만 수정(삭제)가능합니다");
     }
 
-    @ExceptionHandler(FileNotFoundException.class)
+    @ExceptionHandler(ImgFileNotFoundException.class)
     public ResponseEntity<String> FileNotFoundExceptionHandler() {
         return ResponseEntity.status(HttpStatus.CONFLICT).body("이미지만 첨부 가능합니다");
     }

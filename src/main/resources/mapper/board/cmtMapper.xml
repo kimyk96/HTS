@@ -33,16 +33,19 @@
 
 
     <delete id="delete">
-        <![CDATA[
             DELETE FROM
                 COMMENTS
             WHERE
                 cmt_writer_no=#{cmtWriterNo} and cmt_no=#{cmtNo}
-        ]]>
     </delete>
-
+    <delete id="deleteAll">
+        DELETE FROM
+        COMMENTS
+        WHERE
+        cmt_brd_no=#{brdNo}
+    </delete>
     <select id="findAll" resultType="com.hts.market.domain.board.dto.CmtDto$Read">
-        select cmt_no from COMMENTS
+        select * from COMMENTS where cmt_brd_no=#{brdNo}
 
     </select>
 

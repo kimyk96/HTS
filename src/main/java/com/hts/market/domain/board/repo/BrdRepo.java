@@ -1,6 +1,7 @@
 package com.hts.market.domain.board.repo;
 
 import com.hts.market.domain.board.dto.BrdDto;
+import com.hts.market.domain.product.dto.PdtDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -15,19 +16,20 @@ public interface BrdRepo {
     Integer update(BrdDto.Update dto);
 
     //글 삭제
-    Integer delete(BrdDto.Delete dto );
+    Integer delete(BrdDto.Delete dto);
 
     //게시물 읽기
     Optional<BrdDto.Detail> findByBrdNo(Long brdNo);
 
-    //게시글 번호로 조회수 가져오기(조회수증가)
+    //조회수증가
     Integer findViewsByBrdNo(Long brdNo, Long memNo);
 
-    //게시물 찾기
 
-    List<BrdDto.Read> searchByKeyword(BrdDto.SearchData dto);
+    //글쓴이 찾기
+    Long findWriterNoById(Long brdNo);
 
-    //카테고리 등록
+    // 회원별 게시글목록
+    public List<BrdDto.ReadList> findAllByData(BrdDto.ListData dto);
 
-    Long findCateNoByBrdNo(Long brdNo);
+
 }

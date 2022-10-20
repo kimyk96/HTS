@@ -15,12 +15,12 @@ public interface BrdImgRepo {
     public Integer update(BrdImgDto.Update dto);
     //이미지삭제
     public Integer delete(BrdImgDto.Delete dto);
-
-    //대표이미지 보기
+    // 이미지 전체 삭제
+    public Integer deleteAll(Long brdNo);
+//    대표이미지 보기
     public String findMainImg(Long brdNo);
-
-    //이미지 전체 보기
-    public List<BrdImgDto.Read> findAllByBrdNo(Long brdNo);
+    //이미지 조회
+    List<BrdImgDto.Read> searchOfBrdNo(Long brdNo);
 
 
 }

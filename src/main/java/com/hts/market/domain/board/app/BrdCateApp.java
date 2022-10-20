@@ -11,7 +11,7 @@ import java.util.List;
 public class BrdCateApp {
 
     @Autowired
-    BrdCateRepo brdCateRepo;
+    private BrdCateRepo brdCateRepo;
 
 
     //카테고리 목록

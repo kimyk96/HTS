@@ -1,8 +1,10 @@
 package com.hts.market.domain.board.dto;
 
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class BrdImgDto {
@@ -39,6 +41,15 @@ public class BrdImgDto {
     public static class Delete{
         private Long imgNo;
         private Long brdNo;
+    }
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class FileList {
+        private Long brdNo;
+        private List<MultipartFile> files;
     }
 
 }

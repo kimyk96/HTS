@@ -32,6 +32,8 @@ public class CmtDto {
     private Long cmtWriterNo;
     @NotNull
     private Long cmtNo;
+    @NotNull
+    private Long cmtBrdNo;
     private LocalDateTime cmtCreateAt;
     }
 

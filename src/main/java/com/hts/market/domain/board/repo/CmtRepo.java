@@ -21,7 +21,9 @@ public interface CmtRepo {
     public Integer delete(CmtDto.Delete dto);
 
     //댓글 목록
-    public List<CmtDto.Read> findAll();
+    public List<CmtDto.Read> findAll(Long brdNo);
+    //댓글 전체삭제
+    Integer deleteAll(Long brdNo);
 
 
 

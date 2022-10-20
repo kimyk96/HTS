@@ -46,6 +46,15 @@ public class BrdLikeDto {
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
+    public static class CheckLikes{
+        private Long brdNo;
+        private Long memNo;
+    }
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class ReadList{
         private Long brdNo;
         private Long memNo;
