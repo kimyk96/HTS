@@ -9,6 +9,8 @@
     <script src="/js/main.js" charset="UTF-8"></script>
     <style>
         /* 채팅방 페이지 */
+        header div ul li{ width : 25%; }
+        header div ul li a{ text-align : right; }
         #main{ margin-top : 120px; }
         #main section#chatroom{ width : 100%; display : flex; flex-direction: column; justify-content: center; align-items: center; }
         #main section#chatroom div#pdt_info{ border-bottom : 1px solid #efefef; position : fixed; top : 50px; left : 0; width : 95%; padding : 10px 2.5%; display : flex; flex-direction: row; justify-content: flex-start; align-items: center; }
@@ -62,7 +64,7 @@
     <main id="main">
         <section id="chatroom">
             <div id="pdt_info">
-                <img src="/img/example/square.png" alt="pdt_img">
+                <img src="" alt="pdt_img">
                 <div>
                     <p class="title"></p>
                     <p class="price"></p>
@@ -85,6 +87,11 @@
             $("#main").animate({ scrollTop: 9999 });
             let searchParams = new URL(location.href).searchParams;
 
+            // 상품 보기
+            $("#pdt_info").click(function(){
+                $(location).attr("href", "/product/" + searchParams.get("chatPdtNo"))
+            })
+
             // 채팅 보내기
             $("#btn_send").click(function(){
                 let msg = $("#chat_msg").val();
@@ -104,7 +111,7 @@
                                 <p>${msg}</p>
                             </div>
                             <div class="chat_created_at">
-                                ${new Date()}
+                                ${timeForToday(new Date())}
                             </div>
                         </li>`).appendTo($ul)
                     }
@@ -137,6 +144,11 @@
                 var guestImgPath;
                 var guestBrix;
 
+                // 게스트 정보 보기
+                $("#header div div").click(function(){
+                    $(location).attr("href", "/member/" + guestNo)
+                })
+
                 $.ajax({
                     method:'GET',
                     url:'/api/v1/mem/find-by-id',
@@ -156,7 +168,7 @@
                     // 상품 정보
                     $("#pdt_info img").attr("src", res.product.images[0].imgPath);
                     $("#pdt_info .title").text(res.product.product.pdtName);
-                    $("#pdt_info .price").text(res.product.product.pdtPrice);
+                    $("#pdt_info .price").text(numberWithCommas(res.product.product.pdtPrice));
 
                     // 채팅 정보
                     let $ul = $("#chatroom ul");
@@ -171,7 +183,7 @@
                                 <p>${msg.chatContent}</p>
                             </div>
                             <div class="chat_created_at">
-                                ${msg.chatCreatedAt}
+                                ${timeForToday(msg.chatCreatedAt)}
                             </div>
                         </li>`).prependTo($ul)
                     }

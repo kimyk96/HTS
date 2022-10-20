@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="/css/main.css">
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/js/main.js" charset="UTF-8"></script>
     <style>
         /* 회원 */
@@ -16,7 +17,7 @@
         #main section#member div.wrapper div.profile div.info{ width : 50%; display : flex; flex-direction: column; justify-content: flex-start; align-items: flex-start; }
         #main section#member div.wrapper div.profile div.info h3{ width : 100%; font-size : 15px; font-weight : 600; }
         #main section#member div.wrapper div.profile div.info p{ width : 100%; font-size : 10px; font-weight : 100; opacity : 0.6; }
-        #main section#member div.wrapper div.profile div.arrow{ width : 20%; display : flex; justify-content: center; align-items: center; }
+        #main section#member div.wrapper div.profile div.arrow{ width : 20%; display : flex; justify-content: flex-end; align-items: center; }
         #main section#member div.wrapper div.profile div.arrow img{ width : 40%; }
         #main section#member div.wrapper div.brix{ width : 95%; padding : 20px 2.5%; display : flex; flex-direction: column; justify-content: center; align-items: center; }
         #main section#member div.wrapper div.brix div{ width : 100%; display: flex; flex-direction: row; justify-content: space-between; align-items: center; }
@@ -30,7 +31,7 @@
         #main section#member div.wrapper div.kakao_pay span.kakao_pay_img{ display : flex; flex-direction: row; justify-content: center; align-items: center; }
         #main section#member div.wrapper div.kakao_pay span.kakao_pay_img img{ width: 18px; height : 18px; margin : 0 10px -2px 0; }
         #main section#member div.wrapper div.kakao_pay span.kakao_pay_img span{ font-size : 18px; color : #FF9D2A; font-weight: 600; margin-top : -5px; }
-        #main section#member div.wrapper div.transaction{ width : 90%; padding : 30px 5% 10px 5%; display : flex; flex-direction: row; justify-content: space-between; align-items: center; }
+        #main section#member div.wrapper div.transaction{ width : 90%; padding : 10px 5% 10px 5%; display : flex; flex-direction: row; justify-content: space-between; align-items: center; }
         #main section#member div.wrapper div.transaction div{ width : 33%; display : flex; flex-direction: column; justify-content: center; align-items: center; }
         #main section#member div.wrapper div.transaction div span{ width : 55px; height : 55px; display: flex; justify-content: center; align-items: center; border-radius: 50%; background-color: #efefef; box-shadow: 0 0 3px -2px #303030; }
         #main section#member div.wrapper div.transaction div span img{ width : 35%; }
@@ -80,14 +81,14 @@
                         <p id="mem_brix"></p>
                     </div>
                 </div>
-                <div class="kakao_pay">
-                    <span class="kakao_pay_img">
-                        <img src="/img/icon/kakao.png" alt="kakao"> <span>pay</span>
-                    </span>
-                    <span>
-                        중고 거래도 카카오페이로 결제 하실수 있어요!
-                    </span>
-                </div>
+<!--                <div class="kakao_pay">-->
+<!--                    <span class="kakao_pay_img">-->
+<!--                        <img src="/img/icon/kakao.png" alt="kakao"> <span>pay</span>-->
+<!--                    </span>-->
+<!--                    <span>-->
+<!--                        중고 거래도 카카오페이로 결제 하실수 있어요!-->
+<!--                    </span>-->
+<!--                </div>-->
                 <div class="transaction">
                     <div onclick="$(location).attr('href', '/transaction/sell');">
                         <span>
@@ -101,7 +102,7 @@
                         </span>
                         <p>구매내역</p>
                     </div>
-                    <div onclick="$(location).attr('href', '/member/like');">
+                    <div onclick="$(location).attr('href', '/member/favorite');">
                         <span>
                             <img src="/img/icon/heart.png" alt="heart">
                         </span>
@@ -178,12 +179,12 @@
         $(function(){
             $.ajax({
                 method:"GET",
-                url:"api/v1/mem/find-by-name"
+                url:"/api/v1/mem/find-by-name"
             })
             .done(function(res){
                 $("#mem_no").text("#" + res.memNo);
                 $("#mem_nickname").text(res.memNickname);
-                $("#mem_created_at").text(res.memCreatedAt);
+                $("#mem_created_at").text(timeForToday(res.memCreatedAt) + " 가입");
                 $(".mem_brix").text(res.memBrix + " 브릭스");
                 $("#mem_brix").css("width", res.memBrix + "%");
                 if(res.address.length > 0){
@@ -192,10 +193,11 @@
                 $("#img_path").attr("src", res.imgPath);
             })
             .fail(function(res){
-
+                Swal.fire({
+                    icon: 'error',
+                    text: res.responseText
+                })
             })
-
-
         });
     </script>
 

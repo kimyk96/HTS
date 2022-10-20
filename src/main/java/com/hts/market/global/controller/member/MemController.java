@@ -17,14 +17,20 @@ import java.security.Principal;
 @RequestMapping("member")
 @Secured("ROLE_USER")
 public class MemController {
+    @Autowired MemRepo memRepo;
+
     @GetMapping("")
     public String member(){
         return "member/member";
     }
 
-    @GetMapping("/{memNo}")
-    public ModelAndView profile(@PathVariable Long memNo){
-        return new ModelAndView("member/member_other").addObject("memNo", memNo) ;
+    @GetMapping("{memNo}")
+    public ModelAndView profile(@PathVariable Long memNo, Principal principal){
+        if(memNo.equals(memRepo.findIdByMemUsername(principal.getName()))){
+            return new ModelAndView("member/member");
+        }else{
+            return new ModelAndView("member/member_other").addObject("memNo", memNo);
+        }
     }
 
     @GetMapping("address")
@@ -40,5 +46,10 @@ public class MemController {
     @GetMapping("profile")
     public String profile(){
         return "member/profile";
+    }
+
+    @GetMapping("favorite")
+    public String favorite(){
+        return "member/member_favorite";
     }
 }

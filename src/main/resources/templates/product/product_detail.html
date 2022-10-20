@@ -12,10 +12,11 @@
     <style>
         /* 상품 상세 */
         #main{ margin: 0 0 70px 0; position : relative }
-        #main section#btn_nav{ position : absolute; top: 0; left : 0; z-index : 2; width : 100%; height : 50px; display : flex; flex-direction: row; justify-content: space-between; align-items: center;}
+        #main section#btn_nav{ background: linear-gradient(#909090, #efefef00); position : absolute; top: 0; left : 0; z-index : 2; width : 100%; height : 50px; display : flex; flex-direction: row; justify-content: space-between; align-items: center;}
         #main section#btn_nav div{ width : 100%; height : 50px; display: flex; align-items: center; }
         #main section#btn_nav div.right{ justify-content : flex-end; }
-        #main section#btn_nav div img{ height : 60%; padding : 0 1.5%; }
+        #main section#btn_nav div img{ height : 55%; padding : 0 1.5%; }
+        #main section#btn_nav div img#nav_product{ height : 45%; }
 
         #main section#product_detail{ width : 100%; display : flex; flex-direction: column; justify-content: center; align-items: center; }
         #main section#product_detail > div{ width : 95%; padding : 10px 2.5%; border-bottom : 1px solid #efefef; }
@@ -34,7 +35,7 @@
         #main section#product_detail div.pdt_info h3{ font-size : 17px; line-height : 1.2;}
         #main section#product_detail div.pdt_info div span.pdt_cate{ font-size : 11px; opacity: 0.6; }
         #main section#product_detail div.pdt_info div span.pdt_created_at{ font-size : 11px; opacity: 0.6; }
-        #main section#product_detail div.pdt_info div.pdt_desc{ padding : 20px 0; font-size : 14px; font-weight : 400; line-height : 1.5; }
+        #main section#product_detail div.pdt_info textarea.pdt_desc{ width: 100%; resize: none; font-family: 'Noto Sans KR', sans-serif; border: none; font-size: 14px; font-weight: 400; line-height: 1.5; padding: 0; margin: 20px 0;  }
         #main section#product_detail div.pdt_info div.pdt_counts{ font-size : 11px; opacity : 0.6; }
         #main section#product_detail div.pdt_list{ width : 90%; padding : 20px 5%; }
         #main section#product_detail div div.pdt_plusmenu{ display : flex; flex-direction: row; justify-content: space-between; }
@@ -47,7 +48,7 @@
         #main section#product_detail div.pdt_list div.pdt_list_wrapper ul li div p.item_title{ font-size : 12px; }
         #main section#product_detail div.pdt_list div.pdt_list_wrapper ul li div p.item_price{ font-size : 12px; font-weight : 600; line-height : 1.5; }
 
-        #main section#btn_action{ width : 90%; height : 50px; padding : 10px 5%; display : flex; flex-direction: row; justify-content: space-between; align-items: center; background-color : #fff; position : fixed; bottom : 0; left : 0;  }
+        #main section#btn_action{ box-shadow : 0 0 3px -2px #303030; width : 90%; height : 50px; padding : 10px 5%; display : flex; flex-direction: row; justify-content: space-between; align-items: center; background-color : #fff; position : fixed; bottom : 0; left : 0;  }
         #main section#btn_action div{ display : flex; align-items: center; }
         #main section#btn_action div img{ content: url(/img/icon/like.png); width : 25px; padding-right : 10px; margin-right : 10px; border-right : 1px solid #efefef; }
         #main section#btn_action div img.selected{ content: url(/img/icon/like_selected.png); }
@@ -95,7 +96,7 @@
                     <span class="pdt_cate"></span>
                     <span class="pdt_created_at"></span>
                 </div>
-                <div class="pdt_desc"></div>
+                <textarea class="pdt_desc" rows="10" readonly></textarea>
                 <div class="pdt_counts">
                     관심 <span class="pdt_likes"></span> 조회 <span class="pdt_views"></span>
                 </div>
@@ -266,8 +267,8 @@
                 // 제품 정보
                 $(".pdt_title").text(res.product.pdtName);
                 $(".pdt_cate").text(res.pdtCate);
-                $(".pdt_created_at").text(res.product.pdtCreatedAt);
-                $(".pdt_desc").text(res.product.pdtDesc);
+                $(".pdt_created_at").text(timeForToday(res.product.pdtCreatedAt));
+                $(".pdt_desc").val(res.product.pdtDesc);
                 $(".pdt_views").text(res.product.pdtViews);
                 $(".pdt_likes").text(res.product.favoriteCount);
                 // 판매자의 판매내역
@@ -281,7 +282,7 @@
                                 <img src="${item.imgPath}" alt="productImg">
                                 <div>
                                     <p class="item_title">${item.pdtName}</p>
-                                    <p class="item_price">${item.pdtPrice}원</p>
+                                    <p class="item_price">${numberWithCommas(item.pdtPrice)}원</p>
                                 </div>
                             </li>`).appendTo($seller_list)
                     }
@@ -297,7 +298,7 @@
                                 <img src="${item.imgPath}" alt="productImg">
                                 <div>
                                     <p class="item_title">${item.pdtName}</p>
-                                    <p class="item_price">${item.pdtPrice}원</p>
+                                    <p class="item_price">${numberWithCommas(item.pdtPrice)}원</p>
                                 </div>
                             </li>`).appendTo($recommend_list)
                     }
@@ -305,7 +306,7 @@
                 if(res.product.favoriteCheck==true){
                     $("#btn_favorite").addClass("selected");
                 }
-                $(".pdt_price").text(res.product.pdtPrice +"원");
+                $(".pdt_price").text(numberWithCommas(res.product.pdtPrice) +"원");
 
             })
             .fail(function(res){

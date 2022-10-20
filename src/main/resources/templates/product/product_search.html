@@ -42,9 +42,7 @@
     <div>
         <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
         <div>
-            <h2>
-                상품 검색
-            </h2>
+            <h2>상품 검색</h2>
         </div>
     </div>
     <div class="right">
@@ -56,111 +54,53 @@
     <section id="product">
         <div>
             <input type="text" id="search_keyword" placeholder="제목 + 본문으로 검색하기">
-<!--            <button id="btn_submit">검색</button>-->
         </div>
         <div>
             <ul id="search_list">
-                <li>검색어를 입력 해주세요</li>
+                <p style='text-align : center;padding : 30px 0;'>검색 결과가 없습니다.</p>
             </ul>
         </div>
     </section>
 </main>
 
-    <script>
-        $(function(){
-            $.ajax({
-                method: "GET",
-                url: "/api/v1/mem/find-by-name"
-            })
-            .done(function(res){
-                let $address = $("#address");
-                $address.empty();
-                for(item of res.address){
-                    $("<option class='opt_address'></option>")
-                        .attr("data-si", item.addressSi)
-                        .attr("data-gu", item.addressGu)
-                        .attr("data-dong", item.addressDong)
-                        .text(item.addressDong)
-                        .appendTo($address);
-                }
+<script>
+    $(function(){
+        $.ajax({
+            method: "GET",
+            url: "/api/v1/mem/find-by-name"
+        })
+        .done(function(res){
+            let $address = $("#address");
+            $address.empty();
+            for(item of res.address){
+                $("<option class='opt_address'></option>")
+                    .attr("data-si", item.addressSi)
+                    .attr("data-gu", item.addressGu)
+                    .attr("data-dong", item.addressDong)
+                    .text(item.addressDong)
+                    .appendTo($address);
+            }
+        })
 
-            })
-
-            $("#address").change(function() {
-                let si = $(this).find(':selected').data('si');
-                let gu = $(this).find(':selected').data('gu');
-                let dong = $(this).find(':selected').data('dong');
-                getPdtList(si, gu, dong, "", "", 1, 10);
-            });
-            let lastKeyword;
-            $("#search_keyword").on("input", async function(){
-                if($("#search_keyword").val()==lastKeyword){
-                    return;
-                }
-                console.log("change detected")
-                let si = $("#address").find(':selected').data('si');
-                let gu = $("#address").find(':selected').data('gu');
-                let dong = $("#address").find(':selected').data('dong');
-                await getPdtList(si, gu, dong, $("#search_keyword").val(), "", 1, 10);
-                lastKeyword=$("#search_keyword").val();
-            });
-
+        $("#address").change(function() {
+            let si = $(this).find(':selected').data('si');
+            let gu = $(this).find(':selected').data('gu');
+            let dong = $(this).find(':selected').data('dong');
+            searchPdtList(si, gu, dong, "", "", 1, 10);
         });
-
-
-        // 상품 목록 검색
-        async function getPdtList(addressSi, addressGu, addressDong, keyword, pdtCate, start, end){
-            if(keyword==""){
+        let lastKeyword;
+        $("#search_keyword").on("input", async function(){
+            if($("#search_keyword").val()==lastKeyword){
                 return;
             }
-            if(start==1){
-                $("#search_list").empty();
-            }
-
-            await $.ajax({
-                method: "GET",
-                url: "/api/v1/pdt/find-all-by-data",
-                data : {addressSi, addressGu, addressDong, keyword, pdtCate, start, end}
-            })
-            .done(function(res){
-                let $ul = $("#search_list");
-                if(res.length==0){
-                    $("<li style='text-align : center;'>검색 결과가 없습니다.</li>").appendTo($ul);
-                }
-                for( li of res ){
-                    $(`
-                    <li onclick="$(location).attr('href', '/product/' + ${li.pdtNo})">
-                        <div class="img_wrapper">
-                            <img src="${li.imgPath}" alt="product_img">
-                        </div>
-                        <div class="info_wrapper">
-                            <div class="info">
-                                <h3 class="info_title">${li.pdtName}</h3>
-                                <p>
-                                    <span class="info_address">${li.addressSi} ${li.addressGu} ${li.addressDong}</span>
-                                    <span class="info_created_at">${li.pdtCreatedAt}</span>
-                                </p>
-                                <p>
-                                    <span class="info_price">${li.pdtPrice}원</span>
-                                </p>
-                            </div>
-                            <div class="count">
-                                <p class="count_chat">
-                                    <img src="/img/icon/chat.png" alt="chat_count" class="${ li.chatCheck ? 'selected' : '' }">
-                                    <span>${li.chatCount}</span>
-                                </p>
-                                <p class="count_like">
-                                    <img src="/img/icon/member.png" alt="like_count" class="${ li.favoriteCheck ? 'selected' : '' }">
-                                    <span>${li.favoriteCount}</span>
-                                </p>
-                            </div>
-                        </div>
-                    </li>`)
-                    .appendTo($ul);
-                }
-            })
-            .fail(function(res){})
-        }
-    </script>
+            console.log("change detected")
+            let si = $("#address").find(':selected').data('si');
+            let gu = $("#address").find(':selected').data('gu');
+            let dong = $("#address").find(':selected').data('dong');
+            await searchPdtList(si, gu, dong, $("#search_keyword").val(), "", 1, 10);
+            lastKeyword=$("#search_keyword").val();
+        });
+    });
+</script>
 </body>
 </html>

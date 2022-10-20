@@ -72,9 +72,10 @@
             url: '/api/v1/chat/list'
         })
         .done(function(res){
-            console.log(res);
-
             let $ul = $("#chat ul");
+            if(res.length==0){
+                $("<p style='text-align : center;padding : 30px 0;'>진행중인 채팅이 없습니다.</p>").appendTo($ul);
+            }
             for(item of res){
                 $(`<li class="chat_wrapper" onclick="$(location).attr('href', '/chat/room?chatPdtNo=${item.chatPdtNo}&chatMemNo=${item.chatMemNo}')">
                     <div class="img_wrapper">
@@ -94,12 +95,9 @@
                         <img src="${item.pdtImg}" alt="product">
                     </div>
                 </li>`).appendTo($ul);
-            }
-
-        })
-
-    })
-
+            };
+        });
+    });
 </script>
 </body>
 </html>

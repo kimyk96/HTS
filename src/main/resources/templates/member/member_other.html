@@ -54,7 +54,7 @@
         </div>
     </header>
     <!-- 메인정보 -->
-    <main id="main">
+    <main id="main" >
         <section id="member_other" th:attr="data-mem-no=${memNo}">
             <div class="wrapper">
                 <div class="profile">
@@ -67,7 +67,6 @@
                         <p id="mem_created_at"></p>
                     </div>
                     <div class="arrow">
-<!--                        <img src="img/icon/arrow_right.png" alt="arrow_right">-->
                     </div>
                 </div>
                 <div class="brix">
@@ -80,14 +79,6 @@
                         <p id="mem_brix"></p>
                     </div>
                 </div>
-<!--                <div class="kakao_pay">-->
-<!--                    <span class="kakao_pay_img">-->
-<!--                        <img src="img/icon/kakao.png" alt="kakao"> <span>pay</span>-->
-<!--                    </span>-->
-<!--                    <span>-->
-<!--                        중고 거래도 카카오페이로 결제 하실수 있어요!-->
-<!--                    </span>-->
-<!--                </div>-->
                 <div class="transaction">
                     <div onclick="$(location).attr('href', '/transaction/sell');">
                         <span>
@@ -101,55 +92,8 @@
                         </span>
                         <p>구매내역</p>
                     </div>
-<!--                    <div onclick="$(location).attr('href', '/member/like');">-->
-<!--                        <span>-->
-<!--                            <img src="img/icon/heart.png" alt="heart">-->
-<!--                        </span>-->
-<!--                        <p>관심목록</p>-->
-<!--                    </div>-->
                 </div>
             </div>
-<!--            <div class="wrapper">-->
-<!--                <h4>활동</h4>-->
-<!--                <ul>-->
-<!--                    <li onclick="$(location).attr('href', '/member/address-list');">-->
-<!--                        <span>내 동네 설정</span>-->
-<!--                        <span>-->
-<!--                            <img src="img/icon/arrow_right.png" alt="arrow">-->
-<!--                        </span>-->
-<!--                    </li>-->
-<!--                    <li onclick="$(location).attr('href', '/member/address');">-->
-<!--                        <span>가계부</span>-->
-<!--                        <span>-->
-<!--                            <img src="img/icon/arrow_right.png" alt="arrow">-->
-<!--                        </span>-->
-<!--                    </li>-->
-<!--                    <li onclick="$(location).attr('href', '/member/address');">-->
-<!--                        <span>작성 글/댓글</span>-->
-<!--                        <span>-->
-<!--                            <img src="img/icon/arrow_right.png" alt="arrow">-->
-<!--                        </span>-->
-<!--                    </li>-->
-<!--                    <li onclick="$(location).attr('href', '/member/address');">-->
-<!--                        <span>판매상품</span>-->
-<!--                        <span>-->
-<!--                            <img src="img/icon/arrow_right.png" alt="arrow">-->
-<!--                        </span>-->
-<!--                    </li>-->
-<!--                    <li onclick="$(location).attr('href', '/member/address');">-->
-<!--                        <span>받은 후기</span>-->
-<!--                        <span>-->
-<!--                            <img src="img/icon/arrow_right.png" alt="arrow">-->
-<!--                        </span>-->
-<!--                    </li>-->
-<!--                    <li onclick="$(location).attr('href', '/member/address');">-->
-<!--                        <span>공지사항</span>-->
-<!--                        <span>-->
-<!--                            <img src="img/icon/arrow_right.png" alt="arrow">-->
-<!--                        </span>-->
-<!--                    </li>-->
-<!--                </ul>-->
-<!--            </div>-->
         </section>
     </main>
     <!-- 하단 메뉴바 -->
@@ -182,6 +126,7 @@
                 data: {memNo : $("#member_other").data("mem-no")}
             })
             .done(function(res){
+                if(res.memUsername)
                 $("#mem_no").text("#" + res.memNo);
                 $("#mem_nickname").text(res.memNickname);
                 $("#mem_created_at").text(res.memCreatedAt);
@@ -193,10 +138,7 @@
                 $("#img_path").attr("src", res.imgPath);
             })
             .fail(function(res){
-
             })
-
-
         });
     </script>
 

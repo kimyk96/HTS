@@ -1,0 +1,58 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>상품카테고리</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="/css/main.css">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="/js/main.js" charset="UTF-8"></script>
+    <style>
+        /* 상품 카테고리 */
+        #main #product_cate{ width : 85%; padding : 10px 7.5%; }
+        #main #product_cate ul{ width : 100%; display : flex; flex-wrap: wrap; justify-content: center; align-items: center; }
+        #main #product_cate ul li{ max-width : 33%; width : 33%; padding : 25px 0; flex-grow: 1; display : flex; flex-direction : column; justify-content : center; align-items : center; }
+        #main #product_cate ul li div{ width : 100%; display : flex; justify-content: center; align-items: center; }
+        #main #product_cate ul li div img{ width : 20%; }
+        #main #product_cate ul li div p{ width : 100%; text-align : center; font-size : 13px; padding : 5px 0;}
+    </style>
+</head>
+<body>
+<!-- 상단 메뉴바 -->
+<header id="header">
+    <div>
+        <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
+        <div>
+            <h2>상품 카테고리</h2>
+        </div>
+    </div>
+</header>
+<!-- 메인정보 -->
+<main id="main">
+    <section id="product_cate">
+        <ul></ul>
+    </section>
+</main>
+
+<script>
+    $(function(){
+        $.ajax({
+            method: 'GET',
+            url:'/api/v1/pdt-cate/find-all'
+        })
+        .done(function(res){
+            let $ul = $("#product_cate ul");
+            for(li of res){
+                $(`<li onclick="$(location).attr('href', '/product?pdtCateNo=${li.pdtCateNo}')">
+                    <div>
+                        <img src="/img/icon/cate/${li.pdtCateNo}.png">
+                    </div>
+                    <div>
+                        <p>${li.pdtCate}</p>
+                    </div>
+                </li>`).appendTo($ul);
+            }
+        })
+    });
+</script>
+</body>
+</html>

@@ -113,7 +113,7 @@
                 FROM
                     (
                         SELECT
-                           distinct p.pdt_no, c.pdt_cate, p.pdt_name, p.pdt_status, p.pdt_price, p.pdt_views, p.pdt_created_at,
+                            p.pdt_no, c.pdt_cate, p.pdt_name, p.pdt_status, p.pdt_price, p.pdt_views, p.pdt_created_at, p.pdt_cate_no,
                             i.img_path, d.address_si, d.address_gu, d.address_dong
                         FROM
                             product p left outer join address d on p.pdt_address_no = d.address_no and p.pdt_seller_no = d.mem_no
@@ -121,17 +121,12 @@
                             left outer join product_category c on p.pdt_cate_no = c.pdt_cate_no
                         where
                             d.address_si = #{addressSi} and d.address_gu = #{addressGu} and d.address_dong = #{addressDong} and i.img_no=1
-                            <choose>
-                                <when test="keyword != null">
-                                    and (p.pdt_name LIKE '%'|| #{keyword} ||'%' or p.pdt_desc Like '%'|| #{keyword} ||'%')
-                                </when>
-                                <when test="pdtCate != null and pdtNo !=null">
-                                    and c.pdt_cate = #{pdtCate} and p.pdt_no != #{pdtNo}
-                                </when>
-                                <when test="pdtSellerNo != null and pdtNo !=null">
-                                    and p.pdt_seller_no = #{pdtSellerNo} and p.pdt_no != #{pdtNo}
-                                </when>
-                            </choose>
+                            <if test="keyword != null">
+                                and (p.pdt_name LIKE '%'|| #{keyword} ||'%' or p.pdt_desc Like '%'|| #{keyword} ||'%')
+                            </if>
+                            <if test="pdtCateNo != null">
+                                and p.pdt_cate_no = #{pdtCateNo}
+                            </if>
                         ORDER BY
                             p.pdt_no DESC
                     ) a

@@ -38,7 +38,7 @@
         <div>
             <ul>
                 <li id="header_search" onclick="$(location).attr('href', '/product/search')"><img src="img/icon/search.png" alt="search"></li>
-                <li id="header_menu"><img src="img/icon/menu.png" alt="menu"></li>
+                <li id="header_menu" onclick="$(location).attr('href', '/product/cate')"><img src="img/icon/menu.png" alt="menu"></li>
                 <li id="header_notification"><img src="img/icon/notification.png" alt="notification"></li>
             </ul>
         </div>
@@ -76,11 +76,17 @@
 
     <script>
         $(function(){
+            let searchParams = new URL(location.href).searchParams;
+            console.log(searchParams.get("pdtCateNo"))
+
             $.ajax({
                 method: "GET",
                 url: "/api/v1/mem/find-by-name"
             })
             .done(function(res){
+
+
+
                 let $address = $("#address");
                 $address.empty();
                 for(item of res.address){
@@ -92,7 +98,7 @@
                         .appendTo($address);
                 }
                 $("#product ul").empty();
-                getPdtList(res.address[0].addressSi, res.address[0].addressGu, res.address[0].addressDong, "", "", 1, 10);
+                getPdtList(res.address[0].addressSi, res.address[0].addressGu, res.address[0].addressDong, "", searchParams.get("pdtCateNo"), 1, 10);
             })
 
             $("#address").change(function() {
@@ -106,11 +112,19 @@
         })
 
         // 상품 목록 검색
-        function getPdtList(addressSi, addressGu, addressDong, keyword, pdtCate, start, end){
+        function getPdtList(addressSi, addressGu, addressDong, keyword, pdtCateNo, start, end){
+            console.log(pdtCateNo)
+            if(pdtCateNo==null){
+                pdtCateNo="";
+            }else{
+                pdtCateNo = Number(pdtCateNo);
+                console.log(pdtCateNo)
+            }
+
             $.ajax({
                 method: "GET",
                 url: "/api/v1/pdt/find-all-by-data",
-                data : {addressSi, addressGu, addressDong, keyword, pdtCate, start, end}
+                data : {addressSi, addressGu, addressDong, keyword, pdtCateNo, start, end}
             })
             .done(function(res){
                 let $ul = $("#product ul");
@@ -125,11 +139,11 @@
                             <div class="info">
                                 <h3 class="info_title">${li.pdtName}</h3>
                                 <p>
-                                    <span class="info_address">${li.addressSi} ${li.addressGu} ${li.addressDong}</span>
-                                    <span class="info_created_at">${li.pdtCreatedAt}</span>
+                                    <span class="info_address">${li.addressGu} ${li.addressDong}</span>
+                                    <span class="info_created_at"> ${timeForToday(li.pdtCreatedAt)}</span>
                                 </p>
                                 <p>
-                                    <span class="info_price">${li.pdtPrice}원</span>
+                                    <span class="info_price">${numberWithCommas(li.pdtPrice)}원</span>
                                 </p>
                             </div>
                             <div class="count">

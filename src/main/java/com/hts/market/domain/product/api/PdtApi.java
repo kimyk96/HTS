@@ -72,7 +72,7 @@ public class PdtApi {
 
     // 목록 조회
     @GetMapping("find-all-by-data")
-    public ResponseEntity<List<PdtDto.ReadList>> findAllByData(@Valid  PdtDto.ListData dto, Principal principal, BindingResult bindingResult) {
+    public ResponseEntity<List<PdtDto.ReadList>> findAllByData(@Valid PdtDto.ListData dto, Principal principal, BindingResult bindingResult) {
         return ResponseEntity.ok().body(pdtApp.findAllByData(dto, principal.getName()));
     }
 
