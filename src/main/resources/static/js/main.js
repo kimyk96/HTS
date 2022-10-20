@@ -128,6 +128,81 @@ function searchPdtList(addressSi, addressGu, addressDong, keyword, pdtCateNo, st
     })
 }
 
+// 게시글 저장
+function saveBrd(){
+//    let fd = new FormData();
+//
+//    fd.append("pdtAddressNo", $("#address").find(':selected').val());
+//    fd.append("pdtName", $("#title").val());
+//    fd.append("pdtDesc", $("#desc").val());
+//
+//    for(file of $("#images")[0].files){
+//        fd.append("images", file);
+//        console.log(file);
+//    }
+//    // 상품 저장
+//    $.ajax({
+//        method: "POST",
+//        url: "/api/v1/brd/save",
+//        data: fd,
+//        contentType: false,
+//        processData: false,
+//    }).done((res) => {
+//        $(location).attr("href", "/board");
+//    }).fail((res)=>{
+//        Swal.fire({
+//            icon: 'error',
+//            text: res.responseText
+//        })
+//    });
+}
+
+// 게시글 수정
+function updateBrd(){
+//    let brdNo = new URL(location.href).searchParams.get("brdNo")
+//    let fd = new FormData();
+//
+//    fd.append("pdtAddressNo", $("#address").find(':selected').val());
+//    fd.append("pdtName", $("#title").val());
+//    fd.append("pdtDesc", $("#desc").val());
+//    fd.append("brdNo", brdNo);
+//
+//    for(file of $("#images")[0].files){
+//        fd.append("images", file);
+//    }
+//
+//    // 상품 수정
+//    $.ajax({
+//        method: "PUT",
+//        url: "/api/v1/pdt/update",
+//        data: fd,
+//        contentType: false,
+//        processData: false,
+//    }).done((res)=>{
+//        $(location).attr("href", "/product/" + pdtNo);
+//    }).fail((res)=>{
+//        Swal.fire({
+//            icon: 'error',
+//            text: res.responseText
+//        })
+//    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // 3자리 마다 반점
 function numberWithCommas(x) {

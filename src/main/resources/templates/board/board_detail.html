@@ -1,7 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>상품상세</title>
+    <title>게시글</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
     <link rel="stylesheet" href="/css/main.css">
@@ -25,6 +25,37 @@
         #main section#btn_action div p.pdt_price{ font-weight: 600; opacity : 1; }
         #main section#btn_action div span{ font-size: 15px; font-weight: 400; background-color : #FF9D2A; padding : 7px 17px; color : #fff; border-radius: 7px; }
         #main section#btn_action #btn_chat{ display : none; }
+
+        #main #board_detail{ width : 100%; display : flex; flex-direction: column; justify-content: center; align-items: center; }
+        #main #board_detail > div{ width : 95%; padding : 10px 2.5%; border-bottom : 1px solid #efefef; }
+        #main #board_detail div.swiper{ width : 100%; padding : 0; height : 100vw; object-fit: cover; overflow : hidden;}
+        #main #board_detail div.swiper img{ width : 100%; height : 100vw; object-fit: cover; overflow : hidden; }
+        #main #board_detail div.swiper .swiper-pagination-bullet-active{ background-color: #000 !important; }
+        #main #board_detail div.mem_info{ display: flex; flex-direction: row; justify-content: space-between; align-items: center; }
+        #main #board_detail div.mem_info div.mem_left{ display: flex; flex-direction: row; align-items: center;}
+        #main #board_detail div.mem_info div.mem_left img{ width : 35px; height : 35px; border-radius : 50%; box-shadow: 0 0 3px -2px #303030; margin-right : 10px; }
+        #main #board_detail div.mem_info div.mem_left p.mem_nickname{ font-size : 15px; font-weight : 600; }
+        #main #board_detail div.mem_info div.mem_left p.mem_address{ font-size : 12px; font-weight : 100; }
+        #main #board_detail div.mem_info div.mem_right{ display : flex; flex-direction: column; align-items: flex-end; }
+        #main #board_detail div.mem_info div.mem_right p.mem_brix{ font-size : 15px; font-weight : 600; color : #FF9D2A; }
+        #main #board_detail div.mem_info div.mem_right p.mem_brix_title{ font-size : 12px; font-weight : 100; }
+        #main #board_detail div.pdt_info{ width : 90%; padding : 20px 5%;  }
+        #main #board_detail div.pdt_info h3{ font-size : 17px; line-height : 1.2;}
+        #main #board_detail div.pdt_info div span.pdt_cate{ font-size : 11px; opacity: 0.6; }
+        #main #board_detail div.pdt_info div span.pdt_created_at{ font-size : 11px; opacity: 0.6; }
+        #main #board_detail div.pdt_info textarea.pdt_desc{ width: 100%; resize: none; font-family: 'Noto Sans KR', sans-serif; border: none; font-size: 14px; font-weight: 400; line-height: 1.5; padding: 0; margin: 20px 0;  }
+        #main #board_detail div.pdt_info div.pdt_counts{ font-size : 11px; opacity : 0.6; }
+        #main #board_detail div.pdt_list{ width : 90%; padding : 20px 5%; }
+        #main #board_detail div div.pdt_plusmenu{ display : flex; flex-direction: row; justify-content: space-between; }
+        #main #board_detail div div.pdt_plusmenu span{ font-size : 13px;  }
+        #main #board_detail div div.pdt_plusmenu img{ width : 20px; }
+        #main #board_detail div.pdt_list div.pdt_list_wrapper ul{ width : 105%; margin-left : -2.5%; padding : 10px 0;display : flex; justify-content: space-between; flex-wrap: wrap; }
+        #main #board_detail div.pdt_list div.pdt_list_wrapper ul li{ width : 46%; padding : 5px 2%; display : flex; flex-direction: column; }
+        #main #board_detail div.pdt_list div.pdt_list_wrapper ul li img{ width : 100%; border-radius: 10px; }
+        #main #board_detail div.pdt_list div.pdt_list_wrapper ul li div p{ line-height : 2; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 1; line-clamp: 1; -webkit-box-orient: vertical; }
+        #main #board_detail div.pdt_list div.pdt_list_wrapper ul li div p.item_title{ font-size : 12px; }
+        #main #board_detail div.pdt_list div.pdt_list_wrapper ul li div p.item_price{ font-size : 12px; font-weight : 600; line-height : 1.5; }
+
     </style>
 </head>
 <body>
@@ -40,7 +71,7 @@
                 <img src="/img/icon/more.png" alt="more" id="more">
             </div>
         </section>
-        <section id="product_detail" th:attr="data-pdt-no=${pdtNo}">
+        <section id="board_detail" th:attr="data-brd-no=${brdNo}">
             <div class="swiper">
                 <div class="swiper-wrapper"></div>
                 <div class="swiper-pagination"></div>
@@ -66,7 +97,7 @@
                 </div>
                 <textarea class="pdt_desc" rows="10" readonly></textarea>
                 <div class="pdt_counts">
-                    관심 <span class="pdt_likes"></span> 조회 <span class="pdt_views"></span>
+                    좋아요 <span class="pdt_likes"></span> 조회 <span class="pdt_views"></span>
                 </div>
             </div>
             <div class="pdt_rpt_info pdt_list">
@@ -75,43 +106,18 @@
                     <img src="/img/icon/arrow_right.png" alt="arrow_right">
                 </div>
             </div>
-            <div class="mem_transaction_info pdt_list">
-                <div class="pdt_plusmenu">
-                    <span><span class="mem_nickname"></span>님의 판매 내역</span>
-                    <img src="/img/icon/arrow_right.png" alt="arrow_right">
-                </div>
-                <div class="pdt_list_wrapper">
-                    <ul></ul>
-                </div>    
-            </div>
-            <div class="pdt_cate_recommend pdt_list">
-                <div class="pdt_plusmenu">
-                    <span>카테고리 추천</span>
-                    <img src="/img/icon/arrow_right.png" alt="arrow_right">
-                </div>
-                <div class="pdt_list_wrapper">
-                    <ul></ul>
-                </div> 
-            </div>
         </section>
         <section id="btn_action">
             <div>
                 <div>
                     <img src="/img/icon/like.png" alt="like" id="btn_favorite">
                 </div>
-                <div>
-                    <p class="pdt_price"></p>
-                    <p>가격제안불가</p>
-                </div>
-            </div>
-            <div>
-                <span id="btn_chat">채팅하기</span>
             </div>
         </section>
     </main>
     <script>
         $(function(){
-            let pdtNo = $("#product_detail").data("pdt-no");
+            let brdNo = $("#board_detail").data("brd-no");
             let memNo;
 
             // 회원 정보 파싱
@@ -123,17 +129,12 @@
                 memNo = res;
             })
 
-            // 채팅 하기
-            $("#btn_chat").click(function(){
-                $(location).attr("href", "/chat/room?chatPdtNo="+pdtNo+"&chatMemNo="+memNo);
-            })
-
             // 관심 등록
             $("#btn_favorite").click(function(){
                 if($("#btn_favorite").hasClass("selected")){
                     $.ajax({
                         method: 'DELETE',
-                        url: '/api/v1/pdt-favorite/delete',
+                        url: '/api/v1/brd-favorite/delete',
                         data: {pdtNo}
                     }).done(function(res){
                         $("#btn_favorite").removeClass("selected");
@@ -146,7 +147,7 @@
                 }else{
                     $.ajax({
                         method: 'POST',
-                        url: '/api/v1/pdt-favorite/save',
+                        url: '/api/v1/brd-favorite/save',
                         data: {pdtNo}
                     }).done(function(res){
                         $("#btn_favorite").addClass("selected");
@@ -170,13 +171,13 @@
                 })
                 .then((result) => {
                     if (result.isConfirmed) {
-                        $(location).attr("href", "/product/edit?pdtNo=" + pdtNo)
+                        $(location).attr("href", "/board/edit?brdNo=" + brdNo)
                     }else if (result.isDenied) {
                         // 삭제 ajax
                         $.ajax({
                             method:'DELETE',
-                            url : '/api/v1/pdt/delete',
-                            data: {pdtNo}
+                            url : '/api/v1/brd/delete',
+                            data: {brdNo}
                         })
                         .done(function(res){
                             Swal.fire({
@@ -187,7 +188,7 @@
                               timer: 1000
                             })
                             .then((result)=>{
-                                $(location).attr("href", "/product")
+                                $(location).attr("href", "/board")
                             })
                         })
                     }
@@ -198,7 +199,7 @@
             // 상품 정보 가져오기
             $.ajax({
                 method:'GET',
-                url:'/api/v1/pdt/find-by-pdt-no',
+                url:'/api/v1/brd/find-by-brd-no',
                 data:{pdtNo : pdtNo}
             })
             .done(function(res){
@@ -222,64 +223,23 @@
                 $(".mem_info").attr("onclick", "$(location).attr('href', '/member/"+ res.member.memNo +"')")
                 if(res.member.memUsername==$("#memUsername").text()){
                     $("#more").css("display", "block");
-                    $("#btn_chat").css("display", "none");
                 }else{
                     $("#more").css("display", "none");
-                    $("#btn_chat").css("display", "block");
                 }
 
-                // 제품 정보
-                $(".pdt_title").text(res.product.pdtName);
-                $(".pdt_cate").text(res.pdtCate);
-                $(".pdt_created_at").text(timeForToday(res.product.pdtCreatedAt));
-                $(".pdt_desc").val(res.product.pdtDesc);
-                $(".pdt_views").text(res.product.pdtViews);
-                $(".pdt_likes").text(res.product.favoriteCount);
+                // 게시글 정보
 
-                // 판매자의 판매내역
-                let $seller_list = $(".mem_transaction_info ul");
-                $seller_list.empty()
-                if(res.sellerList.length==0){
-                    $(".mem_transaction_info").css("display", "none");
-                }else{
-                    for( item of res.sellerList ){
-                        $(`<li onclick="$(location).attr('href', '/product/${item.pdtNo}')">
-                                <img src="${item.imgPath}" alt="productImg">
-                                <div>
-                                    <p class="item_title">${item.pdtName}</p>
-                                    <p class="item_price">${numberWithCommas(item.pdtPrice)}원</p>
-                                </div>
-                            </li>`).appendTo($seller_list)
-                    }
-                }
 
-                // 카테고리 추천내역
-                let $recommend_list = $(".pdt_cate_recommend ul");
-                $recommend_list.empty();
-                if(res.cateList.length==0){
-                    $(".pdt_cate_recommend").css("display", "none");
-                }else{
-                    for( item of res.cateList ){
-                        $(`<li onclick="$(location).attr('href', '/product/${item.pdtNo}')">
-                                <img src="${item.imgPath}" alt="productImg">
-                                <div>
-                                    <p class="item_title">${item.pdtName}</p>
-                                    <p class="item_price">${numberWithCommas(item.pdtPrice)}원</p>
-                                </div>
-                            </li>`).appendTo($recommend_list)
-                    }
-                }
-                if(res.product.favoriteCheck==true){
+                if(res.board.favoriteCheck==true){
                     $("#btn_favorite").addClass("selected");
                 }
-                $(".pdt_price").text(numberWithCommas(res.product.pdtPrice) +"원");
             })
             .fail(function(res){
                 Swal.fire({
                     icon: 'error',
                     text: res.responseText
                 }).then(function() {
-                    $(location).attr("href", "/product")
+                    $(location).attr("href", "/board")
                 });
             });
         })

@@ -55,16 +55,12 @@
     <script>
         $(function(){
             let searchParams = new URL(location.href).searchParams;
-            console.log(searchParams.get("pdtCateNo"))
 
             $.ajax({
                 method: "GET",
                 url: "/api/v1/mem/find-by-name"
             })
             .done(function(res){
-
-
-
                 let $address = $("#address");
                 $address.empty();
                 for(item of res.address){
@@ -84,7 +80,7 @@
                 let addressGu = $(this).find(':selected').data('gu');
                 let addressDong = $(this).find(':selected').data('dong');
                 $("#product ul").empty();
-                getPdtList(addressSi, addressGu, addressDong,  "", "", 1, 10);
+                getPdtList(addressSi, addressGu, addressDong,  "", searchParams.get("pdtCateNo"), 1, 10);
             });
 
         })

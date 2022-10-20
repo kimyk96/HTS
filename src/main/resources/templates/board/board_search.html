@@ -1,0 +1,104 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 검색</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="/css/main.css">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="/js/main.js" charset="UTF-8"></script>
+    <style>
+        #header .right{ justify-content : flex-end; }
+        #main #board_search{ width : 95%; padding : 0 2.5%; display : flex; flex-direction: column; justify-content: center; align-items: center; }
+        #main #board_search div{ width : 100%; }
+        #main #board_search div input{ width : 100%; padding : 15px; border-radius: 10px; border : 2px solid #efefef; font-size : 16px; font-weight : 400; margin : 7px 0; letter-spacing: -1px; ;}
+        #main #board_search div button{ background-color : #FF9D2A; color : #fff; width : 100%; padding : 10px; border-radius: 10px; border : 2px solid #efefef; font-size : 17px; font-weight : 400; margin : 7px 0; letter-spacing: -1px; ;}
+        #main #board_search div button:disabled, button[disabled]{ background-color: transparent; }
+        #main #board_search ul{ width : 100%; display: flex; flex-direction: column; justify-content: center; }
+        #main #board_search ul li{ width : 100%; border-bottom : 1px solid #efefef; padding : 3.5vw 0; display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start; }
+        #main #board_search ul li div.img_wrapper{ width : 30%; }
+        #main #board_search ul li div.img_wrapper img{ width : 100%; object-fit: cover; aspect-ratio: 1 / 1;  box-shadow: 0px 0px 4px 0px #efefef; border-radius: 2.5vw;}
+        #main #board_search ul li div.info_wrapper{ width : 70%; display: flex; flex-direction: column; justify-content: space-between;}
+        #main #board_search ul li div.info_wrapper .info{ width : 88%; padding : 8px 7% 22px 5%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        #main #board_search ul li div.info_wrapper .info h3{ width : 100%; line-height : 1.2; font-size : 12px; font-weight : 400; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; word-break: keep-all; }
+        #main #board_search ul li div.info_wrapper .info p{ width : 100%; padding : 4px 0 0 0; font-size : 10px; font-weight : 100; }
+        #main #board_search ul li div.info_wrapper .info p span.info_price{ font-size : 12px; font-weight : 600; }
+        #main #board_search ul li div.info_wrapper .count{ width : 100%; display : flex; flex-direction: row; justify-content: right; }
+        #main #board_search ul li div.info_wrapper .count p{ width : 12%; display: flex; flex-direction: row; align-items: center; justify-content: space-evenly; opacity : 0.8;}
+        #main #board_search ul li div.info_wrapper .count p img{ width : 16px; height : 16px; }
+        #main #board_search ul li div.info_wrapper .count p.count_chat img{ content: url(../img/icon/chat.png); }
+        #main #board_search ul li div.info_wrapper .count p.count_chat img.selected{ content: url(../img/icon/chat_selected.png); }
+        #main #board_search ul li div.info_wrapper .count p.count_like img{ content: url(../img/icon/like.png); }
+        #main #board_search ul li div.info_wrapper .count p.count_like img.selected{ content: url(../img/icon/like_selected.png); }
+        #main #board_search ul li div.info_wrapper .count p span{ font-size : 11px; }
+    </style>
+</head>
+<body>
+<!-- 상단 메뉴바 -->
+<header id="header">
+    <div>
+        <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
+        <div>
+            <h2>게시글 검색</h2>
+        </div>
+    </div>
+    <div class="right">
+        <select name="address" id="address"></select>
+    </div>
+</header>
+<!-- 메인정보 -->
+<main id="main">
+    <section id="board_search">
+        <div>
+            <input type="text" id="search_keyword" placeholder="제목 + 본문으로 검색하기">
+        </div>
+        <div>
+            <ul id="search_list">
+                <p style='text-align : center;padding : 30px 0;'>검색 결과가 없습니다.</p>
+            </ul>
+        </div>
+    </section>
+</main>
+
+<script>
+    $(function(){
+        $.ajax({
+            method: "GET",
+            url: "/api/v1/mem/find-by-name"
+        })
+        .done(function(res){
+            let $address = $("#address");
+            $address.empty();
+            for(item of res.address){
+                $("<option class='opt_address'></option>")
+                    .attr("data-si", item.addressSi)
+                    .attr("data-gu", item.addressGu)
+                    .attr("data-dong", item.addressDong)
+                    .text(item.addressDong)
+                    .appendTo($address);
+            }
+        })
+
+        $("#address").change(function() {
+            let si = $(this).find(':selected').data('si');
+            let gu = $(this).find(':selected').data('gu');
+            let dong = $(this).find(':selected').data('dong');
+            // ------------------ 게시글 목록 노출
+        });
+
+        let lastKeyword;
+        $("#search_keyword").on("input", async function(){
+            if($("#search_keyword").val()==lastKeyword){
+                return;
+            }
+            let si = $("#address").find(':selected').data('si');
+            let gu = $("#address").find(':selected').data('gu');
+            let dong = $("#address").find(':selected').data('dong');
+
+            // ------------------ 게시글 목록 노출
+
+            lastKeyword=$("#search_keyword").val();
+        });
+    });
+</script>
+</body>
+</html>

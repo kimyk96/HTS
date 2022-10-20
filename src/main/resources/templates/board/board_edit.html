@@ -1,7 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>상품 수정</title>
+    <title>게시글 수정</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="/css/main.css">
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
@@ -10,7 +10,24 @@
     <style>
         #header div.btn_upload{ justify-content: flex-end; }
         #header div h2{ font-size : 15px; font-weight : 400; }
-        #header div.btn_upload span{ padding : 0 10px; font-weight : 600; font-size : 15px; color : #FF9D2A;  }
+        #header div.btn_upload span{ padding : 0 10px; font-weight : 600; font-size : 15px; color : #FF9D2A; }
+        #main #board_upload{ width : 100% display : flex; flex-direction: column; justify-content: center; align-items: center; }
+        #main #board_upload #img_wrapper{ width : 100%; display : flex; flex-direction : row; padding : 10px 0; }
+        #main #board_upload #img_wrapper #input_wrapper{ width : 25%; display : flex; justify-content : center; align-items: flex-end; }
+        #main #board_upload #img_wrapper #input_wrapper input{ display : none; }
+        #main #board_upload #img_wrapper #input_wrapper button{ width: 74px; height: 74px; display: flex; flex-direction: column; justify-content: center; align-items: center; border: 2px solid #efefef; border-radius: 7px; }
+        #main #board_upload #img_wrapper #input_wrapper button img{ width : 33%; padding : 3px 0;}
+        #main #board_upload #preview_wrapper{ width: 75%; overflow: scroll; }
+        #main #board_upload #preview_wrapper::-webkit-scrollbar{ display: none; }
+        #main #board_upload #preview_wrapper ul#previews{ overflow: auto; white-space : nowrap; }
+        #main #board_upload #preview_wrapper ul#previews::-webkit-scrollbar{ display: none; }
+        #main #board_upload #preview_wrapper ul#previews li{ width : 70px; margin-right : 20px; position :relative;}
+        #main #board_upload #preview_wrapper ul#previews li img{ width : 100%; border-radius : 14px; border : 2px solid #efefef; }
+        #main #board_upload #preview_wrapper ul#previews li span{ position : absolute; top : -2px; left : 0px; width : 84px; margin-bottom : -15px; display : flex; justify-content : flex-end; }
+        #main #board_upload #preview_wrapper ul#previews li span img{ z-index : 2; background-color : #fff; width : 20px; border-radius : 50%; box-shadow : 0 0 3px -2px #303030; }
+        #main #board_upload #pdt_wrapper{ width : 95%; padding : 10px 2.5%; }
+        #main #board_upload #pdt_wrapper div{ width : 100%; border-bottom : 1px solid #efefef; display : flex; flex-direction : column; align-items: center; border-bottom : 1px solid #efefef;  }
+        #main #board_upload #pdt_wrapper div *{ width : 100%; margin : 5px 0; padding : 15px; border : none; font-family: 'Noto Sans KR', sans-serif;}
     </style>
 </head>
 <body>
@@ -19,16 +36,16 @@
         <div>
             <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
             <div>
-                <h2>중고거래 글 수정</h2>
+                <h2>작성한 글 수정</h2>
             </div>
         </div>
         <div class="btn_upload">
-            <span onclick="updatePdt();">완료</span>
+            <span onclick="updateBrd();">완료</span>
         </div>
     </header>
     <!-- 메인정보 -->
     <main id="main">
-        <section id="product_upload">
+        <section id="board_upload">
             <div id="img_wrapper">
                 <div id="input_wrapper">
                     <input type="file" multiple accept="image/jpeg, image/png" id="images">
@@ -42,21 +59,13 @@
                 <div class="upload_title">
                     <input type="text" id="title" placeholder="제목">
                 </div>
-                <div class="upload_cate">
-                    <select id="cate" name="cate">
-                        <option value="" selected disabled hidden>카테고리 선택</option>
-                    </select>
-                </div>
                 <div class="upload_address">
                     <select id="address" name="address">
                         <option value="" selected disabled hidden>주소 선택</option>
                     </select>
                 </div>
-                <div class="upload_price">
-                    <input type="number" id="price" name="price" placeholder="가격">
-                </div>
                 <div class="upload_desc">
-                    <textarea name="desc" id="desc" cols="30" rows="10" placeholder="상품을 설명해 주세요!"></textarea>
+                    <textarea name="desc" id="desc" cols="30" rows="10" placeholder="이웃에게 새 글을 작성해 주세요!"></textarea>
                 </div>
             </div>
         </section>
@@ -65,20 +74,9 @@
         $(function(){
             // 이미지 개별 저장을 위한 변수
             let urlParams = new URL(location.href).searchParams;
-            let pdtNo = urlParams.get("pdtNo");
+            let brdNo = urlParams.get("brdNo");
             let imgArray;
             const dataTransfer = new DataTransfer();
-
-            // 카테고리 가져오기
-            $.ajax({
-                method : "GET",
-                url: "/api/v1/pdt-cate/find-all"
-            })
-            .done(function(res){
-                for(cate of res){
-                    $(`<option value="${cate.pdtCateNo}">${cate.pdtCate}</option>`).appendTo("#cate");
-                }
-            })
 
             // 회원주소 가져오기
             $.ajax({
@@ -91,47 +89,14 @@
                 }
             })
 
-            // 상품 정보 가져오기
+            // 게시글 정보 가져오기
             $.ajax({
                 method : "GET",
-                url: "/api/v1/pdt/find-by-pdt-no",
-                data: {pdtNo : pdtNo}
+                url: "/api/v1/brd/find-by-brd-no",
+                data: {brdNo : brdNo}
             })
             .done(function(res){
-                $("#address").val(res.address.addressNo).prop("selected", true);
-                $("select[name='cate'] option:contains('" + res.pdtCate + "')").prop("selected", true);
-                $("#title").val(res.product.pdtName);
-                $("#desc").val(res.product.pdtDesc);
-                $("#price").val(res.product.pdtPrice);
 
-                for(img of res.images){
-                    new Promise((resolve, reject) => {
-                        let image = new Image();
-                        image.onload = () => {
-                            let canvas = document.createElement('canvas');
-                            canvas.width = image.naturalWidth;
-                            canvas.height = image.naturalHeight;
-                            canvas.getContext('2d').drawImage(image, 0, 0);
-
-                            let uri = canvas.toDataURL('image/png', 1.0);
-                            resolve(uri);
-
-                            $(`<li class="preview">
-                                <span>
-                                    <img src="/img/icon/delete.png" alt="delete" class="deleteImg">
-                                </span>
-                                <img src="${uri}">
-                            </li>`).appendTo("#previews");
-
-                            var file = dataURLtoFile(uri,'File');
-                            imgArray.push(file);
-                            console.log(imgArray)
-                        }
-                        image.src = img.imgPath;
-                    });
-                }
-                $("#img_count").text( res.images.length + "/10");
-                imgArray = Array.from($("#images")[0].files);
             });
 
             // 이미지 불러오기

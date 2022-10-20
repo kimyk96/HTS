@@ -1,4 +1,4 @@
-package com.hts.market.global.controller.product;
+package com.hts.market.global.controller.board;
 
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -8,32 +8,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("product")
+@RequestMapping("board")
 @Secured("ROLE_USER")
-public class PdtController {
+public class BrdController {
     @GetMapping("")
     public String product(){
-        return "product/product";
+        return "board/board";
     }
     @GetMapping("search")
     public String search(){
-        return "product/product_search";
+        return "board/board_search";
     }
-    @GetMapping("{pdtNo}")
-    public ModelAndView detail(@PathVariable Long pdtNo){
-        return new ModelAndView("product/product_detail").addObject("pdtNo", pdtNo) ;
+    @GetMapping("{brdNo}")
+    public ModelAndView detail(@PathVariable Long brdNo){
+        return new ModelAndView("board/board_detail").addObject("brdNo", brdNo) ;
     }
     @GetMapping("upload")
     public String upload(){
-        return "product/product_upload";
+        return "board/board_upload";
     }
     @GetMapping("edit")
     public String edit(){
-        return "product/product_edit";
+        return "board/board_edit";
     }
     @GetMapping("cate")
     public String cate(){
-        return "product/product_cate";
+        return "board/board_cate";
     }
-
 }

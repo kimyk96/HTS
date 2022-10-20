@@ -18,12 +18,10 @@ import java.security.Principal;
 @Secured("ROLE_USER")
 public class MemController {
     @Autowired MemRepo memRepo;
-
     @GetMapping("")
     public String member(){
         return "member/member";
     }
-
     @GetMapping("{memNo}")
     public ModelAndView profile(@PathVariable Long memNo, Principal principal){
         if(memNo.equals(memRepo.findIdByMemUsername(principal.getName()))){
@@ -32,22 +30,18 @@ public class MemController {
             return new ModelAndView("member/member_other").addObject("memNo", memNo);
         }
     }
-
     @GetMapping("address")
     public String address(){
         return "member/member_address";
     }
-
     @GetMapping("address-list")
     public String addressList(){
         return "member/member_address_list";
     }
-
     @GetMapping("profile")
     public String profile(){
         return "member/member_profile";
     }
-
     @GetMapping("favorite")
     public String favorite(){
         return "member/member_favorite";
