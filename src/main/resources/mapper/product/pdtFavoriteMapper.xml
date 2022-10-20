@@ -20,7 +20,10 @@
                 FROM
                     (
                         select
-                            f.pdt_no, p.pdt_name, p.pdt_price, i.img_path, d.address_si, d.address_gu, d.address_dong
+                            f.pdt_no,
+                            p.pdt_name, p.pdt_price, p.pdt_created_at
+                            i.img_path,
+                            d.address_si, d.address_gu, d.address_dong
                         from
                             PRODUCT_FAVORITE f left outer join product p on f.pdt_no = p.pdt_no
                             left outer join product_image i on f.pdt_no = i.pdt_no
