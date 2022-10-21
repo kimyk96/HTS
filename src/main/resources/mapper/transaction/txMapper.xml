@@ -18,7 +18,7 @@
         where
           tx_no=#{txNo}
     </delete>
-<!--거래 내역 목록 보기-->
+<!--거래 내역 목록 보기
     <select id="findAllByMemNo" resultType="com.hts.market.domain.transaction.dto.TxDto$Read">
     <![CDATA[
         SELECT
@@ -28,7 +28,7 @@
         WHERE
             tx_no=#{txNo}
         ]]>
-    </select>
+    </select>-->
 <!--거래 내역 읽기-->
     <select id="findById" resultType="com.hts.market.domain.transaction.dto.TxDto$Read">
     <![CDATA[
@@ -40,4 +40,95 @@
                 tx_no= #{txNo}  and rownum <= 1
         ]]>
     </select>
+
+
+    <!-- 판매 거래 내역 목록보기-->
+    <select id="findSaleListByMemNo" resultType="com.hts.market.domain.transaction.dto.TxDto$Read">
+        SELECT
+        b.*
+        FROM
+        (
+            SELECT /*+ index_desc(TRANSACTION PK_TRANSACTION) */
+            ROWNUM AS rnum,
+            a.*
+        FROM
+        (
+        SELECT
+            t.tx_no, p.pdt_no, p.pdt_name, p.pdt_status, p.pdt_price, p.pdt_created_at, i.img_path, d.address_dong
+        FROM
+            transaction t left outer join product p on t.tx_pdt_no = p.pdt_no
+            left outer join address d on  p.pdt_address_no =d.address_no
+            left outer join product_image i on t.tx_pdt_no=i.pdt_no
+
+        where
+             p.pdt_seller_no= #{memNo}
+            ORDER BY
+            tx_no DESC
+        ) a
+        WHERE
+            ROWNUM &lt;= #{end}
+        ) b
+        WHERE
+            b.rnum &gt;= #{start}
+    </select>
+
+    <!--구매 거래 내역 조회-->
+    <select id="findPurchaseListByMemNo" resultType="com.hts.market.domain.transaction.dto.TxDto$Read">
+        SELECT
+            b.*
+        FROM
+        (
+            SELECT /*+ index_desc(TRANSACTION PK_TRANSACTION) */
+             ROWNUM AS rnum,
+             a.*
+            FROM
+        (
+        SELECT
+            t.tx_no, p.pdt_no, p.pdt_name, p.pdt_status, p.pdt_price, p.pdt_created_at, i.img_path, d.address_dong
+        FROM
+            transaction t left outer join product p on t.tx_pdt_no = p.pdt_no
+            left outer join address d on  p.pdt_address_no =d.address_no
+            left outer join product_image i on t.tx_pdt_no=i.pdt_no
+
+        where
+        t.tx_buyer_no = #{memNo}
+        ORDER BY
+            tx_no DESC
+        ) a
+        WHERE
+            ROWNUM &lt;= #{end}
+        ) b
+        WHERE
+            b.rnum &gt;= #{start}
+    </select>
+
+    <!--  거래 내역 목록보기
+   <select id="findAllByMemNo" resultType="com.hts.market.domain.transaction.dto.TxDto$Read">
+       SELECT
+       b.*
+       FROM
+       (
+           SELECT /*+ index_desc(TRANSACTION PK_TRANSACTION) */
+           ROWNUM AS rnum,
+           a.*
+           FROM
+       (
+       SELECT
+           t.tx_no, p.pdt_no, p.pdt_name, p.pdt_status, p.pdt_price, p.pdt_created_at, i.img_path, d.address_dong
+       FROM
+           transaction t left outer join product p on t.tx_pdt_no = p.pdt_no
+           left outer join address d on  p.pdt_address_no =d.address_no
+           left outer join product_image i on t.tx_pdt_no=i.pdt_no
+
+       where
+           t.tx_no  = #{tx_no}
+           ORDER BY
+           tx_no DESC
+       ) a
+       WHERE
+           ROWNUM &lt;= #{end}
+       ) b
+       WHERE
+           b.rnum &gt;= #{start}
+   </select>-->
 </mapper>

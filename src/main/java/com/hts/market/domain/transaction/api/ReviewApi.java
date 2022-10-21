@@ -9,33 +9,17 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/review")
 public class ReviewApi {
     @Autowired ReviewApp reviewApp;
-    @PostMapping("save")
-    public ResponseEntity<Integer> save(Long reviewNo, Principal principal) {
-        Integer result=reviewApp.save();
-        return ResponseEntity.ok().body(1);
-    }
-    @PutMapping("update")
-    public ResponseEntity<Integer> update(Long reviewNo, Principal principal) {
-        Integer result=reviewApp.update();
-        return ResponseEntity.ok().body(1);
-    }
-
-    @DeleteMapping("delete")
-    public ResponseEntity<Integer> delete(Long reviewNo, Principal principal) {
-        Integer result=reviewApp.delete();
-        return ResponseEntity.ok().body(1);
-    }
-
 
     @GetMapping("find-by-review-no")
-    public ResponseEntity<TxDto.Read> findByReviewNo(ReviewDto.Read dto, Principal principal){
-        TxDto.Read result = reviewApp.findByReviewNo();
-        return ResponseEntity.ok().body(null);
+    public ResponseEntity<List<ReviewDto.Read>> findByReviewNo(Long reviewNo, Principal principal){
+        List<ReviewDto.Read> result = reviewApp.findByReviewNo(reviewNo);
+        return ResponseEntity.ok().body(result);
     }
 
 }

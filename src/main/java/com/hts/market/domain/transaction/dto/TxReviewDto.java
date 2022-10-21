@@ -2,7 +2,9 @@ package com.hts.market.domain.transaction.dto;
 
 import lombok.*;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TxReviewDto {
@@ -11,10 +13,29 @@ public class TxReviewDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Create{
-        private Long txReviewNo;
         @NotNull
+        private Long txReviewNo;
+        @NotEmpty
         private String txReviewType;
-       @NotNull
+        @NotNull
         private Long reviewNo;
+
+
+    }
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Read{
+        @NotNull
+        private Long txReviewNo;
+        @NotEmpty
+        private String txReviewType;
+        @NotNull
+        private Long reviewNo;
+
+
+
     }
 }

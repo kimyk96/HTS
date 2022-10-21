@@ -1,17 +1,13 @@
-package com.hts.market.domain.transaction.repo;
+package com.hts.market.domain.transaction.repo.transactionAppTest;
 
 import com.hts.market.domain.member.dto.AddressDto;
 import com.hts.market.domain.member.dto.MemDto;
 import com.hts.market.domain.member.repo.AddressRepo;
 import com.hts.market.domain.member.repo.MemRepo;
-import com.hts.market.domain.product.dto.PdtCateDto;
 import com.hts.market.domain.product.dto.PdtDto;
-import com.hts.market.domain.product.dto.PdtImgDto;
-import com.hts.market.domain.product.repo.PdtCateRepo;
-import com.hts.market.domain.product.repo.PdtImgRepo;
 import com.hts.market.domain.product.repo.PdtRepo;
 import com.hts.market.domain.transaction.dto.TxDto;
-import com.hts.market.domain.transaction.entity.TxEntity;
+import com.hts.market.domain.transaction.repo.TxRepo;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,20 +18,15 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-
 @SpringBootTest
 @Transactional
-public class TxRepoTest {
-    @Autowired
+public class TxAppTest {
+   @Autowired
     TxRepo txRepo;
     @Autowired
     PdtRepo pdtRepo;
     @Autowired
-    PdtImgRepo pdtImgRepo;
-    @Autowired
     AddressRepo addressRepo;
-    @Autowired
-    PdtCateRepo pdtCateRepo;
     @Autowired
     MemRepo memRepo;
     @BeforeEach
@@ -62,56 +53,22 @@ public class TxRepoTest {
         memRepo.save(dto7);
     }
     @Test
-    public void save() {
-        TxDto.Create dto = TxDto.Create.builder()
-                .txPdtNo(4L).txBuyerNo(4L).build();
-
-        Integer result = txRepo.save(dto);
-        Assertions.assertThat(result).isEqualTo(1);
-        Assertions.assertThat(result).isEqualTo(1);
-
-    }
-
-    @Test
-    public void delete() {
-        Integer txNo = txRepo.delete(0L);
-        Assertions.assertThat(txNo).isEqualTo(0);
-
-    }
-
-    @Test
-    public void findById() {
-        // given
-        Long txNo = 2L;
-        // when
-        TxDto.Read result = txRepo.findById(txNo);
-        // then
-        Assertions.assertThat(result.getTxNo()).isEqualTo(txNo);
-    }
-
-     @Test
-     public void findSaleListByMemNo() {
-        // given
-        Long memNo= 1L;
-        // when
-        Optional<List<TxDto.Read>> result = txRepo.findSaleListByMemNo(memNo);
-        // then
+    void findPurchaseListByMemNo(){
+        TxDto.Read dto=TxDto.Read.builder().txNo(1l).txBuyerNo(1l).txPdtNo(1l).build();
+        Optional<List<TxDto.Read>> result=txRepo.findPurchaseListByMemNo(dto.getTxBuyerNo());
         Assertions.assertThat(result);
-
     }
     @Test
-    public void findPurchaseListByMemNo() {
-        // given
-        Long memNo= 1L;
-        // when
-        Optional<List<TxDto.Read>> result = txRepo.findPurchaseListByMemNo(memNo);
-        // then
+    void findSaleListByMemNo(){
+        PdtDto.Read dto= PdtDto.Read.builder().pdtSellerNo(1L).build();
+        Optional<List<TxDto.Read>> result=txRepo.findSaleListByMemNo(dto.getPdtSellerNo());
         Assertions.assertThat(result);
-
+    }
+    @Test
+    void findByTxNo(){
+        TxDto.Read dto=TxDto.Read.builder().txNo(1l).txBuyerNo(1l).txPdtNo(1l).build();
+        TxDto.Read result=txRepo.findById(dto.getTxNo());
+        Assertions.assertThat(result);
     }
 
 }
-
-
-
-

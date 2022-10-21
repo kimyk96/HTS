@@ -18,28 +18,21 @@ public class TxApi {
 
     @Autowired TxApp txApp;
 
-    @PostMapping("save")
-    public ResponseEntity<Integer> save(@Valid TxDto.Create dto, Principal principal){
-        Integer result = txApp.save();
-        return ResponseEntity.ok().body(1);
+    @GetMapping ("find-sale-list-by-mem-no")
+    public ResponseEntity<List<TxDto.Read>> findSaleListByMemNo(Principal principal){
+        List<TxDto.Read> result = txApp.findSaleListByMemNo(principal.getName());
+        return ResponseEntity.ok().body(result);
     }
-
-    @DeleteMapping ("delete")
-    public ResponseEntity<Integer> delete(Long txNo, Principal principal){
-        Integer result = txApp.delete();
-        return ResponseEntity.ok().body(1);
-    }
-
-    @GetMapping ("find-all-by-mem-no")
-    public ResponseEntity<List<TxDto.Read>> findAllByMemNo(Long memNo, Principal principal){
-        List<TxDto.Read> result = txApp.findAllByMemNo();
-        return ResponseEntity.ok().body(null);
+    @GetMapping ("find-purchase-list-by-mem-no")
+    public ResponseEntity<List<TxDto.Read>> findPurchaseListByMemNo(Principal principal){
+        List<TxDto.Read> result = txApp.findPurchaseListByMemNo(principal.getName());
+        return ResponseEntity.ok().body(result);
     }
 
     @GetMapping ("find-by-id")
     public ResponseEntity<TxDto.Read> findById(Long txNo, Principal principal){
-        TxDto.Read result = txApp.findById();
-        return ResponseEntity.ok().body(null);
+        TxDto.Read result = txApp.findById(txNo);
+        return ResponseEntity.ok().body(result);
     }
 
 }

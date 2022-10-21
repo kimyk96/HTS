@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hts.market.domain.transaction.repo.ReviewRepo">
-   <!--후기 생성-->
+    <!--후기 목록 출력-->
+    <select id="findByReviewNo" resultType="com.hts.market.domain.transaction.dto.ReviewDto$Read">
+
+            select
+                review_no, review
+            from
+                REVIEW
+
+    </select>
+
+
+
+
+    <!-- 후기 생성
     <insert id="save">
         <selectKey resultType="long" order="BEFORE" keyProperty="reviewNo">
             select nvl(max(review_no),0)+1 from REVIEW
@@ -11,7 +24,7 @@
         values
         ( #{reviewNo}, #{review})
     </insert>
-    <!--후기 삭제-->
+    &lt;!&ndash;후기 삭제&ndash;&gt;
     <delete id="delete">
         delete from
            REVIEW
@@ -19,7 +32,7 @@
            review_no=#{reviewNo}
     </delete>
 
-    <!--후기 업데이트-->
+    &lt;!&ndash;후기 업데이트&ndash;&gt;
     <update id="update">
 
         update
@@ -30,16 +43,18 @@
             review_no=#{reviewNo}
 
     </update>
-
-    <!--후기 읽기-->
-    <select id="findByReviewNo" resultType="com.hts.market.domain.transaction.dto.ReviewDto$Read">
-    <![CDATA[
+      후기 읽기
+        <![CDATA[
             select
                 review_no, review
             from
                 REVIEW
             where
-                review_no=#{reviewNo} and rownum <= 1
+                review_no=#{reviewNo} and rownum <= 7
         ]]>
     </select>
+    -->
+
+
+
 </mapper>

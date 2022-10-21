@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 public class TxEntity {
     private Long txNo;
-    private Long pdtNo;
-    private Long buyerNo;
+    private Long txPdtNo;
+    private Long txBuyerNo;
     private LocalDateTime txCreatedAt;
 }
