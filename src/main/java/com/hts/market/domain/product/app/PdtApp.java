@@ -89,7 +89,7 @@ public class PdtApp {
         }
         dto.setCateList(cateList);
 
-        pdtRepo.increaseView(pdtNo, memNo);
+        pdtRepo.increaseView(PdtDto.ViewCount.builder().memNo(memNo).pdtNo(pdtNo).build());
 
         // 관심수
         dto.getProduct().setFavoriteCount(pdtFavoriteRepo.countByPdtNo(pdtNo));

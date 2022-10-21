@@ -8,7 +8,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -93,18 +92,6 @@ public class PdtDto {
         private Boolean chatCheck;
     }
 
-
-    @Data
-    @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class Page{
-        private Long pageNo;
-        private Integer pageSize;
-        private Long totalNo;
-        private Collection<ReadList> pdtList;
-    }
-
     @Data
     @Builder
     @AllArgsConstructor
@@ -164,27 +151,6 @@ public class PdtDto {
         private Long pdtSellerNo;
     }
 
-//    // 주소별 검색에 필요한 데이터
-//    @Data
-//    @Builder
-//    @AllArgsConstructor
-//    @NoArgsConstructor
-//    public static class AddressData{
-//        @NotNull
-//        private long pdtNo;
-//        @NotEmpty
-//        private String addressSi;
-//        @NotEmpty
-//        private String addressGu;
-//        @NotEmpty
-//        private String addressDong;
-//        @NotNull
-//        private Integer start;
-//        @NotNull
-//        private Integer end;
-//    }
-
-
     @Data
     @Builder
     @AllArgsConstructor
@@ -192,15 +158,5 @@ public class PdtDto {
     public static class ViewCount {
         private Long pdtNo;
         private Long memNo;
-    }
-
-    @Data
-    @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class Profile{
-        private Long pdtNo;
-        private Long imgNo;
-        private List<MultipartFile> image;
     }
 }

@@ -16,7 +16,7 @@ public interface PdtRepo {
     // 글 읽기
     public Optional<PdtDto.Detail> findByPdtNo(Long pdtNo);
     // 조회수 증가
-    public Integer increaseView(Long pdtNo,Long memNo);
+    public Integer increaseView(PdtDto.ViewCount dto);
     // 회원별 글목록
     public List<PdtDto.ReadList> findAllByData(PdtDto.ListData dto);
     // 판매글 삭제

@@ -9,14 +9,7 @@ import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PdtImgDto {
-    @Data
-    @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class ListFile {
-        private Long pdtNo;
-        private List<MultipartFile> files;
-    }
+
 
     @Data
     @Builder
@@ -28,6 +21,14 @@ public class PdtImgDto {
         private Long imgNo;
         @NotEmpty
         private String imgPath;
+    }
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class ListFile {
+        private Long pdtNo;
+        private List<MultipartFile> files;
     }
 
     @Data

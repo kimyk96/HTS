@@ -72,10 +72,9 @@ class PdtRepoTest {
     // 조회수 테스트
     @Test
     void increaseViews(){
-        Long pdtNo = 1L;
-        Long pdtSellerNo = 1L;
+        PdtDto.ViewCount dto = PdtDto.ViewCount.builder().pdtNo(1L).memNo(1L).build();
 
-        Integer result =  pdtRepo.increaseView(pdtNo, pdtSellerNo);
+        Integer result =  pdtRepo.increaseView(dto);
 
         Assertions.assertThat(result).isEqualTo(1);
     }
