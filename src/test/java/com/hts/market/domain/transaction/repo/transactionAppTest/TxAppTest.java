@@ -43,7 +43,7 @@ public class TxAppTest {
                 .txPdtNo(1L).txBuyerNo(1L).build();
         TxDto.Create dto6 = TxDto.Create.builder()
                 .txPdtNo(2L).txBuyerNo(2L).build();
-        MemDto.Create dto7 = MemDto.Create.builder().memUsername("asd").memPassword("1234").memEmail("pig026@naver.com").memNickname("주호주호니").build();
+        MemDto.Create dto7 = MemDto.Create.builder().memUsername("asd").memPassword("1234").memEmail("pig026@naver.com").memIsEnabled(1).memNickname("주호주호니").build();
         pdtRepo.save(dto1);
         addressRepo.save(dto2);
 //        pdtImgRepo.save(dto3);

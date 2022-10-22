@@ -44,7 +44,7 @@
 
     <!-- 판매 거래 내역 목록보기-->
     <select id="findSaleListByMemNo" resultType="com.hts.market.domain.transaction.dto.TxDto$Read">
-        SELECT
+     SELECT
         b.*
         FROM
         (
@@ -64,7 +64,7 @@
              p.pdt_seller_no= #{memNo}
             ORDER BY
             tx_no DESC
-        ) a
+       ) a
         WHERE
             ROWNUM &lt;= #{end}
         ) b
@@ -74,7 +74,7 @@
 
     <!--구매 거래 내역 조회-->
     <select id="findPurchaseListByMemNo" resultType="com.hts.market.domain.transaction.dto.TxDto$Read">
-        SELECT
+     SELECT
             b.*
         FROM
         (

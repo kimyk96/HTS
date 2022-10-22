@@ -18,6 +18,10 @@ public class TxApi {
 
     @Autowired TxApp txApp;
 
+    @PostMapping("save")
+    public ResponseEntity<TxDto.Create>save(TxDto.Create dto){
+        return ResponseEntity.ok().body(dto);
+    }
     @GetMapping ("find-sale-list-by-mem-no")
     public ResponseEntity<List<TxDto.Read>> findSaleListByMemNo(Principal principal){
         List<TxDto.Read> result = txApp.findSaleListByMemNo(principal.getName());

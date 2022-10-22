@@ -29,6 +29,7 @@ public class TxReviewApp {
 
 
     public Integer save(TxReviewDto.Create dto, String username,TxDto.Read dto2) {
+
         Long pdtNo = txRepo.findById(dto2.getTxBuyerNo()).getTxPdtNo();
         Long sellerNo = pdtRepo.findSellerNoById(pdtNo);
         Long memNo = memRepo.findIdByMemUsername(username);

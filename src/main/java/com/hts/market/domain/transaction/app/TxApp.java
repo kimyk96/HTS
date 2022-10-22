@@ -16,6 +16,10 @@ public class TxApp {
     @Autowired
     MemRepo memRepo;
 
+    public Integer save(TxDto.Create dto){
+        return txRepo.save(dto);
+    }
+
 
     public List<TxDto.Read> findSaleListByMemNo(String username) {
         List<TxDto.Read> read =  txRepo.findSaleListByMemNo(memRepo.findIdByMemUsername(username))
