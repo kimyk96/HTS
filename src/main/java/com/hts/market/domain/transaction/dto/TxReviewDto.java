@@ -15,7 +15,7 @@ public class TxReviewDto {
     public static class Create{
         @NotNull
         private Long txReviewNo;
-        @NotEmpty
+
         private String txReviewType;
         @NotNull
         private Long reviewNo;

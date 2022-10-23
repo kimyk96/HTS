@@ -17,7 +17,7 @@ public class ReviewApi {
     @Autowired ReviewApp reviewApp;
 
     @GetMapping("find-by-review-no")
-    public ResponseEntity<List<ReviewDto.Read>> findByReviewNo(Long reviewNo, Principal principal){
+    public ResponseEntity<List<ReviewDto.Read>> findByReviewNo(Long reviewNo){
         List<ReviewDto.Read> result = reviewApp.findByReviewNo(reviewNo);
         return ResponseEntity.ok().body(result);
     }
