@@ -1,5 +1,7 @@
 package com.hts.market.global.api;
 
+import com.hts.market.global.app.ImageApp;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,35 +17,10 @@ import java.nio.file.Files;
 @RestController
 @RequestMapping("/images")
 public class ImageApi {
-    @GetMapping(path="/{dir}/{img}", produces= MediaType.APPLICATION_OCTET_STREAM_VALUE)
-    public ResponseEntity<byte[]> images(@PathVariable String dir, @PathVariable String img) {
-        File file = new File(new File("").getAbsolutePath() + "\\" + "/images/", dir + "/" + img);
-        if(file.exists()==false){
-            return null;
-        }
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(getMediaType(img));
-        headers.add("Content-Disposition", "inline;filename=" + img);
-        try {
-            return ResponseEntity.ok().headers(headers).body(Files.readAllBytes(file.toPath()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+    @Autowired ImageApp imageApp;
 
-    private MediaType getMediaType(String imgPath) {
-        Integer position = imgPath.lastIndexOf(".");
-        String ext = imgPath.substring(position+1).toLowerCase();
-        if(ext.equals("JPG")){
-            return MediaType.IMAGE_JPEG;
-        }
-        if(ext.equals("PNG")){
-            return MediaType.IMAGE_PNG;
-        }
-        if(ext.equals("GIF")){
-            return MediaType.IMAGE_GIF;
-        }
-        return null;
+    @GetMapping(path="/{dir}/{img}", produces= MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    public ResponseEntity<byte[]> findByPath(@PathVariable String dir, @PathVariable String img) {
+        return imageApp.findByPath(dir, img);
     }
 }

@@ -1,5 +1,8 @@
 package com.hts.market.domain.transaction.dto;
 
+import com.hts.market.domain.member.dto.AddressDto;
+import com.hts.market.domain.member.dto.MemDto;
+import com.hts.market.domain.product.dto.PdtDto;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
@@ -13,10 +16,9 @@ public class TxDto {
     @NoArgsConstructor
     public static class Create{
         private Long txNo;
-//        @NotNull
         private Long txPdtNo;
-//        @NotNull
         private Long txBuyerNo;
+        private Integer pdtStatus;
     }
 
     @Data
@@ -28,5 +30,32 @@ public class TxDto {
         private Long txPdtNo;
         private Long txBuyerNo;
     }
+
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class GetList{
+        private Long memNo;
+        private Integer start;
+        private Integer end;
+    }
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class ReadList{
+        private TxDto.Read transaction;
+        private PdtDto.Read product;
+        private AddressDto.Read address;
+        private String pdtImg;
+        private Integer chatCount;
+        private Boolean chatCheck;
+        private Boolean receivedReviewCheck;
+        private Boolean sentReviewCheck;
+    }
+
 
 }

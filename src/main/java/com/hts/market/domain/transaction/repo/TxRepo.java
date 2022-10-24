@@ -14,9 +14,13 @@ public interface TxRepo {
 
     public TxDto.Read findById(Long txNo);
 
-    public Optional<List<TxDto.Read>> findSaleListByMemNo(Long memNo);
+    public List<TxDto.ReadList> findSaleListByMemNo(TxDto.GetList dto);
 
-    public Optional<List<TxDto.Read>> findPurchaseListByMemNo(Long memNo);
+    public List<TxDto.ReadList> findPurchaseListByMemNo(TxDto.GetList dto);
+
+    public Optional<TxDto.Read> findByPdtNoAndBuyerNo(TxDto.Create dto);
+
+
 
 
 }

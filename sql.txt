@@ -5,7 +5,7 @@ CREATE TABLE MEMBER (
 	mem_username	VARCHAR2(20 char)		NULL,
 	mem_password	VARCHAR2(100 char)		NULL,
 	mem_nickname	VARCHAR2(20 char)		NULL,
-	mem_email	VARCHAR2(20 char)		NULL,
+	mem_email	VARCHAR2(40 char)		NULL,
 	mem_brix	NUMBER(3)	DEFAULT 10	NOT NULL,
 	mem_is_enabled	NUMBER(1)	DEFAULT 0	NOT NULL,
 	mem_created_at	DATE	DEFAULT CURRENT_DATE	NOT NULL

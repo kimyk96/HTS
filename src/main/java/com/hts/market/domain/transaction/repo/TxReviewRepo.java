@@ -10,8 +10,11 @@ import java.util.Optional;
 public interface TxReviewRepo {
     public Integer save(TxReviewDto.Create dto);
 
-    public Integer delete(Long TxReviewNo);
+    public Integer delete(Long txNo, String txReviewType);
 
     Optional<List<TxReviewDto.Read>> findBuyerByTxReviewNo(TxReviewDto.Read dto);
     Optional<List<TxReviewDto.Read>> findSellerByTxReviewNo(TxReviewDto.Read dto);
+    Boolean findByTxNoAndTxReviewType(Long txNo, String txReviewType);
+
+    List<String> findAllByTxNo(TxReviewDto.Read dto);
 }

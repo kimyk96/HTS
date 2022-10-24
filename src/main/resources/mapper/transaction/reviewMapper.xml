@@ -3,58 +3,9 @@
 <mapper namespace="com.hts.market.domain.transaction.repo.ReviewRepo">
     <!--후기 목록 출력-->
     <select id="findByReviewNo" resultType="com.hts.market.domain.transaction.dto.ReviewDto$Read">
-
-            select
-                review_no, review
-            from
-                REVIEW
-
+        SELECT
+            *
+        FROM
+            REVIEW
     </select>
-
-
-
-
-    <!-- 후기 생성
-    <insert id="save">
-        <selectKey resultType="long" order="BEFORE" keyProperty="reviewNo">
-            select nvl(max(review_no),0)+1 from REVIEW
-        </selectKey>
-        insert into
-        REVIEW (review_no, review)
-        values
-        ( #{reviewNo}, #{review})
-    </insert>
-    &lt;!&ndash;후기 삭제&ndash;&gt;
-    <delete id="delete">
-        delete from
-           REVIEW
-        where
-           review_no=#{reviewNo}
-    </delete>
-
-    &lt;!&ndash;후기 업데이트&ndash;&gt;
-    <update id="update">
-
-        update
-            REVEIW
-        set
-            review_no=#{reviewNo}, review=#{review}
-        where
-            review_no=#{reviewNo}
-
-    </update>
-      후기 읽기
-        <![CDATA[
-            select
-                review_no, review
-            from
-                REVIEW
-            where
-                review_no=#{reviewNo} and rownum <= 7
-        ]]>
-    </select>
-    -->
-
-
-
 </mapper>

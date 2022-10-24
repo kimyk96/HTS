@@ -21,24 +21,27 @@ public class TxReviewApi {
     @Autowired TxReviewApp txReviewApp;
 
    @PostMapping("save")
-    public ResponseEntity<Integer> save(@Valid TxReviewDto.Create dto, Principal principal, TxDto.Read dto2) {
-        return ResponseEntity.ok().body(txReviewApp.save(dto, principal.getName(),dto2));
+    public ResponseEntity<Integer> save(TxReviewDto.SaveReview dto, Principal principal) {
+        return ResponseEntity.ok().body(txReviewApp.save(dto, principal.getName()));
     }
 
     @DeleteMapping("delete")
-    public ResponseEntity<Integer> delete(Long TxReviewNo, Principal principal) {
-        Integer result=txReviewApp.delete(TxReviewNo);
+    public ResponseEntity<Integer> delete(Long txNo, Principal principal) {
+        Integer result=txReviewApp.delete(txNo, principal.getName());
         return ResponseEntity.ok().body(result);
     }
 
-    @GetMapping("find-buyer-by-tx-review-no")
-    public ResponseEntity<List<TxReviewDto.Read>>  findBuyerByTxReviewNo(TxReviewDto.Read dto) {
-        return ResponseEntity.ok().body(txReviewApp.findBuyerByTxReviewNo(dto));
+    @GetMapping("")
+    public ResponseEntity<TxReviewDto.ReadList> findAllByTxNo(TxReviewDto.Read dto, Principal principal){
+       return ResponseEntity.ok().body(txReviewApp.findAllByTxNo(dto, principal.getName()));
     }
-    @GetMapping("find-seller-by-tx-review-no")
-    public ResponseEntity<List<TxReviewDto.Read>>  findSellerByTxReviewNo(TxReviewDto.Read dto) {
-        return ResponseEntity.ok().body(txReviewApp. findSellerByTxReviewNo(dto));
 
-
-    }
+//    @GetMapping("find-buyer-by-tx-review-no")
+//    public ResponseEntity<List<TxReviewDto.Read>>  findBuyerByTxReviewNo(TxReviewDto.Read dto) {
+//        return ResponseEntity.ok().body(txReviewApp.findBuyerByTxReviewNo(dto));
+//    }
+//    @GetMapping("find-seller-by-tx-review-no")
+//    public ResponseEntity<List<TxReviewDto.Read>>  findSellerByTxReviewNo(TxReviewDto.Read dto) {
+//        return ResponseEntity.ok().body(txReviewApp. findSellerByTxReviewNo(dto));
+//    }
 }

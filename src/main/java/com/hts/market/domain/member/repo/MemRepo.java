@@ -33,4 +33,6 @@ public interface MemRepo {
     // 닉네임 변경
     Integer updateMemNickname(MemDto.Member dto);
     Boolean countByMemNickname(String memUsername, String memNickname);
+    // 회원 탈퇴
+    Integer delete(Long memNo);
 }

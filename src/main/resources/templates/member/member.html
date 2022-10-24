@@ -97,20 +97,32 @@
                             <img src="/img/icon/arrow_right.png" alt="arrow">
                         </span>
                     </li>
-                    <li onclick="$(location).attr('href', '/member/address');">
-                        <span>판매상품</span>
+<!--                    <li onclick="$(location).attr('href', '/member/address');">-->
+<!--                        <span>판매상품</span>-->
+<!--                        <span>-->
+<!--                            <img src="/img/icon/arrow_right.png" alt="arrow">-->
+<!--                        </span>-->
+<!--                    </li>-->
+<!--                    <li onclick="$(location).attr('href', '/member/address');">-->
+<!--                        <span>받은 후기</span>-->
+<!--                        <span>-->
+<!--                            <img src="/img/icon/arrow_right.png" alt="arrow">-->
+<!--                        </span>-->
+<!--                    </li>-->
+<!--                    <li onclick="$(location).attr('href', '/member/address');">-->
+<!--                        <span>공지사항</span>-->
+<!--                        <span>-->
+<!--                            <img src="/img/icon/arrow_right.png" alt="arrow">-->
+<!--                        </span>-->
+<!--                    </li>-->
+                    <li onclick="$(location).attr('href', '/api/v1/mem/logout');">
+                        <span style="color : #909090">로그아웃</span>
                         <span>
                             <img src="/img/icon/arrow_right.png" alt="arrow">
                         </span>
                     </li>
-                    <li onclick="$(location).attr('href', '/member/address');">
-                        <span>받은 후기</span>
-                        <span>
-                            <img src="/img/icon/arrow_right.png" alt="arrow">
-                        </span>
-                    </li>
-                    <li onclick="$(location).attr('href', '/member/address');">
-                        <span>공지사항</span>
+                    <li onclick="signOut();">
+                        <span style="color : red">회원탈퇴</span>
                         <span>
                             <img src="/img/icon/arrow_right.png" alt="arrow">
                         </span>
@@ -164,7 +176,32 @@
                     text: res.responseText
                 })
             })
+
+
         });
+        // 회원 탈퇴
+        function signOut(){
+            Swal.fire({
+                title: '정말 탈퇴 하시겠습니까?',
+                text: "채팅을 제외한 모든 데이터가 삭제 됩니다.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3CB043',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '탈퇴',
+                cancelButtonText: '취소'
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        text : '탈퇴되었습니다.'
+                    })
+                    .then(function(){
+                        $(location).attr('href', '/')
+                    })
+                }
+            })
+        };
     </script>
 
 </body>

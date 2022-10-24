@@ -50,7 +50,7 @@ public class SecurityConfig {
                 .failureHandler(loginFailureHandler());
         http
                 .logout()
-                .logoutUrl("/logout")
+                .logoutUrl("/api/v1/mem/logout")
                 .logoutSuccessUrl("/");
         return http.build();
     }

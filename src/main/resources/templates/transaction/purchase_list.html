@@ -3,14 +3,16 @@
     <meta charset="UTF-8">
     <title>구매내역</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="/css/main.css">
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-    <script src="js/main.js" charset="UTF-8"></script>
+    <script src="/js/main.js" charset="UTF-8"></script>
     <style>
         /* 구매 내역 */
         #main section#purchase_list{ width : 95%; padding : 0 2.5%; display : flex; flex-direction: column; justify-content: center; align-items: center; }
         #main section#purchase_list ul{ width : 100%; display: flex; flex-direction: column; justify-content: flex-start;}
-        #main section#purchase_list ul li{ width : 100%; padding : 10px 0; display: flex; flex-direction: row; }
+        #main section#purchase_list ul p{ text-align : center; padding : 15px 0; }
+        #main section#purchase_list ul li{ width : 100%; padding : 10px 0; display: flex; flex-direction: column; }
+        #main section#purchase_list ul li > div{ display : flex; flex-direction : row; }
         #main section#purchase_list ul li div.img_wrapper{ width : 30%; display: flex; justify-content: center; align-items: center; }
         #main section#purchase_list ul li div.img_wrapper img{ width : 90%; border-radius : 7px; }
         #main section#purchase_list ul li div.info_wrapper{ width : 65%; padding : 0 2.5%; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; }
@@ -23,13 +25,18 @@
         #main section#purchase_list ul li div.info_wrapper div.count{ width : 100%; display : flex; flex-direction: row; justify-content: flex-end; align-items: center; }
         #main section#purchase_list ul li div.info_wrapper div.count p{ font-size : 12px; width : 13%; opacity : 0.8; display: flex; flex-direction: row; justify-content: space-around; align-items: center; }
         #main section#purchase_list ul li div.info_wrapper div.count p img{ width : 16px; height : 16px;  }
-    </style>
+        #main section#purchase_list ul li div.info_wrapper div.count p.count_chat img.selected{ content: url(/img/icon/chat_selected.png); }
+        #main section#purchase_list ul li div.info_wrapper div.count p.count_like img.selected{ content: url(/img/icon/like_selected.png); }
+        #main section#purchase_list ul li div.review p{ width: 100%; text-align: center; padding: 10px 0; border-top: 1px solid #efefef; border-bottom: 1px solid #efefef; margin-bottom: 20px; }
+        #main section#purchase_list ul li div.review p.hidden{ display : none; }
+</style>
+
 </head>
 <body>
     <!-- 상단 메뉴바 -->
     <header id="header">
         <div>
-            <img src="img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
+            <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback" onclick="$(location).attr('href', '/member')">
             <div>
                 <h2>구매 내역</h2>
             </div>
@@ -38,121 +45,68 @@
     <!-- 메인정보 -->
     <main id="main">
         <section id="purchase_list">
-            <ul>
-                <li>
-                    <div class="img_wrapper">
-                        <img src="img/example/square.png" alt="product_img">
-                    </div>
-                    <div class="info_wrapper">
-                        <div class="info">
-                            <h3 class="info_title">이웃들은 지금 장반장과 당근에서 모임중!</h3>
-                            <p>
-                                <span class="info_address">인천시 부평구 부평1동</span>
-                                <span class="info_created_at">1분 전</span>
-                            </p>
-                            <p>
-                                <span class="info_status">거래완료</span>
-                                <span class="info_price">70,000원</span>
-                            </p>
-                        </div>
-                        <div class="count">
-                            <p class="count_chat">
-                                <img src="img/icon/chat.png" alt="chat_count">
-                                <span>2</span>
-                            </p>
-                            <p class="count_like">
-                                <img src="img/icon/like.png" alt="like_count">
-                                <span>2</span>
-                            </p>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="img_wrapper">
-                        <img src="img/example/square.png" alt="product_img">
-                    </div>
-                    <div class="info_wrapper">
-                        <div class="info">
-                            <h3 class="info_title">이웃들은 지금 장반장과 당근에서 모임중!</h3>
-                            <p>
-                                <span class="info_address">인천시 부평구 부평1동</span>
-                                <span class="info_created_at">1분 전</span>
-                            </p>
-                            <p>
-                                <span class="info_status">거래완료</span>
-                                <span class="info_price">70,000원</span>
-                            </p>
-                        </div>
-                        <div class="count">
-                            <p class="count_chat">
-                                <img src="img/icon/chat.png" alt="chat_count">
-                                <span>2</span>
-                            </p>
-                            <p class="count_like">
-                                <img src="img/icon/like.png" alt="like_count">
-                                <span>2</span>
-                            </p>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="img_wrapper">
-                        <img src="img/example/square.png" alt="product_img">
-                    </div>
-                    <div class="info_wrapper">
-                        <div class="info">
-                            <h3 class="info_title">이웃들은 지금 장반장과 당근에서 모임중!</h3>
-                            <p>
-                                <span class="info_address">인천시 부평구 부평1동</span>
-                                <span class="info_created_at">1분 전</span>
-                            </p>
-                            <p>
-                                <span class="info_status">예약완료</span>
-                                <span class="info_price">70,000원</span>
-                            </p>
-                        </div>
-                        <div class="count">
-                            <p class="count_chat">
-                                <img src="img/icon/chat.png" alt="chat_count">
-                                <span>2</span>
-                            </p>
-                            <p class="count_like">
-                                <img src="img/icon/like.png" alt="like_count">
-                                <span>2</span>
-                            </p>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="img_wrapper">
-                        <img src="img/example/square.png" alt="product_img">
-                    </div>
-                    <div class="info_wrapper">
-                        <div class="info">
-                            <h3 class="info_title">이웃들은 지금 장반장과 당근에서 모임중!</h3>
-                            <p>
-                                <span class="info_address">인천시 부평구 부평1동</span>
-                                <span class="info_created_at">1분 전</span>
-                            </p>
-                            <p>
-                                <span class="info_status">거래중</span>
-                                <span class="info_price">70,000원</span>
-                            </p>
-                        </div>
-                        <div class="count">
-                            <p class="count_chat">
-                                <img src="img/icon/chat.png" alt="chat_count">
-                                <span>2</span>
-                            </p>
-                            <p class="count_like">
-                                <img src="img/icon/like.png" alt="like_count">
-                                <span>2</span>
-                            </p>
-                        </div>
-                    </div>
-                </li>
-            </ul>
+            <ul></ul>
         </section>
     </main>
+
+    <script>
+    $(function(){
+        // 구매 완료 내역 조회
+        $.ajax({
+            method: 'GET',
+            url: '/api/v1/tx/find-purchase-list-by-mem-no',
+            data: { start: 1, end: 10 }
+        })
+        .done(function(res){
+            let $ul = $("#purchase_list ul");
+            $ul.empty();
+            if(res==null){
+                $("<p>아직 거래내역이 없습니다.</p>").appendTo($ul);
+            }else{
+                for(item of res){
+                    $(`<li>
+                        <div>
+                            <div class="img_wrapper" onclick="$(location).attr('href', '/product/${item.product.pdtNo}')">
+                                <img src="${item.pdtImg}" alt="product_img">
+                            </div>
+                            <div class="info_wrapper" onclick="$(location).attr('href', '/product/${item.product.pdtNo}')">
+                                <div class="info">
+                                    <h3 class="info_title">${item.product.pdtName}</h3>
+                                    <p>
+                                        <span class="info_address">${item.address.addressGu} ${item.address.addressDong} </span>
+                                        <span class="info_created_at"> ${timeForToday(item.product.pdtCreatedAt)}</span>
+                                    </p>
+                                    <p>
+                                        <span class="info_status">거래완료</span>
+                                        <span class="info_price">${numberWithCommas(item.product.pdtPrice)}원</span>
+                                    </p>
+                                </div>
+                                <div class="count">
+                                    <p class="count_chat">
+                                        <img src="/img/icon/chat.png" alt="chat_count" class="${item.chatCheck ? 'selected' : ''}">
+                                        <span>${item.chatCount}</span>
+                                    </p>
+                                    <p class="count_like">
+                                        <img src="/img/icon/like.png" alt="like_count" class="${item.product.favoriteCheck ? 'selected' : ''}">
+                                        <span>${item.product.favoriteCount}</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review">
+                            <p class="${item.sentReviewCheck ? 'hidden' : ''}" onclick="$(location).attr('href', '/transaction/review/upload?txNo=${item.transaction.txNo}&pdtNo=${item.product.pdtNo}')">리뷰 작성하기</p>
+                            <p class="${item.receivedReviewCheck ? '' : 'hidden'}" onclick="$(location).attr('href', '/transaction/review?txNo=${item.transaction.txNo}&pdtNo=${item.product.pdtNo}&seller=1')">받은 리뷰 확인</p>
+                        </div>
+                    </li>`).appendTo($ul);
+                }
+            }
+            console.log(res);
+        })
+        .fail(function(res){
+            let $ul = $("#purchase_list ul");
+            $("<p>아직 거래내역이 없습니다.</p>").appendTo($ul);
+        })
+    })
+</script>
 </body>
 </html>

@@ -41,10 +41,17 @@
     <main id="main">
         <section id="chat_room">
             <div id="pdt_info">
-                <img src="" alt="pdt_img">
-                <div>
+                <img src="" alt="pdt_img" class="toPdt">
+                <div class="toPdt">
                     <p class="title"></p>
                     <p class="price"></p>
+                </div>
+                <div class="pdt_select_wrapper">
+                    <select id="pdt_status">
+                        <option value="0" selected>거래중</option>
+                        <option value="1">예약중</option>
+                        <option value="2">거래완료</option>
+                    </select>
                 </div>
             </div>
             <ul></ul>
@@ -65,9 +72,24 @@
             let searchParams = new URL(location.href).searchParams;
 
             // 상품 보기
-            $("#pdt_info").click(function(){
+            $(".toPdt").click(function(){
                 $(location).attr("href", "/product/" + searchParams.get("chatPdtNo"))
             })
+
+            // 상품 상태 변경
+            $("#pdt_status").change(function() {
+                let pdtStatus = $("#pdt_status").val();
+                console.log(pdtStatus);
+
+                $.ajax({
+                    method: "POST",
+                    url:"/api/v1/tx/save",
+                    data: { txPdtNo: searchParams.get("chatPdtNo"), txBuyerNo: searchParams.get("chatMemNo"), pdtStatus: pdtStatus }
+                })
+                .done(function(res){
+                    console.log(res);
+                })
+            });
 
             // 채팅 보내기
             $("#btn_send").click(function(){
@@ -113,6 +135,9 @@
                 data:{chatPdtNo : searchParams.get("chatPdtNo"), chatMemNo: searchParams.get("chatMemNo"), start : 1, end : 20 }
             })
             .done(function(res){
+
+                console.log(res);
+
                 let hostNo = res.member.memNo;
                 let guestNo = ( res.member.memNo != res.product.member.memNo ) ? res.product.member.memNo : res.chat[0].chatMemNo;
                 // 게스트 정보
@@ -120,6 +145,13 @@
                 var guestNickname;
                 var guestImgPath;
                 var guestBrix;
+
+                // 현재 사용자가 판매자라면 거래상태 설렉트 표시
+                if(hostNo == res.product.member.memNo){
+                    $("#pdt_status").css("display", "block");
+                }else{
+                    $("#pdt_status").css("display", "none");
+                }
 
                 // 게스트 정보 보기
                 $("#header div div").click(function(){
@@ -145,7 +177,9 @@
                     // 상품 정보
                     $("#pdt_info img").attr("src", res.product.images[0].imgPath);
                     $("#pdt_info .title").text(res.product.product.pdtName);
-                    $("#pdt_info .price").text(numberWithCommas(res.product.product.pdtPrice));
+                    $("#pdt_info .price").text(numberWithCommas(res.product.product.pdtPrice) + "원");
+                    $("#pdt_status").val(res.product.product.pdtStatus).attr("selected","selected");
+
 
                     // 채팅 정보
                     let $ul = $("#chat_room ul");

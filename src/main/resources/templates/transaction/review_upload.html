@@ -3,9 +3,10 @@
     <meta charset="UTF-8">
     <title>리뷰 등록</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="/css/main.css">
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-    <script src="js/main.js" charset="UTF-8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/js/main.js" charset="UTF-8"></script>
     <style>
         /* 리뷰 등록 */
         #header div.btn_upload{ justify-content: flex-end; }
@@ -34,7 +35,7 @@
     <!-- 상단 메뉴바 -->
     <header id="header">
         <div>
-            <img src="img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
+            <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
             <div>
                 <h2>거래후기 보내기</h2>
             </div>
@@ -47,23 +48,83 @@
     <main id="main">
         <section id="review_upload">
             <div class="pdt_info">
-                <img src="img/example/square.png" alt="pdt_img">
+                <img src="/img/example/square.png" alt="pdt_img" class="pdt_img">
                 <div>
                     <p class="title">거래한 물건</p>
                     <p class="pdt_title">삼성 오딧세이 노트북</p>
                 </div>
             </div>
             <div class="review_info">
-                <img src="img/example/profile.png" alt="profile" class="mem_img">
-                <h3>한라봉 소년님과 거래가 어떠셨나요?</h3>
-                <div class="review_message_list">
-                    <label><input type="checkbox" name="review" value="1" checked> 시간 약속을 잘 지켜요</label>
-                    <label><input type="checkbox" name="review" value="2"> 상품 상태가 설명한 것과 같아요</label>
-                    <label><input type="checkbox" name="review" value="3"> 좋은 상품을 저렴하게 판매해요</label>
-                    <label><input type="checkbox" name="review" value="4"> 응답이 빨라요</label>
-                </div>
+                <h3>거래가 어떠셨나요?</h3>
+                <div class="review_message_list"></div>
             </div>
         </section>
     </main>
+<script>
+    $(function(){
+        let searchParams = new URL(location.href).searchParams;
+
+        // 리뷰 목록 불러오기
+        $.ajax({
+            method: "GET",
+            url: "/api/v1/review"
+        })
+        .done(function(res){
+            let $list = $(".review_message_list");
+            for(item of res){
+                $(`<label><input type="checkbox" name="c" value="${item.reviewNo}"> ${item.review}</label>`).appendTo($list);
+            }
+        });
+
+        // 상품 정보 불러오기
+        $.ajax({
+            method: "GET",
+            url: "/api/v1/pdt/find-by-pdt-no",
+            data: { pdtNo: searchParams.get("pdtNo") }
+        })
+        .done(function(res){
+            $(".pdt_title").text(res.product.pdtName);
+            $(".pdt_img").attr('src', res.images[0].imgPath);
+        })
+
+        // 리뷰 등록
+        $(".btn_upload").click(function(){
+            let checked = [];
+            $('input[name=c]:checked').each(function(){ checked.push( $(this).val() ); });
+            $.ajax({
+                method: 'POST',
+                url: '/api/v1/tx-review/save',
+                data: { txNo : searchParams.get("txNo"), txPdtNo: searchParams.get("pdtNo"), checked: checked }
+            })
+            .done(function(res){
+                if(res==1){
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: '리뷰를 등록하였습니다',
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                    .then(function(result){
+                        $(location).attr('href','/member')
+                    })
+                }
+            })
+            .fail(function(res){
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: res.responseText,
+                    showConfirmButton: false,
+                    timer: 1000
+                })
+                .then(function(result){
+                    $(location).attr('href','/member')
+                })
+            })
+        })
+    })
+</script>
+
 </body>
 </html>

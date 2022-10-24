@@ -12,7 +12,7 @@ import java.util.List;
 public class ReviewApp {
     @Autowired
     ReviewRepo reviewRepo;
-    public List<ReviewDto.Read> findByReviewNo(Long reviewNo) {
-        return  reviewRepo.findByReviewNo(reviewNo);
+    public List<ReviewDto.Read> findByReviewNo() {
+        return  reviewRepo.findByReviewNo();
     }
 }

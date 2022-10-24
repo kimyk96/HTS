@@ -26,7 +26,7 @@ header div ul li img{ width : 53%; }
 header select{ border: none; font-size: 15px; font-family: 'Noto Sans KR', sans-serif;  }
 
 /* 메인영역 */
-main{ height : 100%; margin : 50px 0; overflow: scroll; }
+main{ height : 100%; margin : 50px 0; overflow: scroll; transition : 0.5s; opacity:0; }
 
 /* 하단 메뉴바 */
 nav{ height : 50px; position : fixed; bottom : 0; left : 0; border-top : 1px solid #efefef; background-color: #fff; }
@@ -370,7 +370,9 @@ nav ul li p{ font-size : 12px; margin-bottom : 4px; }
 #main #chat_room{ width : 100%; display : flex; flex-direction: column; justify-content: center; align-items: center; }
 #main #chat_room div#pdt_info{ border-bottom : 1px solid #efefef; position : fixed; top : 50px; left : 0; width : 95%; padding : 10px 2.5%; display : flex; flex-direction: row; justify-content: flex-start; align-items: center; }
 #main #chat_room div#pdt_info img{ width : 50px; border-radius: 5px;}
-#main #chat_room div#pdt_info div{ padding : 0 10px; }
+#main #chat_room div#pdt_info div{ width : 55%; padding : 0 10px; }
+#main #chat_room div#pdt_info div.pdt_select_wrapper{ width : 20%; }
+#main #chat_room div#pdt_info div select{ border : none; outline : none; width : 100%; padding : 5px 0;}
 #main #chat_room div#pdt_info div p{ font-size : 14px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 1; line-clamp: 1; -webkit-box-orient: vertical; }
 #main #chat_room div#pdt_info div p.price{ font-size : 15px; font-weight : 600; }
 #main #chat_room ul{ width : 95%; padding : 0 2.5%; display : flex; flex-direction: column; }

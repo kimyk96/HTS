@@ -3,9 +3,10 @@
     <meta charset="UTF-8">
     <title>상품</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="/css/main.css">
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-    <script src="js/main.js" charset="UTF-8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/js/main.js" charset="UTF-8"></script>
 </head>
 <body>
     <!-- 상단 메뉴바 -->
@@ -53,8 +54,27 @@
     </nav>
 
     <script>
+        $("#main").scroll(function() {
+
+            console.log("main top : " + $("#main").scrollTop())
+            console.log("main height : " + $("#main").height())
+            console.log("document top : " + $(document).scrollTop())
+            console.log("document height : " + $(document).height())
+
+
+            var scrollBottom = $(document).height() - $(window).height() - $(window).scrollTop();
+
+            console.log(scrollBottom + " : " + $("#main").height() + " : " + $("#main").scrollTop())
+
+            if( $("#main").scrollTop() + ( $("#main").height() - $(document).height() ) >= $("#main").height()){
+                console.log('triggered')
+            }
+        });
+
         $(function(){
             let searchParams = new URL(location.href).searchParams;
+
+
 
             $.ajax({
                 method: "GET",

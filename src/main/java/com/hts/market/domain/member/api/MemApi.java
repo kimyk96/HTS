@@ -56,6 +56,7 @@ public class MemApi {
         return ResponseEntity.ok().body(memApp.findById(memNo));
     }
 
+    // 프로필 업데이트
     @PatchMapping("update-profile")
     public ResponseEntity<Integer> updateProfileByName(MemDto.Profile dto, Principal principal){
         return ResponseEntity.ok().body(memApp.updateProfile(dto, principal.getName()));
@@ -66,4 +67,8 @@ public class MemApi {
         return ResponseEntity.ok().body(memApp.findIdByMemUsername(principal.getName()));
     }
 
+    @DeleteMapping("")
+    public ResponseEntity<Integer> delete(Principal principal){
+        return ResponseEntity.ok().body(memApp.delete(principal.getName()));
+    }
 }

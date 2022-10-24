@@ -1,4 +1,6 @@
 $(function(){
+    $("main").css("opacity", "1");
+
     /* 상단 메뉴 */
     $("#header_goback").click(function(){history.back();});
     /* 하단 메뉴 */

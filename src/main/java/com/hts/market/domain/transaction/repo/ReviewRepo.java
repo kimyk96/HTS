@@ -9,5 +9,5 @@ import java.util.List;
 @Mapper
 public interface ReviewRepo {
 
-    public List<ReviewDto.Read> findByReviewNo(Long reviewNo);
+    public List<ReviewDto.Read> findByReviewNo();
 }
