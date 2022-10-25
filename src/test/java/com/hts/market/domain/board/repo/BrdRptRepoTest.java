@@ -1,6 +1,5 @@
 package com.hts.market.domain.board.repo;
 
-import com.hts.market.domain.board.dto.BrdImgDto;
 import com.hts.market.domain.board.dto.BrdRptDto;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -17,7 +16,7 @@ public class BrdRptRepoTest {
     public void save() {
         // given
         BrdRptDto.Create dto = BrdRptDto.Create.builder()
-                .rptBrdNo(1l).RptMsgNo(1l).rptMemNo(1l).build();
+                .rptBrdNo(1l).rptMsgNo(1l).rptMemNo(1l).build();
         // when
         Integer result = brdRptRepo.save(dto);
         // then

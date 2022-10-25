@@ -1,24 +1,32 @@
 package com.hts.market.domain.product.appTest;
 
 import com.hts.market.domain.product.app.PdtRptApp;
+import com.hts.market.domain.product.dto.PdtRptDto;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
-@Transactional
+//@Transactional
 public class PdtRptAppTest {
     @Autowired
     private PdtRptApp pdtRptApp;
 
-//    // 신고 등록
-//    @Test
-//    void saveTest(){
-//        String userName = "00000000000";
-//        PdtRptDto.Create dto = PdtRptDto.Create.builder().rptPdtNo(1L).rptMemNo(1L).rptMsgNo(1L).build();
-//        pdtRptApp.save(dto, userName);
-//        System.out.println(dto);
-//    }
+    // 신고 등록
+    @Test
+    void saveTest(){
+        String userName = "01000000000";
+        PdtRptDto.Create dto = PdtRptDto.Create.builder().rptPdtNo(1L).rptMsgNo(1L).build();
+        Integer result = pdtRptApp.save(dto, userName);
+        Assertions.assertThat(result).isEqualTo(1);
+    }
+    // 5회이상 신고받은 상품 삭제
+    @Test
+    void deleteOfPdt(){
+        Integer result = pdtRptApp.deleteByCount();
+        Assertions.assertThat(result).isEqualTo(1);
+    }
 //
 //    // 신고 목록 조회
 //    @Test

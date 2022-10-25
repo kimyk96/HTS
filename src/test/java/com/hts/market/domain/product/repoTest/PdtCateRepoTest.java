@@ -17,14 +17,6 @@ class PdtCateRepoTest {
     PdtCateRepo pdtCateRepo;
 
     @Test
-    void saveTest(){
-        PdtCateDto.Create dto = PdtCateDto.Create.builder().pdtCate("test").build();
-
-        Integer result = pdtCateRepo.save(dto);
-
-        Assertions.assertThat(result).isEqualTo(1);
-    }
-    @Test
     void  findAll(){
         List<PdtCateDto.Read> result = pdtCateRepo.findAll();
         Assertions.assertThat(result).hasSize(19);

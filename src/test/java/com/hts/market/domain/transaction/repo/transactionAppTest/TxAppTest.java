@@ -15,9 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
-
 @SpringBootTest
 @Transactional
 public class TxAppTest {
@@ -52,18 +49,18 @@ public class TxAppTest {
         txRepo.save(dto6);
         memRepo.save(dto7);
     }
-    @Test
-    void findPurchaseListByMemNo(){
-        TxDto.Read dto=TxDto.Read.builder().txNo(1l).txBuyerNo(1l).txPdtNo(1l).build();
-        Optional<List<TxDto.Read>> result=txRepo.findPurchaseListByMemNo(dto.getTxBuyerNo());
-        Assertions.assertThat(result);
-    }
-    @Test
-    void findSaleListByMemNo(){
-        PdtDto.Read dto= PdtDto.Read.builder().pdtSellerNo(1L).build();
-        Optional<List<TxDto.Read>> result=txRepo.findSaleListByMemNo(dto.getPdtSellerNo());
-        Assertions.assertThat(result);
-    }
+//    @Test
+//    void findPurchaseListByMemNo(){
+//        TxDto.Read dto=TxDto.Read.builder().txNo(1l).txBuyerNo(1l).txPdtNo(1l).build();
+//        Optional<List<TxDto.Read>> result=txRepo.findPurchaseListByMemNo(dto.getTxBuyerNo());
+//        Assertions.assertThat(result);
+//    }
+//    @Test
+//    void findSaleListByMemNo(){
+//        PdtDto.Read dto= PdtDto.Read.builder().pdtSellerNo(1L).build();
+//        Optional<List<TxDto.Read>> result=txRepo.findSaleListByMemNo(dto.getPdtSellerNo());
+//        Assertions.assertThat(result);
+//    }
     @Test
     void findByTxNo(){
         TxDto.Read dto=TxDto.Read.builder().txNo(1l).txBuyerNo(1l).txPdtNo(1l).build();

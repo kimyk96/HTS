@@ -46,7 +46,7 @@ class PdtFavoriteRepoTest {
     void findAllByPdtNoTest(){
         PdtFavoriteDto.ReadList dto = PdtFavoriteDto.ReadList.builder().memNo(1L).build();
 
-        List<PdtDto.ReadList> result = pdtFavoriteRepo.findAllOfFavoriteList(dto);
+        List<PdtDto.ReadList> result = pdtFavoriteRepo.findAllByMemNo(dto);
 
         Assertions.assertThat(result).hasSize(1);
     }

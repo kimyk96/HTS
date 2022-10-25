@@ -15,7 +15,7 @@ public interface PdtFavoriteRepo {
     public Integer delete(PdtFavoriteDto.Delete dto);
 
     // 관심 목록
-    public List<PdtDto.ReadList> findAllOfFavoriteList(PdtFavoriteDto.ReadList dto);
+    public List<PdtDto.ReadList> findAllByMemNo(PdtFavoriteDto.ReadList dto);
 
     // 상품별 관심수 확인
     public Integer countByPdtNo(Long pdtNo);

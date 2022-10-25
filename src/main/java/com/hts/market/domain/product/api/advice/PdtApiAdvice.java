@@ -70,4 +70,8 @@ public class PdtApiAdvice {
     public ResponseEntity<String > reportSaveFailException(){
         return ResponseEntity.status(HttpStatus.CONFLICT).body("해당상품을 이미 신고하셨습니다");
     }
+    @ExceptionHandler(ReportCountExcessException.class)
+    public ResponseEntity<String> reportCountExcessException(){
+        return ResponseEntity.status(HttpStatus.CONFLICT).body("일일 신고회수가 초과되었습니다");
+    }
 }

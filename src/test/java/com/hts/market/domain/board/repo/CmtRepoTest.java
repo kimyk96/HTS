@@ -1,13 +1,9 @@
 package com.hts.market.domain.board.repo;
 
-import com.hts.market.domain.board.dto.BrdDto;
 import com.hts.market.domain.board.dto.CmtDto;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.Date;
 
 @SpringBootTest
 //@Transactional
@@ -41,16 +37,16 @@ public class CmtRepoTest {
 
     }
 
-    @Test
-    public void delete() {
-        CmtDto.Delete dto = CmtDto.Delete.builder()
-                .cmtNo(1L).cmtWriterNo(1L).build();
-
-        Integer result = cmtRepo.delete(dto);
-
-        Assertions.assertThat(result).isEqualTo(1);
-
-    }
+//    @Test
+//    public void delete() {
+//        CmtDto.Delete dto = CmtDto.Delete.builder()
+//                .cmtNo(1L).cmtWriterNo(1L).build();
+//
+//        Integer result = cmtRepo.delete(dto);
+//
+//        Assertions.assertThat(result).isEqualTo(1);
+//
+//    }
 
 }
 

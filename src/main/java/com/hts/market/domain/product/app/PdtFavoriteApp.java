@@ -29,10 +29,10 @@ public class PdtFavoriteApp {
     }
 
     // 관심 목록
-    public List<PdtDto.ReadList> findAllOfFavoriteList(PdtFavoriteDto.ReadList dto, String userName) {
+    public List<PdtDto.ReadList> findAllByMemNo(PdtFavoriteDto.ReadList dto ,String userName){
         dto.setMemNo(memRepo.findIdByMemUsername(userName));
-        List<PdtDto.ReadList> list = pdtFavoriteRepo.findAllOfFavoriteList(dto);
-        for (PdtDto.ReadList read : list) {
+        List<PdtDto.ReadList> list = pdtFavoriteRepo.findAllByMemNo(dto);
+        for(PdtDto.ReadList read : list){
             read.setImgPath(imgUrl + read.getImgPath());
         }
         return list;

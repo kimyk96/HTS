@@ -32,7 +32,7 @@ public class PdtFavoriteApi {
 
     // 관심목록
     @GetMapping("find-all-of-favorite-list")
-    public ResponseEntity<List<PdtDto.ReadList>> findAllOfFavoriteList(PdtFavoriteDto.ReadList dto, Principal principal) {
-        return ResponseEntity.ok().body(pdtFavoriteApp.findAllOfFavoriteList(dto, principal.getName()));
+    public ResponseEntity<List<PdtDto.ReadList>> findAllByMemNo(PdtFavoriteDto.ReadList dto, Principal principal){
+        return ResponseEntity.ok().body(pdtFavoriteApp.findAllByMemNo(dto, principal.getName()));
     }
 }

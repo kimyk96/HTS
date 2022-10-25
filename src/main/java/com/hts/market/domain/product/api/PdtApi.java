@@ -56,11 +56,11 @@ public class PdtApi {
     // 상품 삭제
     @DeleteMapping("delete")
     public ResponseEntity<Integer> delete(@NotNull Long pdtNo, Principal principal) throws IOException {
-        pdtApp.delete(pdtNo, principal.getName());
-        pdtImgApp.deleteAll(pdtNo);
-        pdtFavoriteApp.delete(PdtFavoriteDto.Delete.builder().pdtNo(pdtNo).build(), principal.getName());
-        pdtRptApp.deleteByRptPdtNo(pdtNo);
-        return ResponseEntity.ok().body(1);
+        Integer pdtDelete = pdtApp.delete(pdtNo, principal.getName());
+        Integer pdtImgDelete = pdtImgApp.deleteAll(pdtNo);
+        Integer pdtFavoriteDelete = pdtFavoriteApp.delete(PdtFavoriteDto.Delete.builder().pdtNo(pdtNo).build(), principal.getName());
+        Integer pdtRptDelete = pdtRptApp.deleteByPdtNo(pdtNo);
+       return ResponseEntity.ok().body(1);
     }
 
     // 상품 조회

@@ -4,23 +4,17 @@ import com.hts.market.domain.member.dto.AddressDto;
 import com.hts.market.domain.member.dto.MemDto;
 import com.hts.market.domain.member.repo.AddressRepo;
 import com.hts.market.domain.member.repo.MemRepo;
-import com.hts.market.domain.product.dto.PdtCateDto;
 import com.hts.market.domain.product.dto.PdtDto;
-import com.hts.market.domain.product.dto.PdtImgDto;
 import com.hts.market.domain.product.repo.PdtCateRepo;
 import com.hts.market.domain.product.repo.PdtImgRepo;
 import com.hts.market.domain.product.repo.PdtRepo;
 import com.hts.market.domain.transaction.dto.TxDto;
-import com.hts.market.domain.transaction.entity.TxEntity;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.Optional;
 
 
 @SpringBootTest
@@ -89,26 +83,26 @@ public class TxRepoTest {
         Assertions.assertThat(result.getTxNo()).isEqualTo(txNo);
     }
 
-     @Test
-     public void findSaleListByMemNo() {
-        // given
-        Long memNo= 1L;
-        // when
-        Optional<List<TxDto.Read>> result = txRepo.findSaleListByMemNo(memNo);
-        // then
-        Assertions.assertThat(result);
-
-    }
-   @Test
-    public void findPurchaseListByMemNo() {
-        // given
-        Long memNo= 1L;
-        // when
-        Optional<List<TxDto.Read>> result = txRepo.findPurchaseListByMemNo(memNo);
-        // then
-        Assertions.assertThat(result);
-
-    }
+//     @Test
+//     public void findSaleListByMemNo() {
+//        // given
+//        Long memNo= 1L;
+//        // when
+//        Optional<List<TxDto.Read>> result = txRepo.findSaleListByMemNo(memNo);
+//        // then
+//        Assertions.assertThat(result);
+//
+//    }
+//   @Test
+//    public void findPurchaseListByMemNo() {
+//        // given
+//        Long memNo= 1L;
+//        // when
+//        Optional<List<TxDto.Read>> result = txRepo.findPurchaseListByMemNo(memNo);
+//        // then
+//        Assertions.assertThat(result);
+//
+//    }
 
 }
 

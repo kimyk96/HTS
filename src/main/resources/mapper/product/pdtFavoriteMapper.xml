@@ -10,7 +10,7 @@
         delete from PRODUCT_FAVORITE where pdt_no=#{pdtNo} and mem_no=#{memNo}
     </delete>
     <!-- 관심 목록 -->
-    <select id="findAllOfFavoriteList" resultType="com.hts.market.domain.product.dto.PdtDto$ReadList">
+    <select id="findAllByMemNo" resultType="com.hts.market.domain.product.dto.PdtDto$ReadList">
         SELECT
         b.*
         FROM
