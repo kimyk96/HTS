@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+
 import java.util.Map;
 
 @Service
@@ -32,20 +33,13 @@ public class KakaoApp {
         Map memProfile = (Map) memAccount.get("profile");
 
         // 회원 가입 여부 확인
-        if(Boolean.TRUE.equals(memRepo.countByMemNo(Long.parseLong(memInfo.get("id").toString())))){
+        if (Boolean.TRUE.equals(memRepo.countByMemNo(Long.parseLong(memInfo.get("id").toString())))) {
             // 이미 가입된 회원 -> 자동 로그인
             MemDto.Member member = memRepo.findById(Long.parseLong(memInfo.get("id").toString())).orElseThrow(MemberNotFoundException::new);
             throw new KakaoMemberAlreadyExsistException(member);
-        }else{
+        } else {
             // 회원 가입 진행
-            MemDto.Create memDto = MemDto.Create.builder()
-                    .memNo(Long.parseLong(memInfo.get("id").toString()))
-                    .memUsername("")
-                    .memPassword(passwordEncoder.encode(memInfo.get("id").toString()))
-                    .memNickname(memProfile.get("nickname").toString())
-                    .memEmail(memAccount.get("email").toString())
-                    .memIsEnabled(1)
-                    .build();
+            MemDto.Create memDto = MemDto.Create.builder().memNo(Long.parseLong(memInfo.get("id").toString())).memUsername("").memPassword(passwordEncoder.encode(memInfo.get("id").toString())).memNickname(memProfile.get("nickname").toString()).memEmail(memAccount.get("email").toString()).memIsEnabled(1).build();
             memRepo.save(memDto);
 
             // 권한 부여 (일반 유저)
@@ -53,8 +47,7 @@ public class KakaoApp {
             memRoleRepo.save(memRoleDto);
 
             // 기본 이미지 저장
-            MemImgDto.Create memImgDtoCreate = MemImgDto.Create.builder()
-                    .memNo(memDto.getMemNo()).imgPath("member/default.png").build();
+            MemImgDto.Create memImgDtoCreate = MemImgDto.Create.builder().memNo(memDto.getMemNo()).imgPath("member/default.png").build();
             memImgRepo.save(memImgDtoCreate);
 
             return memDto.getMemNo();
@@ -64,11 +57,11 @@ public class KakaoApp {
     // accessToken
     public Map getTokens(String code) {
         // Request Body
-        MultiValueMap<String,String> requestBody = new LinkedMultiValueMap<>();
-        requestBody.add("grant_type",   "authorization_code");
-        requestBody.add("client_id",    "1b484f0bd9bd6502362669834ce3920a");
+        MultiValueMap<String, String> requestBody = new LinkedMultiValueMap<>();
+        requestBody.add("grant_type", "authorization_code");
+        requestBody.add("client_id", "1b484f0bd9bd6502362669834ce3920a");
         requestBody.add("redirect_uri", "http://localhost:8087/api/v1/kakao");
-        requestBody.add("code",         code);
+        requestBody.add("code", code);
 
         // Post
         RestTemplate restTemplate = new RestTemplate();
@@ -83,8 +76,8 @@ public class KakaoApp {
         requestHeaders.setBearerAuth(accessToken);
 
         // Request Body
-        MultiValueMap<String,Object> requestBody = new LinkedMultiValueMap<>();
-        requestBody.add("secure_resource",  "false");
+        MultiValueMap<String, Object> requestBody = new LinkedMultiValueMap<>();
+        requestBody.add("secure_resource", "false");
 
         // Build Request
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(requestBody, requestHeaders);

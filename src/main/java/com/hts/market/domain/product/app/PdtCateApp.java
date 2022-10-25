@@ -9,11 +9,10 @@ import java.util.List;
 
 @Service
 public class PdtCateApp {
-    @Autowired
-    private PdtCateRepo pdtCateRepo;
+    @Autowired private PdtCateRepo pdtCateRepo;
 
     // 카테고리 목록
-    public List<PdtCateDto.Read> findAll(){
+    public List<PdtCateDto.Read> findAll() {
         return pdtCateRepo.findAll();
     }
 }

@@ -15,35 +15,34 @@ public class BrdApiAdvice {
     }
 
     @ExceptionHandler(InputContentMismatchException.class)
-    public ResponseEntity<String> InputContentMismatchExceptionHandler() {
+    public ResponseEntity<String> inputContentMismatchExceptionHandler() {
         return ResponseEntity.status(HttpStatus.CONFLICT).body("지정된 글자수 초과,미만");
     }
 
     @ExceptionHandler(InputTitleMismatchException.class)
-    public ResponseEntity<String> InputTitleMismatchExceptionHandler() {
+    public ResponseEntity<String> inputTitleMismatchExceptionHandler() {
         return ResponseEntity.status(HttpStatus.CONFLICT).body("지정된 글자수 초과,미만(제목)");
     }
 
     @ExceptionHandler(InputCateMismatchException.class)
-    public ResponseEntity<String> InputCateMismatchExceptionHandler() {
+    public ResponseEntity<String> inputCateMismatchExceptionHandler() {
         return ResponseEntity.status(HttpStatus.CONFLICT).body("카테고리 안넣으셨슴다");
     }
 
-    @ExceptionHandler(blockMemberException.class)
+    @ExceptionHandler(BlockMemberException.class)
     public ResponseEntity<String> blockMemberExceptionHandler() {
         return ResponseEntity.status(HttpStatus.CONFLICT).body("차단한 사용자 임다");
     }
 
     @ExceptionHandler(UpdateTitleMismatchException.class)
-    public ResponseEntity<String> UpdateTitleMismatchExceptionHandler() {
+    public ResponseEntity<String> updateTitleMismatchExceptionHandler() {
         return ResponseEntity.status(HttpStatus.CONFLICT).body("지정 글자수 초과(미만)입니다");
     }
 
     @ExceptionHandler(UpdateContentMismatchException.class)
-    public ResponseEntity<String> UpdateContentMismatchExceptionHandler() {
+    public ResponseEntity<String> updateContentMismatchExceptionHandler() {
         return ResponseEntity.status(HttpStatus.CONFLICT).body("지정 글자수 초과(미만)입니다");
     }
-
 
     @ExceptionHandler(checkWriterException.class)
     public ResponseEntity<String> checkWriterExceptionHandler() {
@@ -51,15 +50,12 @@ public class BrdApiAdvice {
     }
 
     @ExceptionHandler(ImgFileNotFoundException.class)
-    public ResponseEntity<String> FileNotFoundExceptionHandler() {
+    public ResponseEntity<String> imgFileNotFoundExceptionHandler() {
         return ResponseEntity.status(HttpStatus.CONFLICT).body("이미지만 첨부 가능합니다");
     }
 
-
     @ExceptionHandler(ReportCountException.class)
-    public ResponseEntity<String> ReportCountExceptionHandler() {
+    public ResponseEntity<String> reportCountExceptionHandler() {
         return ResponseEntity.status(HttpStatus.CONFLICT).body("이미 신고한 게시물 입니다");
     }
-
-
 }

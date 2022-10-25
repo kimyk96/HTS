@@ -13,20 +13,11 @@ import springfox.documentation.spring.web.plugins.Docket;
 public class SwaggerConfig {
     @Bean
     public Docket api() {
-        return new Docket(DocumentationType.OAS_30)
-                .useDefaultResponseMessages(false)
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("com.example.demo.controller"))
-                .paths(PathSelectors.any())
-                .build()
-                .pathMapping("/")
-                .apiInfo(apiInfo());
+        return new Docket(DocumentationType.OAS_30).useDefaultResponseMessages(false).select().apis(RequestHandlerSelectors.basePackage("com.example.demo.controller")).paths(PathSelectors.any()).build().pathMapping("/").apiInfo(apiInfo());
     }
+
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder()
-                .title("Swagger 예시 API 제목")
-                .description("Swagger 예시 API 설명")
-                .version("1.0").build();
+        return new ApiInfoBuilder().title("Swagger 예시 API 제목").description("Swagger 예시 API 설명").version("1.0").build();
     }
 }
 

@@ -11,17 +11,7 @@ public class PdtFavoriteDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Create {
-        @NotNull
-        private Long pdtNo;
-        private Long memNo;
-    }
-    @Data
-    @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class Delete{
-        @NotNull
-        private Long pdtNo;
+        @NotNull private Long pdtNo;
         private Long memNo;
     }
 
@@ -29,19 +19,26 @@ public class PdtFavoriteDto {
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class ReadList{
+    public static class Delete {
+        @NotNull private Long pdtNo;
         private Long memNo;
-        @NotNull
-        private Integer start;
-        @NotNull
-        private Integer end;
     }
 
     @Data
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class CountFavorite{
+    public static class ReadList {
+        private Long memNo;
+        @NotNull private Integer start;
+        @NotNull private Integer end;
+    }
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class CountFavorite {
         private Long pdtNo;
         private Long memNo;
     }

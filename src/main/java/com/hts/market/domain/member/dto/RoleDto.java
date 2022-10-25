@@ -5,30 +5,37 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class RoleDto {
     @Data
-    @Builder @AllArgsConstructor
+    @Builder
+    @AllArgsConstructor
     @NoArgsConstructor
-    public static class Create{
+    public static class Create {
         private Long roleNo;
         private String roleName;
     }
+
     @Data
-    @Builder @AllArgsConstructor
+    @Builder
+    @AllArgsConstructor
     @NoArgsConstructor
-    public static class Read{
+    public static class Read {
         private Long roleNo;
         private String roleName;
     }
+
     @Data
-    @Builder @AllArgsConstructor
+    @Builder
+    @AllArgsConstructor
     @NoArgsConstructor
-    public static class Update{
+    public static class Update {
         private Long roleNo;
         private String roleName;
     }
+
     @Data
-    @Builder @AllArgsConstructor
+    @Builder
+    @AllArgsConstructor
     @NoArgsConstructor
-    public static class Delete{
+    public static class Delete {
         private Long roleNo;
         private String roleName;
     }

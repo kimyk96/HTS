@@ -39,5 +39,4 @@ public class AddressDto {
         private String addressGu;
         private String addressDong;
     }
-
 }

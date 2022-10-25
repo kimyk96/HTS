@@ -2,42 +2,38 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hts.market.domain.board.repo.BrdImgRepo">
     <insert id="save">
-<!--        <selectKey keyProperty="imgNo" order="BEFORE" resultType="long">-->
-<!--            select nvl(max(img_no),0)+1 from board_image where brd_no=#{brdNo}-->
-<!--        </selectKey>-->
         insert into
-            board_image( brd_no, img_no, img_path )
-            values( #{brdNo}, #{imgNo}, #{imgPath})
+        board_image( brd_no, img_no, img_path )
+        values( #{brdNo}, #{imgNo}, #{imgPath})
     </insert>
     <!-- 제목, 내용, 조회수, 좋아요, 싫어요, 댓글수 중 사용자가 선택한 컬럼을 변경 -->
     <update id="update">
-            UPDATE
-                board_Image
-            SET
-                img_path=#{imgPath}
-            WHERE
-                 brd_no=#{brdNo} and img_no=#{imgNo}
+        UPDATE
+        board_Image
+        SET
+        img_path=#{imgPath}
+        WHERE
+        brd_no=#{brdNo} and img_no=#{imgNo}
     </update>
-        <!-- 이미지 개별삭제   -->
+    <!-- 이미지 개별삭제   -->
     <delete id="delete">
-            DELETE FROM
-                board_Image
-            WHERE
-                brd_no=#{brdNo} and img_no=#{imgNo}
+        DELETE FROM
+        board_Image
+        WHERE
+        brd_no=#{brdNo} and img_no=#{imgNo}
     </delete>
     <!--게시글 이미지 삭제-->
     <delete id="deleteAll">
-            DELETE FROM
-                board_Image
-            WHERE
-                brd_no=#{brdNo}
+        DELETE FROM
+        board_Image
+        WHERE
+        brd_no=#{brdNo}
     </delete>
     <!-- 대표이미지 보기 -->
     <select id="findMainImg" resultType="string">
         select img_path from BOARD_IMAGE where brd_no=#{brdNo} and img_no=1
     </select>
-
-        <!--이미지 조회-->
+    <!--이미지 조회-->
     <select id="searchOfBrdNo" resultType="com.hts.market.domain.board.dto.BrdImgDto$Read">
         select * from BOARD_IMAGE where brd_no=#{brdNo}
     </select>

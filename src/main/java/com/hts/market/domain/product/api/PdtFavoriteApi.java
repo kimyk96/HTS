@@ -16,22 +16,23 @@ import java.util.List;
 @Validated
 @RequestMapping("/api/v1/pdt-favorite")
 public class PdtFavoriteApi {
-    @Autowired
-    private PdtFavoriteApp pdtFavoriteApp;
+    @Autowired private PdtFavoriteApp pdtFavoriteApp;
 
     // 관심등록
     @PostMapping("save")
-    public ResponseEntity<Integer> save(@Valid PdtFavoriteDto.Create dto, Principal principal){
+    public ResponseEntity<Integer> save(@Valid PdtFavoriteDto.Create dto, Principal principal) {
         return ResponseEntity.ok().body(pdtFavoriteApp.save(dto, principal.getName()));
     }
+
     // 관심해제
     @DeleteMapping("delete")
-    public ResponseEntity<Integer> delete(@Valid PdtFavoriteDto.Delete dto, Principal principal){
+    public ResponseEntity<Integer> delete(@Valid PdtFavoriteDto.Delete dto, Principal principal) {
         return ResponseEntity.ok().body(pdtFavoriteApp.delete(dto, principal.getName()));
     }
+
     // 관심목록
     @GetMapping("find-all-of-favorite-list")
-    public ResponseEntity<List<PdtDto.ReadList>> findAllOfFavoriteList(PdtFavoriteDto.ReadList dto, Principal principal){
+    public ResponseEntity<List<PdtDto.ReadList>> findAllOfFavoriteList(PdtFavoriteDto.ReadList dto, Principal principal) {
         return ResponseEntity.ok().body(pdtFavoriteApp.findAllOfFavoriteList(dto, principal.getName()));
     }
 }

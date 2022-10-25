@@ -12,7 +12,7 @@ import java.util.List;
 
 @SpringBootTest
 //@Transactional
-public class BrdCateRepoTest {
+class BrdCateRepoTest {
     @Autowired
     BrdCateRepo brdCateRepo;
 
@@ -20,7 +20,7 @@ public class BrdCateRepoTest {
     @Test
     void findAll() {
         List<BrdCateDto.Read> result = brdCateRepo.findAll();
-        Assertions.assertThat(result).hasSize(0 );
+        Assertions.assertThat(result).isEmpty();
     }
 
 

@@ -6,13 +6,12 @@ import javax.validation.constraints.NotNull;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class BrdLikeDto {
-    @Data @Builder
+    @Data
+    @Builder
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Create {
-        @NotNull
-        private Long brdNo;
-        @NotNull
+        @NotNull private Long brdNo;
         private Long memNo;
     }
 
@@ -24,20 +23,21 @@ public class BrdLikeDto {
         private Long brdNo;
         private Long memNo;
     }
-    @Data @Builder
+
+    @Data
+    @Builder
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Delete {
-        @NotNull
-        private Long brdNo;
-        @NotNull
+        @NotNull private Long brdNo;
         private Long memNo;
     }
+
     @Data
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class CountLikes{
+    public static class CountLikes {
         private Long brdNo;
         private Long memNo;
     }
@@ -46,7 +46,7 @@ public class BrdLikeDto {
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class CheckLikes{
+    public static class CheckLikes {
         private Long brdNo;
         private Long memNo;
     }
@@ -55,11 +55,10 @@ public class BrdLikeDto {
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class ReadList{
+    public static class ReadList {
         private Long brdNo;
         private Long memNo;
         private String imgPath;
         private String brdTitle;
     }
-
 }

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hts.market.domain.board.repo.BrdRptRepo">
-
-
     <!-- 신고등록 -->
     <insert id="save">
-        <selectKey  resultType="long" order="BEFORE" keyProperty="rptNo">
+        <selectKey resultType="long" order="BEFORE" keyProperty="rptNo">
             select nvl(max(rpt_no),0)+1 from BOARD_REPORT
         </selectKey>
         insert into BOARD_REPORT(rpt_no, rpt_msg_no, rpt_mem_no, rpt_brd_no)
@@ -16,16 +14,13 @@
         select rpt_no, rpt_msg_no, rpt_mem_no, rpt_brd_no, rpt_created_at from BOARD_REPORT
         where rpt_no = #{rptNo}
     </select>
-
     <!-- 신고목록 -->
     <select id="findAll" resultType="com.hts.market.domain.board.dto.BrdRptDto$Read">
         select rpt_no, rpt_mem_no, rpt_brd_no, rpt_created_at
         from BOARD_REPORT where rownum &lt;= 10 order by rpt_no desc
     </select>
-
     <!-- 일반 삭제 -->
     <delete id="delete">
         delete from BOARD_REPORT where rpt_no = #{rptNo}
     </delete>
-
 </mapper>

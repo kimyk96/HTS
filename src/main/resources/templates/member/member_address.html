@@ -4,38 +4,39 @@
     <title>주소</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="/css/main.css">
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/js/main.js" charset="UTF-8"></script>
 </head>
 <body>
-    <!-- 상단 메뉴바 -->
-    <header id="header">
+<!-- 상단 메뉴바 -->
+<header id="header">
+    <div>
+        <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
         <div>
-            <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
-            <div>
-                <h2>
-                    주소 검색
-                </h2>
-            </div>
+            <h2>
+                주소 검색
+            </h2>
         </div>
-    </header>
-    <!-- 메인정보 -->
-    <main id="main">
-        <section id="member_address">
-            <div>
-                <input type="text" id="member_address_keyword" placeholder="내 동네 이름(시,구,동)으로 검색">
-                <button id="btn_geolocation">현재 위치로 찾기</button>
-            </div>
-            <div>
-                <ul id="member_address_list">
-                    <li>검색어를 입력 해주세요</li>
-                </ul>
-            </div>
-        </section>
-    </main>
+    </div>
+</header>
+<!-- 메인정보 -->
+<main id="main">
+    <section id="member_address">
+        <div>
+            <input type="text" id="member_address_keyword" placeholder="내 동네 이름(시,구,동)으로 검색">
+            <button id="btn_geolocation">현재 위치로 찾기</button>
+        </div>
+        <div>
+            <ul id="member_address_list">
+                <li>검색어를 입력 해주세요</li>
+            </ul>
+        </div>
+    </section>
+</main>
 
-    <script>
+<script>
         /* 주소검색 */
         // geolocation 사용
         $("#btn_geolocation").click(function(){
@@ -134,6 +135,7 @@
                 })
             })
         })
-    </script>
+
+</script>
 </body>
 </html>

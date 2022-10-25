@@ -4,7 +4,8 @@
     <title>리뷰 등록</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="/css/main.css">
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/js/main.js" charset="UTF-8"></script>
     <style>
@@ -29,37 +30,38 @@
         #main section#review_upload div.review_info div{ border-top: 1px solid #efefef; padding : 20px 0; margin : 20px 0; width : 100%; display: flex; flex-direction: column; justify-content: center; }
         #main section#review_upload div.review_info div label{ padding : 10px 0;font-weight: 400; width : 100%; display : flex; flex-direction: row; align-items: center;}
         #main section#review_upload div.review_info div label input[type="checkbox"]{ width : 20px; height : 20px; margin-right : 10px; }
-    </style> 
+
+    </style>
 </head>
 <body>
-    <!-- 상단 메뉴바 -->
-    <header id="header">
+<!-- 상단 메뉴바 -->
+<header id="header">
+    <div>
+        <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
         <div>
-            <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
+            <h2>거래후기 보내기</h2>
+        </div>
+    </div>
+    <div class="btn_upload">
+        <span>완료</span>
+    </div>
+</header>
+<!-- 메인정보 -->
+<main id="main">
+    <section id="review_upload">
+        <div class="pdt_info">
+            <img src="/img/example/square.png" alt="pdt_img" class="pdt_img">
             <div>
-                <h2>거래후기 보내기</h2>
+                <p class="title">거래한 물건</p>
+                <p class="pdt_title">삼성 오딧세이 노트북</p>
             </div>
         </div>
-        <div class="btn_upload">
-            <span>완료</span>
+        <div class="review_info">
+            <h3>거래가 어떠셨나요?</h3>
+            <div class="review_message_list"></div>
         </div>
-    </header>
-    <!-- 메인정보 -->
-    <main id="main">
-        <section id="review_upload">
-            <div class="pdt_info">
-                <img src="/img/example/square.png" alt="pdt_img" class="pdt_img">
-                <div>
-                    <p class="title">거래한 물건</p>
-                    <p class="pdt_title">삼성 오딧세이 노트북</p>
-                </div>
-            </div>
-            <div class="review_info">
-                <h3>거래가 어떠셨나요?</h3>
-                <div class="review_message_list"></div>
-            </div>
-        </section>
-    </main>
+    </section>
+</main>
 <script>
     $(function(){
         let searchParams = new URL(location.href).searchParams;
@@ -124,6 +126,7 @@
             })
         })
     })
+
 </script>
 
 </body>

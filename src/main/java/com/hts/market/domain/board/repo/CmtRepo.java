@@ -1,34 +1,29 @@
 package com.hts.market.domain.board.repo;
 
-import com.hts.market.domain.board.dto.BrdCateDto;
 import com.hts.market.domain.board.dto.CmtDto;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
-
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Mapper
 public interface CmtRepo {
-    //댓글작성
+    // 댓글 작성
     public Integer save(CmtDto.Create dto);
 
-    //댓글수정
+    // 댓글 수정
     public Integer update(CmtDto.Update dto);
 
-    //댓글삭제
-
+    // 댓글 삭제
     public Integer delete(CmtDto.Delete dto);
 
-    //댓글 목록
+    // 댓글 목록
     public List<CmtDto.Read> findAll(Long brdNo);
-    //댓글 전체삭제
+
+    // 댓글 전체 삭제
     Integer deleteAll(Long brdNo);
 
+    // 댓글 작성 여부 확인
+    Boolean countByBrdNoAndMemNo(Long brdNo, Long memNo);
 
-
-//    //댓글을 남길 게시물
-//    public Long findBrdNo();
-
-
+    // 댓글 수 확인
+    Integer countByBrdNo(Long brdNo);
 }

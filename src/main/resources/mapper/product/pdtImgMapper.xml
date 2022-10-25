@@ -4,18 +4,18 @@
     <!-- 상품 이미지 저장-->
     <insert id="save">
         insert into
-            PRODUCT_IMAGE(pdt_no, img_no, img_path )
+        PRODUCT_IMAGE(pdt_no, img_no, img_path )
         values
-            ( #{pdtNo}, #{imgNo}, #{imgPath} )
+        ( #{pdtNo}, #{imgNo}, #{imgPath} )
     </insert>
     <!-- 상품 이미지 수정 -->
     <update id="update">
         update
-            PRODUCT_IMAGE
+        PRODUCT_IMAGE
         set
-            img_path=#{imgPath}
+        img_path=#{imgPath}
         where
-            pdt_no = #{pdtNo} and img_no = #{imgNo}
+        pdt_no = #{pdtNo} and img_no = #{imgNo}
     </update>
     <!-- 이미지 조회 -->
     <select id="searchOfPdtNo" resultType="com.hts.market.domain.product.dto.PdtImgDto$Read">
@@ -24,33 +24,24 @@
     <!-- 상품 이미지 개별삭제 -->
     <delete id="deleteByImgNo">
         delete from
-            PRODUCT_IMAGE
+        PRODUCT_IMAGE
         where
-            pdt_no=#{pdtNo} and img_no=#{imgNo}
+        pdt_no=#{pdtNo} and img_no=#{imgNo}
     </delete>
     <!-- 상품 이미지 전체삭제 -->
     <delete id="deleteAll">
         delete from
-            PRODUCT_IMAGE
+        PRODUCT_IMAGE
         where
-            pdt_no=#{pdtNo}
+        pdt_no=#{pdtNo}
     </delete>
     <!-- 대표이미지 보기 -->
     <select id="findMainImg" resultType="string">
         select
-            img_path
+        img_path
         from
-            PRODUCT_IMAGE
+        PRODUCT_IMAGE
         where
-            pdt_no=#{pdtNo} and img_no=1
+        pdt_no=#{pdtNo} and img_no=1
     </select>
-<!--    &lt;!&ndash; 이미지 전체보기  &ndash;&gt;-->
-<!--    <select id="findAllByPdtNo" resultType="com.hts.market.domain.product.dto.PdtImgDto$Read">-->
-<!--        select-->
-<!--            pdt_no, img_no, img_path-->
-<!--        from-->
-<!--            PRODUCT_IMAGE-->
-<!--        where-->
-<!--            pdt_no=#{pdtNo}-->
-<!--    </select>-->
 </mapper>

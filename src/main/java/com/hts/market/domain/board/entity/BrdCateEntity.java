@@ -7,7 +7,7 @@ import lombok.ToString;
 @ToString
 @Getter
 @Builder
-public class BrdCateEntity  {
+public class BrdCateEntity {
     private Long brdCateNo;
     private String brdCateName;
 }

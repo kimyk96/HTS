@@ -4,86 +4,87 @@
     <title>회원</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="/css/main.css">
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="/js/main.js" charset="UTF-8"></script>
 </head>
 <body>
-    <!-- 상단 메뉴바 -->
-    <header id="header">
-        <div>
-            <h2>나의 한라봉</h2>
-        </div>
-        <div>
-            <ul>
-            </ul>
-        </div>
-    </header>
-    <!-- 메인정보 -->
-    <main id="main" >
-        <section id="member_other" th:attr="data-mem-no=${memNo}">
-            <div class="wrapper">
-                <div class="profile">
-                    <div class="img">
-                        <img src="/img/example/profile.png" alt="profile_img" id="img_path">
-                    </div>
-                    <div class="info">
-                        <h3 id="mem_nickname"></h3>
-                        <p><span id="mem_address"></span> * <span id="mem_no"></span></p>
-                        <p id="mem_created_at"></p>
-                    </div>
-                    <div class="arrow">
-                    </div>
+<!-- 상단 메뉴바 -->
+<header id="header">
+    <div>
+        <h2>나의 한라봉</h2>
+    </div>
+    <div>
+        <ul>
+        </ul>
+    </div>
+</header>
+<!-- 메인정보 -->
+<main id="main">
+    <section id="member_other" th:attr="data-mem-no=${memNo}">
+        <div class="wrapper">
+            <div class="profile">
+                <div class="img">
+                    <img src="/img/example/profile.png" alt="profile_img" id="img_path">
                 </div>
-                <div class="brix">
-                    <div>
-                        <span>당도</span>
-                        <span class="mem_brix"></span>
-                    </div>
-                    <div class="brix_bar">
-                        <p></p>
-                        <p id="mem_brix"></p>
-                    </div>
+                <div class="info">
+                    <h3 id="mem_nickname"></h3>
+                    <p><span id="mem_address"></span> * <span id="mem_no"></span></p>
+                    <p id="mem_created_at"></p>
                 </div>
-                <div class="transaction">
-                    <div onclick="$(location).attr('href', '/transaction/sell');">
+                <div class="arrow">
+                </div>
+            </div>
+            <div class="brix">
+                <div>
+                    <span>당도</span>
+                    <span class="mem_brix"></span>
+                </div>
+                <div class="brix_bar">
+                    <p></p>
+                    <p id="mem_brix"></p>
+                </div>
+            </div>
+            <div class="transaction">
+                <div onclick="$(location).attr('href', '/transaction/sell');">
                         <span>
                             <img src="/img/icon/sell.png" alt="sell">
                         </span>
-                        <p>판매내역</p>
-                    </div>
-                    <div onclick="$(location).attr('href', '/transaction/purchase');">
+                    <p>판매내역</p>
+                </div>
+                <div onclick="$(location).attr('href', '/transaction/purchase');">
                         <span>
                             <img src="/img/icon/buy.png" alt="buy">
                         </span>
-                        <p>구매내역</p>
-                    </div>
+                    <p>구매내역</p>
                 </div>
             </div>
-        </section>
-    </main>
-    <!-- 하단 메뉴바 -->
-    <nav id="nav">
-        <ul>
-            <li id="nav_product">
-                <img src="/img/icon/product.png" alt="nav_product">
-                <p>홈</p>
-            </li>
-            <li id="nav_board">
-                <img src="/img/icon/board.png" alt="nav_board">
-                <p>동네생활</p>
-            </li>
-            <li id="nav_chat">
-                <img src="/img/icon/chat.png" alt="nav_chat">
-                <p>채팅</p>
-            </li>
-            <li id="nav_member" class="selected">
-                <img src="/img/icon/member.png" alt="nav_member">
-                <p>나의 한라봉</p>
-            </li>
-        </ul>
-    </nav>
+        </div>
+    </section>
+</main>
+<!-- 하단 메뉴바 -->
+<nav id="nav">
+    <ul>
+        <li id="nav_product">
+            <img src="/img/icon/product.png" alt="nav_product">
+            <p>홈</p>
+        </li>
+        <li id="nav_board">
+            <img src="/img/icon/board.png" alt="nav_board">
+            <p>동네생활</p>
+        </li>
+        <li id="nav_chat">
+            <img src="/img/icon/chat.png" alt="nav_chat">
+            <p>채팅</p>
+        </li>
+        <li id="nav_member" class="selected">
+            <img src="/img/icon/member.png" alt="nav_member">
+            <p>나의 한라봉</p>
+        </li>
+    </ul>
+</nav>
 
-    <script>
+<script>
         $(function(){
             $.ajax({
                 method:"GET",
@@ -105,7 +106,8 @@
             .fail(function(res){
             })
         });
-    </script>
+
+</script>
 
 </body>
 </html>

@@ -11,13 +11,11 @@ public class PdtRptDto {
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class Create{
+    public static class Create {
         private Long rptNo;
-        @NotNull
-        private Long rptPdtNo;
+        @NotNull private Long rptPdtNo;
         private Long rptMemNo;
-        @NotNull
-        private Long rptMsgNo;
+        @NotNull private Long rptMsgNo;
     }
 
     @Data
@@ -36,7 +34,7 @@ public class PdtRptDto {
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
-    public static class Delete{
+    public static class Delete {
         private Long rptNo;
         private Long rptMemNo;
         private Long rptPdtNo;

@@ -1,0 +1,85 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>내 상품</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="/css/main.css">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/js/main.js" charset="UTF-8"></script>
+</head>
+<body>
+<!-- 상단 메뉴바 -->
+<header id="header">
+    <div>
+        <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
+        <div>
+            <h2>
+                내 상품
+            </h2>
+        </div>
+    </div>
+</header>
+<!-- 메인정보 -->
+<main id="main">
+    <section id="product">
+        <ul>
+            <p>등록한 상품이 없습니다.</p>
+        </ul>
+    </section>
+</main>
+
+<script>
+$(function(){
+    // 게시글 목록 가져오기
+    $.ajax({
+        method: "GET",
+        url: "/api/v1/pdt/find-all-by-mem-no"
+    })
+    .done(function(res){
+        let $ul = $("#product ul");
+        $ul.empty();
+        for( li of res ){
+            $(`
+            <li onclick="$(location).attr('href', '/product/' + ${li.pdtNo})">
+                <div class="img_wrapper">
+                    <img src="${li.imgPath}" alt="product_img">
+                </div>
+                <div class="info_wrapper">
+                    <div class="info">
+                        <h3 class="info_title">${li.pdtName}</h3>
+                        <p>
+                            <span class="info_address">${li.addressGu} ${li.addressDong}</span>
+                            <span class="info_created_at"> ${timeForToday(li.pdtCreatedAt)}</span>
+                        </p>
+                        <p>
+                            <span class="info_price">${numberWithCommas(li.pdtPrice)}원</span>
+                        </p>
+                    </div>
+                    <div class="count">
+                        <p class="count_chat">
+                            <img src="img/icon/chat.png" alt="chat_count" class="${ li.chatCheck ? 'selected' : '' }">
+                            <span>${li.chatCount}</span>
+                        </p>
+                        <p class="count_like">
+                            <img src="img/icon/member.png" alt="like_count" class="${ li.favoriteCheck ? 'selected' : '' }">
+                            <span>${li.favoriteCount}</span>
+                        </p>
+                    </div>
+                </div>
+            </li>`)
+            .appendTo($ul);
+        }
+    })
+    .fail(function(res){
+        Swal.fire({
+            icon: 'error',
+            text: res.responseText
+        });
+    });
+})
+
+</script>
+</body>
+</html>

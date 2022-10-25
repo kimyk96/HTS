@@ -8,7 +8,7 @@ public class ReviewDto {
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class Read{
+    public static class Read {
         private Long reviewNo;
         private String review;
     }

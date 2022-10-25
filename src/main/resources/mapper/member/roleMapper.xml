@@ -7,11 +7,10 @@
             SELECT nvl(max(role_no),0)+1 FROM ROLE
         </selectKey>
         INSERT INTO ROLE
-            (role_no, role_name)
+        (role_no, role_name)
         VALUES
-            (#{roleNo}, #{roleName})
+        (#{roleNo}, #{roleName})
     </insert>
-
     <!-- 권한명 조회 -->
     <select id="findById" resultType="com.hts.market.domain.member.dto.RoleDto$Read">
         Select * from ROLE where role_no=#{roleNo}

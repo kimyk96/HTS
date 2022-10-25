@@ -1,11 +1,14 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>게시판</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <link rel="stylesheet" href="css/main.css">
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-    <script src="js/main.js" charset="UTF-8"></script>
+    <link rel="stylesheet" href="/css/main.css">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/js/main.js" charset="UTF-8"></script>
     <style>
         /* 게시판 페이지 */
         #main #board{ width : 100%; display : flex; flex-direction: column; justify-content: center; align-items: center; }
@@ -22,189 +25,56 @@
         #main #board ul li div.info_wrapper div.info2 span{ font-size : 11px; opacity : 0.6; }
         #main #board ul li div.count_wrapper{ width : 93%; padding : 2.5vw 3.5%; border-top : 1px solid #efefef; display : flex; flex-direction: row;}
         #main #board ul li div.count_wrapper p{ width : 20%; display : flex; justify-content: flex-start; align-items: center;}
-        #main #board ul li div.count_wrapper p img{ width : 25%; opacity : 0.5; }
+        #main #board ul li div.count_wrapper p img{ width : 25%; }
         #main #board ul li div.count_wrapper p span{ font-size : 11px; padding : 0 0 0 10px; opacity : 0.5; }
+        #main #board ul li div.count_wrapper p.count_chat img.selected{ content: url(/img/icon/comment_selected.png); }
+        #main #board ul li div.count_wrapper p.count_like img.selected{ content: url(/img/icon/like_selected.png); }
     </style>
 </head>
 <body>
-    <!-- 상단 메뉴바 -->
-    <header id="header">
-        <div>
-            <select name="address" id="address"></select>
-        </div>
-        <div>
-            <ul>
-                <li id="header_search" onclick="$(location).attr('href','/board/search')"><img src="img/icon/search.png" alt="search"></li>
-                <li id="header_notification"><img src="img/icon/notification.png" alt="notification"></li>
-            </ul>
-        </div>
-    </header>
-    <!-- 메인정보 -->
-    <main id="main">
-        <section id="board">
-            <ul>
-                <li>
-                    <div class="info_wrapper">
-                        <div class="info1">
-                            <h3 class="info_title">이웃들은 지금 장반장과 당근에서 모임중!</h3>
-                            <p class="info_desc">
-                                동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세, 무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세. 남산위에 저 소나무 철갑을 두른듯 바람 서리 불변함은 우리 기상 일세, 무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세.
-                            </p>
-                        </div>
-                        <div class="img">
-                            <img src="img/example/square.png" alt="product_img">
-                        </div>
-                        <div class="info2">
-                            <span class="info_address">부평1동</span>
-                            <span class="info_created_at">1분 전</span>
-                        </div>
-                    </div>
-                    <div class="count_wrapper">
-                        <p class="count_chat">
-                            <img src="img/icon/like.png" alt="like_count">
-                            <span>공감 2</span>
-                        </p>
-                        <p class="count_like">
-                            <img src="img/icon/comment.png" alt="comment_count">
-                            <span>댓글 2</span>
-                        </p>
-                    </div>
-                </li>
-                <li>
-                    <div class="info_wrapper">
-                        <div class="info1">
-                            <h3 class="info_title">이웃들은 지금 장반장과 당근에서 모임중!</h3>
-                            <p class="info_desc">
-                                동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세, 무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세. 남산위에 저 소나무 철갑을 두른듯 바람 서리 불변함은 우리 기상 일세, 무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세.
-                            </p>
-                        </div>
-                        <div class="img">
-                            <!-- <img src="img/example/square.png" alt="product_img"> -->
-                        </div>
-                        <div class="info2">
-                            <span class="info_address">부평1동</span>
-                            <span class="info_created_at">1분 전</span>
-                        </div>
-                    </div>
-                    <div class="count_wrapper">
-                        <p class="count_chat">
-                            <img src="img/icon/like.png" alt="like_count">
-                            <span>공감 2</span>
-                        </p>
-                        <p class="count_like">
-                            <img src="img/icon/comment.png" alt="comment_count">
-                            <span>댓글 2</span>
-                        </p>
-                    </div>
-                </li>
-                <li>
-                    <div class="info_wrapper">
-                        <div class="info1">
-                            <h3 class="info_title">이웃들은 지금 장반장과 당근에서 모임중!</h3>
-                            <p class="info_desc">
-                                동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세, 무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세. 남산위에 저 소나무 철갑을 두른듯 바람 서리 불변함은 우리 기상 일세, 무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세.
-                            </p>
-                        </div>
-                        <div class="img">
-                            <!-- <img src="img/example/square.png" alt="product_img"> -->
-                        </div>
-                        <div class="info2">
-                            <span class="info_address">부평1동</span>
-                            <span class="info_created_at">1분 전</span>
-                        </div>
-                    </div>
-                    <div class="count_wrapper">
-                        <p class="count_chat">
-                            <img src="img/icon/like.png" alt="like_count">
-                            <span>공감 2</span>
-                        </p>
-                        <p class="count_like">
-                            <img src="img/icon/comment.png" alt="comment_count">
-                            <span>댓글 2</span>
-                        </p>
-                    </div>
-                </li>
-                <li>
-                    <div class="info_wrapper">
-                        <div class="info1">
-                            <h3 class="info_title">이웃들은 지금 장반장과 당근에서 모임중!</h3>
-                            <p class="info_desc">
-                                동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세, 무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세. 남산위에 저 소나무 철갑을 두른듯 바람 서리 불변함은 우리 기상 일세, 무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세.
-                            </p>
-                        </div>
-                        <div class="img">
-                            <img src="img/example/square.png" alt="product_img">
-                        </div>
-                        <div class="info2">
-                            <span class="info_address">부평1동</span>
-                            <span class="info_created_at">1분 전</span>
-                        </div>
-                    </div>
-                    <div class="count_wrapper">
-                        <p class="count_chat">
-                            <img src="img/icon/like.png" alt="like_count">
-                            <span>공감 2</span>
-                        </p>
-                        <p class="count_like">
-                            <img src="img/icon/comment.png" alt="comment_count">
-                            <span>댓글 2</span>
-                        </p>
-                    </div>
-                </li>
-                <li>
-                    <div class="info_wrapper">
-                        <div class="info1">
-                            <h3 class="info_title">이웃들은 지금 장반장과 당근에서 모임중!</h3>
-                            <p class="info_desc">
-                                동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세, 무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세. 남산위에 저 소나무 철갑을 두른듯 바람 서리 불변함은 우리 기상 일세, 무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세.
-                            </p>
-                        </div>
-                        <div class="img">
-                            <!-- <img src="img/example/square.png" alt="product_img"> -->
-                        </div>
-                        <div class="info2">
-                            <span class="info_address">부평1동</span>
-                            <span class="info_created_at">1분 전</span>
-                        </div>
-                    </div>
-                    <div class="count_wrapper">
-                        <p class="count_chat">
-                            <img src="img/icon/like.png" alt="like_count">
-                            <span>공감 2</span>
-                        </p>
-                        <p class="count_like">
-                            <img src="img/icon/comment.png" alt="comment_count">
-                            <span>댓글 2</span>
-                        </p>
-                    </div>
-                </li>
-            </ul>
-        </section>
-    </main>
-    <!-- 하단 메뉴바 -->
-    <nav id="nav">
-        <div id="btn_add" onclick="$(location).attr('href', '/board/upload')">
-            <img src="img/icon/add.png" alt="btn_add">
-        </div>
+<!-- 상단 메뉴바 -->
+<header id="header">
+    <div>
+        <select name="address" id="address"></select>
+    </div>
+    <div>
         <ul>
-            <li id="nav_product">
-                <img src="img/icon/product.png" alt="nav_product">
-                <p>홈</p>
-            </li>
-            <li id="nav_board" class="selected">
-                <img src="img/icon/board.png" alt="nav_board">
-                <p>동네생활</p>
-            </li>
-            <li id="nav_chat">
-                <img src="img/icon/chat.png" alt="nav_chat">
-                <p>채팅</p>
-            </li>
-            <li id="nav_member">
-                <img src="img/icon/member.png" alt="nav_member">
-                <p>나의 한라봉</p>
-            </li>
+            <li id="header_search" onclick="$(location).attr('href','/board/search')"><img src="img/icon/search.png"
+                                                                                           alt="search"></li>
+            <li id="header_notification"><img src="img/icon/notification.png" alt="notification"></li>
         </ul>
-    </nav>
+    </div>
+</header>
+<!-- 메인정보 -->
+<main id="main">
+    <section id="board">
+        <ul></ul>
+    </section>
+</main>
+<!-- 하단 메뉴바 -->
+<nav id="nav">
+    <div id="btn_add" onclick="$(location).attr('href', '/board/upload')">
+        <img src="img/icon/add.png" alt="btn_add">
+    </div>
+    <ul>
+        <li id="nav_product">
+            <img src="img/icon/product.png" alt="nav_product">
+            <p>홈</p>
+        </li>
+        <li id="nav_board" class="selected">
+            <img src="img/icon/board.png" alt="nav_board">
+            <p>동네생활</p>
+        </li>
+        <li id="nav_chat">
+            <img src="img/icon/chat.png" alt="nav_chat">
+            <p>채팅</p>
+        </li>
+        <li id="nav_member">
+            <img src="img/icon/member.png" alt="nav_member">
+            <p>나의 한라봉</p>
+        </li>
+    </ul>
+</nav>
 <script>
 $(function(){
     let searchParams = new URL(location.href).searchParams;
@@ -226,17 +96,82 @@ $(function(){
         }
         $("#product ul").empty();
 
-        // -----------------------------게시판 목록 가져오기 메소드
+        getBrdList(res.address[0].addressSi, res.address[0].addressGu, res.address[0].addressDong, "", searchParams.get("brdCateNo"), 1, 10)
     })
 
     $("#address").change(function() {
-        let addressSi = $(this).find(':selected').data('si');
-        let addressGu = $(this).find(':selected').data('gu');
-        let addressDong = $(this).find(':selected').data('dong');
-        $("#product ul").empty();
-        // -----------------------------게시판 목록 가져오기 메소드
+        let si = $(this).find(':selected').data('si');
+        let gu = $(this).find(':selected').data('gu');
+        let dong = $(this).find(':selected').data('dong');
+        $("#board ul").empty();
+
+        getBrdList(si, gu, dong, "", searchParams.get("brdCateNo"), 1, 10)
     });
 })
+
+// 게시글 목록 검색
+function getBrdList(addressSi, addressGu, addressDong, keyword, brdCateNo, start, end){
+
+    // 게시글 카테고리 번호 파싱
+    if(brdCateNo==null){
+        brdCateNo="";
+    }else{
+        brdCateNo = Number(brdCateNo);
+    }
+
+    // 게시글 목록 가져오기
+    $.ajax({
+        method: "GET",
+        url: "/api/v1/brd/find-all-by-data",
+        data : {addressSi, addressGu, addressDong, keyword, brdCateNo, start, end}
+    })
+    .done(function(res){
+        console.log(res)
+        let $ul = $("#board ul");
+        for( li of res ){
+            $(`
+            <li onclick="$(location).attr('href', '/board/${li.brdNo}')">
+                <div class="info_wrapper">
+                    <div class="info1">
+                        <h3 class="info_title">${li.brdTitle}</h3>
+                        <p class="info_desc">
+                            ${li.brdContent}
+                        </p>
+                    </div>
+                    ${ li.imgPath!=null ? `<div class="img"><img src="${li.imgPath}" alt="product_img"></div>` : '' }
+                    <div class="info2">
+                        <span class="info_address"></span>
+                        <span class="info_created_at">${timeForToday(li.brdCreatedAt)}</span>
+                    </div>
+                </div>
+                <div class="count_wrapper">
+                    <p class="count_like">
+                        <img src="/img/icon/like.png" alt="like_count" class="${li.brdLikeCheck ? 'selected' : ''}">
+                        <span>공감 ${li.brdLikeCount}</span>
+                    </p>
+                    <p class="count_chat">
+                        <img src="/img/icon/comment.png" alt="comment_count" class="${li.cmtCheck ? 'selected' : ''}">
+                        <span>댓글 ${li.cmtCount}</span>
+                    </p>
+                </div>
+            </li>`)
+            .appendTo($ul);
+        }
+
+    })
+    .fail(function(res){
+        Swal.fire({
+            icon: 'error',
+            text: res.responseText
+        });
+    });
+};
+
+
+
+
+
+
 </script>
 
 </body>

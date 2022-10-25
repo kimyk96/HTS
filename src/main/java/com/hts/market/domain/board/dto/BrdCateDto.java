@@ -5,8 +5,8 @@ import lombok.*;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class BrdCateDto {
-
-    @Data @Builder
+    @Data
+    @Builder
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Create {
@@ -14,8 +14,8 @@ public class BrdCateDto {
         private Long brdCateNo;
     }
 
-
-    @Data @Builder
+    @Data
+    @Builder
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Read {

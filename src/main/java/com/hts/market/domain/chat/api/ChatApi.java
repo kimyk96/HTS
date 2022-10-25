@@ -3,9 +3,7 @@ package com.hts.market.domain.chat.api;
 
 import com.hts.market.domain.chat.app.ChatApp;
 import com.hts.market.domain.chat.dto.ChatDto;
-import com.hts.market.domain.member.repo.MemRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,15 +18,14 @@ import java.util.List;
 @Validated
 @RequestMapping("/api/v1/chat")
 public class ChatApi {
-    @Autowired
-    ChatApp chatApp;
+    @Autowired ChatApp chatApp;
 
     // 채팅 조회
     @GetMapping("")
     public ResponseEntity<ChatDto.ChatUserInfo> findChat(ChatDto.ListStartEnd listStartEnd, Principal principal) {
         return ResponseEntity.ok().body(chatApp.findAllByChatMemNoAndChatPdtNo(listStartEnd, principal.getName()));
     }
-    
+
     // 채팅 리스트 조회
     @GetMapping("list")
     public ResponseEntity<List<ChatDto.Pk>> findChatList(Principal principal) {

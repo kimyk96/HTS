@@ -9,12 +9,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("chat")
 @Secured("ROLE_USER")
 public class ChatController {
+    // 채팅 목록
     @GetMapping("")
-    public String chat(){
+    public String chat() {
         return "chat/chat";
     }
+
+    // 채팅 방
     @GetMapping("room")
-    public String chatroom(){
+    public String chatroom() {
         return "chat/chatroom";
     }
 }

@@ -4,11 +4,10 @@
     <!--    회원권한 저장-->
     <insert id="save">
         INSERT INTO
-            MEMBER_ROLE( mem_no, role_no )
+        MEMBER_ROLE( mem_no, role_no )
         VALUES
-            ( #{memNo}, #{roleNo} )
+        ( #{memNo}, #{roleNo} )
     </insert>
-
     <!--    회원권한 조회-->
     <select id="findAllById" resultType="com.hts.market.domain.member.dto.MemRoleDto$Read">
         <![CDATA[
@@ -20,7 +19,6 @@
                 mem_no=#{memNo}
         ]]>
     </select>
-
     <!--    회원권한 삭제-->
     <delete id="delete">
         <![CDATA[
@@ -30,7 +28,6 @@
                 mem_no=#{memNo} and role_no=#{roleNo}
         ]]>
     </delete>
-
     <!--    회원권한 전체 삭제-->
     <delete id="deleteAll">
         <![CDATA[

@@ -18,18 +18,19 @@ public class AddressApi {
 
     // 주소 목록 조회
     @GetMapping("")
-    public ResponseEntity<List<AddressDto.Read>> findAllByName(Principal principal){
+    public ResponseEntity<List<AddressDto.Read>> findAllByName(Principal principal) {
         return ResponseEntity.ok().body(addressApp.findAllByName(principal.getName()));
     }
 
     // 주소 생성
     @PostMapping("")
-    public ResponseEntity<Integer> save(AddressDto.Create dto, Principal principal){
+    public ResponseEntity<Integer> save(AddressDto.Create dto, Principal principal) {
         return ResponseEntity.ok().body(addressApp.save(dto, principal.getName()));
     }
+
     // 주소 삭제
     @DeleteMapping("")
-    public ResponseEntity<Integer> delete(AddressDto.Delete dto){
+    public ResponseEntity<Integer> delete(AddressDto.Delete dto) {
         return ResponseEntity.ok().body(addressApp.delete(dto));
     }
 }

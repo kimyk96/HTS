@@ -12,44 +12,38 @@ import java.util.List;
 
 @Service
 public class PdtRptApp {
-    @Autowired
-    private PdtRptRepo pdtRptRepo;
-    @Autowired
-    private MemRepo memRepo;
+    @Autowired private PdtRptRepo pdtRptRepo;
+    @Autowired private MemRepo memRepo;
+
     //@Scheduled(cron = "* * * * * *")
     // 신고등록
-    public Integer save(PdtRptDto.Create dto, String userName){
+    public Integer save(PdtRptDto.Create dto, String userName) {
         dto.setRptMemNo(memRepo.findIdByMemUsername(userName));
-        PdtRptDto.Read memNo = pdtRptRepo.findIdByReadDto(
-                PdtRptDto.Read
-                        .builder()
-                        .rptMemNo(memRepo.findIdByMemUsername(userName))
-                        .rptPdtNo(dto.getRptPdtNo())
-                        .build());
+        PdtRptDto.Read memNo = pdtRptRepo.findIdByReadDto(PdtRptDto.Read.builder().rptMemNo(memRepo.findIdByMemUsername(userName)).rptPdtNo(dto.getRptPdtNo()).build());
 
-        if (dto.getRptMemNo().equals(memNo)){
+        if (dto.getRptMemNo().equals(memNo)) {
             throw new ReportSaveFailException();
         }
         return pdtRptRepo.save(dto);
     }
 
     // 신고목록
-    public List<PdtRptDto.Read> findAllByDto(PdtRptDto.Read dto){
+    public List<PdtRptDto.Read> findAllByDto(PdtRptDto.Read dto) {
         return pdtRptRepo.findAllByDto(dto);
     }
 
     // 신고번호로 신고삭제
-    public Integer deleteByRptNo(PdtRptDto.Delete dto){
+    public Integer deleteByRptNo(PdtRptDto.Delete dto) {
         return pdtRptRepo.deleteByRptNo(dto);
     }
 
     // 회원번호로 신고삭제
-    public Integer deleteByRptMemNo(PdtRptDto.Delete dto){
+    public Integer deleteByRptMemNo(PdtRptDto.Delete dto) {
         return pdtRptRepo.deleteByRptMemNo(dto);
     }
 
     // 상품번호로 신고삭제
-    public Integer deleteByRptPdtNo(Long pdtNo){
+    public Integer deleteByRptPdtNo(Long pdtNo) {
         return pdtRptRepo.deleteByRptPdtNo(pdtNo);
     }
 }

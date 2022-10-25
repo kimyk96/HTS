@@ -4,23 +4,38 @@ import lombok.*;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MemRoleDto {
-    @Data @Builder @AllArgsConstructor @NoArgsConstructor
-    public static class Create{
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Create {
         private Long memNo;
         private Long roleNo;
     }
-    @Data @Builder @AllArgsConstructor @NoArgsConstructor
-    public static class Read{
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Read {
         private Long memNo;
         private Long roleNo;
     }
-    @Data @Builder @AllArgsConstructor @NoArgsConstructor
-    public static class Update{
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Update {
         private Long memNo;
         private Long roleNo;
     }
-    @Data @Builder @AllArgsConstructor @NoArgsConstructor
-    public static class Delete{
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Delete {
         private Long memNo;
         private Long roleNo;
     }

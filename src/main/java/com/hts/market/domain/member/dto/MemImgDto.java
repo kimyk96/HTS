@@ -5,33 +5,40 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MemImgDto {
     @Data
-    @Builder @AllArgsConstructor
+    @Builder
+    @AllArgsConstructor
     @NoArgsConstructor
-    public static class Create{
+    public static class Create {
         private Long memNo;
         private Long imgNo;
         private String imgPath;
     }
+
     @Data
-    @Builder @AllArgsConstructor
+    @Builder
+    @AllArgsConstructor
     @NoArgsConstructor
-    public static class Read{
+    public static class Read {
         private Long memNo;
         private Long imgNo;
         private String imgPath;
     }
+
     @Data
-    @Builder @AllArgsConstructor
+    @Builder
+    @AllArgsConstructor
     @NoArgsConstructor
-    public static class Update{
+    public static class Update {
         private Long memNo;
         private Long imgNo;
         private String imgPath;
     }
+
     @Data
-    @Builder @AllArgsConstructor
+    @Builder
+    @AllArgsConstructor
     @NoArgsConstructor
-    public static class Delete{
+    public static class Delete {
         private Long memNo;
         private Long imgNo;
         private String imgPath;

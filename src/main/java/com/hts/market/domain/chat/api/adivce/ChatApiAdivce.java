@@ -22,7 +22,7 @@ public class ChatApiAdivce {
     }
 
     @ExceptionHandler(ChatListNotFoundException.class)
-    public ResponseEntity<String> ChatListNotFoundExceptionHandler() {
+    public ResponseEntity<String> chatListNotFoundExceptionHandler() {
         return ResponseEntity.status(HttpStatus.CONFLICT).body("판매자에게 채팅을 보내보세요");
     }
 }

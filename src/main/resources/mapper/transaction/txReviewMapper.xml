@@ -4,45 +4,17 @@
     <!--거래 리뷰 생성-->
     <insert id="save">
         INSERT INTO
-            TRANSACTION_REVIEW (tx_no, tx_review_type, review_no)
+        TRANSACTION_REVIEW (tx_no, tx_review_type, review_no)
         VALUES
-            ( #{txNo}, #{txReviewType}, #{reviewNo} )
+        ( #{txNo}, #{txReviewType}, #{reviewNo} )
     </insert>
-
-<!--    &lt;!&ndash;판매자에 대한 구매자 리뷰 목록 조회&ndash;&gt;-->
-<!--    <select id="findBuyerByTxReviewNo" resultType="long" parameterType="com.hts.market.domain.transaction.dto.TxReviewDto$Read">-->
-<!--        <![CDATA[-->
-<!--        select-->
-<!--            t.tx_buyer_no, r.review-->
-<!--        from-->
-<!--            TRANSACTION_REVIEW x left outer join REVIEW r on x.review_no=r.review_no-->
-<!--            left outer join TRANSACTION t on x.tx_no=t.tx_no-->
-
-<!--        where-->
-<!--           x.tx_no=#{txReviewNo} and x.tx_review_type='buyer'  and x.review_no=#{reviewNo} and rownum<=6-->
-<!--            ]]>-->
-<!--    </select>-->
-
-<!--    &lt;!&ndash;구매자에 대한 판매자 리뷰 목록 조회&ndash;&gt;-->
-<!--    <select id="findSellerByTxReviewNo" resultType="com.hts.market.domain.transaction.dto.TxReviewDto$Read">-->
-<!--        select-->
-<!--            p.pdt_seller_no, r.review-->
-<!--        from-->
-<!--            TRANSACTION_REVIEW x left outer join REVIEW r on x.review_no=r.review_no-->
-<!--            left outer join TRANSACTION t on x.tx_no=t.tx_no-->
-<!--            left outer join PRODUCT p on t.tx_pdt_no=p.pdt_no-->
-<!--        where-->
-<!--           x.tx_no=#{txReviewNo} and x.tx_review_type='seller' and x.review_no=#{reviewNo} and rownum&lt;=6-->
-<!--    </select>-->
-
     <!--거래 리뷰 삭제-->
     <delete id="delete">
         DELETE FROM
-            TRANSACTION_REVIEW
+        TRANSACTION_REVIEW
         WHERE
-            tx_no=#{txNo} and tx_review_type=#{txReviewType}
+        tx_no=#{txNo} and tx_review_type=#{txReviewType}
     </delete>
-
     <!--리뷰 작성 여부 확인-->
     <select id="findByTxNoAndTxReviewType" resultType="boolean">
         <![CDATA[
@@ -54,14 +26,13 @@
                 tx_no=#{txNo} and tx_review_type=#{txReviewType} and rownum<=1
         ]]>
     </select>
-
     <!--리뷰 리스트 확인-->
     <select id="findAllByTxNo" resultType="string">
         SELECT
-            r.review
+        r.review
         FROM
-            TRANSACTION_REVIEW tr left join REVIEW r on tr.review_no=r.review_no
+        TRANSACTION_REVIEW tr left join REVIEW r on tr.review_no=r.review_no
         WHERE
-            tx_no=#{txNo} and tx_review_type=#{txReviewType}
+        tx_no=#{txNo} and tx_review_type=#{txReviewType}
     </select>
 </mapper>

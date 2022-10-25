@@ -1,7 +1,6 @@
 package com.hts.market.global.controller;
 
 import com.hts.market.domain.member.dto.MemDto;
-import com.hts.market.domain.member.entity.MemEntity;
 import com.hts.market.domain.member.exception.MemberNotFoundException;
 import com.hts.market.domain.member.repo.MemRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,7 @@ public class GlobalController {
     }
     @GetMapping("/signup")
     public ModelAndView signup(Principal principal){
-        MemDto.Member member = memRepo.findByName(principal.getName()).orElseThrow(()->new MemberNotFoundException());
+        MemDto.Member member = memRepo.findByName(principal.getName()).orElseThrow(MemberNotFoundException::new);
         return new ModelAndView("global/signup").addObject("member", member);
     }
     @GetMapping("/login")

@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public class MemRoleApp {
     @Autowired MemRoleRepo memRoleRepo;
-    
+
     // 회원 권한 출가
     public Integer save(MemRoleDto.Create dto) {
         return memRoleRepo.save(dto);
@@ -30,5 +30,4 @@ public class MemRoleApp {
     public Integer deleteAll(Long memNo) {
         return memRoleRepo.deleteAll(memNo);
     }
-
 }

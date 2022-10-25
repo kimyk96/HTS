@@ -41,9 +41,9 @@
             </if>
         </selectKey>
         INSERT INTO
-            MEMBER( mem_no, mem_username, mem_password, mem_email, mem_nickname, mem_is_enabled )
+        MEMBER( mem_no, mem_username, mem_password, mem_email, mem_nickname, mem_is_enabled )
         VALUES
-            ( #{memNo}, #{memUsername}, #{memPassword}, #{memEmail}, #{memNickname}, #{memIsEnabled} )
+        ( #{memNo}, #{memUsername}, #{memPassword}, #{memEmail}, #{memNickname}, #{memIsEnabled} )
     </insert>
     <update id="updateMemPassword">
         <![CDATA[
@@ -97,42 +97,42 @@
     </select>
     <select id="findById" resultMap="memDtoMember">
         SELECT
-            m.mem_no, m.mem_username, m.mem_nickname, m.mem_email, m.mem_brix, m.mem_created_at,
-            i.img_no, i.img_path,
-            a.address_no, a.address_si, a.address_gu, a.address_dong
+        m.mem_no, m.mem_username, m.mem_nickname, m.mem_email, m.mem_brix, m.mem_created_at,
+        i.img_no, i.img_path,
+        a.address_no, a.address_si, a.address_gu, a.address_dong
         FROM
-            MEMBER m
-                left outer join MEMBER_IMAGE i on m.mem_no = i.mem_no
-                left outer join ADDRESS a on m.mem_no = a.mem_no
+        MEMBER m
+        left outer join MEMBER_IMAGE i on m.mem_no = i.mem_no
+        left outer join ADDRESS a on m.mem_no = a.mem_no
         WHERE
-            m.mem_no=#{memNo}
+        m.mem_no=#{memNo}
     </select>
     <select id="findByName" resultMap="memDtoMember">
         SELECT
-            m.mem_no, m.mem_username, m.mem_nickname, m.mem_email, m.mem_brix, m.mem_created_at,
-            i.img_no, i.img_path,
-            a.address_no, a.address_si, a.address_gu, a.address_dong
+        m.mem_no, m.mem_username, m.mem_nickname, m.mem_email, m.mem_brix, m.mem_created_at,
+        i.img_no, i.img_path,
+        a.address_no, a.address_si, a.address_gu, a.address_dong
         FROM
-            MEMBER m
-                left outer join MEMBER_IMAGE i on m.mem_no = i.mem_no
-                left outer join ADDRESS a on m.mem_no = a.mem_no
+        MEMBER m
+        left outer join MEMBER_IMAGE i on m.mem_no = i.mem_no
+        left outer join ADDRESS a on m.mem_no = a.mem_no
         WHERE
-            m.mem_username=#{memUsername}
+        m.mem_username=#{memUsername}
     </select>
     <resultMap id="memDtoMember" type="com.hts.market.domain.member.dto.MemDto$Member">
-        <id column="mem_no"                 property="memNo"/>
-        <result column="mem_username"       property="memUsername"/>
-        <result column="mem_nickname"       property="memNickname"/>
-        <result column="mem_email"          property="memEmail"/>
-        <result column="mem_brix"           property="memBrix"/>
-        <result column="mem_created_at"     property="memCreatedAt"/>
-        <result column="img_no"             property="imgNo"/>
-        <result column="img_path"           property="imgPath"/>
+        <id column="mem_no" property="memNo"/>
+        <result column="mem_username" property="memUsername"/>
+        <result column="mem_nickname" property="memNickname"/>
+        <result column="mem_email" property="memEmail"/>
+        <result column="mem_brix" property="memBrix"/>
+        <result column="mem_created_at" property="memCreatedAt"/>
+        <result column="img_no" property="imgNo"/>
+        <result column="img_path" property="imgPath"/>
         <collection property="address" ofType="com.hts.market.domain.member.dto.AddressDto$Read">
-            <id column="address_no"         property="addressNo"/>
-            <result column="address_si"     property="addressSi"/>
-            <result column="address_gu"     property="addressGu"/>
-            <result column="address_dong"   property="addressDong"/>
+            <id column="address_no" property="addressNo"/>
+            <result column="address_si" property="addressSi"/>
+            <result column="address_gu" property="addressGu"/>
+            <result column="address_dong" property="addressDong"/>
         </collection>
     </resultMap>
     <select id="findIdByMemUsername" resultType="long">
@@ -155,24 +155,23 @@
                 mem_no=#{memNo} AND rownum <= 1
         ]]>
     </update>
-    <!-- join 해서 삭제 할 수 있는지 선생님께 여쭤보기-->
     <delete id="delete">
         DELETE FROM
-            member
+        member
         FROM
-            member m left join product p on m.mem_no = p.pdt_seller_no
-            left join product_favorite pf on m.mem_no = pf.mem_no
-            left join address a on m.mem_no = a.mem_no
-            left join member_image mi on m.mem_no = mi.mem_no
-            left join member_role mr on m.mem_no = mr.mem_no
-            left join board_image bi on m.mem_no = bi.mem_no
-            left join board_like bl on m.mem_no = bl.mem_no
-            left join comments c on m.mem_no = c.cmt_writer_no
-            left join member_report mr on m.mem_no = mr.rpt_mem_no
-            left join member_report mrr on m.mem_no = mrr.rpt_target_no
-            left join product_report pr on m.mem_no = pr.rpt_mem_no
-            left join board_report br on m.mem_no = br.rpt_mem_no
+        member m left join product p on m.mem_no = p.pdt_seller_no
+        left join product_favorite pf on m.mem_no = pf.mem_no
+        left join address a on m.mem_no = a.mem_no
+        left join member_image mi on m.mem_no = mi.mem_no
+        left join member_role mr on m.mem_no = mr.mem_no
+        left join board_image bi on m.mem_no = bi.mem_no
+        left join board_like bl on m.mem_no = bl.mem_no
+        left join comments c on m.mem_no = c.cmt_writer_no
+        left join member_report mr on m.mem_no = mr.rpt_mem_no
+        left join member_report mrr on m.mem_no = mrr.rpt_target_no
+        left join product_report pr on m.mem_no = pr.rpt_mem_no
+        left join board_report br on m.mem_no = br.rpt_mem_no
         WHERE
-            m.mem_no = #{memNo}
+        m.mem_no = #{memNo}
     </delete>
 </mapper>

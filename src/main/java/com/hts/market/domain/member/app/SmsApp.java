@@ -10,11 +10,9 @@ import java.util.Random;
 
 @Service
 public class SmsApp {
-
     private Random rand = SecureRandom.getInstanceStrong();
 
     public SmsApp() throws NoSuchAlgorithmException {
-
     }
 
     // 인증코드 발송

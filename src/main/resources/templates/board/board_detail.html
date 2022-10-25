@@ -1,32 +1,26 @@
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>게시글</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
     <link rel="stylesheet" href="/css/main.css">
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/js/main.js" charset="UTF-8"></script>
     <style>
         #main{ margin: 0 0 70px 0; position : relative }
-        #main section#btn_nav{ background: linear-gradient(#909090, #efefef00); position : absolute; top: 0; left : 0; z-index : 2; width : 100%; height : 50px; display : flex; flex-direction: row; justify-content: space-between; align-items: center;}
+        #main section#btn_nav{ border-bottom : 1px solid #efefef; position : fixed; top: 0; left : 0; z-index : 2; width : 100%; height : 50px; display : flex; flex-direction: row; justify-content: space-between; align-items: center;}
         #main section#btn_nav div{ width : 100%; height : 50px; display: flex; align-items: center; }
         #main section#btn_nav div.right{ justify-content : flex-end; }
         #main section#btn_nav div img{ height : 55%; padding : 0 1.5%; }
         #main section#btn_nav div img#nav_product{ height : 45%; }
-        #main section#btn_action{ box-shadow : 0 0 3px -2px #303030; width : 90%; height : 50px; padding : 10px 5%; display : flex; flex-direction: row; justify-content: space-between; align-items: center; background-color : #fff; position : fixed; bottom : 0; left : 0;  }
-        #main section#btn_action div{ display : flex; align-items: center; }
-        #main section#btn_action div img{ content: url(/img/icon/like.png); width : 25px; padding-right : 10px; margin-right : 10px; border-right : 1px solid #efefef; }
-        #main section#btn_action div img.selected{ content: url(/img/icon/like_selected.png); }
-        #main section#btn_action div div{ display: flex; flex-direction: column; align-items: flex-start; }
-        #main section#btn_action div p{ font-size : 15px; opacity : 0.5; }
-        #main section#btn_action div p.pdt_price{ font-weight: 600; opacity : 1; }
-        #main section#btn_action div span{ font-size: 15px; font-weight: 400; background-color : #FF9D2A; padding : 7px 17px; color : #fff; border-radius: 7px; }
-        #main section#btn_action #btn_chat{ display : none; }
 
-        #main #board_detail{ width : 100%; display : flex; flex-direction: column; justify-content: center; align-items: center; }
+
+        #main #board_detail{ width : 100%; margin-top : 50px; display : flex; flex-direction: column; justify-content: center; align-items: center; }
         #main #board_detail > div{ width : 95%; padding : 10px 2.5%; border-bottom : 1px solid #efefef; }
         #main #board_detail div.swiper{ width : 100%; padding : 0; height : 100vw; object-fit: cover; overflow : hidden;}
         #main #board_detail div.swiper img{ width : 100%; height : 100vw; object-fit: cover; overflow : hidden; }
@@ -55,70 +49,136 @@
         #main #board_detail div.pdt_list div.pdt_list_wrapper ul li div p{ line-height : 2; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 1; line-clamp: 1; -webkit-box-orient: vertical; }
         #main #board_detail div.pdt_list div.pdt_list_wrapper ul li div p.item_title{ font-size : 12px; }
         #main #board_detail div.pdt_list div.pdt_list_wrapper ul li div p.item_price{ font-size : 12px; font-weight : 600; line-height : 1.5; }
+        #main section#btn_action{ box-shadow : 0 0 3px -2px #303030; width : 95%; height : 50px; padding : 0 2.5%; display : flex; flex-direction: row; justify-content: space-between; align-items: center; background-color : #fff; position : fixed; bottom : 0; left : 0;  }
+        #main section#btn_action div{ display : flex; align-items: center; }
+        #main section#btn_action div.like img{ content: url(/img/icon/like.png); width : 25px; padding-right : 10px; margin-right : 10px; border-right : 1px solid #efefef; }
+        #main section#btn_action div.like img.selected{ content: url(/img/icon/like_selected.png); }
+        #main section#btn_action div div{ display: flex; flex-direction: column; align-items: flex-start; }
+        #main section#btn_action div p{ font-size : 15px; opacity : 0.5; }
+        #main section#btn_action div p.pdt_price{ font-weight: 600; opacity : 1; }
+        #main section#btn_action div span{ font-size: 15px; font-weight: 400; background-color : #FF9D2A; padding : 7px 17px; color : #fff; border-radius: 7px; }
+        #main section#btn_action #btn_chat{ display : none; }
+        #cmt_keyboard{ width : 100%; padding : 5px 0; height : 40px; display : flex; flex-direction: row; justify-content: space-between; align-items: center;}
+        #cmt_keyboard div{ display : flex; justify-content: center; align-items: center; }
+        #cmt_keyboard div.icon_wrapper{ position : absolute; top : 0; right : 0; width : 12%; height : 50px; }
+        #cmt_keyboard div.icon_wrapper img{ width : 20px; }
+        #cmt_keyboard div.input_wrapper{ width : 100%; justify-content: flex-end; }
+        #cmt_keyboard div.input_wrapper input{ width : 100%; padding : 0 5%; font-size : 11px; height : 40px; border-radius : 20px; border : none; background-color: #efefef;}
+        #cmt_keyboard div.input_wrapper input:focus{ outline: none; }
+
+        #comments{ width : 100%; }
+        #comments h3{ width: 90%; padding: 10px 5%; font-size: 15px; font-weight: 400; display : flex; align-items: center; }
+        #comments h3 img{ width : 18px; height : 18px; margin: 0 5px -3px 0; }
+        #comments ul{ width : 95%; padding : 0 2.5%; display : flex; flex-direction : column; }
+        #comments ul li{ border-bottom : 1px solid #efefef; padding : 8px 0; width : 100%; display : flex; flex-direction : row; }
+        #comments ul li div{ width : 100%; display : flex; flex-direction : column; }
+        #comments ul li div.img{ width : 17%; display : flex; justify-content : flex-start; align-items : center; }
+        #comments ul li div.img img{ width : 30px; height : 30px; border-radius : 50%; padding : 3px; border: 1px solid #efefef; }
+        #comments ul li div p{ font-size : 12px; padding : 2px;}
+        #comments ul li div p.name{ font-size : 12px; font-weight : 600; }
+        #comments ul li div p.info{ font-size : 11px; opacity : 0.6; }
+        #comments ul li div p.content{ font-size : 12px; }
+        #comments ul li div p span.brd_cmt_writer{ color : #FF9D2A; }
+
+
+
+
 
     </style>
 </head>
 <body>
-    <!-- 메인정보 -->
-    <main id="main">
-        <div sec:authentication="name" style="display : none;" id="memUsername"></div>
-        <section id="btn_nav">
+<!-- 메인정보 -->
+<main id="main">
+    <div sec:authentication="name" style="display : none;" id="memUsername"></div>
+    <section id="btn_nav">
+        <div>
+            <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
+        </div>
+        <div class="right">
+            <img src="/img/icon/more.png" alt="more" id="more">
+        </div>
+    </section>
+    <section id="board_detail" th:attr="data-brd-no=${brdNo}">
+        <div class="mem_info">
+            <div class="mem_left">
+                <img src="/img/example/profile.png" alt="profile" class="mem_profile_image">
+                <div>
+                    <p class="mem_nickname"></p>
+                    <p class="mem_address"></p>
+                </div>
+            </div>
+            <div class="mem_right">
+                <p class="mem_brix"></p>
+                <p class="mem_brix_title">당도</p>
+            </div>
+        </div>
+        <div class="pdt_info">
+            <h3 class="pdt_title"></h3>
             <div>
-                <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
-                <img src="/img/icon/product.png" alt="nav_product" id="nav_product">
+                <span class="pdt_cate"></span>
+                <span class="pdt_created_at"></span>
             </div>
-            <div class="right">
-                <img src="/img/icon/more.png" alt="more" id="more">
-            </div>
-        </section>
-        <section id="board_detail" th:attr="data-brd-no=${brdNo}">
+            <textarea class="pdt_desc" rows="auto" readonly></textarea>
             <div class="swiper">
                 <div class="swiper-wrapper"></div>
                 <div class="swiper-pagination"></div>
             </div>
-            <div class="mem_info">
-                <div class="mem_left">
-                    <img src="/img/example/profile.png" alt="profile" class="mem_profile_image">
-                    <div>
-                        <p class="mem_nickname"></p>
-                        <p class="mem_address"></p>
-                    </div>
-                </div>
-                <div class="mem_right">
-                    <p class="mem_brix"></p>
-                    <p class="mem_brix_title">당도</p>
+            <div class="pdt_counts">
+                좋아요 <span class="pdt_likes"></span> 조회 <span class="pdt_views"></span>
+            </div>
+        </div>
+        <div class="pdt_rpt_info pdt_list">
+            <div class="pdt_plusmenu">
+                <span>이 게시글 신고하기</span>
+                <img src="/img/icon/arrow_right.png" alt="arrow_right">
+            </div>
+        </div>
+    </section>
+    <section id="comments">
+        <h3><img src="/img/icon/comment.png" alt="comment">댓글(<span class="cmt_count"></span>)</h3>
+        <ul></ul>
+    </section>
+    <section id="btn_action">
+        <div class="like">
+            <img src="/img/icon/like.png" alt="like" id="btn_favorite">
+        </div>
+        <div id="cmt_keyboard">
+            <div class="input_wrapper">
+                <input type="text" inputmode="text" id="cmt_msg" placeholder="댓글을 입력해주세요">
+                <div class="icon_wrapper">
+                    <img src="/img/icon/send.png" alt="send" id="btn_send">
                 </div>
             </div>
-            <div class="pdt_info">
-                <h3 class="pdt_title"></h3>
-                <div>
-                    <span class="pdt_cate"></span>
-                    <span class="pdt_created_at"></span>
-                </div>
-                <textarea class="pdt_desc" rows="10" readonly></textarea>
-                <div class="pdt_counts">
-                    좋아요 <span class="pdt_likes"></span> 조회 <span class="pdt_views"></span>
-                </div>
-            </div>
-            <div class="pdt_rpt_info pdt_list">
-                <div class="pdt_plusmenu">
-                    <span>이 게시글 신고하기</span>
-                    <img src="/img/icon/arrow_right.png" alt="arrow_right">
-                </div>
-            </div>
-        </section>
-        <section id="btn_action">
-            <div>
-                <div>
-                    <img src="/img/icon/like.png" alt="like" id="btn_favorite">
-                </div>
-            </div>
-        </section>
-    </main>
-    <script>
+        </div>
+    </section>
+</main>
+<script>
         $(function(){
             let brdNo = $("#board_detail").data("brd-no");
             let memNo;
+
+            // 댓글 작성
+            $("#btn_send").click(function(){
+                let msg = $("#cmt_msg").val();
+                $.ajax({
+                    method : "POST",
+                    url : '/api/v1/cmt/save',
+                    data : { cmtBrdNo : brdNo, cmtContent : msg }
+                })
+                .done(function(res){
+                    $.ajax({
+                        method:"GET",
+                        url:"/api/v1/cmt/find-all",
+                        data:{brdNo}
+                    }).
+                    done(function(res){
+                        listCmt(res);
+                        $("#cmt_msg").val('');
+                    })
+                })
+            })
+
+
 
             // 회원 정보 파싱
             $.ajax({
@@ -134,8 +194,8 @@
                 if($("#btn_favorite").hasClass("selected")){
                     $.ajax({
                         method: 'DELETE',
-                        url: '/api/v1/brd-favorite/delete',
-                        data: {pdtNo}
+                        url: '/api/v1/brd-like/delete',
+                        data: {brdNo}
                     }).done(function(res){
                         $("#btn_favorite").removeClass("selected");
                     }).fail(function(res){
@@ -147,8 +207,8 @@
                 }else{
                     $.ajax({
                         method: 'POST',
-                        url: '/api/v1/brd-favorite/save',
-                        data: {pdtNo}
+                        url: '/api/v1/brd-like/save',
+                        data: {brdNo}
                     }).done(function(res){
                         $("#btn_favorite").addClass("selected");
                     }).fail(function(res){
@@ -196,24 +256,29 @@
             })
 
 
-            // 상품 정보 가져오기
+            // 게시글 정보 가져오기
             $.ajax({
                 method:'GET',
                 url:'/api/v1/brd/find-by-brd-no',
-                data:{pdtNo : pdtNo}
+                data:{brdNo : brdNo}
             })
             .done(function(res){
-                // 제품 사진
-                for( img of res.images ){
-                    $(`<div class="swiper-slide"> <img src="${img.imgPath}" alt="product_image"> </div>`).appendTo(".swiper-wrapper")
-                }
+                console.log(res);
 
-                // 상품 사진 스와이퍼
-                const swiper = new Swiper('.swiper', {
-                    direction: 'horizontal',
-                    loop: true,
-                    pagination: { el: '.swiper-pagination', }
-                });
+                // 게시글 사진
+                if(res.images.length>0){
+                    for( img of res.images ){
+                        $(`<div class="swiper-slide"> <img src="${img.imgPath}" alt="product_image"> </div>`).appendTo(".swiper-wrapper")
+                    }
+                    // 게시글 사진 스와이퍼
+                    const swiper = new Swiper('.swiper', {
+                        direction: 'horizontal',
+                        loop: true,
+                        pagination: { el: '.swiper-pagination', }
+                    });
+                }else{
+                    $(".swiper").css('display', 'none')
+                }
 
                 // 회원 정보
                 $(".mem_profile_image").attr("src", res.member.imgPath)
@@ -227,12 +292,18 @@
                     $("#more").css("display", "none");
                 }
 
+
                 // 게시글 정보
+                $(".pdt_title").text(res.board.brdTitle);
+                $(".pdt_desc").text(res.board.brdContent);
+                $(".pdt_likes").text(res.board.brdLikeCount);
+                $(".pdt_views").text(res.board.brdViews);
 
-
-                if(res.board.favoriteCheck==true){
+                if(res.board.checkLikes==true){
                     $("#btn_favorite").addClass("selected");
                 }
+                listCmt(res.cmtList);
+
             })
             .fail(function(res){
                 Swal.fire({
@@ -243,6 +314,75 @@
                 });
             });
         })
-    </script>
+
+        // 댓글 목록 노출
+        function listCmt(res){
+            let $comments = $("#comments ul");
+            $comments.empty();
+            for(item of res){
+                $(`<li>
+                    <div class="img" onclick="$(location).attr('href', '/member/${item.cmtWriterNo}')">
+                        <img src="${item.imgPath}">
+                    </div>
+                    <div>
+                        <p class="name" onclick="$(location).attr('href', '/member/${item.cmtWriterNo}')">
+                            ${item.isBrdWriter ? '<span class="brd_cmt_writer">글쓴이</span>' : ''}
+                            ${item.memNickname}
+                        </p>
+                        <p class="info">${item.addressDong} ${timeForToday(item.cmtCreatedAt)}</p>
+                        <p class="content">${item.cmtContent}</p>
+                        ${
+                            item.isWriter
+                            ? `<p class="info" onclick="deleteCmt(${item.cmtNo});">삭제</p>`
+                            : ""
+                        }
+                    </div>
+                </li>`).appendTo($comments);
+            }
+            $(".cmt_count").text(res.length)
+        };
+
+        // 댓글 삭제
+        function deleteCmt(cmtNo){
+            let cmtBrdNo = $("#board_detail").data("brd-no");
+
+            console.log(cmtNo, cmtBrdNo)
+            Swal.fire({
+                title: '삭제하시겠습니까?',
+                showConfirmButton: false,
+                showCancelButton: true,
+                showDenyButton: true,
+                denyButtonText: '삭제',
+                cancelButtonText: '취소'
+            }).then((result) => {
+                if (result.isDenied) {
+                    $.ajax({
+                        method : "DELETE",
+                        url : '/api/v1/cmt/delete',
+                        data : { cmtNo, cmtBrdNo }
+                    })
+                    .done(function(res){
+                        Swal.fire({
+                          position: 'top-end',
+                          icon: 'success',
+                          title: '삭제되었습니다',
+                          showConfirmButton: false,
+                          timer: 1000
+                        })
+                        $.ajax({
+                            method:"GET",
+                            url:"/api/v1/cmt/find-all",
+                            data:{brdNo: cmtBrdNo}
+                        }).
+                        done(function(res){
+                            listCmt(res);
+                        })
+                    })
+                }
+            });
+        }
+
+
+</script>
 </body>
 </html>

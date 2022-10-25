@@ -7,39 +7,46 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MemRptDto {
     @Data
-    @Builder @AllArgsConstructor
+    @Builder
+    @AllArgsConstructor
     @NoArgsConstructor
-    public static class Create{
+    public static class Create {
         private Long rptNo;
         private Long rptMemNo;
         private Long rptTargetNo;
         private Long rptMsgNo;
         private LocalDateTime rptCreatedAt;
     }
+
     @Data
-    @Builder @AllArgsConstructor
+    @Builder
+    @AllArgsConstructor
     @NoArgsConstructor
-    public static class Read{
+    public static class Read {
         private Long rptNo;
         private Long rptMemNo;
         private Long rptTargetNo;
         private Long rptMsgNo;
         private LocalDateTime rptCreatedAt;
     }
+
     @Data
-    @Builder @AllArgsConstructor
+    @Builder
+    @AllArgsConstructor
     @NoArgsConstructor
-    public static class Update{
+    public static class Update {
         private Long rptNo;
         private Long rptMemNo;
         private Long rptTargetNo;
         private Long rptMsgNo;
         private LocalDateTime rptCreatedAt;
     }
+
     @Data
-    @Builder @AllArgsConstructor
+    @Builder
+    @AllArgsConstructor
     @NoArgsConstructor
-    public static class Delete{
+    public static class Delete {
         private Long rptNo;
         private Long rptMemNo;
         private Long rptTargetNo;

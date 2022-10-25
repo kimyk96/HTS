@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hts.market.domain.transaction.repo.TxRepo">
-<!--거래 저장-->
+    <!--거래 저장-->
     <insert id="save">
         <selectKey resultType="long" order="BEFORE" keyProperty="txNo">
-           select nvl(max(tx_no),0)+1 from TRANSACTION
+            select nvl(max(tx_no),0)+1 from TRANSACTION
         </selectKey>
         insert into
-          TRANSACTION (tx_no, tx_pdt_no, tx_buyer_no)
+        TRANSACTION (tx_no, tx_pdt_no, tx_buyer_no)
         values
-          (#{txNo}, #{txPdtNo}, #{txBuyerNo})
+        (#{txNo}, #{txPdtNo}, #{txBuyerNo})
     </insert>
     <!--거래 내역 확인-->
     <select id="findByPdtNoAndBuyerNo" resultType="com.hts.market.domain.transaction.dto.TxDto$Read">
@@ -25,13 +25,13 @@
     <!--거래 삭제-->
     <delete id="delete">
         delete from
-          TRANSACTION
+        TRANSACTION
         where
-          tx_no=#{txNo}
+        tx_no=#{txNo}
     </delete>
     <!--거래 내역 읽기-->
     <select id="findById" resultType="com.hts.market.domain.transaction.dto.TxDto$Read">
-    <![CDATA[
+        <![CDATA[
             SELECT
                 *
             FROM
@@ -43,82 +43,81 @@
     <!-- 판매 거래 내역 목록보기-->
     <select id="findSaleListByMemNo" resultMap="txDtoReadList">
         SELECT
-            b.*
+        b.*
         FROM
         (
-            SELECT
-                /*+ index_desc(TRANSACTION PK_TRANSACTION) */ ROWNUM AS rnum, a.*
-            FROM
-            (
-                SELECT
-                    t.*, p.*, d.*, i.img_path
-                FROM
-                    transaction t left outer join product p on t.tx_pdt_no = p.pdt_no
-                    left outer join address d on  p.pdt_address_no = d.address_no
-                    left outer join product_image i on t.tx_pdt_no = i.pdt_no
-                WHERE
-                    p.pdt_seller_no =#{memNo}
-                ORDER BY
-                    tx_no DESC
-            ) a
-            WHERE
-                ROWNUM &lt;= #{end}
+        SELECT
+        /*+ index_desc(TRANSACTION PK_TRANSACTION) */ ROWNUM AS rnum, a.*
+        FROM
+        (
+        SELECT
+        t.*, p.*, d.*, i.img_path
+        FROM
+        transaction t left outer join product p on t.tx_pdt_no = p.pdt_no
+        left outer join address d on p.pdt_address_no = d.address_no
+        left outer join product_image i on t.tx_pdt_no = i.pdt_no
+        WHERE
+        p.pdt_seller_no =#{memNo}
+        ORDER BY
+        tx_no DESC
+        ) a
+        WHERE
+        ROWNUM &lt;= #{end}
         ) b
         WHERE
-            b.rnum &gt;= #{start}
+        b.rnum &gt;= #{start}
     </select>
     <!--구매 거래 내역 조회-->
     <select id="findPurchaseListByMemNo" resultMap="txDtoReadList">
         SELECT
-            b.*
+        b.*
         FROM
         (
-            SELECT
-                /*+ index_desc(TRANSACTION PK_TRANSACTION) */ ROWNUM AS rnum, a.*
-            FROM
-            (
-                SELECT
-                    t.*, p.*, d.*, i.img_path
-                FROM
-                    transaction t left outer join product p on t.tx_pdt_no = p.pdt_no
-                    left outer join address d on  p.pdt_address_no =d.address_no
-                    left outer join product_image i on t.tx_pdt_no=i.pdt_no
-                WHERE
-                    t.tx_buyer_no = #{memNo}
-                ORDER BY
-                    tx_no DESC
-            ) a
-            WHERE
-                ROWNUM &lt;= #{end}
+        SELECT
+        /*+ index_desc(TRANSACTION PK_TRANSACTION) */ ROWNUM AS rnum, a.*
+        FROM
+        (
+        SELECT
+        t.*, p.*, d.*, i.img_path
+        FROM
+        transaction t left outer join product p on t.tx_pdt_no = p.pdt_no
+        left outer join address d on p.pdt_address_no =d.address_no
+        left outer join product_image i on t.tx_pdt_no=i.pdt_no
+        WHERE
+        t.tx_buyer_no = #{memNo}
+        ORDER BY
+        tx_no DESC
+        ) a
+        WHERE
+        ROWNUM &lt;= #{end}
         ) b
         WHERE
-            b.rnum &gt;= #{start}
+        b.rnum &gt;= #{start}
     </select>
-
     <!-- 거래내역 조회 -->
     <resultMap id="txDtoReadList" type="com.hts.market.domain.transaction.dto.TxDto$ReadList">
-        <result column="img_path"           property="pdtImg"/>
-        <association property="transaction"      javaType="com.hts.market.domain.transaction.dto.TxDto$Read">
-            <result column="tx_no"          property="txNo"/>
-            <result column="pdt_no"         property="txPdtNo"/>
-            <result column="tx_buyer_no"    property="txBuyerNo"/>
+        <result column="img_path" property="pdtImg"/>
+        <association property="transaction" javaType="com.hts.market.domain.transaction.dto.TxDto$Read">
+            <result column="tx_no" property="txNo"/>
+            <result column="pdt_no" property="txPdtNo"/>
+            <result column="tx_buyer_no" property="txBuyerNo"/>
         </association>
-        <association property="product"     javaType="com.hts.market.domain.product.dto.PdtDto$Read">
-            <result column="pdt_no"             property="pdtNo"/>
-            <result column="pdt_seller_no"      property="pdtSellerNo"/>
-            <result column="pdt_name"           property="pdtName"/>
-            <result column="pdt_desc"           property="pdtDesc"/>
-            <result column="pdt_status"         property="pdtStatus"/>
-            <result column="pdt_price"          property="pdtPrice"/>
-            <result column="pdt_views"          property="pdtViews"/>
-            <result column="pdt_created_at"     property="pdtCreatedAt"/>
+        <association property="product" javaType="com.hts.market.domain.product.dto.PdtDto$Read">
+            <result column="pdt_no" property="pdtNo"/>
+            <result column="pdt_seller_no" property="pdtSellerNo"/>
+            <result column="pdt_name" property="pdtName"/>
+            <result column="pdt_desc" property="pdtDesc"/>
+            <result column="pdt_status" property="pdtStatus"/>
+            <result column="pdt_price" property="pdtPrice"/>
+            <result column="pdt_views" property="pdtViews"/>
+            <result column="pdt_created_at" property="pdtCreatedAt"/>
         </association>
-        <association property="address"     javaType="com.hts.market.domain.member.dto.AddressDto$Read">
-            <result column="address_no"         property="addressNo"/>
-            <result column="mem_no"             property="memNo"/>
-            <result column="address_si"         property="addressSi"/>
-            <result column="address_gu"         property="addressGu"/>
-            <result column="address_dong"       property="addressDong"/>
+        <association property="address" javaType="com.hts.market.domain.member.dto.AddressDto$Read">
+            <result column="address_no" property="addressNo"/>
+            <result column="mem_no" property="memNo"/>
+            <result column="address_si" property="addressSi"/>
+            <result column="address_gu" property="addressGu"/>
+            <result column="address_dong" property="addressDong"/>
         </association>
     </resultMap>
 </mapper>

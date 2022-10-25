@@ -4,11 +4,11 @@
     <!-- 주소 목록 조회-->
     <select id="findAllByName" resultType="com.hts.market.domain.member.dto.AddressDto$Read">
         SELECT
-            *
+        *
         FROM
-            ADDRESS
+        ADDRESS
         WHERE
-            mem_no=#{memNo}
+        mem_no=#{memNo}
     </select>
     <!-- 주소 저장-->
     <insert id="save">
@@ -16,9 +16,9 @@
             SELECT NVL(MAX(address_no),0)+1 FROM ADDRESS
         </selectKey>
         INSERT INTO
-            ADDRESS( address_no, mem_no, address_si, address_gu, address_dong )
+        ADDRESS( address_no, mem_no, address_si, address_gu, address_dong )
         VALUES
-            ( #{addressNo}, #{memNo}, #{addressSi}, #{addressGu}, #{addressDong} )
+        ( #{addressNo}, #{memNo}, #{addressSi}, #{addressGu}, #{addressDong} )
     </insert>
     <!-- 주소 삭제-->
     <delete id="delete">

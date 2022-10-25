@@ -1,12 +1,9 @@
 package com.hts.market.domain.chat.app;
 
 import com.hts.market.domain.chat.dto.ChatDto;
-import com.hts.market.domain.chat.exception.ChatListNotFoundException;
 import com.hts.market.domain.chat.repo.ChatRepo;
 import com.hts.market.domain.member.dto.MemDto;
-import com.hts.market.domain.member.dto.MemImgDto;
 import com.hts.market.domain.member.exception.MemberNotFoundException;
-import com.hts.market.domain.member.repo.MemImgRepo;
 import com.hts.market.domain.member.repo.MemRepo;
 import com.hts.market.domain.product.dto.PdtDto;
 import com.hts.market.domain.product.exception.ProductNotFoundException;
@@ -17,11 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 
 @Service
@@ -37,7 +31,6 @@ public class ChatApp {
     public Integer save(ChatDto.Create creDto, String username) {
         Long sellerNo = pdtRepo.findSellerNoById(creDto.getChatPdtNo());
         Long memNo = memRepo.findIdByMemUsername(username);
-
         if (memNo.equals(sellerNo)) {
             creDto.setChatIsSeller(1); // 판매자
         } else {
@@ -56,34 +49,26 @@ public class ChatApp {
         List<ChatDto.Pk> allUser = new ArrayList<>();
         seller.stream().forEach((ChatDto.Pk item) -> {
             // 기본 값 초기화
-            item.setMember(MemDto.Member.builder()
-                    .memNickname("탈퇴한 사용자")
-                    .imgPath(imgUrl + "member/default.png")
-                    .build());
-            
-            if(Boolean.TRUE.equals(memRepo.countByMemNo(item.getChatMemNo()))){
-                item.setMember(memRepo.findById(item.getChatMemNo()).orElseThrow(() -> new MemberNotFoundException()));
+            item.setMember(MemDto.Member.builder().memNickname("탈퇴한 사용자").imgPath(imgUrl + "member/default.png").build());
+            if (Boolean.TRUE.equals(memRepo.countByMemNo(item.getChatMemNo()))) {
+                item.setMember(memRepo.findById(item.getChatMemNo()).orElseThrow(MemberNotFoundException::new));
                 item.getMember().setImgPath(imgUrl + item.getMember().getImgPath());
             }
-            if(pdtRepo.findByPdtNo(item.getChatPdtNo()).isEmpty()){
+            if (pdtRepo.findByPdtNo(item.getChatPdtNo()).isEmpty()) {
                 item.setPdtImg(imgUrl + "product/noImg.png");
-            }else{
+            } else {
                 item.setPdtImg(imgUrl + pdtImgRepo.findMainImg(item.getChatPdtNo()));
             }
             allUser.add(item);
         });
         buyer.stream().forEach((ChatDto.Pk item) -> {
             // 기본 값 초기화
-            item.setMember(MemDto.Member.builder()
-                    .memNickname("탈퇴한 사용자")
-                    .imgPath(imgUrl + "member/default.png")
-                    .build());
-
-            if(pdtRepo.findByPdtNo(item.getChatPdtNo()).isEmpty()){
+            item.setMember(MemDto.Member.builder().memNickname("탈퇴한 사용자").imgPath(imgUrl + "member/default.png").build());
+            if (pdtRepo.findByPdtNo(item.getChatPdtNo()).isEmpty()) {
                 item.setPdtImg(imgUrl + "product/noImg.png");
-            }else{
-                if(Boolean.TRUE.equals(memRepo.countByMemNo(item.getChatMemNo()))){
-                    item.setMember(memRepo.findById(pdtRepo.findSellerNoById(item.getChatPdtNo())).orElseThrow(() -> new SellerNotFoundException()));
+            } else {
+                if (Boolean.TRUE.equals(memRepo.countByMemNo(item.getChatMemNo()))) {
+                    item.setMember(memRepo.findById(pdtRepo.findSellerNoById(item.getChatPdtNo())).orElseThrow(SellerNotFoundException::new));
                     item.getMember().setImgPath(imgUrl + item.getMember().getImgPath());
                 }
                 item.setPdtImg(imgUrl + pdtImgRepo.findMainImg(item.getChatPdtNo()));
@@ -108,16 +93,15 @@ public class ChatApp {
         // 채팅 불러오기
         List<ChatDto.Read> list = chatRepo.findAllByChatMemNoAndChatPdtNo(listStartEnd);
         // 상품 불러오기
-        PdtDto.Detail pdtDto = pdtRepo.findByPdtNo(listStartEnd.getChatPdtNo()).orElseThrow(() -> new ProductNotFoundException());
+        PdtDto.Detail pdtDto = pdtRepo.findByPdtNo(listStartEnd.getChatPdtNo()).orElseThrow(ProductNotFoundException::new);
         // 판매자 정보 추가
-        pdtDto.setMember(memRepo.findById(pdtDto.getProduct().getPdtSellerNo()).orElseThrow(() -> new SellerNotFoundException()));
+        pdtDto.setMember(memRepo.findById(pdtDto.getProduct().getPdtSellerNo()).orElseThrow(SellerNotFoundException::new));
         // 로그인 회원 정보
-        MemDto.Member memInfo = memRepo.findByName(memUsername).orElseThrow(() -> new MemberNotFoundException());
+        MemDto.Member memInfo = memRepo.findByName(memUsername).orElseThrow(MemberNotFoundException::new);
         // 이미지 경로 불러오기
         pdtDto.getImages().get(0).setImgPath(imgUrl + pdtDto.getImages().get(0).getImgPath());
         memInfo.setImgPath(imgUrl + memInfo.getImgPath());
         // Dto 패키징
         return ChatDto.ChatUserInfo.builder().member(memInfo).product(pdtDto).chat(list).build();
     }
-
 }

@@ -12,9 +12,10 @@ import java.nio.file.Files;
 @Service
 public class ImageApp {
 
-    public ResponseEntity<byte[]> findByPath(String dir, String img){
-        File file = new File(new File("").getAbsolutePath() + "\\" + "/images/", dir + "/" + img);
-        if(file.exists()==false){
+    // 이미지 불러오기
+    public ResponseEntity<byte[]> findByPath(String dir, String img) {
+        File file = new File(new File("").getAbsolutePath() + "\\/images/", dir + "/" + img);
+        if (!file.exists()) {
             return null;
         }
         HttpHeaders headers = new HttpHeaders();
@@ -27,17 +28,18 @@ public class ImageApp {
         }
         return null;
     }
-
+    
+    // 이미지 마임 타입 확인
     private MediaType getMediaType(String imgPath) {
         Integer position = imgPath.lastIndexOf(".");
-        String ext = imgPath.substring(position+1).toLowerCase();
-        if(ext.equals("JPG")){
+        String ext = imgPath.substring(position + 1).toLowerCase();
+        if (ext.equals("JPG")) {
             return MediaType.IMAGE_JPEG;
         }
-        if(ext.equals("PNG")){
+        if (ext.equals("PNG")) {
             return MediaType.IMAGE_PNG;
         }
-        if(ext.equals("GIF")){
+        if (ext.equals("GIF")) {
             return MediaType.IMAGE_GIF;
         }
         return null;

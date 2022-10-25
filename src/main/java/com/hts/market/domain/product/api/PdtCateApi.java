@@ -15,12 +15,11 @@ import java.util.List;
 @Validated
 @RequestMapping("/api/v1/pdt-cate")
 public class PdtCateApi {
-    @Autowired
-    private PdtCateApp pdtCateApp;
+    @Autowired private PdtCateApp pdtCateApp;
 
     // 카테고리 목록
     @GetMapping("find-all")
-    public ResponseEntity<List<PdtCateDto.Read>> findAll(){
+    public ResponseEntity<List<PdtCateDto.Read>> findAll() {
         return ResponseEntity.ok().body(pdtCateApp.findAll());
     }
 

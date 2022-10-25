@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hts.market.domain.board.repo.CmtRepo">
-
-
-
     <insert id="save">
         <selectKey keyProperty="cmtNo" order="BEFORE" resultType="long">
             select nvl(max(cmt_no),0)+1 from COMMENTS where cmt_brd_no=#{cmtBrdNo}
@@ -11,14 +8,8 @@
         insert into COMMENTS(cmt_no, cmt_writer_no, cmt_content, cmt_brd_no)
         values(#{cmtNo}, #{cmtWriterNo}, #{cmtContent}, #{cmtBrdNo})
     </insert>
-
-
-
-
     <!-- 제목, 내용, 조회수, 좋아요, 싫어요, 댓글수 중 사용자가 선택한 컬럼을 변경 -->
     <update id="update">
-
-
         <![CDATA[
             UPDATE
                 COMMENTS
@@ -27,16 +18,12 @@
             WHERE
                  cmt_brd_no=#{cmtBrdNo} and cmt_writer_no=#{cmtWriterNo} and cmt_writer_no=#{cmtWriterNo}
         ]]>
-
-
     </update>
-
-
     <delete id="delete">
-            DELETE FROM
-                COMMENTS
-            WHERE
-                cmt_writer_no=#{cmtWriterNo} and cmt_no=#{cmtNo}
+        DELETE FROM
+        COMMENTS
+        WHERE
+        cmt_brd_no=#{cmtBrdNo} and cmt_no=#{cmtNo} and cmt_writer_no=#{memNo}
     </delete>
     <delete id="deleteAll">
         DELETE FROM
@@ -45,8 +32,28 @@
         cmt_brd_no=#{brdNo}
     </delete>
     <select id="findAll" resultType="com.hts.market.domain.board.dto.CmtDto$Read">
-        select * from COMMENTS where cmt_brd_no=#{brdNo}
-
+        SELECT
+        c.cmt_writer_no, c.cmt_no, c.cmt_content, c.cmt_brd_no, c.cmt_created_at,
+        m.mem_nickname,
+        mi.img_path,
+        a.address_si, a.address_gu, a.address_dong
+        FROM
+        COMMENTS c left join MEMBER m on c.cmt_writer_no=m.mem_no
+        left join MEMBER_IMAGE mi on c.cmt_writer_no=mi.mem_no
+        left join ADDRESS a on c.cmt_writer_no=a.mem_no
+        WHERE
+        cmt_brd_no=#{brdNo}
+        ORDER BY
+        cmt_no desc
     </select>
-
+    <select id="countByBrdNoAndMemNo" resultType="boolean">
+        <![CDATA[
+            select count(*) from COMMENTS where cmt_brd_no=#{brdNo} and cmt_writer_no=#{memNo} and rownum<=1
+        ]]>
+    </select>
+    <select id="countByBrdNo" resultType="int">
+        <![CDATA[
+            select count(*) from COMMENTS where cmt_brd_no=#{brdNo}
+        ]]>
+    </select>
 </mapper>

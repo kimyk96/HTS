@@ -4,7 +4,8 @@
     <title>채팅방</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="/css/main.css">
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/js/main.js" charset="UTF-8"></script>
     <style>
@@ -18,55 +19,56 @@
         #chat_room_keyboard div.input_wrapper{ width : 88%; justify-content: flex-end; }
         #chat_room_keyboard div.input_wrapper input{ width : 95%; padding : 0 5%; font-size : 11px; height : 40px; border-radius : 20px; border : none; background-color: #efefef;}
         #chat_room_keyboard div.input_wrapper input:focus{ outline: none; }
+
     </style>
 </head>
 <body>
-    <!-- 상단 메뉴바 -->
-    <header id="header">
+<!-- 상단 메뉴바 -->
+<header id="header">
+    <div>
+        <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
         <div>
-            <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
-            <div>
-                <h2></h2>
-                <p></p>
-            </div>
-        </div>
-        <div>
-            <ul>
-                <li id="header_phone"><a href=""><img src="/img/icon/phone.png" alt="phone"></a></li>
-                <li id="header_more"><img src="/img/icon/more.png" alt="more"></li>
-            </ul>
-        </div>
-    </header>
-    <!-- 메인정보 -->
-    <main id="main">
-        <section id="chat_room">
-            <div id="pdt_info">
-                <img src="" alt="pdt_img" class="toPdt">
-                <div class="toPdt">
-                    <p class="title"></p>
-                    <p class="price"></p>
-                </div>
-                <div class="pdt_select_wrapper">
-                    <select id="pdt_status">
-                        <option value="0" selected>거래중</option>
-                        <option value="1">예약중</option>
-                        <option value="2">거래완료</option>
-                    </select>
-                </div>
-            </div>
-            <ul></ul>
-        </section>
-    </main>
-    <!-- 보내기 부분 -->
-    <div id="chat_room_keyboard">
-        <div class="input_wrapper">
-            <input type="text" inputmode="text" id="chat_msg" placeholder="메세지 보내기">
-        </div>
-        <div class="icon_wrapper">
-            <img src="/img/icon/send.png" alt="send" id="btn_send">
+            <h2></h2>
+            <p></p>
         </div>
     </div>
-    <script>
+    <div>
+        <ul>
+            <li id="header_phone"><a href=""><img src="/img/icon/phone.png" alt="phone"></a></li>
+            <li id="header_more"><img src="/img/icon/more.png" alt="more"></li>
+        </ul>
+    </div>
+</header>
+<!-- 메인정보 -->
+<main id="main">
+    <section id="chat_room">
+        <div id="pdt_info">
+            <img src="" alt="pdt_img" class="toPdt">
+            <div class="toPdt">
+                <p class="title"></p>
+                <p class="price"></p>
+            </div>
+            <div class="pdt_select_wrapper">
+                <select id="pdt_status">
+                    <option value="0" selected>거래중</option>
+                    <option value="1">예약중</option>
+                    <option value="2">거래완료</option>
+                </select>
+            </div>
+        </div>
+        <ul></ul>
+    </section>
+</main>
+<!-- 보내기 부분 -->
+<div id="chat_room_keyboard">
+    <div class="input_wrapper">
+        <input type="text" inputmode="text" id="chat_msg" placeholder="메세지 보내기">
+    </div>
+    <div class="icon_wrapper">
+        <img src="/img/icon/send.png" alt="send" id="btn_send">
+    </div>
+</div>
+<script>
         $(function(){
             $("#main").animate({ scrollTop: 9999 });
             let searchParams = new URL(location.href).searchParams;
@@ -211,6 +213,7 @@
             })
         });
 
-    </script>
+
+</script>
 </body>
 </html>

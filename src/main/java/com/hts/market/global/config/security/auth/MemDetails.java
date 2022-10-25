@@ -1,17 +1,10 @@
 package com.hts.market.global.config.security.auth;
 
-import com.hts.market.domain.member.dto.MemRoleDto;
 import com.hts.market.domain.member.entity.MemEntity;
-import com.hts.market.domain.member.entity.MemRoleEntity;
-import com.hts.market.domain.member.entity.RoleEntity;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 public class MemDetails implements UserDetails {
     public MemEntity memEntity;

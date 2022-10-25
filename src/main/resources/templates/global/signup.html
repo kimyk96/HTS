@@ -4,38 +4,41 @@
     <title>회원가입</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="css/main.css">
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="js/main.js" charset="UTF-8"></script>
     <style>
         #username{ display : none; }
+
     </style>
 </head>
 <body>
-    <!-- 상단 메뉴바 -->
-    <header id="header">
-        <div>
-            <img src="img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
+<!-- 상단 메뉴바 -->
+<header id="header">
+    <div>
+        <img src="img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
+    </div>
+</header>
+<!-- 메인정보 -->
+<main id="main">
+    <section id="signup">
+        <div class="info_wrapper">
+            <p class="title">기본 정보를 입력해주세요.</p>
+            <p class="desc">한라봉 마켓의 다양한 서비스를 위해 기본정보를 입력해주세요.</p>
         </div>
-    </header>
-    <!-- 메인정보 -->
-    <main id="main">
-        <section id="signup">
-            <div class="info_wrapper">
-                <p class="title">기본 정보를 입력해주세요.</p>
-                <p class="desc">한라봉 마켓의 다양한 서비스를 위해 기본정보를 입력해주세요.</p>
-            </div>
-            <div class="input_wrapper">
-                <p>휴대번호</p>
-                <input type="number" th:value="${member.memUsername}" name="memPhone" id="phone" placeholder="휴대폰 번호를 입력해주세요" readonly>
-                <p>닉네임</p>
-                <input type="text" name="memNickname" id="nickname" placeholder="닉네임을 입력해주세요">
-                <p>이메일</p>
-                <input type="email" name="memEmail" id="email" placeholder="이메일을 입력해주세요">
-                <button id="btn_submit" onclick="signup();">시작하기</button>
-            </div>
-        </section>
-    </main>
+        <div class="input_wrapper">
+            <p>휴대번호</p>
+            <input type="number" th:value="${member.memUsername}" name="memPhone" id="phone"
+                   placeholder="휴대폰 번호를 입력해주세요" readonly>
+            <p>닉네임</p>
+            <input type="text" name="memNickname" id="nickname" placeholder="닉네임을 입력해주세요">
+            <p>이메일</p>
+            <input type="email" name="memEmail" id="email" placeholder="이메일을 입력해주세요">
+            <button id="btn_submit" onclick="signup();">시작하기</button>
+        </div>
+    </section>
+</main>
 <script>
     // 회원 추가 정보 기입
     function signup(){
@@ -68,6 +71,7 @@
             })
         })
     }
+
 
 </script>
 

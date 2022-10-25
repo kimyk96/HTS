@@ -3,9 +3,10 @@
     <meta charset="UTF-8">
     <title>상품상세</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
     <link rel="stylesheet" href="/css/main.css">
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/js/main.js" charset="UTF-8"></script>
@@ -25,91 +26,92 @@
         #main section#btn_action div p.pdt_price{ font-weight: 600; opacity : 1; }
         #main section#btn_action div span{ font-size: 15px; font-weight: 400; background-color : #FF9D2A; padding : 7px 17px; color : #fff; border-radius: 7px; }
         #main section#btn_action #btn_chat{ display : none; }
+
     </style>
 </head>
 <body>
-    <!-- 메인정보 -->
-    <main id="main">
-        <div sec:authentication="name" style="display : none;" id="memUsername"></div>
-        <section id="btn_nav">
+<!-- 메인정보 -->
+<main id="main">
+    <div sec:authentication="name" style="display : none;" id="memUsername"></div>
+    <section id="btn_nav">
+        <div>
+            <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
+            <img src="/img/icon/product.png" alt="nav_product" id="nav_product">
+        </div>
+        <div class="right">
+            <img src="/img/icon/more.png" alt="more" id="more">
+        </div>
+    </section>
+    <section id="product_detail" th:attr="data-pdt-no=${pdtNo}">
+        <div class="swiper">
+            <div class="swiper-wrapper"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+        <div class="mem_info">
+            <div class="mem_left">
+                <img src="/img/example/profile.png" alt="profile" class="mem_profile_image">
+                <div>
+                    <p class="mem_nickname"></p>
+                    <p class="mem_address"></p>
+                </div>
+            </div>
+            <div class="mem_right">
+                <p class="mem_brix"></p>
+                <p class="mem_brix_title">당도</p>
+            </div>
+        </div>
+        <div class="pdt_info">
+            <h3 class="pdt_title"></h3>
             <div>
-                <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
-                <img src="/img/icon/product.png" alt="nav_product" id="nav_product">
+                <span class="pdt_cate"></span>
+                <span class="pdt_created_at"></span>
             </div>
-            <div class="right">
-                <img src="/img/icon/more.png" alt="more" id="more">
+            <textarea class="pdt_desc" rows="10" readonly></textarea>
+            <div class="pdt_counts">
+                관심 <span class="pdt_likes"></span> 조회 <span class="pdt_views"></span>
             </div>
-        </section>
-        <section id="product_detail" th:attr="data-pdt-no=${pdtNo}">
-            <div class="swiper">
-                <div class="swiper-wrapper"></div>
-                <div class="swiper-pagination"></div>
+        </div>
+        <div class="pdt_rpt_info pdt_list">
+            <div class="pdt_plusmenu">
+                <span>이 게시글 신고하기</span>
+                <img src="/img/icon/arrow_right.png" alt="arrow_right">
             </div>
-            <div class="mem_info">
-                <div class="mem_left">
-                    <img src="/img/example/profile.png" alt="profile" class="mem_profile_image">
-                    <div>
-                        <p class="mem_nickname"></p>
-                        <p class="mem_address"></p>
-                    </div>
-                </div>
-                <div class="mem_right">
-                    <p class="mem_brix"></p>
-                    <p class="mem_brix_title">당도</p>
-                </div>
+        </div>
+        <div class="mem_transaction_info pdt_list">
+            <div class="pdt_plusmenu">
+                <span><span class="mem_nickname"></span>님의 판매 내역</span>
+                <img src="/img/icon/arrow_right.png" alt="arrow_right">
             </div>
-            <div class="pdt_info">
-                <h3 class="pdt_title"></h3>
-                <div>
-                    <span class="pdt_cate"></span>
-                    <span class="pdt_created_at"></span>
-                </div>
-                <textarea class="pdt_desc" rows="10" readonly></textarea>
-                <div class="pdt_counts">
-                    관심 <span class="pdt_likes"></span> 조회 <span class="pdt_views"></span>
-                </div>
+            <div class="pdt_list_wrapper">
+                <ul></ul>
             </div>
-            <div class="pdt_rpt_info pdt_list">
-                <div class="pdt_plusmenu">
-                    <span>이 게시글 신고하기</span>
-                    <img src="/img/icon/arrow_right.png" alt="arrow_right">
-                </div>
+        </div>
+        <div class="pdt_cate_recommend pdt_list">
+            <div class="pdt_plusmenu">
+                <span>카테고리 추천</span>
+                <img src="/img/icon/arrow_right.png" alt="arrow_right">
             </div>
-            <div class="mem_transaction_info pdt_list">
-                <div class="pdt_plusmenu">
-                    <span><span class="mem_nickname"></span>님의 판매 내역</span>
-                    <img src="/img/icon/arrow_right.png" alt="arrow_right">
-                </div>
-                <div class="pdt_list_wrapper">
-                    <ul></ul>
-                </div>    
+            <div class="pdt_list_wrapper">
+                <ul></ul>
             </div>
-            <div class="pdt_cate_recommend pdt_list">
-                <div class="pdt_plusmenu">
-                    <span>카테고리 추천</span>
-                    <img src="/img/icon/arrow_right.png" alt="arrow_right">
-                </div>
-                <div class="pdt_list_wrapper">
-                    <ul></ul>
-                </div> 
-            </div>
-        </section>
-        <section id="btn_action">
+        </div>
+    </section>
+    <section id="btn_action">
+        <div>
             <div>
-                <div>
-                    <img src="/img/icon/like.png" alt="like" id="btn_favorite">
-                </div>
-                <div>
-                    <p class="pdt_price"></p>
-                    <p>가격제안불가</p>
-                </div>
+                <img src="/img/icon/like.png" alt="like" id="btn_favorite">
             </div>
             <div>
-                <span id="btn_chat">채팅하기</span>
+                <p class="pdt_price"></p>
+                <p>가격제안불가</p>
             </div>
-        </section>
-    </main>
-    <script>
+        </div>
+        <div>
+            <span id="btn_chat">채팅하기</span>
+        </div>
+    </section>
+</main>
+<script>
         $(function(){
             let pdtNo = $("#product_detail").data("pdt-no");
             let memNo;
@@ -283,6 +285,7 @@
                 });
             });
         })
-    </script>
+
+</script>
 </body>
 </html>

@@ -19,18 +19,12 @@ public class PdtDto {
     public static class Create {
         private Long pdtNo;
         private Long pdtSellerNo;
-        @NotNull
-        private Long pdtCateNo;
-        @NotNull
-        private Long pdtAddressNo;
-        @NotEmpty
-        private String pdtName;
-        @NotEmpty
-        private String pdtDesc;
-        @NotNull
-        private Integer pdtPrice;
-        @NotEmpty
-        private List<MultipartFile> images;
+        @NotNull private Long pdtCateNo;
+        @NotNull private Long pdtAddressNo;
+        @NotEmpty private String pdtName;
+        @NotEmpty private String pdtDesc;
+        @NotNull private Integer pdtPrice;
+        @NotEmpty private List<MultipartFile> images;
     }
 
     @Data
@@ -38,19 +32,13 @@ public class PdtDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Update {
-        @NotNull
-        private Long pdtNo;
+        @NotNull private Long pdtNo;
         private Long pdtSellerNo;
-        @NotNull
-        private Long pdtCateNo;
-        @NotNull
-        private Long pdtAddressNo;
-        @NotEmpty
-        private String pdtName;
-        @NotEmpty
-        private String pdtDesc;
-        @NotNull
-        private Integer pdtPrice;
+        @NotNull private Long pdtCateNo;
+        @NotNull private Long pdtAddressNo;
+        @NotEmpty private String pdtName;
+        @NotEmpty private String pdtDesc;
+        @NotNull private Integer pdtPrice;
         private Integer pdtStatus;
         private List<MultipartFile> images;
     }
@@ -59,18 +47,16 @@ public class PdtDto {
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class Delete{
-        @NotNull
-        private Long pdtNo;
-        @NotNull
-        private Long pdtSellerNo;
+    public static class Delete {
+        @NotNull private Long pdtNo;
+        @NotNull private Long pdtSellerNo;
     }
 
     @Data
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class ReadList{
+    public static class ReadList {
         private Long pdtNo;
         private String pdtCate;
         private String pdtName;
@@ -82,13 +68,9 @@ public class PdtDto {
         private String addressSi;
         private String addressGu;
         private String addressDong;
-        // 관심수
         private Integer favoriteCount;
-        // 관심 체크
         private Boolean favoriteCheck;
-        // 채팅수
         private Integer chatCount;
-        // 채팅 체크
         private Boolean chatCheck;
     }
 
@@ -105,11 +87,10 @@ public class PdtDto {
         private Integer pdtPrice;
         private Integer pdtViews;
         private LocalDateTime pdtCreatedAt;
-        // 관심 체크
         private Boolean favoriteCheck;
-        // 관심수
         private Integer favoriteCount;
     }
+
     @Data
     @Builder
     @AllArgsConstructor
@@ -118,33 +99,23 @@ public class PdtDto {
         private PdtDto.Read product;
         private AddressDto.Read address;
         private List<PdtImgDto.Read> images;
-        // product_category 에서 가져온 값
         private String pdtCate;
-        // member
         private MemDto.Member member;
-        // 판매내역
         private List<PdtDto.ReadList> sellerList;
-        // 카테고리목록
         private List<PdtDto.ReadList> cateList;
-
     }
 
     @Data
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class ListData{
+    public static class ListData {
         private Long pdtNo;
-        @NotEmpty
-        private String addressSi;
-        @NotEmpty
-        private String addressGu;
-        @NotEmpty
-        private String addressDong;
-        @NotNull
-        private Integer start;
-        @NotNull
-        private Integer end;
+        @NotEmpty private String addressSi;
+        @NotEmpty private String addressGu;
+        @NotEmpty private String addressDong;
+        @NotNull private Integer start;
+        @NotNull private Integer end;
         private String keyword;
         private Long pdtCateNo;
         private String pdtCate;

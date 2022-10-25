@@ -12,5 +12,4 @@ public class BrdRptEntity {
     private Long rptMemNo;
     private Long rptBrdNo;
     private Long rptMsgNo;
-
 }

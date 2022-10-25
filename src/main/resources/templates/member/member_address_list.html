@@ -4,40 +4,41 @@
     <title>내 주소지</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="/css/main.css">
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/js/main.js" charset="UTF-8"></script>
 </head>
 <body>
-    <!-- 상단 메뉴바 -->
-    <header id="header">
+<!-- 상단 메뉴바 -->
+<header id="header">
+    <div>
+        <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
         <div>
-            <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
-            <div>
-                <h2>
-                    내 주소지
-                </h2>
+            <h2>
+                내 주소지
+            </h2>
+        </div>
+    </div>
+</header>
+<!-- 메인정보 -->
+<main id="main">
+    <section id="member_address_list">
+        <div>
+            <h3>등록된 주소</h3>
+        </div>
+        <div class="address_wrapper">
+            <div class="btn_add">
+                <img src="/img/icon/add.png" alt="add" id="btn_add">
             </div>
         </div>
-    </header>
-    <!-- 메인정보 -->
-    <main id="main">
-        <section id="member_address_list">
-            <div>
-                <h3>등록된 주소</h3>
-            </div>
-            <div class="address_wrapper">
-                <div class="btn_add">
-                    <img src="/img/icon/add.png" alt="add" id="btn_add">
-                </div>
-            </div>
-            <div id="address_info">
-                <p>주소를 등록하고 <span>내 주변의 소식</span>을 확인해보세요!</p>
-            </div>
-        </section>
-    </main>
+        <div id="address_info">
+            <p>주소를 등록하고 <span>내 주변의 소식</span>을 확인해보세요!</p>
+        </div>
+    </section>
+</main>
 
-    <script>
+<script>
         $(function(){
             $.ajax({
                 method:"GET",
@@ -94,6 +95,7 @@
             })
 
         });
-    </script>
+
+</script>
 </body>
 </html>

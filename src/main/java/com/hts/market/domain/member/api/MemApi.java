@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
 import java.security.Principal;
 
 @RestController
@@ -20,10 +21,10 @@ public class MemApi {
     @Autowired SmsApp smsApp;
     @Autowired MemRepo memRepo;
 
-    // 인증번호
+    // 인증 번호
     @PostMapping("code")
     public ResponseEntity<Integer> code(String memUsername, Long memNo) throws CoolsmsException {
-        if(memNo!=null&&memRepo.countByMemUsername(memUsername)){
+        if (memNo != null && memRepo.countByMemUsername(memUsername)) {
             throw new MemberAlreadyExsistException();
         }
         // 인증번호 발송
@@ -46,29 +47,31 @@ public class MemApi {
 
     // 회원 정보 조회
     @GetMapping("find-by-name")
-    public ResponseEntity<MemDto.Member> findByName(Principal principal){
+    public ResponseEntity<MemDto.Member> findByName(Principal principal) {
         return ResponseEntity.ok().body(memApp.findByName(principal.getName()));
     }
 
     // 타 회원 정보 조회
     @GetMapping("find-by-id")
-    public ResponseEntity<MemDto.Member> findById(Long memNo){
+    public ResponseEntity<MemDto.Member> findById(Long memNo) {
         return ResponseEntity.ok().body(memApp.findById(memNo));
     }
 
     // 프로필 업데이트
     @PatchMapping("update-profile")
-    public ResponseEntity<Integer> updateProfileByName(MemDto.Profile dto, Principal principal){
+    public ResponseEntity<Integer> updateProfileByName(MemDto.Profile dto, Principal principal) {
         return ResponseEntity.ok().body(memApp.updateProfile(dto, principal.getName()));
     }
 
+    // 회원명으로 회원 번호 조회
     @GetMapping("find-id-by-mem-username")
-    public ResponseEntity<Long> findIdByMemUsername(Principal principal){
+    public ResponseEntity<Long> findIdByMemUsername(Principal principal) {
         return ResponseEntity.ok().body(memApp.findIdByMemUsername(principal.getName()));
     }
 
+    // 회원 탈퇴
     @DeleteMapping("")
-    public ResponseEntity<Integer> delete(Principal principal){
+    public ResponseEntity<Integer> delete(Principal principal) {
         return ResponseEntity.ok().body(memApp.delete(principal.getName()));
     }
 }

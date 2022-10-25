@@ -16,9 +16,10 @@ import java.io.IOException;
 @RequestMapping("/api/v1/kakao")
 public class KakaoApi {
     @Autowired KakaoApp kakaoApp;
+
+    // 카카오 인증
     @GetMapping("")
     public void save(@RequestParam String code, HttpServletResponse response) throws IOException {
-        Long memNo = kakaoApp.save(code);
-        response.sendRedirect("/login?memNo=" + memNo);
+        response.sendRedirect("/login?memNo=" + kakaoApp.save(code));
     }
 }

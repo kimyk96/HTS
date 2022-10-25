@@ -13,14 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 @RequestMapping("/api/v1/mem-rpt")
 public class MemRptApi {
-
     @Autowired MemRptApp memRptApp;
 
-    // 이하 설계도에 있는 메소드
-    
     // 회원 신고 
     @PostMapping("save")
-    public ResponseEntity<Integer> save(MemRptDto.Create dto){
+    public ResponseEntity<Integer> save(MemRptDto.Create dto) {
         return ResponseEntity.ok().body(memRptApp.save(dto));
     }
 }

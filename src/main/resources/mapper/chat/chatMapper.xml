@@ -7,43 +7,41 @@
             select nvl(max(chat_msg_no),0)+1 from chat where chat_mem_no =#{chatMemNo} and chat_pdt_no =#{chatPdtNo}
         </selectKey>
         INSERT INTO
-            CHAT(chat_msg_no, chat_mem_no, chat_pdt_no, chat_content, chat_is_seller)
+        CHAT(chat_msg_no, chat_mem_no, chat_pdt_no, chat_content, chat_is_seller)
         VALUES
-            (#{chatMsgNo},#{chatMemNo},#{chatPdtNo},#{chatContent},#{chatIsSeller})
+        (#{chatMsgNo},#{chatMemNo},#{chatPdtNo},#{chatContent},#{chatIsSeller})
     </insert>
-
     <!--상품별 메세지 수-->
     <select id="countChatByPdtNo" resultType="int">
         SELECT
-            COUNT(DISTINCT chat_mem_no)
+        COUNT(DISTINCT chat_mem_no)
         FROM
-            chat
+        chat
         WHERE
-            chat_pdt_no=#{chatPdtNo}
+        chat_pdt_no=#{chatPdtNo}
     </select>
-
     <!--관심목록-->
     <select id="countChatByPdtNoAndMemNo" resultType="boolean">
         SELECT
-            COUNT(DISTINCT chat_mem_no)
+        COUNT(DISTINCT chat_mem_no)
         FROM
-            chat
+        chat
         WHERE
-            chat_pdt_no=#{chatPdtNo} and chat_mem_no=#{chatMemNo}
+        chat_pdt_no=#{chatPdtNo} and chat_mem_no=#{chatMemNo}
     </select>
-
     <!-- findAllByPk //  구매자로서의 채팅 내역-->
     <select id="findAllAsBuyer" resultType="com.hts.market.domain.chat.dto.ChatDto$Pk">
         select * from chat where (chat_pdt_no, chat_mem_no, chat_msg_no) in (
-        select distinct chat_pdt_no, chat_mem_no, (select max(chat_msg_no) from chat c where c.chat_pdt_no=chat.chat_pdt_no) chat_msg_no from chat where chat_mem_no = #{memNo})
+        select distinct chat_pdt_no, chat_mem_no, (select max(chat_msg_no) from chat c where
+        c.chat_pdt_no=chat.chat_pdt_no) chat_msg_no from chat where chat_mem_no = #{memNo})
     </select>
-
     <!-- finAllAsSeller//  판매자로서의 채팅 내역-->
     <select id="findAllAsSeller" resultType="com.hts.market.domain.chat.dto.ChatDto$Pk">
         select * from chat where (chat_pdt_no, chat_mem_no, chat_msg_no) in (
-        select distinct chat_pdt_no, chat_mem_no, (select max(chat_msg_no) from chat c where c.chat_pdt_no=chat.chat_pdt_no) chat_msg_no from chat left join product p on p.pdt_no=chat.chat_pdt_no where p.pdt_seller_no = #{memNo} )
+        select distinct chat_pdt_no, chat_mem_no, (select max(chat_msg_no) from chat c where
+        c.chat_pdt_no=chat.chat_pdt_no) chat_msg_no from chat left join product p on p.pdt_no=chat.chat_pdt_no where
+        p.pdt_seller_no = #{memNo} )
     </select>
-
     <!-- findAllByChatMemNoAndChatPdtNoAndChatMsgNo // 회원간 채팅내역 -->
     <select id="findAllByChatMemNoAndChatPdtNo" resultType="com.hts.market.domain.chat.dto.ChatDto$Read">
         <![CDATA[

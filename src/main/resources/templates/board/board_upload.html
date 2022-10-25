@@ -4,7 +4,8 @@
     <title>게시글 등록</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="/css/main.css">
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/js/main.js" charset="UTF-8"></script>
     <style>
@@ -29,72 +30,50 @@
         #main #board_upload #pdt_wrapper{ width : 95%; padding : 10px 2.5%; }
         #main #board_upload #pdt_wrapper div{ width : 100%; border-bottom : 1px solid #efefef; display : flex; flex-direction : column; align-items: center; border-bottom : 1px solid #efefef;  }
         #main #board_upload #pdt_wrapper div *{ width : 100%; margin : 5px 0; padding : 15px; border : none; font-family: 'Noto Sans KR', sans-serif;}
+
     </style>
 </head>
 <body>
-    <!-- 상단 메뉴바 -->
-    <header id="header">
+<!-- 상단 메뉴바 -->
+<header id="header">
+    <div>
+        <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
         <div>
-            <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
-            <div>
-                <h2>글쓰기</h2>
+            <h2>글쓰기</h2>
+        </div>
+    </div>
+    <div class="btn_upload">
+        <span onclick="saveBrd();">완료</span>
+    </div>
+</header>
+<!-- 메인정보 -->
+<main id="main">
+    <section id="board_upload">
+        <div id="img_wrapper">
+            <div id="input_wrapper">
+                <input type="file" multiple accept="image/jpeg, image/png" id="images">
+                <button onclick="$('#images').click();"><img src="/img/icon/camera.png"><span id="img_count">0/10</span>
+                </button>
+            </div>
+            <div id="preview_wrapper">
+                <ul id="previews"></ul>
             </div>
         </div>
-        <div class="btn_upload">
-            <span onclick="saveBrd();">완료</span>
+        <div id="pdt_wrapper">
+            <div class="upload_title">
+                <input type="text" id="title" placeholder="제목">
+            </div>
+            <div class="upload_desc">
+                <textarea name="desc" id="desc" cols="30" rows="10" placeholder="주변의 이웃에게 소식을 알려보세요!"></textarea>
+            </div>
         </div>
-    </header>
-    <!-- 메인정보 -->
-    <main id="main">
-        <section id="board_upload">
-            <div id="img_wrapper">
-                <div id="input_wrapper">
-                    <input type="file" multiple accept="image/jpeg, image/png" id="images">
-                    <button onclick="$('#images').click();"><img src="/img/icon/camera.png"><span id="img_count">0/10</span></button>
-                </div>
-                <div id="preview_wrapper">
-                    <ul id="previews"></ul>
-                </div>
-            </div>
-            <div id="pdt_wrapper">
-                <div class="upload_title">
-                    <input type="text" id="title" placeholder="제목">
-                </div>
-<!--                <div class="upload_cate">-->
-<!--                    <select id="cate" name="cate">-->
-<!--                        <option value="" selected disabled hidden>카테고리 선택</option>-->
-<!--                    </select>-->
-<!--                </div>-->
-                <div class="upload_address">
-                    <select id="address" name="address">
-                        <option value="" selected disabled hidden>주소 선택</option>
-                    </select>
-                </div>
-<!--                <div class="upload_price">-->
-<!--                    <input type="number" id="price" name="price" placeholder="가격">-->
-<!--                </div>-->
-                <div class="upload_desc">
-                    <textarea name="desc" id="desc" cols="30" rows="10" placeholder="상품을 설명해 주세요!"></textarea>
-                </div>
-            </div>
-        </section>
-    </main>
-    <script>
+    </section>
+</main>
+<script>
         $(function(){
             // 이미지 개별 저장을 위한 변수
             let imgArray;
             const dataTransfer = new DataTransfer();
-
-            // 회원주소 가져오기
-            $.ajax({
-                method : "GET",
-                url: "/api/v1/address"
-            })
-            .done(function(res){
-                for(ad of res){
-                    $(`<option value="${ad.addressNo}">${ad.addressSi} ${ad.addressGu} ${ad.addressDong}</option>`).appendTo("#address");
-                }
-            })
 
             // 이미지 불러오기
             $("#images").change(function(){
@@ -145,6 +124,7 @@
         });
 
 
-    </script>
+
+</script>
 </body>
 </html>

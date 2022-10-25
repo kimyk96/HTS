@@ -4,7 +4,8 @@
     <title>상품 등록</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="/css/main.css">
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/js/main.js" charset="UTF-8"></script>
     <style>
@@ -12,57 +13,59 @@
         #header div.btn_upload{ justify-content: flex-end; }
         #header div h2{ font-size : 15px; font-weight : 400; }
         #header div.btn_upload span{ padding : 0 10px; font-weight : 600; font-size : 15px; color : #FF9D2A;  }
+
     </style>
 </head>
 <body>
-    <!-- 상단 메뉴바 -->
-    <header id="header">
+<!-- 상단 메뉴바 -->
+<header id="header">
+    <div>
+        <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
         <div>
-            <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
-            <div>
-                <h2>중고거래 글쓰기</h2>
+            <h2>중고거래 글쓰기</h2>
+        </div>
+    </div>
+    <div class="btn_upload">
+        <span onclick="savePdt();">완료</span>
+    </div>
+</header>
+<!-- 메인정보 -->
+<main id="main">
+    <section id="product_upload">
+        <div id="img_wrapper">
+            <div id="input_wrapper">
+                <input type="file" multiple accept="image/jpeg, image/png" id="images">
+                <button onclick="$('#images').click();"><img src="/img/icon/camera.png"><span id="img_count">0/10</span>
+                </button>
+            </div>
+            <div id="preview_wrapper">
+                <ul id="previews"></ul>
             </div>
         </div>
-        <div class="btn_upload">
-            <span onclick="savePdt();">완료</span>
+        <div id="pdt_wrapper">
+            <div class="upload_title">
+                <input type="text" id="title" placeholder="제목">
+            </div>
+            <div class="upload_cate">
+                <select id="cate" name="cate">
+                    <option value="" selected disabled hidden>카테고리 선택</option>
+                </select>
+            </div>
+            <div class="upload_address">
+                <select id="address" name="address">
+                    <option value="" selected disabled hidden>주소 선택</option>
+                </select>
+            </div>
+            <div class="upload_price">
+                <input type="number" id="price" name="price" placeholder="가격">
+            </div>
+            <div class="upload_desc">
+                <textarea name="desc" id="desc" cols="30" rows="10" placeholder="상품을 설명해 주세요!"></textarea>
+            </div>
         </div>
-    </header>
-    <!-- 메인정보 -->
-    <main id="main">
-        <section id="product_upload">
-            <div id="img_wrapper">
-                <div id="input_wrapper">
-                    <input type="file" multiple accept="image/jpeg, image/png" id="images">
-                    <button onclick="$('#images').click();"><img src="/img/icon/camera.png"><span id="img_count">0/10</span></button>
-                </div>
-                <div id="preview_wrapper">
-                    <ul id="previews"></ul>
-                </div>
-            </div>
-            <div id="pdt_wrapper">
-                <div class="upload_title">
-                    <input type="text" id="title" placeholder="제목">
-                </div>
-                <div class="upload_cate">
-                    <select id="cate" name="cate">
-                        <option value="" selected disabled hidden>카테고리 선택</option>
-                    </select>
-                </div>
-                <div class="upload_address">
-                    <select id="address" name="address">
-                        <option value="" selected disabled hidden>주소 선택</option>
-                    </select>
-                </div>
-                <div class="upload_price">
-                    <input type="number" id="price" name="price" placeholder="가격">
-                </div>
-                <div class="upload_desc">
-                    <textarea name="desc" id="desc" cols="30" rows="10" placeholder="상품을 설명해 주세요!"></textarea>
-                </div>
-            </div>
-        </section>
-    </main>
-    <script>
+    </section>
+</main>
+<script>
         $(function(){
             // 이미지 개별 저장을 위한 변수
             let imgArray;
@@ -140,6 +143,7 @@
         });
 
 
-    </script>
+
+</script>
 </body>
 </html>

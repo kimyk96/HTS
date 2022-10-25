@@ -10,18 +10,16 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PdtImgDto {
 
-
     @Data
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Create {
         private Long pdtNo;
-        @NotNull
-        private Long imgNo;
-        @NotEmpty
-        private String imgPath;
+        @NotNull private Long imgNo;
+        @NotEmpty private String imgPath;
     }
+
     @Data
     @Builder
     @AllArgsConstructor
@@ -36,20 +34,19 @@ public class PdtImgDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Update {
-        @NotNull
-        private Long pdtNo;
+        @NotNull private Long pdtNo;
         private Long imgNo;
         private String imgPath;
     }
+
     @Data
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class Read{
+    public static class Read {
         private Long pdtNo;
         private Long imgNo;
-        @NotEmpty
-        private String imgPath;
+        @NotEmpty private String imgPath;
     }
 
     @Data

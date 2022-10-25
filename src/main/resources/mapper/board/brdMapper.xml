@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hts.market.domain.board.repo.BrdRepo">
-
-
-<!--    게시글 작성-->
+    <!--    게시글 작성-->
     <insert id="save">
         <selectKey keyProperty="brdNo" order="BEFORE" resultType="long">
             select nvl(max(brd_no),0)+1 from BOARD
@@ -12,10 +10,6 @@
         board(brd_no, brd_writer_no, brd_title, brd_content, brd_cate_no)
         values(#{brdNo}, #{brdWriterNo}, #{brdTitle}, #{brdContent}, #{brdCateNo})
     </insert>
-
-
-
-
     <!-- 제목, 내용, 조회수, 좋아요, 싫어요, 댓글수 중 사용자가 선택한 컬럼을 변경 -->
     <update id="update">
         update board
@@ -26,122 +20,117 @@
             <if test="brdContent != null">brd_content=#{brdContent},</if>
         </trim>
         where brd_no=#{brdNo} and brd_writer_no=#{brdWriterNo}
-
     </update>
-
     <!-- 조회수 증가 -->
     <update id="findViewsByBrdNo">
-        update BOARD set brd_views = brd_views+1 where brd_no = #{brdNo} and brd_writer_no != #{memNo}
+        update BOARD set brd_views = brd_views + 1 where brd_no = #{brdNo} and brd_writer_no != #{memNo}
     </update>
-
     <!--게시물 읽기 -->
     <select id="findByBrdNo" resultMap="brdDtoRead">
         select
-            b.brd_no, b.brd_writer_no, b.brd_title, b.brd_content, b.brd_views, b.brd_created_at,
-            i.img_path,
-            c.brd_cate_name,
-            d.address_no, d.mem_no, d.address_si, d.address_gu, d.address_dong,
-            m.cmt_content, m.cmt_writer_no, m.cmt_no, m.cmt_brd_no
+        b.brd_no, b.brd_writer_no, b.brd_title, b.brd_content, b.brd_views, b.brd_created_at,
+        i.img_path,
+        c.brd_cate_name,
+        d.address_no, d.mem_no, d.address_si, d.address_gu, d.address_dong,
+        m.cmt_content, m.cmt_writer_no, m.cmt_no, m.cmt_brd_no
         from
-            BOARD b left join BOARD_IMAGE i on b.brd_no = i.brd_no
-            left join BOARD_CATEGORY c on b.brd_cate_no = c.brd_cate_no
-            left join ADDRESS d on b.brd_writer_no = d.mem_no
-            left join COMMENTS m on b.brd_no = m.cmt_brd_no
+        BOARD b left join BOARD_IMAGE i on b.brd_no = i.brd_no
+        left join BOARD_CATEGORY c on b.brd_cate_no = c.brd_cate_no
+        left join ADDRESS d on b.brd_writer_no = d.mem_no
+        left join COMMENTS m on b.brd_no = m.cmt_brd_no
         where
-            b.brd_no=#{brdNo}
+        b.brd_no=#{brdNo}
     </select>
     <resultMap id="brdDtoRead" type="com.hts.market.domain.board.dto.BrdDto$Detail">
-        <result column="brd_cate_name"           property="brdCateName"/>
-        <association property="address"     javaType="com.hts.market.domain.member.dto.AddressDto$Read">
-            <result column="address_no"         property="addressNo"/>
-            <result column="mem_no"             property="memNo"/>
-            <result column="address_si"         property="addressSi"/>
-            <result column="address_gu"         property="addressGu"/>
-            <result column="address_dong"       property="addressDong"/>
+        <result column="brd_cate_name" property="brdCateName"/>
+        <association property="address" javaType="com.hts.market.domain.member.dto.AddressDto$Read">
+            <result column="address_no" property="addressNo"/>
+            <result column="mem_no" property="memNo"/>
+            <result column="address_si" property="addressSi"/>
+            <result column="address_gu" property="addressGu"/>
+            <result column="address_dong" property="addressDong"/>
         </association>
-        <association property="board"     javaType="com.hts.market.domain.board.dto.BrdDto$Read">
-            <result column="brd_no"             property="brdNo"/>
-            <result column="brd_title"      property="brdTitle"/>
-            <result column="brd_content"           property="brdContent"/>
-            <result column="brd_views"           property="brdViews"/>
-            <result column="brd_created_at"         property="brdCreatedAt"/>
-            <result column="brd_writer_no"          property="brdWriterNo"/>
+        <association property="board" javaType="com.hts.market.domain.board.dto.BrdDto$Read">
+            <result column="brd_no" property="brdNo"/>
+            <result column="brd_title" property="brdTitle"/>
+            <result column="brd_content" property="brdContent"/>
+            <result column="brd_views" property="brdViews"/>
+            <result column="brd_created_at" property="brdCreatedAt"/>
+            <result column="brd_writer_no" property="brdWriterNo"/>
         </association>
-        <collection property="images"       ofType="com.hts.market.domain.board.dto.BrdImgDto$Read">
-            <result column="brd_no"             property="brdNo"/>
-            <result column="img_no"             property="imgNo"/>
-            <result column="img_path"           property="imgPath"/>
+        <collection property="images" ofType="com.hts.market.domain.board.dto.BrdImgDto$Read">
+            <result column="brd_no" property="brdNo"/>
+            <result column="img_no" property="imgNo"/>
+            <result column="img_path" property="imgPath"/>
         </collection>
-        <collection property="cmtList"       ofType="com.hts.market.domain.board.dto.CmtDto$Read">
-            <result column="cmt_content"             property="cmtContent"/>
-            <result column="cmt_writer_no"             property="cmtWriterNo"/>
-            <result column="cmt_no"                 property="cmtNo"/>
-            <result column="cmt_brd_no"           property="cmtBrdNo"/>
+        <collection property="cmtList" ofType="com.hts.market.domain.board.dto.CmtDto$Read">
+            <result column="cmt_content" property="cmtContent"/>
+            <result column="cmt_writer_no" property="cmtWriterNo"/>
+            <result column="cmt_no" property="cmtNo"/>
+            <result column="cmt_brd_no" property="cmtBrdNo"/>
         </collection>
     </resultMap>
-
-
-
     <!-- 게시글 목록조회 -->
     <select id="findAllByData" resultType="com.hts.market.domain.board.dto.BrdDto$ReadList">
         SELECT
-            v.*
-                FROM
-                    (
-                        SELECT /*+ index_desc(BOARD PK_BOARD) */
-                            ROWNUM AS rnum, a.*
-                            FROM
-                                (
-                                  SELECT
-                                        b.brd_no, b.brd_writer_no, b.brd_title, b.brd_content, b.brd_views, b.brd_created_at,
-                                        i.img_path,
-                                        c.brd_cate_name,
-                                        d.address_no, d.mem_no, d.address_si, d.address_gu, d.address_dong
-                                    FROM
-                                        BOARD b left join BOARD_IMAGE i on b.brd_no = i.brd_no
-                                        left join BOARD_CATEGORY c on b.brd_cate_no = c.brd_cate_no
-                                        left join ADDRESS d on b.brd_writer_no = d.mem_no
-                                    where
-                                        d.address_si = #{addressSi} and d.address_gu = #{addressGu} and d.address_dong = #{addressDong}
-
-                                            <if test="keyword != null">
-                                                    and (b.brd_title LIKE '%'|| #{keyword} ||'%' or b.brd_content Like '%'|| #{keyword} ||'%')
-                                            </if>
-                                            <if test="brdCateNo != null">
-                                                    and  c.brd_cate_no=#{brdCateNo}
-                                            </if>
-                                            <if test="brdWriterNo != null">
-                                                    and  b.brd_writer_no = #{brdWriterNo}
-                                            </if>
-                                    ORDER BY
-                                        b.brd_no DESC
-                                    ) a
-                                WHERE
-                    ROWNUM &lt;= #{end}
-                    ) v
-                WHERE
-            v.rnum &gt;= #{start}
+        v.*
+        FROM
+        (
+        SELECT /*+ index_desc(BOARD PK_BOARD) */
+        ROWNUM AS rnum, a.*
+        FROM
+        (
+        SELECT
+        b.brd_no, b.brd_writer_no, b.brd_title, b.brd_content, b.brd_views, b.brd_created_at,
+        i.img_path,
+        c.brd_cate_name,
+        d.address_no, d.address_si, d.address_gu, d.address_dong
+        FROM
+        BOARD b left outer join ADDRESS d on b.brd_writer_no = d.mem_no
+        left outer join BOARD_IMAGE i on b.brd_no = i.brd_no
+        left outer join BOARD_CATEGORY c on b.brd_cate_no = c.brd_cate_no
+        where
+        d.address_si = #{addressSi} and d.address_gu = #{addressGu} and d.address_dong = #{addressDong} and (i.img_no =
+        1 or i.img_no is null)
+        <if test="keyword != null">
+            and (b.brd_title LIKE '%'|| #{keyword} ||'%' or b.brd_content Like '%'|| #{keyword} ||'%')
+        </if>
+        <if test="brdCateNo != null">
+            and b.brd_cate_no=#{brdCateNo}
+        </if>
+        <if test="brdWriterNo != null">
+            and b.brd_writer_no = #{brdWriterNo}
+        </if>
+        ORDER BY
+        b.brd_no DESC
+        ) a
+        WHERE
+        ROWNUM &lt;= #{end}
+        ) v
+        WHERE
+        v.rnum &gt;= #{start}
     </select>
-
-
-
-
-
+    <!-- 작성한 게시글 찾기 -->
+    <select id="findAllByMemNo" resultType="com.hts.market.domain.board.dto.BrdDto$ReadList">
+        SELECT
+        b.brd_no, b.brd_writer_no, b.brd_title, b.brd_content, b.brd_views, b.brd_created_at, i.img_path
+        FROM
+        BOARD b left outer join BOARD_IMAGE i on b.brd_no = i.brd_no
+        WHERE
+        b.brd_writer_no =#{memNo} and ( i.img_no = 1 or i.img_no is null )
+        ORDER BY
+        b.brd_no DESC
+    </select>
     <delete id="delete">
-            DELETE FROM
-                BOARD
-            WHERE
-                BRD_WRITER_NO=#{brdWriterNo} and BRD_NO=#{brdNo}
+        DELETE FROM
+        BOARD
+        WHERE
+        BRD_WRITER_NO=#{brdWriterNo} and BRD_NO=#{brdNo}
     </delete>
-
-
-
-<!--    <select id="Views">-->
-<!--        update BOARD set brd_views = brd_views+1 where brd_no = #{brdNo}-->
-<!--    </select>-->
-
     <select id="findCreatedAtByBrdNo" resultType="date">
         select brd_created_at from board where brd_no=#{brdNo} and rownum&lt;=1
     </select>
-
+    <select id="findWriterNoById" resultType="long">
+        select brd_writer_no from board where brd_no=#{brdNo} and rownum&lt;=1
+    </select>
 </mapper>

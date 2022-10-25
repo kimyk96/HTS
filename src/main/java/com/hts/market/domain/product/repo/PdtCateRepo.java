@@ -9,6 +9,7 @@ import java.util.List;
 public interface PdtCateRepo {
     // 테스트용 저장
     public Integer save(PdtCateDto.Create dto);
+
     // 카테고리 목록
     public List<PdtCateDto.Read> findAll();
 }

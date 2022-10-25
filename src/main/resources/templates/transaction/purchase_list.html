@@ -4,7 +4,8 @@
     <title>구매내역</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="/css/main.css">
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="/js/main.js" charset="UTF-8"></script>
     <style>
         /* 구매 내역 */
@@ -29,27 +30,29 @@
         #main section#purchase_list ul li div.info_wrapper div.count p.count_like img.selected{ content: url(/img/icon/like_selected.png); }
         #main section#purchase_list ul li div.review p{ width: 100%; text-align: center; padding: 10px 0; border-top: 1px solid #efefef; border-bottom: 1px solid #efefef; margin-bottom: 20px; }
         #main section#purchase_list ul li div.review p.hidden{ display : none; }
-</style>
+
+    </style>
 
 </head>
 <body>
-    <!-- 상단 메뉴바 -->
-    <header id="header">
+<!-- 상단 메뉴바 -->
+<header id="header">
+    <div>
+        <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback"
+             onclick="$(location).attr('href', '/member')">
         <div>
-            <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback" onclick="$(location).attr('href', '/member')">
-            <div>
-                <h2>구매 내역</h2>
-            </div>
+            <h2>구매 내역</h2>
         </div>
-    </header>
-    <!-- 메인정보 -->
-    <main id="main">
-        <section id="purchase_list">
-            <ul></ul>
-        </section>
-    </main>
+    </div>
+</header>
+<!-- 메인정보 -->
+<main id="main">
+    <section id="purchase_list">
+        <ul></ul>
+    </section>
+</main>
 
-    <script>
+<script>
     $(function(){
         // 구매 완료 내역 조회
         $.ajax({
@@ -107,6 +110,7 @@
             $("<p>아직 거래내역이 없습니다.</p>").appendTo($ul);
         })
     })
+
 </script>
 </body>
 </html>
