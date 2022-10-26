@@ -23,15 +23,6 @@ class PdtRptRepoTest {
 
         Assertions.assertThat(result).isEqualTo(1);
     }
-
-    // 신고목록 출력 테스트
-//    @Test
-//    void findAllByDto(){
-//        PdtRptDto.Read dto = PdtRptDto.Read.builder().rptPdtNo(1L).build();
-//        List<PdtRptDto.Read> result = pdtRptRepo.findAllByDto(dto);
-//        Assertions.assertThat(result).hasSize(1);
-//    }
-
     // 신고번호삭제 테스트
 //    @Test
 //    void deleteByRptNo(){

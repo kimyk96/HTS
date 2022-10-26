@@ -47,9 +47,12 @@ public class PdtRptApp {
     }
 
     // 신고누적 5회시 글 삭제
+    // 스케줄을 사용해서 1시간마다 실행
     @Scheduled(cron = "0 0 0/1 * * *")
     public Integer deleteByCount() {
+        // 신고누적 5개이상이된 상품번호를 찾는다
         List<Long> list = pdtRptRepo.findPdtNoByCount();
+        // 삭제할 상품들을 삭제 , 같이 삭제해야 할 부분도 같이해준다
         for (Long pdtNo : list) {
             pdtRptRepo.deleteOfPdt(pdtNo);
             pdtRptRepo.deleteOfImg(pdtNo);
@@ -63,22 +66,4 @@ public class PdtRptApp {
     public Integer deleteByPdtNo(Long pdtNo) {
         return pdtRptRepo.deleteOfRpt(pdtNo);
     }
-
-
-    //@Scheduled(cron = "* * * * * *")
-    // 신고번호로 신고삭제
-//    public Integer deleteOfRpt(Long pdtNo) {
-//        return pdtRptRepo.deleteByRptNo(pdtNo);
-//    }
-
-    // 게시글별로 신고된횟수 카운트 해서 몇이상은 삭제 또는 안삭제로 스케쥴돌리기
-    // 회원번호로 신고삭제
-//    public Integer deleteByRptMemNo(PdtRptDto.Delete dto) {
-//        return pdtRptRepo.deleteByRptMemNo(dto);
-//    }
 }
-//    // 상품번호로 신고삭제
-//    public Integer deleteByRptPdtNo(Long pdtNo){
-//        return pdtRptRepo.deleteByRptPdtNo(pdtNo);
-//    }
-//}
