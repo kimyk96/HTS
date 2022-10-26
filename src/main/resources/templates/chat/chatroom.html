@@ -143,8 +143,6 @@
             function sendMessage(msg) {
                 stompClient.send(`/app/chat/${searchParams.get("chatPdtNo")}/${searchParams.get("chatMemNo")}`, {}, JSON.stringify({
                     'from':$("#memUsername").text(),
-                    'pdtNo':searchParams.get("chatPdtNo"),
-                    'memNo':searchParams.get("chatMemNo"),
                     'msg':msg
                 }));
             }

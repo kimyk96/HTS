@@ -10,10 +10,13 @@ import com.hts.market.domain.product.exception.ProductNotFoundException;
 import com.hts.market.domain.product.exception.SellerNotFoundException;
 import com.hts.market.domain.product.repo.PdtImgRepo;
 import com.hts.market.domain.product.repo.PdtRepo;
+import com.hts.market.global.dto.MessageDto;
+import com.hts.market.global.entity.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,5 +106,20 @@ public class ChatApp {
         memInfo.setImgPath(imgUrl + memInfo.getImgPath());
         // Dto 패키징
         return ChatDto.ChatUserInfo.builder().member(memInfo).product(pdtDto).chat(list).build();
+    }
+
+    // 메세지 보내기
+    public MessageDto send(Message message, String chatPdtNo, String chatMemNo) {
+        Long from       = memRepo.findIdByMemUsername(message.getFrom());
+        Long pdtNo      = Long.parseLong(chatPdtNo);
+        Long memNo      = Long.parseLong(chatMemNo);
+        Long to         = from.equals(memNo) ? pdtRepo.findSellerNoById(pdtNo) : memNo;
+
+        MessageDto msg = MessageDto.builder()
+                .target(memRepo.findMemUsernameById(to))
+                .now(LocalDateTime.now())
+                .msg(message.getMsg())
+                .build();
+        return msg;
     }
 }

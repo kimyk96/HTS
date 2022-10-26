@@ -12,8 +12,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MessageDto {
-    private Long chatPdtNo;
-    private Long chatMemNo;
     private String target;
     private String msg;
     private LocalDateTime now;
