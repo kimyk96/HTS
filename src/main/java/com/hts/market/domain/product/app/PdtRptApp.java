@@ -7,6 +7,7 @@ import com.hts.market.domain.product.exception.ReportCountExcessException;
 import com.hts.market.domain.product.exception.ReportSaveFailException;
 import com.hts.market.domain.product.repo.PdtRptRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,6 +47,7 @@ public class PdtRptApp {
     }
 
     // 신고누적 5회시 글 삭제
+    @Scheduled(cron = "0 0 0/1 * * *")
     public Integer deleteByCount() {
         List<Long> list = pdtRptRepo.findPdtNoByCount();
         for (Long pdtNo : list) {
