@@ -1,4 +1,4 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>채팅방</title>
@@ -7,6 +7,8 @@
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"
             integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js" integrity="sha512-tL4PIUsPy+Rks1go4kQG8M8/ItpRMvKnbBjQm4d2DQnFwgcBYRRN00QdyQnWSCwNMsoY/MfJY8nHp2CzlNdtZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="/js/main.js" charset="UTF-8"></script>
     <style>
         header div ul li{ width : 25%; }
@@ -19,6 +21,8 @@
         #chat_room_keyboard div.input_wrapper{ width : 88%; justify-content: flex-end; }
         #chat_room_keyboard div.input_wrapper input{ width : 95%; padding : 0 5%; font-size : 11px; height : 40px; border-radius : 20px; border : none; background-color: #efefef;}
         #chat_room_keyboard div.input_wrapper input:focus{ outline: none; }
+
+
 
     </style>
 </head>
@@ -38,6 +42,7 @@
             <li id="header_more"><img src="/img/icon/more.png" alt="more"></li>
         </ul>
     </div>
+    <div sec:authentication="name" style="display : none;" id="memUsername"></div>
 </header>
 <!-- 메인정보 -->
 <main id="main">
@@ -69,9 +74,85 @@
     </div>
 </div>
 <script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         $(function(){
             $("#main").animate({ scrollTop: 9999 });
             let searchParams = new URL(location.href).searchParams;
+
+            // 웹소켓 연결
+            var stompClient = null;
+            var socket = new SockJS('/chat');
+            stompClient = Stomp.over(socket);
+            stompClient.debug = () => {};
+
+            // 수신 메세지 확인
+            stompClient.connect({}, function(frame) {
+                stompClient.subscribe('/topic/messages', function(res) {
+                    const msg = JSON.parse(res.body);
+                    let chatPdtNo = searchParams.get("chatPdtNo");
+                    let chatMemNo = searchParams.get("chatMemNo");
+                    let myUsername = $("#memUsername").text();
+                    let guestImgPath = $(".mem_img img").attr("src");
+                    let $ul = $("#chat_room ul");
+
+                    // 받은 메세지 노출
+                    if(msg.target==myUsername && msg.chatPdtNo==chatPdtNo && msg.chatMemNo==chatMemNo){
+                        $(`<li class="chat_balloon">
+                            <div class="mem_img">
+                                <img src="${guestImgPath}" alt="profile">
+                            </div>
+                            <div class="chat_msg">
+                                <p>${msg.msg}</p>
+                            </div>
+                            <div class="chat_created_at">
+                                ${timeForToday(msg.now)}
+                            </div>
+                        </li>`).appendTo($ul);
+                        $("#main").animate({ scrollTop: 9999 });
+                    }
+                });
+            });
+
+            // 웹소켓 연결 해제
+            function disconnect() {
+                if(stompClient != null) {
+                    stompClient.disconnect();
+                }
+            }
+
+            // 메세지 보내기
+            function sendMessage(msg) {
+                stompClient.send("/app/chat", {}, JSON.stringify({
+                    'from':$("#memUsername").text(),
+                    'pdtNo':searchParams.get("chatPdtNo"),
+                    'memNo':searchParams.get("chatMemNo"),
+                    'msg':msg
+                }));
+            }
+
+
+
+
+
+
+
 
             // 상품 보기
             $(".toPdt").click(function(){
@@ -96,6 +177,10 @@
             // 채팅 보내기
             $("#btn_send").click(function(){
                 let msg = $("#chat_msg").val();
+
+                sendMessage(msg);
+
+
                 $.ajax({
                     method: "POST",
                     url: '/api/v1/chat',
@@ -212,6 +297,8 @@
                 })
             })
         });
+
+
 
 
 </script>

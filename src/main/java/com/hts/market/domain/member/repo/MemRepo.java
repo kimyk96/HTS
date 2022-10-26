@@ -40,6 +40,8 @@ public interface MemRepo {
 
     // 회원명으로 회원번호 조회
     Long findIdByMemUsername(String memUsername);
+    // 회원번호로 회원명 조회
+    String findMemUsernameById(Long memNo);
 
     // 닉네임 변경
     Integer updateMemNickname(MemDto.Member dto);

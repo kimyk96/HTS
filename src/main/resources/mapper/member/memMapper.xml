@@ -145,6 +145,16 @@
                 mem_username=#{memUsername} and rownum >= 1
         ]]>
     </select>
+    <select id="findMemUsernameById" resultType="string">
+        <![CDATA[
+            SELECT
+                mem_username
+            FROM
+                MEMBER
+            WHERE
+                mem_no=#{memNo} and rownum >= 1
+        ]]>
+    </select>
     <update id="updateMemNickname">
         <![CDATA[
             UPDATE
