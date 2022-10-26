@@ -15,9 +15,6 @@ public class WebSocketApp {
     @Autowired MemRepo memRepo;
     @Autowired PdtRepo pdtRepo;
 
-
-
-
     // 메세지 보내기
     public MessageDto send(Message message) {
         Long from           = memRepo.findIdByMemUsername(message.getFrom());
