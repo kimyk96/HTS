@@ -60,7 +60,7 @@ public class KakaoApp {
         MultiValueMap<String, String> requestBody = new LinkedMultiValueMap<>();
         requestBody.add("grant_type", "authorization_code");
         requestBody.add("client_id", "1b484f0bd9bd6502362669834ce3920a");
-        requestBody.add("redirect_uri", "http://localhost:8087/api/v1/kakao");
+        requestBody.add("redirect_uri", "http://129.154.215.102:8087/api/v1/kakao");
         requestBody.add("code", code);
 
         // Post
