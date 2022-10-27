@@ -115,7 +115,7 @@
                     let $ul = $("#chat_room ul");
 
                     // 받은 메세지 노출
-                    if(msg.target==myUsername && msg.chatPdtNo==chatPdtNo && msg.chatMemNo==chatMemNo){
+                    if(msg.target==myUsername){
                         $(`<li class="chat_balloon">
                             <div class="mem_img">
                                 <img src="${guestImgPath}" alt="profile">
