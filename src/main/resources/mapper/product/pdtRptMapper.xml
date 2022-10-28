@@ -50,40 +50,7 @@
     <delete id="deleteOfRpt">
         delete from PRODUCT_REPORT where rpt_pdt_no=#{pdtNo}
     </delete>
-<!--    &lt;!&ndash; 신고목록 &ndash;&gt;-->
-<!--    <select id="findAllByDto" resultType="com.hts.market.domain.product.dto.PdtRptDto$Search">-->
-<!--        select-->
-<!--            rpt_no, rpt_pdt_no, rpt_mem_no, rpt_msg_no, rpt_created_at-->
-<!--        from-->
-<!--            PRODUCT_REPORT-->
-<!--        <where>-->
-<!--            <if test="rptPdtNo!= null">rpt_pdt_no = #{rptPdtNo}</if>-->
-<!--            <if test="rptMemNo!= null">rpt_mem_no = #{rptMemNo}</if>-->
-<!--            <if test="rptMsgNo!= null">rpt_msg_no = #{rptMsgNo}</if>-->
-<!--        </where>-->
-<!--        order by-->
-<!--            rpt_no desc-->
-<!--    </select>-->
-    <!-- 일반 삭제 -->
-<!--    <delete id="deleteByRptNo">-->
-<!--        delete from-->
-<!--            PRODUCT_REPORT-->
-<!--        where-->
-<!--            rpt_no = #{rptNo}-->
-<!--    </delete>-->
-<!--    &lt;!&ndash; 회원별 신고삭제 &ndash;&gt;-->
-<!--    <delete id="deleteByRptMemNo">-->
-<!--        delete from-->
-<!--            PRODUCT_REPORT-->
-<!--        where-->
-<!--            rpt_mem_no = #{rptMemNo}-->
-<!--    </delete>-->
-<!--    &lt;!&ndash; 상품별 신고삭제 &ndash;&gt;-->
-<!--    <delete id="deleteByRptPdtNo">-->
-<!--        delete from-->
-<!--            PRODUCT_REPORT-->
-<!--        where-->
-<!--            rpt_pdt_no = #{rptPdtNo}-->
-<!--    </delete>-->
-    <!--SELECT rpt_pdt_no FROM PRODUCT_REPORT GROUP BY rpt_pdt_no having count(rpt_pdt_no) >= 5-->
+    <delete id="deleteAll">
+        delete from PRODUCT_REPORT
+    </delete>
 </mapper>

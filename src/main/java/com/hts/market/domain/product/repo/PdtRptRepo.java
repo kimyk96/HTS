@@ -25,7 +25,9 @@ public interface PdtRptRepo {
     public Integer deleteOfFavorite(Long PdtNo);
     // 상품 신고 삭제
     public Integer deleteOfRpt(Long PdtNo);
-    // 신고삭제
+    // 신고전체삭제
+    public Integer deleteAll();
+
     public Integer deleteByRptNo(PdtRptDto.Delete dto);
     // 회원별 삭제
     public Integer deleteByRptMemNo(PdtRptDto.Delete dto);

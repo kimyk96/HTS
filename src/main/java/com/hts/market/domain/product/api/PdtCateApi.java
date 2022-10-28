@@ -16,10 +16,7 @@ import java.util.List;
 @RequestMapping("/api/v1/pdt-cate")
 public class PdtCateApi {
     @Autowired private PdtCateApp pdtCateApp;
-//    @PostMapping("save")
-//    public ResponseEntity<Integer> save(PdtCateDto.Create dto){
-//        return ResponseEntity.ok().body(pdtCateApp.save(dto));
-//    }
+
     // 카테고리 목록
     @GetMapping("find-all")
     public ResponseEntity<List<PdtCateDto.Read>> findAll() {

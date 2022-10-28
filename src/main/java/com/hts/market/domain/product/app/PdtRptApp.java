@@ -62,6 +62,11 @@ public class PdtRptApp {
         return 1;
     }
 
+    // 일일 신고 횟수 초기화
+    @Scheduled(cron = "0 1 0 * * *")
+    public Integer deleteOfCount(){
+        return pdtRptRepo.deleteAll();
+    }
     // 상품별 신고 삭제
     public Integer deleteByPdtNo(Long pdtNo) {
         return pdtRptRepo.deleteOfRpt(pdtNo);

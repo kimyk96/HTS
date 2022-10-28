@@ -46,12 +46,6 @@ public class PdtImgApp {
         return 1;
     }
 
-    // 이미지 개별삭제
-    public Integer deleteByImgNo(PdtImgDto.Delete dto) {
-
-        return pdtImgRepo.deleteByImgNo(dto);
-    }
-
     // 이미지 전체삭제
     public Integer deleteAll(Long pdtNo) {
         List<PdtImgDto.Read> oldList = pdtImgRepo.searchOfPdtNo(pdtNo);

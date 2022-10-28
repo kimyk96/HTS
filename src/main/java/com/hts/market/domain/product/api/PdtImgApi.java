@@ -31,10 +31,4 @@ public class PdtImgApi {
     public ResponseEntity<Integer> deleteAll(@NotNull Long pdtNo) throws IOException {
         return ResponseEntity.ok().body(pdtImgApp.deleteAll(pdtNo));
     }
-
-    // 이미지 개별삭제
-    @DeleteMapping("delete-by-img-no")
-    public ResponseEntity<Integer> deleteByImgNo(@Valid PdtImgDto.Delete dto) {
-        return ResponseEntity.ok().body(pdtImgApp.deleteByImgNo(dto));
-    }
 }
