@@ -13,7 +13,7 @@
 <!-- 상단 메뉴바 -->
 <header id="header">
     <div>
-        <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
+        <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback" class="img_icon">
         <div>
             <h2>
                 내 상품
@@ -25,7 +25,7 @@
 <main id="main">
     <section id="product">
         <ul>
-            <p>등록한 상품이 없습니다.</p>
+            <p style = "text-align : center; padding : 30px 0;">등록한 상품이 없습니다.</p>
         </ul>
     </section>
 </main>
@@ -59,11 +59,11 @@ $(function(){
                     </div>
                     <div class="count">
                         <p class="count_chat">
-                            <img src="img/icon/chat.png" alt="chat_count" class="${ li.chatCheck ? 'selected' : '' }">
+                            <img src="/img/icon/chat.png" alt="chat_count" class="${ li.chatCheck ? 'selected' : '' } img_icon">
                             <span>${li.chatCount}</span>
                         </p>
                         <p class="count_like">
-                            <img src="img/icon/member.png" alt="like_count" class="${ li.favoriteCheck ? 'selected' : '' }">
+                            <img src="/img/icon/member.png" alt="like_count" class="${ li.favoriteCheck ? 'selected' : 'img_icon' }">
                             <span>${li.favoriteCount}</span>
                         </p>
                     </div>

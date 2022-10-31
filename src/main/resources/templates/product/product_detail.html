@@ -11,21 +11,18 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/js/main.js" charset="UTF-8"></script>
     <style>
-        #main{ margin: 0 0 70px 0; position : relative }
-        #main section#btn_nav{ background: linear-gradient(#909090, #efefef00); position : absolute; top: 0; left : 0; z-index : 2; width : 100%; height : 50px; display : flex; flex-direction: row; justify-content: space-between; align-items: center;}
-        #main section#btn_nav div{ width : 100%; height : 50px; display: flex; align-items: center; }
-        #main section#btn_nav div.right{ justify-content : flex-end; }
-        #main section#btn_nav div img{ height : 55%; padding : 0 1.5%; }
-        #main section#btn_nav div img#nav_product{ height : 45%; }
-        #main section#btn_action{ box-shadow : 0 0 3px -2px #303030; width : 90%; height : 50px; padding : 10px 5%; display : flex; flex-direction: row; justify-content: space-between; align-items: center; background-color : #fff; position : fixed; bottom : 0; left : 0;  }
-        #main section#btn_action div{ display : flex; align-items: center; }
-        #main section#btn_action div img{ content: url(/img/icon/like.png); width : 25px; padding-right : 10px; margin-right : 10px; border-right : 1px solid #efefef; }
-        #main section#btn_action div img.selected{ content: url(/img/icon/like_selected.png); }
-        #main section#btn_action div div{ display: flex; flex-direction: column; align-items: flex-start; }
-        #main section#btn_action div p{ font-size : 15px; opacity : 0.5; }
-        #main section#btn_action div p.pdt_price{ font-weight: 600; opacity : 1; }
-        #main section#btn_action div span{ font-size: 15px; font-weight: 400; background-color : #FF9D2A; padding : 7px 17px; color : #fff; border-radius: 7px; }
-        #main section#btn_action #btn_chat{ display : none; }
+#main{ margin: 0 0 70px 0; position : relative }
+#main section#btn_nav{ background: linear-gradient(#303030, #00000000); position : absolute; top: 0; left : 0; z-index : 2; width : 100%; height : 50px; display : flex; flex-direction: row; justify-content: space-between; align-items: center;}
+#main section#btn_nav div{ width : 100%; height : 50px; display: flex; align-items: center; }
+#main section#btn_nav div.right{ justify-content : flex-end; }
+#main section#btn_nav div img{ height : 55%; padding : 0 1.5%; filter : invert(1); }
+#main section#btn_nav div img#nav_product{ height : 45%; }
+
+#main section#btn_action div div{ display: flex; flex-direction: column; align-items: flex-start; }
+#main section#btn_action div p{ font-size : 15px; opacity : 0.5; }
+#main section#btn_action div p.pdt_price{ font-weight: 600; opacity : 1; }
+#main section#btn_action div span{ font-size: 15px; font-weight: 400; background-color : #FF9D2A; padding : 7px 17px; color : #fff; border-radius: 7px; }
+#main section#btn_action #btn_chat{ display : none; }
 
     </style>
 </head>
@@ -35,11 +32,11 @@
     <div sec:authentication="name" style="display : none;" id="memUsername"></div>
     <section id="btn_nav">
         <div>
-            <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
-            <img src="/img/icon/product.png" alt="nav_product" id="nav_product">
+            <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback" class="img_icon">
+            <img src="/img/icon/product.png" alt="nav_product" id="nav_product" class="img_icon">
         </div>
         <div class="right">
-            <img src="/img/icon/more.png" alt="more" id="more">
+            <img src="/img/icon/more.png" alt="more" id="more" class="img_icon">
         </div>
     </section>
     <section id="product_detail" th:attr="data-pdt-no=${pdtNo}">
@@ -66,7 +63,7 @@
                 <span class="pdt_cate"></span>
                 <span class="pdt_created_at"></span>
             </div>
-            <textarea class="pdt_desc" rows="10" readonly></textarea>
+            <textarea class="pdt_desc" rows="20" readonly></textarea>
             <div class="pdt_counts">
                 관심 <span class="pdt_likes"></span> 조회 <span class="pdt_views"></span>
             </div>
@@ -74,13 +71,13 @@
         <div class="pdt_rpt_info pdt_list">
             <div class="pdt_plusmenu">
                 <span>이 게시글 신고하기</span>
-                <img src="/img/icon/arrow_right.png" alt="arrow_right">
+                <img src="/img/icon/arrow_right.png" alt="arrow_right" class="img_icon">
             </div>
         </div>
         <div class="mem_transaction_info pdt_list">
             <div class="pdt_plusmenu">
                 <span><span class="mem_nickname"></span>님의 판매 내역</span>
-                <img src="/img/icon/arrow_right.png" alt="arrow_right">
+                <img src="/img/icon/arrow_right.png" alt="arrow_right" class="img_icon">
             </div>
             <div class="pdt_list_wrapper">
                 <ul></ul>
@@ -89,7 +86,7 @@
         <div class="pdt_cate_recommend pdt_list">
             <div class="pdt_plusmenu">
                 <span>카테고리 추천</span>
-                <img src="/img/icon/arrow_right.png" alt="arrow_right">
+                <img src="/img/icon/arrow_right.png" alt="arrow_right" class="img_icon">
             </div>
             <div class="pdt_list_wrapper">
                 <ul></ul>
@@ -99,7 +96,7 @@
     <section id="btn_action">
         <div>
             <div>
-                <img src="/img/icon/like.png" alt="like" id="btn_favorite">
+                <img src="/img/icon/like.png" alt="like" id="btn_favorite" class="img_icon">
             </div>
             <div>
                 <p class="pdt_price"></p>

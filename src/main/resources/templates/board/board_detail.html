@@ -13,7 +13,7 @@
     <script src="/js/main.js" charset="UTF-8"></script>
     <style>
         #main{ margin: 0 0 70px 0; position : relative }
-        #main section#btn_nav{ border-bottom : 1px solid #efefef; position : fixed; top: 0; left : 0; z-index : 2; width : 100%; height : 50px; display : flex; flex-direction: row; justify-content: space-between; align-items: center;}
+        #main section#btn_nav{ background-color : #fff; border-bottom : 1px solid #efefef; position : fixed; top: 0; left : 0; z-index : 2; width : 100%; height : 50px; display : flex; flex-direction: row; justify-content: space-between; align-items: center;}
         #main section#btn_nav div{ width : 100%; height : 50px; display: flex; align-items: center; }
         #main section#btn_nav div.right{ justify-content : flex-end; }
         #main section#btn_nav div img{ height : 55%; padding : 0 1.5%; }
@@ -49,6 +49,7 @@
         #main #board_detail div.pdt_list div.pdt_list_wrapper ul li div p{ line-height : 2; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 1; line-clamp: 1; -webkit-box-orient: vertical; }
         #main #board_detail div.pdt_list div.pdt_list_wrapper ul li div p.item_title{ font-size : 12px; }
         #main #board_detail div.pdt_list div.pdt_list_wrapper ul li div p.item_price{ font-size : 12px; font-weight : 600; line-height : 1.5; }
+
         #main section#btn_action{ box-shadow : 0 0 3px -2px #303030; width : 95%; height : 50px; padding : 0 2.5%; display : flex; flex-direction: row; justify-content: space-between; align-items: center; background-color : #fff; position : fixed; bottom : 0; left : 0;  }
         #main section#btn_action div{ display : flex; align-items: center; }
         #main section#btn_action div.like img{ content: url(/img/icon/like.png); width : 25px; padding-right : 10px; margin-right : 10px; border-right : 1px solid #efefef; }
@@ -58,12 +59,18 @@
         #main section#btn_action div p.pdt_price{ font-weight: 600; opacity : 1; }
         #main section#btn_action div span{ font-size: 15px; font-weight: 400; background-color : #FF9D2A; padding : 7px 17px; color : #fff; border-radius: 7px; }
         #main section#btn_action #btn_chat{ display : none; }
+        #main section#btn_action{ box-shadow : 0 0 3px -2px #303030; width : 90%; height : 50px; padding : 10px 5%; display : flex; flex-direction: row; justify-content: space-between; align-items: center; background-color : #fff; position : fixed; bottom : 0; left : 0;  }
+        #main section#btn_action div{ display : flex; align-items: center; }
+        #main section#btn_action div.like img{ content: url(/img/icon/like.png); width : 25px; padding-right : 10px; margin-right : 10px; border-right : 1px solid #efefef; }
+        #main section#btn_action div.like img.selected{ content: url(/img/icon/like_selected.png); }
+        #btn_send_cmt{ content: url(/img/icon/upload.png); }
+
         #cmt_keyboard{ width : 100%; padding : 5px 0; height : 40px; display : flex; flex-direction: row; justify-content: space-between; align-items: center;}
         #cmt_keyboard div{ display : flex; justify-content: center; align-items: center; }
         #cmt_keyboard div.icon_wrapper{ position : absolute; top : 0; right : 0; width : 12%; height : 50px; }
-        #cmt_keyboard div.icon_wrapper img{ width : 20px; }
+        #cmt_keyboard div.icon_wrapper img{ width : 25px; margin-left : -4px; }
         #cmt_keyboard div.input_wrapper{ width : 100%; justify-content: flex-end; }
-        #cmt_keyboard div.input_wrapper input{ width : 100%; padding : 0 5%; font-size : 11px; height : 40px; border-radius : 20px; border : none; background-color: #efefef;}
+        #cmt_keyboard div.input_wrapper input{ color :#303030 !important; width : 90%; padding : 0 5%; font-size : 11px; height : 40px; border-radius : 20px; border : none; background-color: #efefef;}
         #cmt_keyboard div.input_wrapper input:focus{ outline: none; }
 
         #comments{ width : 100%; }
@@ -92,10 +99,10 @@
     <div sec:authentication="name" style="display : none;" id="memUsername"></div>
     <section id="btn_nav">
         <div>
-            <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
+            <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback" class="img_icon">
         </div>
         <div class="right">
-            <img src="/img/icon/more.png" alt="more" id="more">
+            <img src="/img/icon/more.png" alt="more" id="more" class="img_icon">
         </div>
     </section>
     <section id="board_detail" th:attr="data-brd-no=${brdNo}">
@@ -118,7 +125,7 @@
                 <span class="pdt_cate"></span>
                 <span class="pdt_created_at"></span>
             </div>
-            <textarea class="pdt_desc" rows="auto" readonly></textarea>
+            <textarea class="pdt_desc" rows="20" readonly></textarea>
             <div class="swiper">
                 <div class="swiper-wrapper"></div>
                 <div class="swiper-pagination"></div>
@@ -135,7 +142,7 @@
         </div>
     </section>
     <section id="comments">
-        <h3><img src="/img/icon/comment.png" alt="comment">댓글(<span class="cmt_count"></span>)</h3>
+        <h3><img src="/img/icon/comment.png" alt="comment" class="img_icon">댓글(<span class="cmt_count"></span>)</h3>
         <ul></ul>
     </section>
     <section id="btn_action">
@@ -145,8 +152,8 @@
         <div id="cmt_keyboard">
             <div class="input_wrapper">
                 <input type="text" inputmode="text" id="cmt_msg" placeholder="댓글을 입력해주세요">
-                <div class="icon_wrapper">
-                    <img src="/img/icon/send.png" alt="send" id="btn_send">
+                <div class="icon_wrapper" style="height : 100%;">
+                    <img src="/img/icon/upload.png" alt="send" id="btn_send_cmt">
                 </div>
             </div>
         </div>
@@ -158,11 +165,13 @@
             let memNo;
 
             // 댓글 작성
-            $("#btn_send").click(function(){
+            $("#btn_send_cmt").click(function(){
                 let msg = $("#cmt_msg").val();
+                if(!msg){return};
                 $.ajax({
                     method : "POST",
                     url : '/api/v1/cmt/save',
+                    async: false,
                     data : { cmtBrdNo : brdNo, cmtContent : msg }
                 })
                 .done(function(res){
@@ -170,9 +179,9 @@
                         method:"GET",
                         url:"/api/v1/cmt/find-all",
                         data:{brdNo}
-                    }).
-                    done(function(res){
-                        listCmt(res);
+                    })
+                    .done(function(res2){
+                        listCmt(res2);
                         $("#cmt_msg").val('');
                     })
                 })
@@ -319,6 +328,7 @@
         function listCmt(res){
             let $comments = $("#comments ul");
             $comments.empty();
+
             for(item of res){
                 $(`<li>
                     <div class="img" onclick="$(location).attr('href', '/member/${item.cmtWriterNo}')">

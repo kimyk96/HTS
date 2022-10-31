@@ -39,14 +39,14 @@
 <header id="header">
     <div>
         <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback"
-             onclick="$(location).attr('href', '/member')">
+             onclick="$(location).attr('href', '/member')" class="img_icon">
         <div>
             <h2>구매 내역</h2>
         </div>
     </div>
 </header>
 <!-- 메인정보 -->
-<main id="main">
+<main id="main" th:attr="data-mem-no=${memNo}">
     <section id="purchase_list">
         <ul></ul>
     </section>
@@ -54,61 +54,115 @@
 
 <script>
     $(function(){
-        // 구매 완료 내역 조회
-        $.ajax({
-            method: 'GET',
-            url: '/api/v1/tx/find-purchase-list-by-mem-no',
-            data: { start: 1, end: 10 }
-        })
-        .done(function(res){
-            let $ul = $("#purchase_list ul");
-            $ul.empty();
-            if(res==null){
-                $("<p>아직 거래내역이 없습니다.</p>").appendTo($ul);
-            }else{
-                for(item of res){
-                    $(`<li>
-                        <div>
-                            <div class="img_wrapper" onclick="$(location).attr('href', '/product/${item.product.pdtNo}')">
-                                <img src="${item.pdtImg}" alt="product_img">
-                            </div>
-                            <div class="info_wrapper" onclick="$(location).attr('href', '/product/${item.product.pdtNo}')">
-                                <div class="info">
-                                    <h3 class="info_title">${item.product.pdtName}</h3>
-                                    <p>
-                                        <span class="info_address">${item.address.addressGu} ${item.address.addressDong} </span>
-                                        <span class="info_created_at"> ${timeForToday(item.product.pdtCreatedAt)}</span>
-                                    </p>
-                                    <p>
-                                        <span class="info_status">거래완료</span>
-                                        <span class="info_price">${numberWithCommas(item.product.pdtPrice)}원</span>
-                                    </p>
+        if($("#main").data("mem-no")){
+            // 타인 조회
+             $.ajax({
+                method: 'GET',
+                url: '/api/v1/tx/find-purchase-list-by-mem-no',
+                data: { start: 1, end: 10, memNo : $("#main").data("mem-no") }
+            })
+            .done(function(res){
+                let $ul = $("#purchase_list ul");
+                $ul.empty();
+                if(!res){
+                    $("<p>아직 거래내역이 없습니다.</p>").appendTo($ul);
+                }else{
+                    for(item of res){
+                        $(`<li>
+                            <div>
+                                <div class="img_wrapper" onclick="$(location).attr('href', '/product/${item.product.pdtNo}')">
+                                    <img src="${item.pdtImg}" alt="product_img">
                                 </div>
-                                <div class="count">
-                                    <p class="count_chat">
-                                        <img src="/img/icon/chat.png" alt="chat_count" class="${item.chatCheck ? 'selected' : ''}">
-                                        <span>${item.chatCount}</span>
-                                    </p>
-                                    <p class="count_like">
-                                        <img src="/img/icon/like.png" alt="like_count" class="${item.product.favoriteCheck ? 'selected' : ''}">
-                                        <span>${item.product.favoriteCount}</span>
-                                    </p>
+                                <div class="info_wrapper" onclick="$(location).attr('href', '/product/${item.product.pdtNo}')">
+                                    <div class="info">
+                                        <h3 class="info_title">${item.product.pdtName}</h3>
+                                        <p>
+                                            <span class="info_address">${item.address.addressGu} ${item.address.addressDong} </span>
+                                            <span class="info_created_at"> ${timeForToday(item.product.pdtCreatedAt)}</span>
+                                        </p>
+                                        <p>
+                                            <span class="info_status">거래완료</span>
+                                            <span class="info_price">${numberWithCommas(item.product.pdtPrice)}원</span>
+                                        </p>
+                                    </div>
+                                    <div class="count">
+                                        <p class="count_chat">
+                                            <img src="/img/icon/chat.png" alt="chat_count" class="${item.chatCheck ? 'selected' : ''} img_icon">
+                                            <span>${item.chatCount}</span>
+                                        </p>
+                                        <p class="count_like">
+                                            <img src="/img/icon/like.png" alt="like_count" class="${item.product.favoriteCheck ? 'selected' : 'img_icon'}">
+                                            <span>${item.product.favoriteCount}</span>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="review">
-                            <p class="${item.sentReviewCheck ? 'hidden' : ''}" onclick="$(location).attr('href', '/transaction/review/upload?txNo=${item.transaction.txNo}&pdtNo=${item.product.pdtNo}')">리뷰 작성하기</p>
-                            <p class="${item.receivedReviewCheck ? '' : 'hidden'}" onclick="$(location).attr('href', '/transaction/review?txNo=${item.transaction.txNo}&pdtNo=${item.product.pdtNo}&seller=1')">받은 리뷰 확인</p>
-                        </div>
-                    </li>`).appendTo($ul);
+                        </li>`).appendTo($ul);
+                    }
                 }
-            }
-            console.log(res);
-        })
-        .fail(function(res){
-            let $ul = $("#purchase_list ul");
-            $("<p>아직 거래내역이 없습니다.</p>").appendTo($ul);
-        })
+                console.log(res);
+            })
+            .fail(function(res){
+                let $ul = $("#purchase_list ul");
+                $("<p>아직 거래내역이 없습니다.</p>").appendTo($ul);
+            })
+        }else{
+            // 본인 구매 완료 내역 조회
+            $.ajax({
+                method: 'GET',
+                url: '/api/v1/tx/find-purchase-list-by-mem-no',
+                data: { start: 1, end: 10 }
+            })
+            .done(function(res){
+                let $ul = $("#purchase_list ul");
+                $ul.empty();
+                if(!res){
+                    $("<p>아직 거래내역이 없습니다.</p>").appendTo($ul);
+                }else{
+                    for(item of res){
+                        $(`<li>
+                            <div>
+                                <div class="img_wrapper" onclick="$(location).attr('href', '/product/${item.product.pdtNo}')">
+                                    <img src="${item.pdtImg}" alt="product_img">
+                                </div>
+                                <div class="info_wrapper" onclick="$(location).attr('href', '/product/${item.product.pdtNo}')">
+                                    <div class="info">
+                                        <h3 class="info_title">${item.product.pdtName}</h3>
+                                        <p>
+                                            <span class="info_address">${item.address.addressGu} ${item.address.addressDong} </span>
+                                            <span class="info_created_at"> ${timeForToday(item.product.pdtCreatedAt)}</span>
+                                        </p>
+                                        <p>
+                                            <span class="info_status">거래완료</span>
+                                            <span class="info_price">${numberWithCommas(item.product.pdtPrice)}원</span>
+                                        </p>
+                                    </div>
+                                    <div class="count">
+                                        <p class="count_chat">
+                                            <img src="/img/icon/chat.png" alt="chat_count" class="${item.chatCheck ? 'selected' : ''} img_icon">
+                                            <span>${item.chatCount}</span>
+                                        </p>
+                                        <p class="count_like">
+                                            <img src="/img/icon/like.png" alt="like_count" class="${item.product.favoriteCheck ? 'selected' : 'img_icon'}">
+                                            <span>${item.product.favoriteCount}</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="review">
+                                <p class="${item.sentReviewCheck ? 'hidden' : ''}" onclick="$(location).attr('href', '/transaction/review/upload?txNo=${item.transaction.txNo}&pdtNo=${item.product.pdtNo}')">리뷰 작성하기</p>
+                                <p class="${item.receivedReviewCheck ? '' : 'hidden'}" onclick="$(location).attr('href', '/transaction/review?txNo=${item.transaction.txNo}&pdtNo=${item.product.pdtNo}&seller=1')">받은 리뷰 확인</p>
+                            </div>
+                        </li>`).appendTo($ul);
+                    }
+                }
+                console.log(res);
+            })
+            .fail(function(res){
+                let $ul = $("#purchase_list ul");
+                $("<p>아직 거래내역이 없습니다.</p>").appendTo($ul);
+            })
+        }
     })
 
 </script>

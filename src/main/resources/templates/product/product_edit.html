@@ -19,7 +19,7 @@
 <!-- 상단 메뉴바 -->
 <header id="header">
     <div>
-        <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
+        <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback" class="img_icon">
         <div>
             <h2>중고거래 글 수정</h2>
         </div>
@@ -50,11 +50,11 @@
                     <option value="" selected disabled hidden>카테고리 선택</option>
                 </select>
             </div>
-            <div class="upload_address">
-                <select id="address" name="address">
-                    <option value="" selected disabled hidden>주소 선택</option>
-                </select>
-            </div>
+<!--            <div class="upload_address">-->
+<!--                <select id="address" name="address">-->
+<!--                    <option value="" selected disabled hidden>주소 선택</option>-->
+<!--                </select>-->
+<!--            </div>-->
             <div class="upload_price">
                 <input type="number" id="price" name="price" placeholder="가격">
             </div>
@@ -83,17 +83,6 @@
                 }
             })
 
-            // 회원주소 가져오기
-            $.ajax({
-                method : "GET",
-                url: "/api/v1/address"
-            })
-            .done(function(res){
-                for(ad of res){
-                    $(`<option value="${ad.addressNo}">${ad.addressSi} ${ad.addressGu} ${ad.addressDong}</option>`).appendTo("#address");
-                }
-            })
-
             // 상품 정보 가져오기
             $.ajax({
                 method : "GET",
@@ -101,7 +90,6 @@
                 data: {pdtNo : pdtNo}
             })
             .done(function(res){
-                $("#address").val(res.address.addressNo).prop("selected", true);
                 $("select[name='cate'] option:contains('" + res.pdtCate + "')").prop("selected", true);
                 $("#title").val(res.product.pdtName);
                 $("#desc").val(res.product.pdtDesc);

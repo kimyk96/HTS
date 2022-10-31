@@ -13,10 +13,48 @@ $(function(){
 function savePdt(){
     let fd = new FormData();
     fd.append("pdtCateNo", $("#cate").find(':selected').val());
-    fd.append("pdtAddressNo", $("#address").find(':selected').val());
+//    fd.append("pdtAddressNo", $("#address").find(':selected').val());
     fd.append("pdtName", $("#title").val());
     fd.append("pdtDesc", $("#desc").val());
     fd.append("pdtPrice", $("#price").val());
+
+    if($("#images")[0].files.length==0){
+        Swal.fire({
+            icon: 'error',
+            text: '대표 이미지는 필수입니다.'
+        })
+        return
+    }
+    if(!$("#cate").find(':selected').val()){
+        Swal.fire({
+            icon: 'error',
+            text: '카테고리를 선택해 주세요'
+        })
+        return
+    }
+    if(! $("#title").val()){
+        Swal.fire({
+            icon: 'error',
+            text: '제목을 입력해 주세요'
+        })
+        return
+    }
+    if(! $("#desc").val()){
+        Swal.fire({
+            icon: 'error',
+            text: '본문을 입력해 주세요'
+        })
+        return
+    }
+    if(! $("#price").val()){
+        Swal.fire({
+            icon: 'error',
+            text: '가격을 입력해 주세요'
+        })
+        return
+    }
+
+
 
     for(let file of $("#images")[0].files){
         fd.append("images", file);
@@ -44,7 +82,7 @@ function updatePdt(){
     let fd = new FormData();
 
     fd.append("pdtCateNo", $("#cate").find(':selected').val());
-    fd.append("pdtAddressNo", $("#address").find(':selected').val());
+//    fd.append("pdtAddressNo", $("#address").find(':selected').val());
     fd.append("pdtName", $("#title").val());
     fd.append("pdtDesc", $("#desc").val());
     fd.append("pdtPrice", $("#price").val());
@@ -52,6 +90,35 @@ function updatePdt(){
 
     for(file of $("#images")[0].files){
         fd.append("images", file);
+    }
+
+    if(!$("#cate").find(':selected').val()){
+        Swal.fire({
+            icon: 'error',
+            text: '카테고리를 선택해 주세요'
+        })
+        return
+    }
+    if(! $("#title").val()){
+        Swal.fire({
+            icon: 'error',
+            text: '제목을 입력해 주세요'
+        })
+        return
+    }
+    if(! $("#desc").val()){
+        Swal.fire({
+            icon: 'error',
+            text: '본문을 입력해 주세요'
+        })
+        return
+    }
+    if(! $("#price").val()){
+        Swal.fire({
+            icon: 'error',
+            text: '가격을 입력해 주세요'
+        })
+        return
     }
 
     // 상품 수정
@@ -86,6 +153,7 @@ function searchPdtList(addressSi, addressGu, addressDong, keyword, pdtCateNo, st
         let $ul = $("#search_list");
         if(res.length==0){
             $("<p style='text-align : center;padding : 30px 0;'>검색 결과가 없습니다.</p>").appendTo($ul);
+            $(".btn_list_more").css("display", "none")
         }
         for( let li of res ){
             $(`
@@ -106,11 +174,11 @@ function searchPdtList(addressSi, addressGu, addressDong, keyword, pdtCateNo, st
                     </div>
                     <div class="count">
                         <p class="count_chat">
-                            <img src="/img/icon/chat.png" alt="chat_count" class="${ li.chatCheck ? 'selected' : '' }">
+                            <img src="/img/icon/chat.png" alt="chat_count" class="${ li.chatCheck ? 'selected' : '' } img_icon">
                             <span>${li.chatCount}</span>
                         </p>
                         <p class="count_like">
-                            <img src="/img/icon/member.png" alt="like_count" class="${ li.favoriteCheck ? 'selected' : '' }">
+                            <img src="/img/icon/member.png" alt="like_count" class="${ li.favoriteCheck ? 'selected' : 'img_icon' }">
                             <span>${li.favoriteCount}</span>
                         </p>
                     </div>
@@ -143,6 +211,7 @@ function searchBrdList(addressSi, addressGu, addressDong, keyword, brdCateNo, st
         let $ul = $("#search_list");
         if(res.length==0){
             $("<p style='text-align : center;padding : 30px 0;'>검색 결과가 없습니다.</p>").appendTo($ul);
+            $(".btn_list_more").css("display", "none")
         }
         for( li of res ){
             $(`<li onclick="$(location).attr('href', '/board/${li.brdNo}')">
@@ -161,11 +230,11 @@ function searchBrdList(addressSi, addressGu, addressDong, keyword, brdCateNo, st
                 </div>
                 <div class="count_wrapper">
                     <p class="count_chat">
-                        <img src="/img/icon/like.png" alt="like_count" class="${li.brdLikeCheck ? 'selected' : ''}">
+                        <img src="/img/icon/like.png" alt="like_count" class="${li.brdLikeCheck ? 'selected' : 'img_icon'}">
                         <span>공감 ${li.brdLikeCount}</span>
                     </p>
                     <p class="count_like">
-                        <img src="/img/icon/comment.png" alt="comment_count" class="${li.cmtCheck ? 'selected' : ''}">
+                        <img src="/img/icon/comment.png" alt="comment_count" class="${li.cmtCheck ? 'selected' : ''} img_icon">
                         <span>댓글 ${li.cmtCount}</span>
                     </p>
                 </div>
@@ -192,6 +261,21 @@ function saveBrd(){
     for(file of $("#images")[0].files){
         fd.append("files", file);
         console.log(file);
+    }
+
+    if(! $("#title").val()){
+        Swal.fire({
+            icon: 'error',
+            text: '제목을 입력해 주세요'
+        })
+        return
+    }
+    if(! $("#desc").val()){
+        Swal.fire({
+            icon: 'error',
+            text: '본문을 입력해 주세요'
+        })
+        return
     }
     // 상품 저장
     $.ajax({
@@ -221,6 +305,21 @@ function updateBrd(){
 
     for(file of $("#images")[0].files){
         fd.append("images", file);
+    }
+
+    if(! $("#title").val()){
+        Swal.fire({
+            icon: 'error',
+            text: '제목을 입력해 주세요'
+        })
+        return
+    }
+    if(! $("#desc").val()){
+        Swal.fire({
+            icon: 'error',
+            text: '본문을 입력해 주세요'
+        })
+        return
     }
 
     // 상품 수정

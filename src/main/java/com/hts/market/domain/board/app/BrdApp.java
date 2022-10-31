@@ -66,8 +66,7 @@ public class BrdApp {
         //조회수 체크
         brdRepo.findViewsByBrdNo(brdNo, memNo);
         //댓글 정보
-        List<CmtDto.Read> cmtList = cmtRepo.findAll(brdNo);
-        cmtList.forEach(item->{
+        dto.getCmtList().forEach(item->{
             item.setImgPath(imgUrl + item.getImgPath());
             if (item.getCmtWriterNo().equals(memNo) && item.getCmtWriterNo().equals(member.getMemNo())) {
                 item.setIsWriter(true);
@@ -80,7 +79,6 @@ public class BrdApp {
                 item.setIsBrdWriter(false);
             }
         });
-        dto.setCmtList(cmtList);
         return dto;
     }
 

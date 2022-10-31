@@ -4,6 +4,7 @@ import com.hts.market.domain.board.app.*;
 import com.hts.market.domain.board.dto.BrdDto;
 import com.hts.market.domain.board.dto.BrdImgDto;
 import com.hts.market.domain.board.dto.BrdLikeDto;
+import com.hts.market.domain.product.dto.PdtImgDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -38,7 +39,9 @@ public class BrdApi {
     @PutMapping("update")
     public ResponseEntity<Integer> update(@Valid BrdDto.Update dto, Principal principal) throws IOException {
         brdApp.update(dto, principal.getName());
-        brdImgApp.update(BrdImgDto.ListFile.builder().brdNo(dto.getBrdNo()).files(dto.getImages()).build());
+        if (dto.getImages() != null) {
+            brdImgApp.update(BrdImgDto.ListFile.builder().brdNo(dto.getBrdNo()).files(dto.getImages()).build());
+        }
         return ResponseEntity.ok().body(1);
     }
 

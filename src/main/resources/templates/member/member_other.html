@@ -46,13 +46,13 @@
                 </div>
             </div>
             <div class="transaction">
-                <div onclick="$(location).attr('href', '/transaction/sell');">
+                <div onclick="other_sell();">
                         <span>
                             <img src="/img/icon/sell.png" alt="sell">
                         </span>
                     <p>판매내역</p>
                 </div>
-                <div onclick="$(location).attr('href', '/transaction/purchase');">
+                <div onclick="other_buy();">
                         <span>
                             <img src="/img/icon/buy.png" alt="buy">
                         </span>
@@ -85,6 +85,17 @@
 </nav>
 
 <script>
+
+
+
+function other_buy(){
+    $(location).attr('href', '/transaction/purchase/' + $("#member_other").data("mem-no"))
+}
+function other_sell(){
+    $(location).attr('href', '/transaction/sell/' + $("#member_other").data("mem-no") )
+}
+
+
         $(function(){
             $.ajax({
                 method:"GET",

@@ -46,7 +46,9 @@ public class TxApp {
 
     // 판매 내역 조회
     public List<TxDto.ReadList> findSaleListByMemNo(TxDto.GetList dto, String username) {
-        dto.setMemNo(memRepo.findIdByMemUsername(username));
+        if(dto.getMemNo()==null){
+            dto.setMemNo(memRepo.findIdByMemUsername(username));
+        }
         List<TxDto.ReadList> read = txRepo.findSaleListByMemNo(dto);
         if (read.isEmpty()) {
             throw new TransactionNotFoundException();
@@ -66,7 +68,9 @@ public class TxApp {
 
     // 구매 내역 조회
     public List<TxDto.ReadList> findPurchaseListByMemNo(TxDto.GetList dto, String username) {
-        dto.setMemNo(memRepo.findIdByMemUsername(username));
+        if(dto.getMemNo()==null){
+            dto.setMemNo(memRepo.findIdByMemUsername(username));
+        }
         List<TxDto.ReadList> read = txRepo.findPurchaseListByMemNo(dto);
         if (read.isEmpty()) {
             throw new TransactionNotFoundException();

@@ -9,6 +9,7 @@ import com.hts.market.domain.member.exception.NicknameAlreadyTakenException;
 import com.hts.market.domain.member.repo.MemImgRepo;
 import com.hts.market.domain.member.repo.MemRepo;
 import com.hts.market.domain.member.repo.MemRoleRepo;
+import com.hts.market.domain.product.repo.PdtRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,6 +24,7 @@ public class MemApp {
     @Autowired MemRoleRepo memRoleRepo;
     @Autowired PasswordEncoder passwordEncoder;
     @Autowired MemImgRepo memImgRepo;
+
 
     @Value("${hts.imgUrl}") private String imgUrl;
 

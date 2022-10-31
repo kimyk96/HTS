@@ -20,7 +20,7 @@
 <!-- 상단 메뉴바 -->
 <header id="header">
     <div>
-        <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
+        <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback" class="img_icon">
         <div>
             <h2>중고거래 글쓰기</h2>
         </div>
@@ -51,11 +51,11 @@
                     <option value="" selected disabled hidden>카테고리 선택</option>
                 </select>
             </div>
-            <div class="upload_address">
-                <select id="address" name="address">
-                    <option value="" selected disabled hidden>주소 선택</option>
-                </select>
-            </div>
+<!--            <div class="upload_address">-->
+<!--                <select id="address" name="address">-->
+<!--                    <option value="" selected disabled hidden>주소 선택</option>-->
+<!--                </select>-->
+<!--            </div>-->
             <div class="upload_price">
                 <input type="number" id="price" name="price" placeholder="가격">
             </div>
@@ -79,17 +79,6 @@
             .done(function(res){
                 for(cate of res){
                     $(`<option value="${cate.pdtCateNo}">${cate.pdtCate}</option>`).appendTo("#cate");
-                }
-            })
-
-            // 회원주소 가져오기
-            $.ajax({
-                method : "GET",
-                url: "/api/v1/address"
-            })
-            .done(function(res){
-                for(ad of res){
-                    $(`<option value="${ad.addressNo}">${ad.addressSi} ${ad.addressGu} ${ad.addressDong}</option>`).appendTo("#address");
                 }
             })
 

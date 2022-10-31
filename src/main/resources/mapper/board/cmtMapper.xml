@@ -33,16 +33,16 @@
     </delete>
     <select id="findAll" resultType="com.hts.market.domain.board.dto.CmtDto$Read">
         SELECT
-        c.cmt_writer_no, c.cmt_no, c.cmt_content, c.cmt_brd_no, c.cmt_created_at,
+        c.cmt_no, c.cmt_writer_no, c.cmt_content, c.cmt_brd_no, c.cmt_created_at,
         m.mem_nickname,
         mi.img_path,
         a.address_si, a.address_gu, a.address_dong
         FROM
-        COMMENTS c left join MEMBER m on c.cmt_writer_no=m.mem_no
-        left join MEMBER_IMAGE mi on c.cmt_writer_no=mi.mem_no
-        left join ADDRESS a on c.cmt_writer_no=a.mem_no
+        COMMENTS c left OUTER join MEMBER m on c.cmt_writer_no=m.mem_no
+        left OUTER join MEMBER_IMAGE mi on c.cmt_writer_no=mi.mem_no
+        left OUTER join ADDRESS a on c.cmt_writer_no=a.mem_no
         WHERE
-        cmt_brd_no=#{brdNo}
+        cmt_brd_no=#{brdNo} and a.address_no = ( select max(aa.address_no) from address aa where aa.mem_no=c.cmt_writer_no )
         ORDER BY
         cmt_no desc
     </select>

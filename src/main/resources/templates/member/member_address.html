@@ -13,7 +13,7 @@
 <!-- 상단 메뉴바 -->
 <header id="header">
     <div>
-        <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
+        <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback" class="img_icon">
         <div>
             <h2>
                 주소 검색
@@ -30,13 +30,14 @@
         </div>
         <div>
             <ul id="member_address_list">
-                <li>검색어를 입력 해주세요</li>
+                <li>현재 거주하시는 지역을 입력 해주세요</li>
             </ul>
         </div>
     </section>
 </main>
 
 <script>
+    $(function(){
         /* 주소검색 */
         // geolocation 사용
         $("#btn_geolocation").click(function(){
@@ -72,9 +73,11 @@
         });
 
         // 주소 검색
+        let oldKeyword = "";
         $("#member_address_keyword").on("input", function(){
             let keyword = $("#member_address_keyword").val();
-            if(keyword){
+            if(keyword && keyword!=oldKeyword){
+                oldKeyword = keyword;
                 $.ajax({
                     method: "GET",
                     url: "https://dapi.kakao.com/v2/local/search/address.json",
@@ -84,6 +87,9 @@
                 .done(function(result){
                     let ul = $("#member_address_list");
                     ul.empty();
+                    if(result.documents.length==0){
+                        $("<p style='text-align : center; margin : 0; padding : 20px 0;'>조금 더 자세히 입력해 주세요!</p>").appendTo(ul);
+                    }
                     for(address of result.documents){
                         if(address.address.region_3depth_h_name){
                             $.ajax({
@@ -111,6 +117,10 @@
                 })
             }
         })
+    })
+
+
+
         // 주소 등록
         $(document).on("click", ".btn_address", function(){
             $.ajax({

@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -78,6 +79,12 @@ public class ChatApp {
             }
             allUser.add(item);
         });
+
+        // 최근 순으로 정렬
+        allUser.sort(Comparator.comparing(ChatDto.Pk::getChatCreatedAt).reversed());
+
+
+
         return allUser;
     }
 

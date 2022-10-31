@@ -9,6 +9,7 @@ import com.hts.market.domain.member.repo.MemImgRepo;
 import com.hts.market.domain.member.repo.MemRepo;
 import com.hts.market.domain.member.repo.MemRoleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,8 @@ public class KakaoApp {
     @Autowired MemRoleRepo memRoleRepo;
     @Autowired MemImgRepo memImgRepo;
     @Autowired PasswordEncoder passwordEncoder;
+
+    @Value("${hts.host}") private String host;
 
     // 카카오 회원가입
     public Long save(String code) {
@@ -60,7 +63,7 @@ public class KakaoApp {
         MultiValueMap<String, String> requestBody = new LinkedMultiValueMap<>();
         requestBody.add("grant_type", "authorization_code");
         requestBody.add("client_id", "1b484f0bd9bd6502362669834ce3920a");
-        requestBody.add("redirect_uri", "http://129.154.215.102:8087/api/v1/kakao");
+        requestBody.add("redirect_uri", host + "/api/v1/kakao");
         requestBody.add("code", code);
 
         // Post

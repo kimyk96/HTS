@@ -12,7 +12,7 @@
 <!-- 상단 메뉴바 -->
 <header id="header">
     <div>
-        <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
+        <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback" class="img_icon">
         <div>
             <h2>상품 카테고리</h2>
         </div>
@@ -37,7 +37,7 @@
             for(li of res){
                 $(`<li onclick="$(location).attr('href', '/product?pdtCateNo=${li.pdtCateNo}')">
                     <div>
-                        <img src="/img/icon/cate/${li.pdtCateNo}.png">
+                        <img src="/img/icon/cate/${li.pdtCateNo}.png" class="img_icon">
                     </div>
                     <div>
                         <p>${li.pdtCate}</p>

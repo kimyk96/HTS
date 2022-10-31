@@ -14,7 +14,7 @@
         header div ul li{ width : 25%; }
         header div ul li a{ text-align : right; }
         #main{ margin-top : 120px; }
-        #chat_room_keyboard{ width : 100%; padding : 10px 0 0 0; height : 40px; position : fixed; bottom : 0; left : 0; display : flex; flex-direction: row; justify-content: space-between; align-items: center;}
+        #chat_room_keyboard{ width : 100%; padding : 10px 0; height : 40px; position : fixed; bottom : 0; left : 0; display : flex; flex-direction: row; justify-content: space-between; align-items: center;}
         #chat_room_keyboard div{ display : flex; justify-content: center; align-items: center; }
         #chat_room_keyboard div.icon_wrapper{ width : 12%; }
         #chat_room_keyboard div.icon_wrapper img{ width : 20px; margin-top : -5px; }
@@ -30,7 +30,7 @@
 <!-- 상단 메뉴바 -->
 <header id="header">
     <div>
-        <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
+        <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback" class="img_icon">
         <div>
             <h2></h2>
             <p></p>
@@ -38,8 +38,8 @@
     </div>
     <div>
         <ul>
-            <li id="header_phone"><a href=""><img src="/img/icon/phone.png" alt="phone"></a></li>
-            <li id="header_more"><img src="/img/icon/more.png" alt="more"></li>
+            <li id="header_phone"><a href=""><img src="/img/icon/phone.png" alt="phone" class="img_icon"></a></li>
+<!--            <li id="header_more"><img src="/img/icon/more.png" alt="more"></li>-->
         </ul>
     </div>
     <div sec:authentication="name" style="display : none;" id="memUsername"></div>
@@ -70,7 +70,7 @@
         <input type="text" inputmode="text" id="chat_msg" placeholder="메세지 보내기">
     </div>
     <div class="icon_wrapper">
-        <img src="/img/icon/send.png" alt="send" id="btn_send">
+        <img src="/img/icon/send.png" alt="send" id="btn_send" class="img_icon">
     </div>
 </div>
 <script>
@@ -177,6 +177,10 @@
             // 채팅 보내기
             $("#btn_send").click(function(){
                 let msg = $("#chat_msg").val();
+
+                if(!msg){
+                    return;
+                }
 
                 sendMessage(msg);
 

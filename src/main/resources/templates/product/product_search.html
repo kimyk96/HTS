@@ -16,7 +16,7 @@
 <!-- 상단 메뉴바 -->
 <header id="header">
     <div>
-        <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback">
+        <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback" class="img_icon">
         <div>
             <h2>상품 검색</h2>
         </div>
@@ -35,6 +35,7 @@
             <ul id="search_list">
                 <p style='text-align : center;padding : 30px 0;'>검색 결과가 없습니다.</p>
             </ul>
+            <p onclick="getMore();" class="btn_list_more">더 보기</p>
         </div>
     </section>
 </main>
@@ -77,6 +78,18 @@
             lastKeyword=$("#search_keyword").val();
         });
     });
+
+    // 상품 목록 추가 조회
+    function getMore(){
+        let searchParams = new URL(location.href).searchParams;
+        let addressSi = $("#address").find(':selected').data('si');
+        let addressGu = $("#address").find(':selected').data('gu');
+        let addressDong = $("#address").find(':selected').data('dong');
+        let start = $("#product_search ul li").length + 1;
+        let end = start + 10;
+
+        getPdtList(addressSi, addressGu, addressDong,  "", searchParams.get("pdtCateNo"), start, end);
+    }
 
 </script>
 </body>

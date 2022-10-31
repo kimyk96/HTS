@@ -16,7 +16,12 @@ public class ImageApp {
     public ResponseEntity<byte[]> findByPath(String dir, String img) {
         File file = new File(new File("").getAbsolutePath() + "\\/images/", dir + "/" + img);
         if (!file.exists()) {
-            return null;
+            File defaultImg = new File(new File("").getAbsolutePath() + "\\/src/main/resources/static/img/example/", dir + "/default.png");
+            try {
+                return ResponseEntity.ok().body(Files.readAllBytes(defaultImg.toPath()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(getMediaType(img));

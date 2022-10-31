@@ -7,9 +7,9 @@
             select nvl(max(pdt_no),0)+1 from Product
         </selectKey>
         insert into
-        PRODUCT( pdt_no, pdt_cate_no, pdt_seller_no, pdt_address_no, pdt_name, pdt_desc, pdt_price)
+        PRODUCT( pdt_no, pdt_cate_no, pdt_seller_no, pdt_name, pdt_desc, pdt_price)
         values
-        ( #{pdtNo}, #{pdtCateNo}, #{pdtSellerNo}, #{pdtAddressNo}, #{pdtName}, #{pdtDesc}, #{pdtPrice})
+        ( #{pdtNo}, #{pdtCateNo}, #{pdtSellerNo}, #{pdtName}, #{pdtDesc}, #{pdtPrice})
     </insert>
     <!-- 판매글수정 -->
     <update id="update">
@@ -36,7 +36,7 @@
         i.img_no, i.img_path,
         c.pdt_cate
         from
-        PRODUCT p left outer join ADDRESS d on p.pdt_address_no = d.address_no and p.pdt_seller_no = d.mem_no
+        PRODUCT p left outer join ADDRESS d on p.pdt_seller_no = d.mem_no and p.pdt_seller_no = d.mem_no
         left outer join PRODUCT_IMAGE i on p.pdt_no = i.pdt_no
         left outer join PRODUCT_CATEGORY c on p.pdt_cate_no = c.pdt_cate_no
         where
@@ -87,7 +87,7 @@
         i.img_path,
         d.address_si, d.address_gu, d.address_dong
         FROM
-        product p left outer join address d on p.pdt_address_no = d.address_no and p.pdt_seller_no = d.mem_no
+        product p left outer join address d on p.pdt_seller_no = d.mem_no
         left outer join product_image i on p.pdt_no=i.pdt_no
         left outer join product_category c on p.pdt_cate_no = c.pdt_cate_no
         where
@@ -125,7 +125,7 @@
         i.img_path,
         d.address_si, d.address_gu, d.address_dong
         FROM
-        product p left outer join address d on p.pdt_address_no = d.address_no and p.pdt_seller_no = d.mem_no
+        product p left outer join address d on p.pdt_seller_no = d.mem_no
         left outer join product_image i on p.pdt_no=i.pdt_no
         left outer join product_category c on p.pdt_cate_no = c.pdt_cate_no
         where
