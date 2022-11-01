@@ -31,7 +31,9 @@ public class BrdApi {
     @PostMapping("save")
     public ResponseEntity<Integer> save(@Valid BrdDto.Create dto, Principal principal) throws IOException {
         brdApp.save(dto, principal.getName());
-        brdImgApp.save(BrdImgDto.ListFile.builder().brdNo(dto.getBrdNo()).files(dto.getFiles()).build());
+        if (dto.getFiles() != null) {
+            brdImgApp.save(BrdImgDto.ListFile.builder().brdNo(dto.getBrdNo()).files(dto.getFiles()).build());
+        }
         return ResponseEntity.ok().body(1);
     }
 
