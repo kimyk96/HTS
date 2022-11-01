@@ -28,7 +28,7 @@ header select{ border: none; font-size: 15px; font-family: 'Noto Sans KR', sans-
 
 /* 메인영역 */
 main{ height : 100%; margin : 50px 0; overflow: scroll; transition : 0.5s; opacity:0; }
-.btn_list_more{ padding : 30px 0; display : flex; text-align : center; }
+.btn_list_more{ padding : 30px 0; display : flex; text-align : center; justify-content : center;}
 
 /* 하단 메뉴바 */
 nav{ height : 50px; position : fixed; bottom : 0; left : 0; border-top : 1px solid #efefef; background-color: #fff; }
@@ -425,12 +425,12 @@ nav ul li p{ font-size : 12px; margin-bottom : 4px; }
     button:disabled, button[disabled]{ background-color: transparent; color : #efefef;}
     select, textarea{ background-color : transparent; color : #efefef; }
     select option{ background-color : transparent; color : #efefef; }
-    header{ background-color : #303030; color : #efefef; border-bottom : 1px solid #909090; }
+    header{ background-color : #303030; color : #efefef; border-bottom : 1px solid #252525; }
     main{ background-color : #303030; color : #efefef; }
-    nav{ background-color : #303030; color : #efefef; border-top:1px solid #909090;}
+    nav{ background-color : #303030; color : #efefef; border-top:1px solid #252525;}
 
     #main section#btn_action{ background-color :#303030 !important; color : #efefef; }
-    .img_icon{ filter: invert(1); }
+    .img_icon{ filter: invert(1); opacity : 0.8; }
     #main section#btn_action #btn_favorite.selected{ filter: invert(0); }
 
     #chat_room_keyboard div.input_wrapper input{ color : #303030; }
@@ -440,12 +440,16 @@ nav ul li p{ font-size : 12px; margin-bottom : 4px; }
 
     #main #board ul li{ border-bottom : 10px solid #252525 }
     #main #board ul li div.count_wrapper{ border-top : 1px solid #252525; }
+    #main #board_detail > div{ border-bottom : 1px solid #252525; }
 
-    #main #product ul li{ border-bottom : 1px solid #909090; }
-    #main #product ul li div.img_wrapper img{ box-shadow : 0px 0px 4px -1px #909090 }
+    #main #product ul li{ border-bottom : 1px solid #252525; }
+    #main #product ul li div.img_wrapper img{ box-shadow : 0px 0px 4px -1px #252525 }
 
-    #main #member div.wrapper { border-bottom : 10px solid #25252 }
-    #main section#btn_nav{ background-color : #303030 !important; }
+    #main #member div.wrapper { border-bottom : 10px solid #252525; }
+    #main #member div.wrapper ul li{ border-top : 1px solid #252525;}
+    #main #member div.wrapper div.brix div.brix_bar p{ background-color : #909090; }
+    #main #member div.wrapper div.transaction div span{ background-color : #252525; }
+    #main section#btn_nav{ background: linear-gradient(#303030, #00000000); background-color : #303030; border-bottom : 1px solid #252525; }
 
 }
 

@@ -39,7 +39,7 @@
         left join ADDRESS d on b.brd_writer_no = d.mem_no
         left join COMMENTS m on b.brd_no = m.cmt_brd_no
         where
-        b.brd_no=#{brdNo}
+        b.brd_no=#{brdNo} and rownum &lt;= 1
     </select>
     <resultMap id="brdDtoRead" type="com.hts.market.domain.board.dto.BrdDto$Detail">
         <result column="brd_cate_name" property="brdCateName"/>

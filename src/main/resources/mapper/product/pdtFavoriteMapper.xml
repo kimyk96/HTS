@@ -29,7 +29,7 @@
         left outer join product_image i on f.pdt_no = i.pdt_no
         left join address d on f.mem_no = d.mem_no
         where
-        f.mem_no=#{memNo}
+        f.mem_no=#{memNo} and d.address_no=(select max(dd.address_no) from address dd where dd.mem_no=#{memNo})
         ORDER BY
         pdt_no DESC
         ) a

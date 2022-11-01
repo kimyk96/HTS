@@ -83,8 +83,6 @@ public class ChatApp {
         // 최근 순으로 정렬
         allUser.sort(Comparator.comparing(ChatDto.Pk::getChatCreatedAt).reversed());
 
-
-
         return allUser;
     }
 
