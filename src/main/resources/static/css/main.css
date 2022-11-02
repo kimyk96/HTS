@@ -47,6 +47,15 @@ nav ul li#nav_member img{ content: url(../img/icon/member.png); }
 nav ul li#nav_member.selected img{ content: url(../img/icon/member_selected.png); }
 nav ul li p{ font-size : 12px; margin-bottom : 4px; }
 
+/* sweet alert */
+.swal2-title{ font-size: 20px !important; color : #303030 !important; }
+.swal2-text{ font-size: 14px !important; color : #303030 !important; }
+.swal2-button { font-size: 14px !important; color : #303030 !important; }
+.swal2-modal { background-color : #efefef !important; }
+.swal2-icon{ font-size : 10px !important ; width: 60px !important; height: 60px !important; }
+.swal2-html-container{ font-size : 14px !important; color : #303030 !important; }
+
+
 
 /******************************************** 공통 ********************************************/
 /* 시작하기 */
@@ -474,6 +483,14 @@ nav ul li p{ font-size : 12px; margin-bottom : 4px; }
     #main #member div.wrapper div.transaction div span{ background-color : #252525; }
     #main section#btn_nav{ background: linear-gradient(#303030, #00000000); background-color : #303030 !important; border-bottom : 1px solid #252525 !important; }
     #main #board_search ul li{ border-bottom : 10px solid #252525 !important; }
+
+    /* sweet alert */
+    .swal2-title{ font-size: 20px !important; color : #efefef !important; }
+    .swal2-text{ font-size: 14px !important; color : #efefef !important; }
+    .swal2-button { font-size: 14px !important; color : #efefef !important; }
+    .swal2-modal { background-color : #252525 !important; }
+    .swal2-overlay { background-color: #30303050 !important; }
+    .swal2-html-container{ font-size : 14px !important; color : #efefef !important; }
 }
 
 

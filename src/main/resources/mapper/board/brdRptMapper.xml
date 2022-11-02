@@ -10,8 +10,8 @@
         values( #{rptNo}, #{rptMsgNo}, #{rptMemNo}, #{rptBrdNo})
     </insert>
     <!-- 신고자번호 조회 -->
-    <select id="findIdBySearch" resultType="com.hts.market.domain.board.dto.BrdRptDto$Search">
-        select rpt_mem_no from BOARD_REPORT where rpt_mem_no = #{rptMemNo} and rpt_brd_no = #{rptBrdNo}
+    <select id="findIdBySearch" resultType="int">
+        select count(*) from BOARD_REPORT where rpt_mem_no = #{rptMemNo} and rpt_brd_no = #{rptBrdNo}
     </select>
     <!-- 신고자 일일 신고횟수 체크 -->
     <select id="countOfMemNo" resultType="integer">

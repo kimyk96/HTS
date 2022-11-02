@@ -34,7 +34,7 @@ public class PdtDto {
         @NotNull private Long pdtNo;
         private Long pdtSellerNo;
         @NotNull private Long pdtCateNo;
-        @NotNull private Long pdtAddressNo;
+        private Long pdtAddressNo;
         @NotEmpty private String pdtName;
         @NotEmpty private String pdtDesc;
         @NotNull private Integer pdtPrice;

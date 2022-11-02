@@ -28,15 +28,14 @@ public class PdtRptApp {
         // 사용자 번호값 넣기
         dto.setRptMemNo(memNo);
         // 이미 신고한 사용자
-        Long reporter = pdtRptRepo.findIdBySearch(PdtRptDto.Search
-                .builder()
+        Integer rptExist = pdtRptRepo.findIdBySearch(PdtRptDto.Search.builder()
                 .rptPdtNo(dto.getRptPdtNo())
                 .rptMemNo(dto.getRptMemNo())
                 .build());
         // 신고자 일일 신고횟수 체크
         Integer rptCount = pdtRptRepo.countOfMemNo(memNo);
         // 신고자번호와 이미저장된 번호가 일치한다면 저장 실패 예외처리
-        if (reporter != null && memNo.equals(reporter)) {
+        if (rptExist.equals(1)) {
             throw new ReportSaveFailException();
             // 회원 당 신고횟수가 5이상이면 저장 실패 예외처리
         } else if (rptCount >= 5) {

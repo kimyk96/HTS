@@ -21,7 +21,7 @@ public interface BrdRptRepo {
     public List<BrdRptDto.Read> findAll(BrdRptDto.Read dto);
 
     // 신고자번호 조회
-    public Long findIdBySearch(BrdRptDto.Search dto);
+    public Integer findIdBySearch(BrdRptDto.Search dto);
 
     // 신고자 일일 신고횟수 체크
     public  Integer countOfMemNo(Long memNo);

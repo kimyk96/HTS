@@ -10,7 +10,7 @@ public interface PdtRptRepo {
     // 신고등록
     public Integer save(PdtRptDto.Create dto);
     // 신고자번호 조회
-    public Long findIdBySearch(PdtRptDto.Search dto);
+    public Integer findIdBySearch(PdtRptDto.Search dto);
     // 신고자 일일 신고횟수 체크
     public  Integer countOfMemNo(Long memNo);
     // 상품 신고횟수 체크

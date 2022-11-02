@@ -12,8 +12,8 @@
             ( #{rptNo}, #{rptPdtNo}, #{rptMemNo}, #{rptMsgNo})
     </insert>
     <!-- 신고자번호 조회 -->
-    <select id="findIdBySearch" resultType="com.hts.market.domain.product.dto.PdtRptDto$Search">
-        select rpt_mem_no from PRODUCT_REPORT where rpt_mem_no = #{rptMemNo} and rpt_pdt_no = #{rptPdtNo}
+    <select id="findIdBySearch" resultType="int">
+        select count(*) from PRODUCT_REPORT where rpt_mem_no = #{rptMemNo} and rpt_pdt_no = #{rptPdtNo}
     </select>
     <!-- 신고자 일일 신고횟수 체크 -->
     <select id="countOfMemNo" resultType="integer">
