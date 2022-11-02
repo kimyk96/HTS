@@ -21,4 +21,6 @@ public interface BrdLikeRepo {
 
     // 좋아요 체크
     public Boolean active(BrdLikeDto.CheckLikes dto);
+    // 회원별 전체 삭제
+    Integer deleteAllByMemNo(Long memNo);
 }

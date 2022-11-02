@@ -47,4 +47,7 @@
     <select id="active" resultType="boolean">
         select count(*) from PRODUCT_FAVORITE where pdt_no=#{pdtNo} and mem_no = #{memNo}
     </select>
+    <delete id="deleteAllByMemNo">
+        delete from PRODUCT_FAVORITE where mem_no=#{memNo}
+    </delete>
 </mapper>

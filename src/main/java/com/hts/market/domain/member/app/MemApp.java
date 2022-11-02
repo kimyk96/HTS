@@ -40,6 +40,7 @@ public class MemApp {
     @Autowired BrdRepo brdRepo;
     @Autowired BrdImgRepo brdImgRepo;
     @Autowired BrdLikeRepo brdLikeRepo;
+    @Autowired CmtRepo cmtRepo;
 
 
     @Value("${hts.imgUrl}") private String imgUrl;
@@ -158,9 +159,13 @@ public class MemApp {
             // 상품 삭제
             pdtRepo.delete(PdtDto.Delete.builder().pdtNo(item.getPdtNo()).pdtSellerNo(memNo).build());
         });
+        // 좋아요 누른 상품목록 삭제
+        pdtFavoriteRepo.deleteAllByMemNo(memNo);
 
         // 게시글 삭제 ( 게시글, 이미지, 좋아요, 댓글 )
         brdRepo.findAllByMemNo(memNo).stream().forEach(item->{
+            // 댓글 전체 삭제
+            cmtRepo.deleteAll(item.getBrdNo());
             // 게시글 이미지 파일 삭제
             brdImgRepo.searchOfBrdNo(item.getBrdNo()).stream().forEach(a->{
                 File file = new File(new File("").getAbsolutePath() + "\\" + "/images/" + a.getImgPath());
@@ -173,6 +178,9 @@ public class MemApp {
             // 게시글 삭제
             brdRepo.delete(BrdDto.Delete.builder().brdNo(item.getBrdNo()).brdWriterNo(memNo).build());
         });
+        // 작성한 댓글 삭제
+        cmtRepo.deleteAllByMemNo(memNo);
+        brdLikeRepo.deleteAllByMemNo(memNo);
 
         // 회원 삭제 ( 회원, 주소, 권한, 이미지 )
         File file = new File(new File("").getAbsolutePath() + "\\" + "/images/" + member.getImgPath());

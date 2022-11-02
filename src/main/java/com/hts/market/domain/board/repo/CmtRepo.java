@@ -26,4 +26,6 @@ public interface CmtRepo {
 
     // 댓글 수 확인
     Integer countByBrdNo(Long brdNo);
+    // 회원별 전체 삭제
+    Integer deleteAllByMemNo(Long memNo);
 }

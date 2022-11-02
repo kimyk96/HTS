@@ -22,4 +22,7 @@ public interface PdtFavoriteRepo {
 
     // 관심글 확인
     public Boolean active(Long pdtNo, Long memNo);
+
+    // 회원별 전체 삭제
+    Integer deleteAllByMemNo(Long memNo);
 }

@@ -25,4 +25,7 @@
     <select id="active" resultType="boolean">
         select count(*) from BOARD_LIKE where brd_no=#{brdNo} and mem_no = #{memNo}
     </select>
+    <delete id="deleteAllByMemNo">
+        delete from board_like where mem_no=#{memNo}
+    </delete>
 </mapper>

@@ -56,4 +56,7 @@
             select count(*) from COMMENTS where cmt_brd_no=#{brdNo}
         ]]>
     </select>
+    <delete id="deleteAllByMemNo">
+        delete from COMMENTS where cmt_writer_no=#{memNo}
+    </delete>
 </mapper>
