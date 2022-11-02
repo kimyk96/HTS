@@ -18,7 +18,7 @@ public interface BrdRepo {
     Integer delete(BrdDto.Delete dto);
 
     // 글 읽기
-    Optional<BrdDto.Detail> findByBrdNo(Long brdNo);
+    Optional<BrdDto.Read> findByBrdNo(Long brdNo);
 
     // 글 조회수 증가
     Integer findViewsByBrdNo(Long brdNo, Long memNo);
@@ -27,7 +27,7 @@ public interface BrdRepo {
     Long findWriterNoById(Long brdNo);
 
     // 회원별 글 목록
-    public List<BrdDto.ReadList> findAllByData(BrdDto.ListData dto);
+    List<BrdDto.ReadList> findAllByData(BrdDto.ListData dto);
 
     // 작성한 게시글 찾기
     List<BrdDto.ReadList> findAllByMemNo(Long memNo);

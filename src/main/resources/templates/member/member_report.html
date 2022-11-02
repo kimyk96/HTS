@@ -1,7 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>리뷰 등록</title>
+    <title>신고 등록</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="/css/main.css">
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"
@@ -12,11 +12,14 @@
     <link rel="icon" sizes="192x192" href="/img/logo/192x192.png">
     <link rel="icon" sizes="512x512" href="/img/logo/512x512.png">
     <style>
-        /* 리뷰 등록 */
+        /* 신고 등록 */
         #header div.btn_upload{ justify-content: flex-end; }
         #header div h2{ font-size : 15px; font-weight : 400; }
         #header div.btn_upload span{ padding : 0 10px; font-weight : 600; font-size : 15px; color : #FF9D2A;  }
-
+        /* 다크모드 */
+        @media (prefers-color-scheme: dark) {
+            .review_message_list{ color : #efefef; }
+        }
 
     </style>
 </head>
@@ -26,11 +29,11 @@
     <div>
         <img src="/img/icon/arrow_left.png" alt="arrow_left" id="header_goback" class="img_icon">
         <div>
-            <h2>거래후기 보내기</h2>
+            <h2>회원 신고하기</h2>
         </div>
     </div>
     <div class="btn_upload">
-        <span>완료</span>
+        <span>신고</span>
     </div>
 </header>
 <!-- 메인정보 -->
@@ -39,12 +42,12 @@
         <div class="pdt_info">
             <img src="/img/example/square.png" alt="pdt_img" class="pdt_img">
             <div>
-                <p class="title">거래한 물건</p>
-                <p class="pdt_title">삼성 오딧세이 노트북</p>
+                <p class="title">신고할 사람</p>
+                <p class="pdt_title"></p>
             </div>
         </div>
         <div class="review_info">
-            <h3>거래가 어떠셨나요?</h3>
+            <h3>신고 사유를 선택해주세요</h3>
             <div class="review_message_list"></div>
         </div>
     </section>
@@ -53,49 +56,49 @@
     $(function(){
         let searchParams = new URL(location.href).searchParams;
 
-        // 리뷰 목록 불러오기
+        // 목록 불러오기
         $.ajax({
             method: "GET",
-            url: "/api/v1/review"
+            url: "/api/v1/rpt-msg"
         })
         .done(function(res){
             let $list = $(".review_message_list");
             for(item of res){
-                $(`<label><input type="checkbox" name="c" value="${item.reviewNo}"> ${item.review}</label>`).appendTo($list);
+                $(`<label><input type="radio" name="c" value="${item.rptMsgNo}"> ${item.rptMsg}</label>`).appendTo($list);
             }
         });
 
-        // 상품 정보 불러오기
+        // 회원 정보 불러오기
         $.ajax({
             method: "GET",
-            url: "/api/v1/pdt/find-by-pdt-no",
-            data: { pdtNo: searchParams.get("pdtNo") }
+            url: "/api/v1/mem/find-by-id",
+            data: { memNo: searchParams.get("memNo") }
         })
         .done(function(res){
-            $(".pdt_title").text(res.product.pdtName);
-            $(".pdt_img").attr('src', res.images[0].imgPath);
+            $(".pdt_title").text(res.memNickname);
+            $(".pdt_img").attr('src', res.imgPath);
         })
 
-        // 리뷰 등록
+        // 신고 등록
         $(".btn_upload").click(function(){
-            let checked = [];
-            $('input[name=c]:checked').each(function(){ checked.push( $(this).val() ); });
+            let rptMsgNo = $('input[name=c]:checked').val();
+
             $.ajax({
                 method: 'POST',
-                url: '/api/v1/tx-review/save',
-                data: { txNo : searchParams.get("txNo"), txPdtNo: searchParams.get("pdtNo"), checked: checked }
+                url: '/api/v1/mem-rpt/save',
+                data: { rptTargetNo: searchParams.get("memNo"), rptMsgNo : rptMsgNo }
             })
             .done(function(res){
                 if(res==1){
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',
-                        title: '리뷰를 등록하였습니다',
+                        title: '신고를 등록하였습니다',
                         showConfirmButton: false,
                         timer: 1000
                     })
                     .then(function(result){
-                        $(location).attr('href','/member')
+                        $(location).attr('href','/product')
                     })
                 }
             })
@@ -108,7 +111,7 @@
                     timer: 1000
                 })
                 .then(function(result){
-                    $(location).attr('href','/member')
+                    $(location).attr('href','/product')
                 })
             })
         })

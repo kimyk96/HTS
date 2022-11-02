@@ -7,6 +7,7 @@
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"
             integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="/js/main.js" charset="UTF-8"></script>
+    <link rel="manifest" href="/manifest.json">
     <link rel="icon" sizes="192x192" href="/img/logo/192x192.png">
     <link rel="icon" sizes="512x512" href="/img/logo/512x512.png">
 </head>
@@ -50,7 +51,7 @@
             <div class="transaction">
                 <div onclick="other_sell();">
                         <span>
-                            <img src="/img/icon/sell.png" alt="sell">
+                            <img src="/img/icon/sell.png" alt="sell" >
                         </span>
                     <p>판매내역</p>
                 </div>
@@ -60,6 +61,12 @@
                         </span>
                     <p>구매내역</p>
                 </div>
+                <div onclick="other_report();">
+                        <span>
+                            <img src="/img/icon/report.png" alt="report">
+                        </span>
+                    <p>신고하기</p>
+                </div>
             </div>
         </div>
     </section>
@@ -68,19 +75,19 @@
 <nav id="nav">
     <ul>
         <li id="nav_product">
-            <img src="/img/icon/product.png" alt="nav_product">
+            <img src="/img/icon/product.png" alt="nav_product" class="img_icon">
             <p>홈</p>
         </li>
         <li id="nav_board">
-            <img src="/img/icon/board.png" alt="nav_board">
+            <img src="/img/icon/board.png" alt="nav_board" class="img_icon">
             <p>동네생활</p>
         </li>
         <li id="nav_chat">
-            <img src="/img/icon/chat.png" alt="nav_chat">
+            <img src="/img/icon/chat.png" alt="nav_chat" class="img_icon">
             <p>채팅</p>
         </li>
-        <li id="nav_member" class="selected">
-            <img src="/img/icon/member.png" alt="nav_member">
+        <li id="nav_member">
+            <img src="/img/icon/member.png" alt="nav_member" class="img_icon">
             <p>나의 한라봉</p>
         </li>
     </ul>
@@ -96,6 +103,9 @@ function other_buy(){
 function other_sell(){
     $(location).attr('href', '/transaction/sell/' + $("#member_other").data("mem-no") )
 }
+function other_report(){
+    $(location).attr('href', '/member/report?memNo=' + $("#member_other").data("mem-no") )
+};
 
 
         $(function(){

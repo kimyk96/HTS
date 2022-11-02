@@ -11,4 +11,22 @@
         values
         ( #{rptNo}, #{rptMemNo}, #{rptTargetNo}, #{rptMsgNo} )
     </insert>
+    <!-- 신고 확인 -->
+    <select id="findByCount" resultType="long">
+        select
+            rpt_target_no
+        from
+            MEMBER_REPORT
+        group by
+            rpt_target_no
+        having
+            count(rpt_target_no) &gt;= 5
+    </select>
+    <delete id="sortDelete">
+        delete from
+            MEMBER_REPORT
+        where
+            rpt_created_at &lt;= TO_CHAR(CURRENT_DATE-7,'YYYYMMDD')
+    </delete>
+
 </mapper>

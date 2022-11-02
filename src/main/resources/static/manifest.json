@@ -1,10 +1,11 @@
 {
   "name": "한라봉마켓",
   "short_name": "한라봉마켓",
-  "start_url": ".",
-  "display": "fullscreen",
-  "theme_color": "#FF9800",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#303030",
   "background_color": "#efefef",
+  "orientation": "portrait",
   "icons": [
     {
       "src": "/img/logo/192x192.png",

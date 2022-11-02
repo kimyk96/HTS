@@ -22,18 +22,6 @@ public class BrdRptApi {
     // 글 신고 등록
     @PostMapping("save")
     public ResponseEntity<Integer> save(@Valid BrdRptDto.Create dto, Principal principal) {
-        return ResponseEntity.ok().body(brdRptApp.save(dto));
-    }
-
-    // 글 신고 목록
-    @GetMapping("find-all")
-    public ResponseEntity<List<BrdRptDto.Read>> findAll(@Valid BrdRptDto.Read dto) {
-        return ResponseEntity.ok().body(brdRptApp.findAll(dto));
-    }
-
-    // 글 신고 삭제
-    @DeleteMapping("delete")
-    public ResponseEntity<Integer> delete(@Valid BrdRptDto.Delete dto) {
-        return ResponseEntity.ok().body(brdRptApp.delete(dto));
+        return ResponseEntity.ok().body(brdRptApp.save(dto, principal.getName()));
     }
 }

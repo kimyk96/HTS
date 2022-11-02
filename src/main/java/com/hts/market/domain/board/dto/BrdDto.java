@@ -92,9 +92,10 @@ public class BrdDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Detail {
+        private String brdCateName;
         private BrdDto.Read board;
         private List<BrdImgDto.Read> images;
-        private String brdCateName;
+
         private MemDto.Member member;
         private AddressDto.Read address;
         private List<CmtDto.Read> cmtList;

@@ -27,6 +27,9 @@ public interface PdtRepo {
     // 판매글 삭제
     public Integer delete(PdtDto.Delete dto);
 
+    // 판매글 전체 삭제
+    Integer deleteAllBySellerNo(Long sellerNo);
+
     // 판매자 찾기
     public Long findSellerNoById(Long pdtNo);
 

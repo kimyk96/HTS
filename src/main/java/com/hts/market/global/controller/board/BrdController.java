@@ -46,4 +46,10 @@ public class BrdController {
     public String cate() {
         return "board/board_cate";
     }
+
+    // 글 신고
+    @GetMapping("report")
+    public String report() {
+        return "board/board_report";
+    }
 }

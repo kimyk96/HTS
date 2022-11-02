@@ -1,5 +1,11 @@
 package com.hts.market.domain.member.app;
 
+import com.hts.market.domain.board.dto.BrdDto;
+import com.hts.market.domain.board.dto.BrdLikeDto;
+import com.hts.market.domain.board.repo.BrdImgRepo;
+import com.hts.market.domain.board.repo.BrdLikeRepo;
+import com.hts.market.domain.board.repo.BrdRepo;
+import com.hts.market.domain.board.repo.CmtRepo;
 import com.hts.market.domain.member.dto.MemDto;
 import com.hts.market.domain.member.dto.MemImgDto;
 import com.hts.market.domain.member.dto.MemRoleDto;
@@ -9,6 +15,10 @@ import com.hts.market.domain.member.exception.NicknameAlreadyTakenException;
 import com.hts.market.domain.member.repo.MemImgRepo;
 import com.hts.market.domain.member.repo.MemRepo;
 import com.hts.market.domain.member.repo.MemRoleRepo;
+import com.hts.market.domain.product.dto.PdtDto;
+import com.hts.market.domain.product.dto.PdtFavoriteDto;
+import com.hts.market.domain.product.repo.PdtFavoriteRepo;
+import com.hts.market.domain.product.repo.PdtImgRepo;
 import com.hts.market.domain.product.repo.PdtRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,6 +34,12 @@ public class MemApp {
     @Autowired MemRoleRepo memRoleRepo;
     @Autowired PasswordEncoder passwordEncoder;
     @Autowired MemImgRepo memImgRepo;
+    @Autowired PdtRepo pdtRepo;
+    @Autowired PdtImgRepo pdtImgRepo;
+    @Autowired PdtFavoriteRepo pdtFavoriteRepo;
+    @Autowired BrdRepo brdRepo;
+    @Autowired BrdImgRepo brdImgRepo;
+    @Autowired BrdLikeRepo brdLikeRepo;
 
 
     @Value("${hts.imgUrl}") private String imgUrl;
@@ -120,8 +136,50 @@ public class MemApp {
         return memRepo.findIdByMemUsername(memUsername);
     }
 
+
+
+
     // 회원 탈퇴
     public Integer delete(String username) {
-        return memRepo.delete(findIdByMemUsername(username));
+        MemDto.Member member = memRepo.findByName(username).orElseThrow(MemberNotFoundException::new);
+        Long memNo = member.getMemNo();
+
+        // 상품 삭제 ( 상품, 이미지, 좋아요 )
+        pdtRepo.findAllByMemNo(memNo).stream().forEach(item->{
+            // 상품 이미지 파일 삭제
+            pdtImgRepo.searchOfPdtNo(item.getPdtNo()).stream().forEach(a->{
+                File file = new File(new File("").getAbsolutePath() + "\\" + "/images/" + a.getImgPath());
+                file.delete();
+            });
+            // 상품 이미지 삭제
+            pdtImgRepo.deleteAll(item.getPdtNo());
+            // 상품 좋아요 삭제
+            pdtFavoriteRepo.delete(PdtFavoriteDto.Delete.builder().pdtNo(item.getPdtNo()).memNo(memNo).build());
+            // 상품 삭제
+            pdtRepo.delete(PdtDto.Delete.builder().pdtNo(item.getPdtNo()).pdtSellerNo(memNo).build());
+        });
+
+        // 게시글 삭제 ( 게시글, 이미지, 좋아요, 댓글 )
+        brdRepo.findAllByMemNo(memNo).stream().forEach(item->{
+            // 게시글 이미지 파일 삭제
+            brdImgRepo.searchOfBrdNo(item.getBrdNo()).stream().forEach(a->{
+                File file = new File(new File("").getAbsolutePath() + "\\" + "/images/" + a.getImgPath());
+                file.delete();
+            });
+            // 게시글 이미지 삭제
+            brdImgRepo.deleteAll(item.getBrdNo());
+            // 게시글 좋아요 삭제
+            brdLikeRepo.delete(BrdLikeDto.Delete.builder().brdNo(item.getBrdNo()).memNo(memNo).build());
+            // 게시글 삭제
+            brdRepo.delete(BrdDto.Delete.builder().brdNo(item.getBrdNo()).brdWriterNo(memNo).build());
+        });
+
+        // 회원 삭제 ( 회원, 주소, 권한, 이미지 )
+        File file = new File(new File("").getAbsolutePath() + "\\" + "/images/" + member.getImgPath());
+        file.delete();
+        memImgRepo.delete(memNo);
+        memRoleRepo.deleteAll(memNo);
+        memRepo.delete(memNo);
+        return 1;
     }
 }

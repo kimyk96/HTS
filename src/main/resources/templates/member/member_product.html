@@ -8,6 +8,7 @@
             integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/js/main.js" charset="UTF-8"></script>
+    <link rel="manifest" href="/manifest.json">
     <link rel="icon" sizes="192x192" href="/img/logo/192x192.png">
     <link rel="icon" sizes="512x512" href="/img/logo/512x512.png">
 </head>
@@ -52,7 +53,6 @@ $(function(){
                     <div class="info">
                         <h3 class="info_title">${li.pdtName}</h3>
                         <p>
-                            <span class="info_address">${li.addressGu} ${li.addressDong}</span>
                             <span class="info_created_at"> ${timeForToday(li.pdtCreatedAt)}</span>
                         </p>
                         <p>

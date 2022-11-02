@@ -32,14 +32,16 @@
     <!-- findAllByPk //  구매자로서의 채팅 내역-->
     <select id="findAllAsBuyer" resultType="com.hts.market.domain.chat.dto.ChatDto$Pk">
         select * from chat where (chat_pdt_no, chat_mem_no, chat_msg_no) in (
-        select distinct chat_pdt_no, chat_mem_no, (select max(chat_msg_no) from chat c where
+        select distinct chat_pdt_no, chat_mem_no,
+        (select max(chat_msg_no) from chat c where
         c.chat_pdt_no=chat.chat_pdt_no and c.chat_mem_no = #{memNo}) chat_msg_no from chat where chat_mem_no = #{memNo})
     </select>
     <!-- finAllAsSeller//  판매자로서의 채팅 내역-->
     <select id="findAllAsSeller" resultType="com.hts.market.domain.chat.dto.ChatDto$Pk">
         select * from chat where (chat_pdt_no, chat_mem_no, chat_msg_no) in (
-        select distinct chat_pdt_no, chat_mem_no, (select max(chat_msg_no) from chat c where
-        c.chat_pdt_no=chat.chat_pdt_no) chat_msg_no from chat left join product p on p.pdt_no=chat.chat_pdt_no where
+        select distinct chat_pdt_no, chat_mem_no,
+        (select max(chat_msg_no) from chat c where
+        c.chat_pdt_no=chat.chat_pdt_no and c.chat_mem_no=chat.chat_mem_no) chat_msg_no from chat left join product p on p.pdt_no=chat.chat_pdt_no where
         p.pdt_seller_no = #{memNo} )
     </select>
     <!-- findAllByChatMemNoAndChatPdtNoAndChatMsgNo // 회원간 채팅내역 -->

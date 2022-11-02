@@ -68,4 +68,10 @@ public class MemController {
     public String board() {
         return "member/member_board";
     }
+
+    // 회원 신고
+    @GetMapping("report")
+    public String report() {
+        return "member/member_report";
+    }
 }

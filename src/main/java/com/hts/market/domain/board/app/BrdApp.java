@@ -22,6 +22,7 @@ public class BrdApp {
     @Autowired private MemRepo memRepo;
     @Autowired private BrdLikeRepo brdLikeRepo;
     @Autowired private CmtRepo cmtRepo;
+    @Autowired private BrdImgRepo brdImgRepo;
     @Value("${hts.imgUrl}") private String imgUrl;
 
     // 글 작성
@@ -47,7 +48,10 @@ public class BrdApp {
     public BrdDto.Detail findByBrdNo(Long brdNo, String memUserName) {
         Long memNo = memRepo.findIdByMemUsername(memUserName);
         //게시물 정보
-        BrdDto.Detail dto = brdRepo.findByBrdNo(brdNo).orElseThrow(BoardNotFoundException::new);
+        BrdDto.Detail dto = BrdDto.Detail.builder().build();
+        dto.setBoard(brdRepo.findByBrdNo(brdNo).orElseThrow(BoardNotFoundException::new));
+        dto.setImages(brdImgRepo.searchOfBrdNo(brdNo));
+
         for (BrdImgDto.Read read : dto.getImages()) {
             if (read.getImgPath() != null) {
                 read.setImgPath(imgUrl + read.getImgPath());

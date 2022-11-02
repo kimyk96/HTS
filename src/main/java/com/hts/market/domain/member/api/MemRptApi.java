@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
+
 @RestController
 @Validated
 @RequestMapping("/api/v1/mem-rpt")
@@ -17,7 +19,7 @@ public class MemRptApi {
 
     // 회원 신고 
     @PostMapping("save")
-    public ResponseEntity<Integer> save(MemRptDto.Create dto) {
-        return ResponseEntity.ok().body(memRptApp.save(dto));
+    public ResponseEntity<Integer> save(MemRptDto.Create dto, Principal principal) {
+        return ResponseEntity.ok().body(memRptApp.save(dto, principal.getName()));
     }
 }

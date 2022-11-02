@@ -1,10 +1,30 @@
 const cacheName = "cache";
 const precacheResources = [
 "/",
-"../css",
-"../js",
-"../img"
-
+"/js/main.js",
+"/css/main.css",
+"/img/icon/cate/1.png",
+"/img/icon/cate/2.png",
+"/img/icon/cate/3.png",
+"/img/icon/cate/4.png",
+"/img/icon/cate/5.png",
+"/img/icon/cate/6.png",
+"/img/icon/cate/7.png",
+"/img/icon/cate/8.png",
+"/img/icon/cate/9.png",
+"/img/icon/cate/10.png",
+"/img/icon/cate/11.png",
+"/img/icon/cate/12.png",
+"/img/icon/cate/13.png",
+"/img/icon/cate/14.png",
+"/img/icon/cate/15.png",
+"/img/icon/cate/16.png",
+"/img/icon/cate/17.png",
+"/img/icon/cate/18.png",
+"/img/icon/cate/19.png",
+"/img/icon/layout/address.jpg",
+"/img/icon/layout/logo.png",
+"/img/icon/layout/review.jpg"
 ];
 
 self.addEventListener("install", event => {

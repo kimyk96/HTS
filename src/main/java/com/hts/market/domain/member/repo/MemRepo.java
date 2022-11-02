@@ -50,4 +50,7 @@ public interface MemRepo {
 
     // 회원 탈퇴
     Integer delete(Long memNo);
+
+    // 회원 정지
+    Integer updateMemIsEnabled(Long memNo);
 }

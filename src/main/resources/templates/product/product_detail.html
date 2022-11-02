@@ -10,6 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/js/main.js" charset="UTF-8"></script>
+    <link rel="manifest" href="/manifest.json">
     <link rel="icon" sizes="192x192" href="/img/logo/192x192.png">
     <link rel="icon" sizes="512x512" href="/img/logo/512x512.png">
     <style>
@@ -28,6 +29,12 @@
         #main section#btn_action div p.pdt_price{ font-weight: 600; opacity : 1; }
         #main section#btn_action div span{ font-size: 15px; font-weight: 400; background-color : #FF9D2A; padding : 7px 17px; color : #fff; border-radius: 7px; }
         #main section#btn_action #btn_chat{ display : none; }
+        #main section#btn_action #btn_chat.sold{ background-color : #909090; }
+
+        /* 다크모드 */
+        @media (prefers-color-scheme: dark) {
+            #main section#btn_nav{ background: linear-gradient(#303030, #00000000) !important; border-bottom : none !important; }
+        }
     </style>
 </head>
 <body>
@@ -116,6 +123,11 @@
         $(function(){
             let pdtNo = $("#product_detail").data("pdt-no");
             let memNo;
+
+            $(".pdt_rpt_info").click(function(){
+                $(location).attr('href', '/product/report?pdtNo=' + pdtNo)
+            })
+
 
             // 회원 정보 파싱
             $.ajax({
@@ -238,6 +250,11 @@
                 $(".pdt_desc").val(res.product.pdtDesc);
                 $(".pdt_views").text(res.product.pdtViews);
                 $(".pdt_likes").text(res.product.favoriteCount);
+
+                if(res.product.pdtStatus==2){
+                    $("#btn_chat").text('거래완료');
+                    $("#btn_chat").addClass('sold');
+                }
 
                 // 판매자의 판매내역
                 let $seller_list = $(".mem_transaction_info ul");

@@ -9,6 +9,14 @@
         insert into BOARD_REPORT(rpt_no, rpt_msg_no, rpt_mem_no, rpt_brd_no)
         values( #{rptNo}, #{rptMsgNo}, #{rptMemNo}, #{rptBrdNo})
     </insert>
+    <!-- 신고자번호 조회 -->
+    <select id="findIdBySearch" resultType="com.hts.market.domain.board.dto.BrdRptDto$Search">
+        select rpt_mem_no from BOARD_REPORT where rpt_mem_no = #{rptMemNo} and rpt_brd_no = #{rptBrdNo}
+    </select>
+    <!-- 신고자 일일 신고횟수 체크 -->
+    <select id="countOfMemNo" resultType="integer">
+        select count(rpt_mem_no) from BOARD_REPORT where rpt_mem_no= #{rptMemNo}
+    </select>
     <!-- 신고보기 -->
     <select id="findByRptNo" resultType="com.hts.market.domain.board.dto.BrdRptDto$Read">
         select rpt_no, rpt_msg_no, rpt_mem_no, rpt_brd_no, rpt_created_at from BOARD_REPORT
@@ -23,4 +31,18 @@
     <delete id="delete">
         delete from BOARD_REPORT where rpt_no = #{rptNo}
     </delete>
+    <delete id="deleteAll">
+        delete from BOARD_REPORT
+    </delete>
+    <!-- 신고가 5회이상인 글번호 조회 -->
+    <select id="findBrdNoByCount" resultType="long">
+        select
+        rpt_brd_no
+        from
+        BOARD_REPORT
+        group by
+        rpt_brd_no
+        having
+        count(rpt_brd_no) &gt;= 5
+    </select>
 </mapper>

@@ -46,4 +46,11 @@ public class PdtController {
     public String cate() {
         return "product/product_cate";
     }
+    
+    // 상품 신고
+    @GetMapping("report")
+    public String report() {
+        return "product/product_report";
+    }
+    
 }

@@ -26,48 +26,28 @@
         update BOARD set brd_views = brd_views + 1 where brd_no = #{brdNo} and brd_writer_no != #{memNo}
     </update>
     <!--게시물 읽기 -->
-    <select id="findByBrdNo" resultMap="brdDtoRead">
+    <select id="findByBrdNo"  resultType="com.hts.market.domain.board.dto.BrdDto$Read">
         select
-        b.brd_no, b.brd_writer_no, b.brd_title, b.brd_content, b.brd_views, b.brd_created_at,
-        i.img_path,
-        c.brd_cate_name,
-        d.address_no, d.mem_no, d.address_si, d.address_gu, d.address_dong,
-        m.cmt_content, m.cmt_writer_no, m.cmt_no, m.cmt_brd_no
+            *
         from
-        BOARD b left join BOARD_IMAGE i on b.brd_no = i.brd_no
-        left join BOARD_CATEGORY c on b.brd_cate_no = c.brd_cate_no
-        left join ADDRESS d on b.brd_writer_no = d.mem_no
-        left join COMMENTS m on b.brd_no = m.cmt_brd_no
+            BOARD
         where
-        b.brd_no=#{brdNo} and rownum &lt;= 1
+            brd_no=#{brdNo}
     </select>
     <resultMap id="brdDtoRead" type="com.hts.market.domain.board.dto.BrdDto$Detail">
-        <result column="brd_cate_name" property="brdCateName"/>
-        <association property="address" javaType="com.hts.market.domain.member.dto.AddressDto$Read">
-            <result column="address_no" property="addressNo"/>
-            <result column="mem_no" property="memNo"/>
-            <result column="address_si" property="addressSi"/>
-            <result column="address_gu" property="addressGu"/>
-            <result column="address_dong" property="addressDong"/>
-        </association>
+        <result column="c_name" property="brdCateName"/>
         <association property="board" javaType="com.hts.market.domain.board.dto.BrdDto$Read">
-            <result column="brd_no" property="brdNo"/>
-            <result column="brd_title" property="brdTitle"/>
-            <result column="brd_content" property="brdContent"/>
-            <result column="brd_views" property="brdViews"/>
-            <result column="brd_created_at" property="brdCreatedAt"/>
-            <result column="brd_writer_no" property="brdWriterNo"/>
+            <result column="b_no" property="brdNo"/>
+            <result column="b_title" property="brdTitle"/>
+            <result column="b_content" property="brdContent"/>
+            <result column="b_views" property="brdViews"/>
+            <result column="b_created_at" property="brdCreatedAt"/>
+            <result column="b_writer" property="brdWriterNo"/>
         </association>
         <collection property="images" ofType="com.hts.market.domain.board.dto.BrdImgDto$Read">
-            <result column="brd_no" property="brdNo"/>
-            <result column="img_no" property="imgNo"/>
-            <result column="img_path" property="imgPath"/>
-        </collection>
-        <collection property="cmtList" ofType="com.hts.market.domain.board.dto.CmtDto$Read">
-            <result column="cmt_content" property="cmtContent"/>
-            <result column="cmt_writer_no" property="cmtWriterNo"/>
-            <result column="cmt_no" property="cmtNo"/>
-            <result column="cmt_brd_no" property="cmtBrdNo"/>
+            <result column="b_no" property="brdNo"/>
+            <result column="i_no" property="imgNo"/>
+            <result column="i_path" property="imgPath"/>
         </collection>
     </resultMap>
     <!-- 게시글 목록조회 -->

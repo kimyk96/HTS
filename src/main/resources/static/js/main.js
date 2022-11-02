@@ -7,6 +7,7 @@ $(function(){
     $("#nav_board").click(function(){ $(location).attr("href", "/board"); });
     $("#nav_chat").click(function(){ $(location).attr("href", "/chat"); });
     $("#nav_member").click(function(){ $(location).attr("href", "/member"); });
+
 })
 
 // 상품 저장
@@ -222,18 +223,18 @@ function searchBrdList(addressSi, addressGu, addressDong, keyword, brdCateNo, st
                             ${li.brdContent}
                         </p>
                     </div>
-                    ${ li.imgPath!=null ? '<div class="img"><img src="${li.imgPath}" alt="product_img"></div>' : '' }
+                    ${ li.imgPath!=null ? `<div class="img"><img src="${li.imgPath}" alt="product_img"></div>` : '' }
                     <div class="info2">
                         <span class="info_address"></span>
                         <span class="info_created_at">${timeForToday(li.brdCreatedAt)}</span>
                     </div>
                 </div>
                 <div class="count_wrapper">
-                    <p class="count_chat">
+                    <p class="count_like">
                         <img src="/img/icon/like.png" alt="like_count" class="${li.brdLikeCheck ? 'selected' : 'img_icon'}">
                         <span>공감 ${li.brdLikeCount}</span>
                     </p>
-                    <p class="count_like">
+                    <p class="count_chat">
                         <img src="/img/icon/comment.png" alt="comment_count" class="${li.cmtCheck ? 'selected' : ''} img_icon">
                         <span>댓글 ${li.cmtCount}</span>
                     </p>

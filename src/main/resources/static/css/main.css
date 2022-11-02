@@ -129,7 +129,7 @@ nav ul li p{ font-size : 12px; margin-bottom : 4px; }
 
 /* 회원 메인화면 - 다른 회원 */
 #main #member_other{ width : 100%; display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start; }
-#main #member_other div.wrapper{ width : 95%; padding : 10px 2.5%; border-bottom : 10px solid #efefef; display : flex; flex-direction: column; }
+#main #member_other div.wrapper{ width : 95%; padding : 10px 2.5%; display : flex; flex-direction: column; }
 #main #member_other div.wrapper div.profile{ width : 100%; padding-top : 10px; display: flex; flex-direction: row; justify-content: space-between; }
 #main #member_other div.wrapper div.profile div.img{ width : 20%; display : flex; justify-content: center; align-items: center; }
 #main #member_other div.wrapper div.profile div.img img{ width : 90%; object-fit: cover; aspect-ratio: 1 / 1; border-radius:  50%; box-shadow: 0 0 3px -2px #303030; }
@@ -418,6 +418,28 @@ nav ul li p{ font-size : 12px; margin-bottom : 4px; }
 #main #board ul li div.count_wrapper p.count_like img.selected{ content: url(/img/icon/like_selected.png); }
 
 
+
+
+/******************************************** 리뷰 ********************************************/
+/* 리뷰작성 */
+#main #review_upload{ width : 90%; padding : 0 5%; display : flex; flex-direction: column; justify-content: center; align-items: center; }
+#main #review_upload div{ width : 100%; padding : 0; display : flex; flex-direction: column; }
+#main #review_upload div.pdt_info{ border-bottom : 1px solid #efefef; width : 100%; padding : 10px 0; display: flex; flex-direction: row; justify-content: flex-start; align-items: center; }
+#main #review_upload div.pdt_info img{ width : 15%; border-radius : 10px;  }
+#main #review_upload div.pdt_info div{ padding : 0 2.5%; margin : 0; display : flex; flex-direction: column; justify-content: space-around; }
+#main #review_upload div.pdt_info div p{ line-height : 1.5; opacity : 1; }
+#main #review_upload div.pdt_info div p.title{ opacity : 0.4; font-weight : 400; }
+#main #review_upload div.pdt_info div p.pdt_title{ font-weight : 600; }
+
+#main #review_upload div.review_info{ padding : 40px 0; }
+#main #review_upload div.review_info img{ width : 100px; margin : 20px auto; border-radius: 50%; box-shadow: 0 0 6px -4px #303030; }
+#main #review_upload div.review_info h3{ width : 80%; word-break: keep-all; text-align: center; font-size : 20px; font-weight : 600; line-height : 1.5; }
+#main #review_upload div.review_info p{ width : 100%; font-size : 15px; font-weight : 400; line-height : 2; opacity : 0.6; }
+#main #review_upload div.review_info div{ border-top: 1px solid #efefef; padding : 20px 0; margin : 20px 0; width : 100%; display: flex; flex-direction: column; justify-content: center; }
+#main #review_upload div.review_info div label{ padding : 10px 0;font-weight: 400; width : 100%; display : flex; flex-direction: row; align-items: center;}
+#main #review_upload div.review_info div label input[type="checkbox"]{ width : 20px; height : 20px; margin-right : 10px; }
+
+
 /* 다크모드 */
 @media (prefers-color-scheme: dark) {
     html, body{ background-color : #303030; color : #efefef; }
@@ -437,6 +459,7 @@ nav ul li p{ font-size : 12px; margin-bottom : 4px; }
     #main #chat_room ul li div.mem_img img{ border:none; }
     .info_status{ color :#303030; }
     .review_message_list{ color :#303030; }
+    .review_message_list input{ color : #efefef;  }
 
     #main #board ul li{ border-bottom : 10px solid #252525 }
     #main #board ul li div.count_wrapper{ border-top : 1px solid #252525; }
@@ -445,13 +468,25 @@ nav ul li p{ font-size : 12px; margin-bottom : 4px; }
     #main #product ul li{ border-bottom : 1px solid #252525; }
     #main #product ul li div.img_wrapper img{ box-shadow : 0px 0px 4px -1px #252525 }
 
-    #main #member div.wrapper { border-bottom : 10px solid #252525; }
-    #main #member div.wrapper ul li{ border-top : 1px solid #252525;}
+    #main #member div.wrapper { border-bottom : 10px solid #252525 !important; }
+    #main #member div.wrapper ul li{ border-top : 1px solid #252525 !important; }
     #main #member div.wrapper div.brix div.brix_bar p{ background-color : #909090; }
     #main #member div.wrapper div.transaction div span{ background-color : #252525; }
-    #main section#btn_nav{ background: linear-gradient(#303030, #00000000); background-color : #303030; border-bottom : 1px solid #252525; }
-
+    #main section#btn_nav{ background: linear-gradient(#303030, #00000000); background-color : #303030 !important; border-bottom : 1px solid #252525 !important; }
+    #main #board_search ul li{ border-bottom : 10px solid #252525 !important; }
 }
 
 
 
+@media screen and (orientation: landscape) {
+  html {
+    transform: rotate(-90deg);
+    transform-origin: left top;
+    width: 100vh;
+    height: 100vw;
+    overflow-x: hidden;
+    position: absolute;
+    top: 100%;
+    left: 0;
+  }
+}

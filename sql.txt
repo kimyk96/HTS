@@ -57,7 +57,7 @@ DROP TABLE REPORT_MESSAGE;
 
 CREATE TABLE REPORT_MESSAGE (
 	rpt_msg_no	NUMBER(20)		NOT NULL,
-	rpt_msg	NUMBER(20)		NOT NULL
+	rpt_msg	VARCHAR2(200)		NOT NULL
 );
 
 DROP TABLE TRANSACTION;
@@ -305,6 +305,8 @@ ALTER TABLE CHAT ADD CONSTRAINT PK_CHAT PRIMARY KEY (
 
 DROP SEQUENCE mem_seq;
 CREATE SEQUENCE mem_seq;
+DROP SEQUENCE pdt_seq;
+CREATE SEQUENCE pdt_seq;
 
 INSERT INTO ROLE (role_no, role_name) VALUES (1, 'ROLE_ADMIN');
 INSERT INTO ROLE (role_no, role_name) VALUES (2, 'ROLE_USER');
@@ -336,7 +338,12 @@ INSERT INTO review(review_no,review) values(4,'응답이 빨라요');
 INSERT INTO review(review_no,review) values(5,'친절하고 매너가 좋아요');
 INSERT INTO review(review_no,review) values(6,'제가 있는 곳 까지와서 거래했어요');
 
-
+INSERT INTO report_message(rpt_msg_no,rpt_msg) values(1,'스팸');
+INSERT INTO report_message(rpt_msg_no,rpt_msg) values(2,'음란물');
+INSERT INTO report_message(rpt_msg_no,rpt_msg) values(3,'욕설 및 비난하는 글');
+INSERT INTO report_message(rpt_msg_no,rpt_msg) values(4,'광고');
+INSERT INTO report_message(rpt_msg_no,rpt_msg) values(5,'역할에 맞지 않는 글');
+INSERT INTO report_message(rpt_msg_no,rpt_msg) values(6,'사회적으로 문제를 일으키는 글');
 
 
 COMMIT;

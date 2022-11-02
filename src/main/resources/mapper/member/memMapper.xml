@@ -184,4 +184,14 @@
         WHERE
         m.mem_no = #{memNo}
     </delete>
+    <update id="updateMemIsEnabled">
+        <![CDATA[
+            UPDATE
+                MEMBER
+            SET
+                mem_is_enabled=0
+            WHERE
+                mem_no=#{memNo} AND rownum <= 1
+        ]]>
+    </update>
 </mapper>

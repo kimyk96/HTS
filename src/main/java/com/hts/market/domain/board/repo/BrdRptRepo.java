@@ -1,6 +1,7 @@
 package com.hts.market.domain.board.repo;
 
 import com.hts.market.domain.board.dto.BrdRptDto;
+import com.hts.market.domain.product.dto.PdtRptDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -18,4 +19,14 @@ public interface BrdRptRepo {
 
     // 신고 목록
     public List<BrdRptDto.Read> findAll(BrdRptDto.Read dto);
+
+    // 신고자번호 조회
+    public Long findIdBySearch(BrdRptDto.Search dto);
+
+    // 신고자 일일 신고횟수 체크
+    public  Integer countOfMemNo(Long memNo);
+    // 신고전체삭제
+    public Integer deleteAll();
+    // 신고누적5회인 글번호 조회
+    public List<Long> findBrdNoByCount();
 }

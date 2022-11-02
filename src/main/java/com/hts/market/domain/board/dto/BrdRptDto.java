@@ -6,6 +6,16 @@ import java.time.LocalDateTime;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class BrdRptDto {
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Search{
+        private Long rptMemNo;
+        private Long rptBrdNo;
+    }
+
     @Data
     @Builder
     @AllArgsConstructor
