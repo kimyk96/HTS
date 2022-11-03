@@ -492,18 +492,3 @@ nav ul li p{ font-size : 12px; margin-bottom : 4px; }
     .swal2-overlay { background-color: #30303050 !important; }
     .swal2-html-container{ font-size : 14px !important; color : #efefef !important; }
 }
-
-
-
-@media screen and (min-width: 320px) and (max-width: 767px) and  (orientation: landscape) {
-  html {
-    transform: rotate(-90deg);
-    transform-origin: left top;
-    width: 100vh;
-    height: 100vw;
-    overflow-x: hidden;
-    position: absolute;
-    top: 100%;
-    left: 0;
-  }
-}
