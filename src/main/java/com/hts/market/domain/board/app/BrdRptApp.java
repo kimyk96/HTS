@@ -11,6 +11,7 @@ import com.hts.market.domain.product.dto.PdtRptDto;
 import com.hts.market.domain.product.exception.ReportCountExcessException;
 import com.hts.market.domain.product.exception.ReportSaveFailException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ import java.io.File;
 import java.util.List;
 
 @Service
+@EnableScheduling
 public class BrdRptApp {
     @Autowired BrdRptRepo brdRptRepo;
     @Autowired MemRepo memRepo;

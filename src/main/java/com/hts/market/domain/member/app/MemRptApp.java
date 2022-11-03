@@ -4,12 +4,14 @@ import com.hts.market.domain.member.dto.MemRptDto;
 import com.hts.market.domain.member.repo.MemRepo;
 import com.hts.market.domain.member.repo.MemRptRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@EnableScheduling
 public class MemRptApp {
     @Autowired MemRptRepo memRptRepo;
     @Autowired MemRepo memRepo;
